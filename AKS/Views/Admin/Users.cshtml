@@ -1,0 +1,79 @@
+﻿@{
+    ViewBag.Title = "Admin - User List";
+}
+<div class="row newTable">
+    <div class="col-md-12 mb-4">
+        <div class="table-responsive">
+            <table id="tblUsers" class="table table-bordered btnalign">
+                <thead>
+                    <tr>
+                        <th scope="col" style="width:5%">ID</th>
+                        <th scope="col" style="width: 25%">FullName</th>
+                        <th scope="col">EmailID</th>
+                        <th scope="col" style="width: 25%">ContactNo</th>
+                        <th scope="col" style="width: 10%">IsActive</th>
+                        <th scope="col" style="width: 10%">IsSuperUser</th>
+                        <th scope="col" style="width: 10%; background-color: #ff7500; color: white;text-align: center;">Actions</th>
+                    </tr>
+                </thead>
+                <thead style="background-color:lightblue;color:black">
+                    <tr id="PickHdrData">
+                        <th id="dUserID" class="htmlVal " data-name="UserID"></th>
+                        <th>
+                            <input id="cUserName" onkeyup="ValidateControl()" type="text"
+                                   class="form-control is-invalid" data-name="UserName" />
+                        </th>
+                        <th>
+                            <input id="cEmailID" onkeyup="ValidateControl()" type="text"
+                                   class="form-control is-invalid" data-name="EmailID" />
+                        </th>
+                        <th>
+                            <input id="cContactNo" onkeyup="ValidateControl()" type="text"
+                                   class="form-control is-invalid" data-name="ContactNo" />
+                        </th>
+                        <th>
+                            <select id="cIsActive" data-name="IsActive"
+                                    onchange="ValidateControl()"
+                                    class="form-select content border-red myctrlw100 is-invalid"
+                                    aria-label="Default select example">
+                                <option selected value="">-</option>
+                                <option value="false">No</option>
+                                <option value="true">Yes</option>
+                            </select>
+                        </th>
+                        <th>
+                            <select id="cIsSuperUser" data-name="IsSuperUser"
+                                    onchange="ValidateControl()"
+                                    class="form-select content border-red myctrlw100 is-invalid"
+                                    aria-label="Default select example">
+                                <option selected value="">-</option>
+                                <option value="false">No</option>
+                                <option value="true">Yes</option>
+                            </select>
+                        </th>
+                        <th>
+                            <button id="btnSave" disabled
+                                    type="button" class="btn btn-success me-2">
+                                <i data-feather="check-circle"></i>
+                                Save
+                            </button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                <tfoot></tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+@section headers{
+
+}
+@section scripts{
+    <script src="~/UIContent/JS/CustomePage/CommonReusableJS.js"></script>
+    <script src="~/UIContent/JS/CustomePage/User/UserListJS.js"></script>
+    <script>
+
+    </script>
+}
