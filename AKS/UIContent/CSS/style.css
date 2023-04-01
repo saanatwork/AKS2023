@@ -1930,3 +1930,59 @@ visibility: visible;
 .btn-light-blue:hover {
     color: #000;
  }
+.dashboard-box .card {
+    border-radius: 10px;
+    background: #D7EFF9;
+    padding: 2.3rem !important;
+    box-shadow: 0 5px 20px rgba(173, 181, 217, .03);
+    border: none;
+    margin-bottom: 25px;
+}
+.f-w-600 {
+    font-weight: 600;
+}
+
+.dashboard-box .card p {
+    font-size: 15px;
+    color: #5c61f2;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    position: relative;
+    margin-bottom: 18px;
+}
+
+    .dashboard-box .card p i {
+        font-size: 3px;
+        margin-top: -2px;
+        margin-left: 8px;
+        vertical-align: middle;
+    }
+
+.dashboard-box .card .square-after:after {
+    position: absolute;
+    content: "";
+    width: 100px;
+    height: 25px;
+    background-color: rgba(92, 97, 242, 0.1);
+    top: -2px;
+    right: -12px;
+    border-radius: 4px;
+    -webkit-transition: all 0.5s ease-in;
+    transition: all 0.5s ease-in;
+}
+
+.dashboard-box .card:hover .square-after:after {
+    width: 115%;
+    -webkit-transition: all 0.5s ease-in;
+    transition: all 0.5s ease-in;
+}
+
+.dashboard-box .card canvas {
+    width: 340px;
+}
+
+.dash-title {
+    font-size: 2.3rem;
+}
+        

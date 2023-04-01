@@ -55,7 +55,11 @@ namespace AKS.DAL.ObjectMapper
                     if (!DBNull.Value.Equals(dr["ProfitCentreAddress"]))
                         result.PCAddress = dr["ProfitCentreAddress"].ToString();
                     if (!DBNull.Value.Equals(dr["IsActive"]))
-                        result.IsActive =bool.Parse(dr["IsActive"].ToString());                    
+                        result.IsActive =bool.Parse(dr["IsActive"].ToString());
+                    if (!DBNull.Value.Equals(dr["MakingCharges"]))
+                        result.MakingCharges = int.Parse(dr["MakingCharges"].ToString());
+                    if (!DBNull.Value.Equals(dr["GLocation"]))
+                        result.GLocation = dr["GLocation"].ToString();
                 }
             }
             catch (Exception ex) { pMsg = objPath + ".Map_ProfitCentre(DataRow dr,ref string pMsg) " + ex.Message; }
@@ -110,6 +114,10 @@ namespace AKS.DAL.ObjectMapper
                         result.EcodeViewName = dr["EcodeViewName"].ToString();
                     if (!DBNull.Value.Equals(dr["EcodeUrl"]))
                         result.EcodeUrl = dr["EcodeUrl"].ToString();
+                    if (!DBNull.Value.Equals(dr["MakingCharges"]))
+                        result.MakingCharges = int.Parse(dr["MakingCharges"].ToString());
+                    if (!DBNull.Value.Equals(dr["GLocation"]))
+                        result.GLocation = dr["GLocation"].ToString();
                 }
             }
             catch (Exception ex) { pMsg = objPath + ".Map_RBACRaw(DataRow dr,ref string pMsg) " + ex.Message; }
@@ -193,6 +201,8 @@ namespace AKS.DAL.ObjectMapper
             catch (Exception ex) { pMsg = objPath + ".Map_UserInfoForList(DataRow dr, ref string pMsg) " + ex.Message; }
             return result;
         }
+        
+
 
 
     }

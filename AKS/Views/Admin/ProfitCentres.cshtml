@@ -1,35 +1,36 @@
-﻿@{
-    ViewBag.Title = "Admin - User List";
+﻿@using AKS.BOL.Master;
+@model List<GLocation>
+@{
+    ViewBag.Title = "Admin - Profit Centre List";
 }
 <div class="row newTable">
     <div class="col-md-12 mb-4">
         <div class="table-responsive" style="padding:5px">
-            <table id="tblUsers" class="table table-bordered btnalign">
+            <table id="tblDataList" class="table table-bordered btnalign">
                 <thead>
                     <tr>
-                        <th scope="col" style="width:5%">ID</th>
-                        <th scope="col" style="width: 25%">FullName</th>
-                        <th scope="col">EmailID</th>
-                        <th scope="col" style="width: 25%">ContactNo</th>
+                        <th scope="col" style="width:10%">ID</th>
+                        <th scope="col" style="width: 20%">Name</th>
+                        <th scope="col">Address</th>
                         <th scope="col" style="width: 10%">IsActive</th>
-                        <th scope="col" style="width: 10%">IsSuperUser</th>
+                        <th scope="col" style="width: 10%">Making Charges</th>
+                        <th scope="col" style="width: 10%">GLocations</th>
                         <th scope="col" style="width: 10%; background-color: #ff7500; color: white;text-align: center;">Actions</th>
                     </tr>
                 </thead>
                 <thead style="background-color:lightblue;color:black">
                     <tr id="PickHdrData">
-                        <th id="dUserID" class="htmlVal " data-name="UserID"></th>
                         <th>
-                            <input id="cUserName" onkeyup="ValidateControl()" type="text"
-                                   class="form-control is-invalid" data-name="UserName" />
+                            <input id="cPCID" onkeyup="ValidateControl()" type="text"
+                                   class="form-control is-invalid" data-name="PCID" />
                         </th>
                         <th>
-                            <input id="cEmailID" onkeyup="ValidateControl()" type="text"
-                                   class="form-control is-invalid" data-name="EmailID" />
+                            <input id="cPCDesc" onkeyup="ValidateControl()" type="text"
+                                   class="form-control is-invalid" data-name="PCDesc" />
                         </th>
                         <th>
-                            <input id="cContactNo" onkeyup="ValidateControl()" type="text"
-                                   class="form-control is-invalid" data-name="ContactNo" />
+                            <input id="cPCAddress" onkeyup="ValidateControl()" type="text"
+                                   class="form-control is-invalid" data-name="PCAddress" />
                         </th>
                         <th>
                             <select id="cIsActive" data-name="IsActive"
@@ -42,13 +43,22 @@
                             </select>
                         </th>
                         <th>
-                            <select id="cIsSuperUser" data-name="IsSuperUser"
+                            <input id="cMakingCharges" onkeyup="ValidateControl()" type="text"
+                                   class="form-control is-invalid" data-name="MakingCharges" />
+                        </th>
+                        <th>
+                            <select id="cGLocation" data-name="GLocation"
                                     onchange="ValidateControl()"
                                     class="form-select content border-red myctrlw100 is-invalid"
                                     aria-label="Default select example">
                                 <option selected value="">-</option>
-                                <option value="false">No</option>
-                                <option value="true">Yes</option>
+                                @if(Model!=null && Model.Count > 0) 
+                                {
+                                    foreach(GLocation item in Model) 
+                                    {
+                                        <option value="@item.LocationName">@item.LocationName</option>
+                                    }
+                                }
                             </select>
                         </th>
                         <th>
@@ -72,7 +82,7 @@
 }
 @section scripts{
     <script src="~/UIContent/JS/CustomePage/CommonReusableJS.js"></script>
-    <script src="~/UIContent/JS/CustomePage/User/UserListJS.js"></script>
+    <script src="~/UIContent/JS/CustomePage/Admin/ProfitCentreListJS.js"></script>
     <script>
 
     </script>

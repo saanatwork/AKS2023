@@ -18,7 +18,7 @@ namespace AKS.BLL.IRepository
             string SortDirection, string SearchText, ref string pMsg);
         UserInfo GetUser(int UserID, ref string pMsg);
         bool SetUserInfo(MyUser data, ref string pMsg);
-
+        
 
 
 

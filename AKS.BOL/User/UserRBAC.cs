@@ -34,6 +34,8 @@ namespace AKS.BOL.User
         public int ProfitCentreID { get; set; }
         public string ProfitCentreDescription { get; set; }
         public string ProfitCentreAddress { get; set; }
+        public int MakingCharges { get; set; }
+        public string GLocation { get; set; }
         public string MenuName { get; set; }
         public string OptionName { get; set; }
         public string EcodeControllerName { get; set; }

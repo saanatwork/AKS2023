@@ -16,8 +16,7 @@ namespace AKS.BOL.User
         public bool IsSuperUser { get; set; }
     }
     public class UserInfo : MyUser
-    {
-        
+    {        
         public string ProfilePicture { get; set; }
         public int NoOfProfitCentres { get; set; }
     }
@@ -30,6 +29,7 @@ namespace AKS.BOL.User
         public UserInfo user { get; set; }
         public List<ProfitCentre> userpcs { get; set; }
         public int LogInProfitCentreID { get; set; }
+        public int MyProperty { get; set; }
     }
     public class UserInfoAjaxRapper
     {

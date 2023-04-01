@@ -17,6 +17,8 @@ namespace AKS
 
             // e.g. container.RegisterType<IUserRepository, UserRepository>();
             container.RegisterType<IUserRepository, UserRepository>();
+            container.RegisterType<IInventoryRepository, InventoryRepository>();
+            container.RegisterType<IMasterRepository, MasterRepository>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }

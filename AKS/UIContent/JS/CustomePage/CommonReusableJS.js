@@ -59,6 +59,18 @@ function IsAlphaNumericWithSpace(valuestring) {
     }
     return result;
 };
+function Is4DigitValid(valuestring) {
+    var result = false;
+    if (valuestring != '') {
+        var phoneRegex = /^\d{4}$/;
+        result = phoneRegex.test(valuestring);
+    }
+    return result;
+};
+
+
+
+
 
 function GetRecordsFromTableV3(tableName) {
     //The fields should have an attribute "data-name", Which is the property name of the MVC object

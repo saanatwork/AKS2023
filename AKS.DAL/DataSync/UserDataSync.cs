@@ -86,6 +86,10 @@ namespace AKS.DAL.DataSync
             }
             catch (Exception ex) { pMsg = objPath + ".SetUserInfo(MyUser data, ref string pMsg) " + ex.Message; return null; }
         }
+        
+
+
+
 
 
     }

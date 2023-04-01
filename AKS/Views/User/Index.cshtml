@@ -1,10 +1,64 @@
-﻿
+﻿@model AKS.ViewModel.UserVM.UserDashBoardVM
 @{
     ViewBag.Title = "Home Page";
 }
-
-<div style="margin:100px">
-
-    <h2>Index</h2>
+<div class="row dashboard-box mt-3 pt-1">
+    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+        <div class="card" style="background-color: #EDF3F6">
+            <p class="square-after f-w-600 header-text-primary">Current Gold Rate<i class="fa fa-circle"> </i></p>
+            <table style="width:100%">
+                <tr>
+                    <td style="width:10px"></td>
+                    <td rowspan="2" style="vertical-align: middle; text-align: right">
+                        <img src="~/img/Gold.png" alt="gold" class="img-fluid" Height="75" width="75" />
+                    </td>
+                    <td style="vertical-align: bottom; text-align: left;">
+                        <div><h1>@Model.CurrentGoldrate.GoldRate INR</h1></div>
+                        <div><h4>24K - 10Gram</h4></div>
+                    </td>
+                    <td style="width:10px"></td>
+                </tr>
+            </table>
+            <table style="width:100%;margin-top:30px">
+                <tr>
+                    <td>
+                    </td>
+                    <td style="border:1px solid red;padding:10px;font-weight:bold">
+                        Rate in INR/Gram.
+                    </td>
+                </tr>
+                <tr>
+                    <td style="border:1px solid red;padding:10px">
+                        Gold : 24 K
+                    </td>
+                    <td style="border:1px solid red;padding:10px">
+                        @Model.CurrentGoldrate.GoldRate24K1GM /-
+                    </td>
+                </tr>
+                <tr>
+                    <td style="border:1px solid red;padding:10px">
+                        Gold : 22 K
+                    </td>
+                    <td style="border:1px solid red;padding:10px">
+                        @Model.CurrentGoldrate.GoldRate22K1GM /-
+                    </td>
+                </tr>
+                <tr>
+                    <td style="border:1px solid red;padding:10px">
+                        Gold : 18 K
+                    </td>
+                    <td style="border:1px solid red;padding:10px">
+                        @Model.CurrentGoldrate.GoldRate18K1GM /-
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+        <div class="card" style="background-color: #EDF3F6">
+            <p class="square-after f-w-600 header-text-primary">Sale Price Calculator<i class="fa fa-circle"> </i></p>
+            
+        </div>
+    </div>
 </div>
-
