@@ -43,7 +43,9 @@ namespace AKS.Controllers
         }
         public ActionResult Variants()
         {
-            return View();
+            VariantVM model = new VariantVM();
+            model.VariantCatList = _iMaster.GetVariantCategory(ref pMsg);
+            return View(model);
         }
         #region - Ajax Call
         public JsonResult GetUser(string UserID) 
@@ -59,6 +61,11 @@ namespace AKS.Controllers
         public JsonResult GetCategory(string CategoryCode)
         {
             var result = _iMaster.GetCategories(CategoryCode, ref pMsg).FirstOrDefault();
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetVariant(string VariantID)
+        {
+            var result = _iMaster.GetVariants(int.Parse(VariantID), ref pMsg).FirstOrDefault();
             return Json(result, JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetUserList(int iDisplayLength, int iDisplayStart, int iSortCol_0,
@@ -93,6 +100,20 @@ namespace AKS.Controllers
             string sSortDir_0, string sSearch)
         {
             List<CategoryForList> objlist = _iMaster.GetListOfCategory(iDisplayLength, iDisplayStart, iSortCol_0, sSortDir_0, sSearch, ref pMsg);
+            var result = new
+            {
+                iTotalRecords = objlist.Count == 0 ? 0 : objlist.FirstOrDefault().TotalRecords,
+                iTotalDisplayRecords = objlist.Count == 0 ? 0 : objlist.FirstOrDefault().TotalCount,
+                iDisplayLength = iDisplayLength,
+                iDisplayStart = iDisplayStart,
+                aaData = objlist
+            };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetVariantList(int iDisplayLength, int iDisplayStart, int iSortCol_0,
+            string sSortDir_0, string sSearch)
+        {
+            List<VariantForDT> objlist = _iMaster.GetVariantList(iDisplayLength, iDisplayStart, iSortCol_0, sSortDir_0, sSearch, ref pMsg);
             var result = new
             {
                 iTotalRecords = objlist.Count == 0 ? 0 : objlist.FirstOrDefault().TotalRecords,
@@ -138,6 +159,35 @@ namespace AKS.Controllers
             if (modelobj != null)
             {
                 if (_iMaster.SetCategory(modelobj.DataList.FirstOrDefault(), ref pMsg))
+                {
+                    result.bResponseBool = true;
+                }
+                else { result.bResponseBool = false; result.sResponseString = pMsg; }
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult SetVariant(VariantInfoAjaxRapper modelobj)
+        {
+            CustomAjaxResponse result = new CustomAjaxResponse();
+            if (modelobj != null)
+            {
+                if (_iMaster.SetVariant(modelobj.DataList.FirstOrDefault(), ref pMsg))
+                {
+                    result.bResponseBool = true;
+                }
+                else { result.bResponseBool = false; result.sResponseString = pMsg; }
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult RemoveVariant(Variant model)
+        {
+            CustomAjaxResponse result = new CustomAjaxResponse();
+            if (model != null)
+            {
+                //result.bResponseBool = true;
+                if (_iMaster.RemoveVariant(model.ID, ref pMsg))
                 {
                     result.bResponseBool = true;
                 }

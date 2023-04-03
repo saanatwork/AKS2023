@@ -80,6 +80,24 @@ namespace AKS.DAL.Entities
             catch (Exception ex) { pMsg = objPath + ".GetListOfCategory(...) " + ex.Message; }
             return result;
         }
+        public List<VariantForDT> GetVariantList(int DisplayLength, int DisplayStart, int SortColumn,
+            string SortDirection, string SearchText, ref string pMsg)
+        {
+            List<VariantForDT> result = new List<VariantForDT>();
+            try
+            {
+                dt = _MasterDatasync.GetVariantList(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        result.Add(_MasterObjectMapper.Map_VariantForDT(dt.Rows[i], ref pMsg));
+                    }
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetListOfCategory(...) " + ex.Message; }
+            return result;
+        }
         public bool SetUserInfo(ProfitCentre data, ref string pMsg)
         {
             bool result = false;
@@ -109,6 +127,12 @@ namespace AKS.DAL.Entities
             _DBResponseMapper.Map_DBResponse(_MasterDatasync.SetCategory(data, ref pMsg), ref pMsg, ref result);
             return result;
         }
+        public bool RemoveVariant(int VariantID, ref string pMsg) 
+        {
+            bool result = false;
+            _DBResponseMapper.Map_DBResponse(_MasterDatasync.RemoveVariant(VariantID, ref pMsg), ref pMsg, ref result);
+            return result;
+        }
         public List<Category> GetCategories(string CategoryCode, ref string pMsg) 
         {
             List<Category> result = new List<Category>();
@@ -126,7 +150,46 @@ namespace AKS.DAL.Entities
             catch (Exception ex) { pMsg = objPath + ".GetCategories(...) " + ex.Message; }
             return result;
         }
-
+        public List<VariantCategory> GetVariantCategory(ref string pMsg) 
+        {
+            List<VariantCategory> result = new List<VariantCategory>();
+            try
+            {
+                dt = _MasterDatasync.GetVariantCategory(ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        result.Add(_MasterObjectMapper.Map_VariantCategory(dt.Rows[i], ref pMsg));
+                    }
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetVariantCategory(...) " + ex.Message; }
+            return result;
+        }
+        public List<Variant> GetVariants(int VariantID, ref string pMsg) 
+        {
+            List<Variant> result = new List<Variant>();
+            try
+            {
+                dt = _MasterDatasync.GetVariants(VariantID,ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        result.Add(_MasterObjectMapper.Map_Variant(dt.Rows[i], ref pMsg));
+                    }
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetVariants(...) " + ex.Message; }
+            return result;
+        }
+        public bool SetVariant(Variant data, ref string pMsg) 
+        {
+            bool result = false;
+            _DBResponseMapper.Map_DBResponse(_MasterDatasync.SetVariant(data, ref pMsg), ref pMsg, ref result);
+            return result;
+        }
 
 
 

@@ -1,10 +1,15 @@
-﻿$.fn.isInvalid = function () {
+﻿$.fn.clearValidationClass = function () {
     var that = this;
-    that.addClass('is-invalid valid').removeClass('is-valid');
+    if (that.hasClass('is-valid')) { that.removeClass('is-valid'); }
+    if (that.hasClass('is-invalid')) { that.removeClass('is-invalid'); }
+};
+$.fn.isInvalid = function () {
+    var that = this;
+    that.addClass('is-invalid').removeClass('is-valid');
 };
 $.fn.isValid = function () {
     var that = this;
-    that.addClass('is-valid valid').removeClass('is-invalid');
+    that.addClass('is-valid').removeClass('is-invalid');
 };
 $.fn.makeEnabled = function () {
     var that = this;
@@ -63,6 +68,14 @@ function Is4DigitValid(valuestring) {
     var result = false;
     if (valuestring != '') {
         var phoneRegex = /^\d{4}$/;
+        result = phoneRegex.test(valuestring);
+    }
+    return result;
+};
+function IsValidInteger(valuestring) {
+    var result = false;
+    if (valuestring != '') {
+        var phoneRegex = /^\d+$/;
         result = phoneRegex.test(valuestring);
     }
     return result;

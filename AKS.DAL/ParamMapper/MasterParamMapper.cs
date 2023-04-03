@@ -59,7 +59,48 @@ namespace AKS.DAL.ParamMapper
             }
             return para;
         }
-
+        public SqlParameter[] MapParam_SetVariant(Variant data, ref string pMsg)
+        {
+            int paracount = 0;
+            SqlParameter[] para = new SqlParameter[7];
+            try
+            {
+                para[paracount] = new SqlParameter("@ID", SqlDbType.Int);
+                para[paracount++].Value = data.ID;
+                para[paracount] = new SqlParameter("@CatID", SqlDbType.Int);
+                para[paracount++].Value = data.VariantCatID;
+                para[paracount] = new SqlParameter("@ShortText", SqlDbType.NVarChar, 50);
+                para[paracount++].Value = data.ShortText;
+                para[paracount] = new SqlParameter("@Purity", SqlDbType.NVarChar,10);
+                para[paracount++].Value = data.Purity;
+                para[paracount] = new SqlParameter("@UOM", SqlDbType.NVarChar, 15);
+                para[paracount++].Value = data.UOM;
+                para[paracount] = new SqlParameter("@IsActive", SqlDbType.Bit);
+                para[paracount++].Value = data.IsActive;
+                para[paracount] = new SqlParameter("@RatePerUnit", SqlDbType.Int);
+                para[paracount++].Value = data.RatePerUnit;
+            }
+            catch (Exception ex)
+            {
+                pMsg = objPath + ".MapParam_SetVariant(Variant data,ref string pMsg) " + ex.Message;
+            }
+            return para;
+        }
+        public SqlParameter[] MapParam_RemoveVariant(int VariantID, ref string pMsg)
+        {
+            int paracount = 0;
+            SqlParameter[] para = new SqlParameter[1];
+            try
+            {
+                para[paracount] = new SqlParameter("@ID", SqlDbType.Int);
+                para[paracount++].Value = VariantID;                
+            }
+            catch (Exception ex)
+            {
+                pMsg = objPath + ".MapParam_RemoveVariant(int VariantID,ref string pMsg) " + ex.Message;
+            }
+            return para;
+        }
 
 
 

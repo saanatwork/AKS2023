@@ -1,0 +1,111 @@
+﻿@model AKS.ViewModel.AdminVM.VariantVM
+@{
+    ViewBag.Title = "Admin - Variant List";
+}
+<div class="row newTable">
+    <div class="col-md-12 mb-4">
+        <div class="table-responsive" style="padding:5px">
+            <table id="tblDataList" class="table table-bordered btnalign">
+                <thead>
+                    <tr>
+                        <th scope="col" style="width:5%">ID</th>
+                        <th scope="col" style="width: 15%">Type</th>
+                        <th scope="col">Description</th>
+                        <th scope="col" style="width: 10%">Purity</th>
+                        <th scope="col" style="width: 10%">UOM</th>
+                        <th scope="col" style="width: 10%">IsActive</th>
+                        <th scope="col" style="width: 10%">Rate Per Unit</th>
+                        <th scope="col" style="width: 10%; background-color: #ff7500; color: white;text-align: center;">Actions</th>
+                    </tr>
+                </thead>
+                <thead style="background-color:lightblue;color:black">
+                    <tr id="PickHdrData">
+                        <th>
+                            <input id="cID" disabled type="text"
+                                   class="form-control" data-name="ID" />
+                        </th>
+                        <th>
+                            <select id="cVariantCatID" data-name="VariantCatID"
+                                    onchange="VariantCatIDClicked()"
+                                    class="form-select content border-red myctrlw100 is-invalid"
+                                    aria-label="Default select example">
+                                <option selected value="">Select Type</option>
+                                @if (Model.VariantCatList != null && Model.VariantCatList.Count > 0) 
+                                {
+                                    foreach(var item in Model.VariantCatList) 
+                                    {
+                                        <option value="@item.ID">@item.LongText</option>
+                                    }
+                                }
+                            </select>
+                        </th>
+                        <th>
+                            <input id="cShortText" onkeyup="ValidateControl()" type="text"
+                                   class="form-control is-invalid" data-name="ShortText" />
+                        </th>
+                        <th>
+                            <select id="cPurity" data-name="Purity"
+                                    onchange="ValidateControl()"
+                                    class="form-select content border-red myctrlw100 is-invalid"
+                                    aria-label="Default select example">
+                                <option selected value="">Select Purity</option>
+                                <option value="24K">24K</option>
+                                <option value="22K">22K</option>
+                                <option value="20K">20K</option>
+                                <option value="18K">18K</option>
+                                <option value="16K">16K</option>
+                                <option value="14K">14K</option>
+                            </select>
+                        </th>
+                        <th>
+                            <select id="cUOM" data-name="UOM"
+                                    onchange="ValidateControl()"
+                                    class="form-select content border-red myctrlw100 is-invalid"
+                                    aria-label="Default select example">
+                                <option selected value="">Select Unit Of Measure</option>
+                                <option value="K">Karet</option>
+                                <option value="G">Gram</option>
+                            </select>
+                        </th>
+                        <th>
+                            <select id="cIsActive" data-name="IsActive"
+                                    onchange="ValidateControl()"
+                                    class="form-select content border-red myctrlw100 is-invalid"
+                                    aria-label="Default select example">
+                                <option selected value="">-</option>
+                                <option value="false">No</option>
+                                <option value="true">Yes</option>
+                            </select>
+                        </th>
+                        <th>
+                            <input id="cRatePerUnit" onkeyup="ValidateControl()" type="text"
+                                   class="form-control is-invalid" data-name="RatePerUnit" />
+                        </th>
+                        <th>
+                            <button id="btnSave" disabled
+                                    type="button" class="btn btn-success me-2">
+                                <i data-feather="check-circle"></i>
+                                Save
+                            </button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                <tfoot></tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+@section headers{
+
+}
+@section scripts{
+    <script src="~/UIContent/JS/CustomePage/CommonReusableJS.js"></script>
+    <script src="~/UIContent/JS/CustomePage/Admin/VariantListJS.js"></script>
+    <script>
+
+    </script>
+}
+
+

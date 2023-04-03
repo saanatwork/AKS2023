@@ -46,7 +46,29 @@ namespace AKS.BLL.Repository
         {
             return _MasterEntity.GetCategories(CategoryCode, ref pMsg);
         }
-
+        public List<VariantCategory> GetVariantCategory(ref string pMsg) 
+        {
+            return _MasterEntity.GetVariantCategory(ref pMsg);
+        }
+        public List<Variant> GetVariants(int VariantID, ref string pMsg) 
+        {
+            return _MasterEntity.GetVariants(VariantID, ref pMsg);
+        }
+        public List<VariantForDT> GetVariantList(int DisplayLength, int DisplayStart, int SortColumn,
+            string SortDirection, string SearchText, ref string pMsg)
+        {
+            return _MasterEntity.GetVariantList(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ref pMsg);
+        }
+        public bool SetVariant(Variant data, ref string pMsg) 
+        {
+            data.Purity = string.IsNullOrEmpty(data.Purity) ? " " : data.Purity;
+            data.ShortText= string.IsNullOrEmpty(data.ShortText) ? " " : data.ShortText;
+            return _MasterEntity.SetVariant(data, ref pMsg);
+        }
+        public bool RemoveVariant(int VariantID, ref string pMsg) 
+        {
+            return _MasterEntity.RemoveVariant(VariantID,ref pMsg);
+        }
 
 
 

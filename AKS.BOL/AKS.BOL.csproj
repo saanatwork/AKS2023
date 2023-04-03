@@ -90,6 +90,8 @@
     <Compile Include="Inventory\GoldRate.cs" />
     <Compile Include="Master\Category.cs" />
     <Compile Include="Master\ProfitCentresForList.cs" />
+    <Compile Include="Master\Variant.cs" />
+    <Compile Include="Master\VariantCategory.cs" />
     <Compile Include="MyHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Master\GLocation.cs" />

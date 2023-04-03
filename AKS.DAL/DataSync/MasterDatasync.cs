@@ -55,6 +55,18 @@ namespace AKS.DAL.DataSync
             }
             catch (Exception ex) { pMsg = objPath + ".GetListOfCategory(...) " + ex.Message; return null; }
         }
+        public DataTable GetVariantList(int DisplayLength, int DisplayStart, int SortColumn,
+            string SortDirection, string SearchText, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("[MTR].[GetVariantList]", CommandType.StoredProcedure))
+                {
+                    return sql.GetDataTable(_CommonParamMapper.MapParam_DIsplayList(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ref pMsg), ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetVariantList(...) " + ex.Message; return null; }
+        }
         public DataTable SetProfitCentre(BOL.User.ProfitCentre data, ref string pMsg)
         {
             try
@@ -99,6 +111,54 @@ namespace AKS.DAL.DataSync
             }
             catch (Exception ex) { pMsg = objPath + ".GetCategories(string CategoryCode,ref string pMsg) " + ex.Message; return null; }
         }
+        public DataTable GetVariantCategory(ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("select * from [MTR].[GetVariantCategory]()", CommandType.Text))
+                {
+                    return sql.GetDataTable(ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetVariantCategory(ref string pMsg) " + ex.Message; return null; }
+        }
+        public DataTable GetVariants(int VariantID,ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("select * from [MTR].[GetVariants]("+ VariantID + ")", CommandType.Text))
+                {
+                    return sql.GetDataTable(ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetVariants(int VariantID,ref string pMsg) " + ex.Message; return null; }
+        }
+        public DataTable SetVariant(Variant data, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("[MTR].[SetVariant]", CommandType.StoredProcedure))
+                {
+                    return sql.GetDataTable(_MasterParamMapper.MapParam_SetVariant(data, ref pMsg), ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".SetVariant(...) " + ex.Message; return null; }
+        }
+        public DataTable RemoveVariant(int VariantID, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("[MTR].[RemoveVariant]", CommandType.StoredProcedure))
+                {
+                    return sql.GetDataTable(_MasterParamMapper.MapParam_RemoveVariant(VariantID, ref pMsg), ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".VariantID(...) " + ex.Message; return null; }
+        }
+
+
+
+
 
 
     }

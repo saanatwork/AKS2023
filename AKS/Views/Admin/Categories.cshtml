@@ -1,7 +1,72 @@
 ﻿
 @{
-    ViewBag.Title = "Categories";
+    ViewBag.Title = "Admin - Category List";
 }
+<div class="row newTable">
+    <div class="col-md-12 mb-4">
+        <div class="table-responsive" style="padding:5px">
+            <table id="tblDataList" class="table table-bordered btnalign">
+                <thead>
+                    <tr>
+                        <th scope="col" style="width:15%">Code</th>
+                        <th scope="col" style="width: 30%">Description</th>
+                        <th scope="col">HSN Code</th>
+                        <th scope="col" style="width: 10%">IsActive</th>
+                        <th scope="col" style="width: 10%">Item Count</th>
+                        <th scope="col" style="width: 10%; background-color: #ff7500; color: white;text-align: center;">Actions</th>
+                    </tr>
+                </thead>
+                <thead style="background-color:lightblue;color:black">
+                    <tr id="PickHdrData">
+                        <th>
+                            <input id="cCategoryCode" onkeyup="ValidateControl()" type="text"
+                                   class="form-control is-invalid" data-name="CategoryCode" />
+                        </th>
+                        <th>
+                            <input id="cCategoryLongText" onkeyup="ValidateControl()" type="text"
+                                   class="form-control is-invalid" data-name="CategoryLongText" />
+                        </th>
+                        <th>
+                            <input id="cHSNCode" onkeyup="ValidateControl()" type="text"
+                                   class="form-control is-invalid" data-name="HSNCode" />
+                        </th>
+                        <th>
+                            <select id="cIsActive" data-name="IsActive"
+                                    onchange="ValidateControl()"
+                                    class="form-select content border-red myctrlw100 is-invalid"
+                                    aria-label="Default select example">
+                                <option selected value="">-</option>
+                                <option value="false">No</option>
+                                <option value="true">Yes</option>
+                            </select>
+                        </th>
+                        <th>
+                            
+                        </th>
+                        
+                        <th>
+                            <button id="btnSave" disabled
+                                    type="button" class="btn btn-success me-2">
+                                <i data-feather="check-circle"></i>
+                                Save
+                            </button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                <tfoot></tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+@section headers{
 
-<h2>Categories</h2>
+}
+@section scripts{
+    <script src="~/UIContent/JS/CustomePage/CommonReusableJS.js"></script>
+    <script src="~/UIContent/JS/CustomePage/Admin/CategoryListJS.js"></script>
+    <script>
 
+    </script>
+}
