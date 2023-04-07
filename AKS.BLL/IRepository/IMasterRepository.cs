@@ -17,6 +17,8 @@ namespace AKS.BLL.IRepository
             string SortDirection, string SearchText, ref string pMsg);
         List<VariantForDT> GetVariantList(int DisplayLength, int DisplayStart, int SortColumn,
             string SortDirection, string SearchText, ref string pMsg);
+        List<PartyForList> GetPartyMasterList(int DisplayLength, int DisplayStart, int SortColumn,
+            string SortDirection, string SearchText, ref string pMsg);
         bool SetProfitCentreInfo(ProfitCentre data, ref string pMsg);
         List<ProfitCentre> GetProfitCentreInfo(int ProfitCentreID, ref string pMsg);
         bool SetCategory(Category data, ref string pMsg);
@@ -25,6 +27,14 @@ namespace AKS.BLL.IRepository
         List<Variant> GetVariants(int VariantID, ref string pMsg);
         bool SetVariant(Variant data, ref string pMsg);
         bool RemoveVariant(int VariantID, ref string pMsg);
+        List<Party> GetPartyInfo(int PartyCode, bool IsVendor, bool IsCustomer, ref string pMsg);
+        bool SetPartyInfo(Party data, ref string pMsg);
+        bool RemoveParty(int PartyCode, ref string pMsg);
+
+
+
+
+
 
     }
 }

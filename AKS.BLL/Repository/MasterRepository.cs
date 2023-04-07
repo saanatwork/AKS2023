@@ -59,6 +59,11 @@ namespace AKS.BLL.Repository
         {
             return _MasterEntity.GetVariantList(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ref pMsg);
         }
+        public List<PartyForList> GetPartyMasterList(int DisplayLength, int DisplayStart, int SortColumn,
+            string SortDirection, string SearchText, ref string pMsg)
+        {
+            return _MasterEntity.GetPartyMasterList(DisplayLength, DisplayStart,SortColumn,SortDirection,SearchText,ref pMsg);
+        }
         public bool SetVariant(Variant data, ref string pMsg) 
         {
             data.Purity = string.IsNullOrEmpty(data.Purity) ? " " : data.Purity;
@@ -68,6 +73,18 @@ namespace AKS.BLL.Repository
         public bool RemoveVariant(int VariantID, ref string pMsg) 
         {
             return _MasterEntity.RemoveVariant(VariantID,ref pMsg);
+        }
+        public List<Party> GetPartyInfo(int PartyCode, bool IsVendor, bool IsCustomer, ref string pMsg) 
+        {
+            return _MasterEntity.GetPartyInfo(PartyCode, IsVendor, IsCustomer, ref pMsg);
+        }
+        public bool SetPartyInfo(Party data, ref string pMsg) 
+        {
+            return _MasterEntity.SetPartyInfo(data, ref pMsg);
+        }
+        public bool RemoveParty(int PartyCode, ref string pMsg) 
+        {
+            return _MasterEntity.RemoveParty(PartyCode, ref pMsg);
         }
 
 

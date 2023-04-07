@@ -67,6 +67,18 @@ namespace AKS.DAL.DataSync
             }
             catch (Exception ex) { pMsg = objPath + ".GetVariantList(...) " + ex.Message; return null; }
         }
+        public DataTable GetPartyMasterList(int DisplayLength, int DisplayStart, int SortColumn,
+            string SortDirection, string SearchText, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("[MTR].[GetPartyMasterList]", CommandType.StoredProcedure))
+                {
+                    return sql.GetDataTable(_CommonParamMapper.MapParam_DIsplayList(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ref pMsg), ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetPartyMasterList(...) " + ex.Message; return null; }
+        }
         public DataTable SetProfitCentre(BOL.User.ProfitCentre data, ref string pMsg)
         {
             try
@@ -153,8 +165,43 @@ namespace AKS.DAL.DataSync
                     return sql.GetDataTable(_MasterParamMapper.MapParam_RemoveVariant(VariantID, ref pMsg), ref pMsg);
                 }
             }
-            catch (Exception ex) { pMsg = objPath + ".VariantID(...) " + ex.Message; return null; }
+            catch (Exception ex) { pMsg = objPath + ".RemoveVariant(...) " + ex.Message; return null; }
         }
+        public DataTable GetPartyInfo(int PartyCode,bool IsVendor,bool IsCustomer, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("SELECT * FROM [MTR].[GetPartyInfo]("+ PartyCode + ","+ (IsVendor?1:0) + ","+ (IsCustomer?1:0) + ")", CommandType.Text))
+                {
+                    return sql.GetDataTable(ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetPartyInfo(...) " + ex.Message; return null; }
+        }
+        public DataTable SetPartyInfo(Party data, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("[MTR].[SetParty]", CommandType.StoredProcedure))
+                {
+                    return sql.GetDataTable(_MasterParamMapper.MapParam_SetParty(data, ref pMsg), ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".SetPartyInfo(...) " + ex.Message; return null; }
+        }
+        public DataTable RemoveParty(int PartyCode, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("[MTR].[RemoveParty]", CommandType.StoredProcedure))
+                {
+                    return sql.GetDataTable(_MasterParamMapper.MapParam_RemoveParty(PartyCode, ref pMsg), ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".RemoveParty(...) " + ex.Message; return null; }
+        }
+
+
 
 
 

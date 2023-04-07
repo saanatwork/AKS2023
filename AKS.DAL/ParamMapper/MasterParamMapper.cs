@@ -101,6 +101,56 @@ namespace AKS.DAL.ParamMapper
             }
             return para;
         }
+        public SqlParameter[] MapParam_SetParty(Party data, ref string pMsg)
+        {
+            int paracount = 0;
+            SqlParameter[] para = new SqlParameter[9];
+            try
+            {
+                para[paracount] = new SqlParameter("@PartyCode", SqlDbType.Int);
+                para[paracount++].Value = data.PartyCode;
+                para[paracount] = new SqlParameter("@PartyName", SqlDbType.NVarChar,150);
+                para[paracount++].Value = data.PartyName;
+                para[paracount] = new SqlParameter("@PartyAddress", SqlDbType.NVarChar);
+                para[paracount++].Value = data.PartyAddress;
+                para[paracount] = new SqlParameter("@GSTIN", SqlDbType.NVarChar, 25);
+                para[paracount++].Value = data.GSTIN;
+                para[paracount] = new SqlParameter("@PartyContactNo", SqlDbType.NChar, 10);
+                para[paracount++].Value = data.ContactNo;
+                para[paracount] = new SqlParameter("@PartyEmailID", SqlDbType.NVarChar,150);
+                para[paracount++].Value = data.EmailID;
+                para[paracount] = new SqlParameter("@IsVendor", SqlDbType.Bit);
+                para[paracount++].Value = data.IsVendor;
+                para[paracount] = new SqlParameter("@IsCustomer", SqlDbType.Bit);
+                para[paracount++].Value = data.IsCustomer;
+                para[paracount] = new SqlParameter("@IsActive", SqlDbType.Bit);
+                para[paracount++].Value = data.IsActive;
+            }
+            catch (Exception ex)
+            {
+                pMsg = objPath + ".MapParam_SetParty(Party data,ref string pMsg) " + ex.Message;
+            }
+            return para;
+        }
+        public SqlParameter[] MapParam_RemoveParty(int PartyCode, ref string pMsg)
+        {
+            int paracount = 0;
+            SqlParameter[] para = new SqlParameter[1];
+            try
+            {
+                para[paracount] = new SqlParameter("@PartyCode", SqlDbType.Int);
+                para[paracount++].Value = PartyCode;
+            }
+            catch (Exception ex)
+            {
+                pMsg = objPath + ".MapParam_RemoveParty(int PartyCode,ref string pMsg) " + ex.Message;
+            }
+            return para;
+        }
+
+
+
+
 
 
 

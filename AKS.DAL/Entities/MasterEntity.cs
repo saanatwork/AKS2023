@@ -98,6 +98,24 @@ namespace AKS.DAL.Entities
             catch (Exception ex) { pMsg = objPath + ".GetListOfCategory(...) " + ex.Message; }
             return result;
         }
+        public List<PartyForList> GetPartyMasterList(int DisplayLength, int DisplayStart, int SortColumn,
+            string SortDirection, string SearchText, ref string pMsg)
+        {
+            List<PartyForList> result = new List<PartyForList>();
+            try
+            {
+                dt = _MasterDatasync.GetPartyMasterList(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        result.Add(_MasterObjectMapper.Map_PartyForList(dt.Rows[i], ref pMsg));
+                    }
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetPartyMasterList(...) " + ex.Message; }
+            return result;
+        }
         public bool SetUserInfo(ProfitCentre data, ref string pMsg)
         {
             bool result = false;
@@ -190,7 +208,35 @@ namespace AKS.DAL.Entities
             _DBResponseMapper.Map_DBResponse(_MasterDatasync.SetVariant(data, ref pMsg), ref pMsg, ref result);
             return result;
         }
-
+        public List<Party> GetPartyInfo(int PartyCode, bool IsVendor, bool IsCustomer, ref string pMsg) 
+        {
+            List<Party> result = new List<Party>();
+            try
+            {
+                dt = _MasterDatasync.GetPartyInfo(PartyCode, IsVendor, IsCustomer, ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        result.Add(_MasterObjectMapper.Map_Party(dt.Rows[i], ref pMsg));
+                    }
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetPartyInfo(...) " + ex.Message; }
+            return result;
+        }
+        public bool SetPartyInfo(Party data, ref string pMsg) 
+        {
+            bool result = false;
+            _DBResponseMapper.Map_DBResponse(_MasterDatasync.SetPartyInfo(data, ref pMsg), ref pMsg, ref result);
+            return result;
+        }
+        public bool RemoveParty(int PartyCode, ref string pMsg) 
+        {
+            bool result = false;
+            _DBResponseMapper.Map_DBResponse(_MasterDatasync.RemoveParty(PartyCode, ref pMsg), ref pMsg, ref result);
+            return result;
+        }
 
 
 

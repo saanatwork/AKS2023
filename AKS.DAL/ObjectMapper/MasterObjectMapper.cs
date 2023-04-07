@@ -188,6 +188,77 @@ namespace AKS.DAL.ObjectMapper
             catch (Exception ex) { pMsg = objPath + ".Map_VariantForDT(DataRow dr, ref string pMsg) " + ex.Message; }
             return result;
         }
+        public PartyForList Map_PartyForList(DataRow dr, ref string pMsg)
+        {
+            PartyForList result = new PartyForList();
+            try
+            {
+                if (dr != null)
+                {
+                    if (!DBNull.Value.Equals(dr["RowNum"]))
+                        result.RowNum = int.Parse(dr["RowNum"].ToString());
+                    if (!DBNull.Value.Equals(dr["TotalCount"]))
+                        result.TotalCount = int.Parse(dr["TotalCount"].ToString());
+                    if (!DBNull.Value.Equals(dr["TotalRecords"]))
+                        result.TotalRecords = int.Parse(dr["TotalRecords"].ToString());
+                    if (!DBNull.Value.Equals(dr["PartyCode"]))
+                        result.PartyCode =int.Parse(dr["PartyCode"].ToString());
+                    if (!DBNull.Value.Equals(dr["PartyName"]))
+                        result.PartyName = dr["PartyName"].ToString();
+                    if (!DBNull.Value.Equals(dr["PartyAddress"]))
+                        result.PartyAddress = dr["PartyAddress"].ToString();
+                    if (!DBNull.Value.Equals(dr["GSTIN"]))
+                        result.GSTIN = dr["GSTIN"].ToString();
+                    if (!DBNull.Value.Equals(dr["PartyContactNo"]))
+                        result.ContactNo = dr["PartyContactNo"].ToString();
+                    if (!DBNull.Value.Equals(dr["PartyEmailID"]))
+                        result.EmailID  = dr["PartyEmailID"].ToString();
+                    if (!DBNull.Value.Equals(dr["IsVendor"]))
+                        result.IsVendor = bool.Parse(dr["IsVendor"].ToString());
+                    if (!DBNull.Value.Equals(dr["IsCustomer"]))
+                        result.IsCustomer = bool.Parse(dr["IsCustomer"].ToString());
+                    if (!DBNull.Value.Equals(dr["IsActive"]))
+                        result.IsActive =bool.Parse(dr["IsActive"].ToString());
+                    result.IsActiveStr = result.IsActive ? "Yes" : "No";
+                    result.IsVendorStr = result.IsVendor ? "Yes" : "No";
+                    result.IsCustomerStr = result.IsCustomer ? "Yes" : "No";
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".Map_PartyForList(DataRow dr, ref string pMsg) " + ex.Message; }
+            return result;
+        }
+        public Party Map_Party(DataRow dr, ref string pMsg)
+        {
+            Party result = new Party();
+            try
+            {
+                if (dr != null)
+                {                    
+                    if (!DBNull.Value.Equals(dr["PartyCode"]))
+                        result.PartyCode = int.Parse(dr["PartyCode"].ToString());
+                    if (!DBNull.Value.Equals(dr["PartyName"]))
+                        result.PartyName = dr["PartyName"].ToString();
+                    if (!DBNull.Value.Equals(dr["PartyAddress"]))
+                        result.PartyAddress = dr["PartyAddress"].ToString();
+                    if (!DBNull.Value.Equals(dr["GSTIN"]))
+                        result.GSTIN = dr["GSTIN"].ToString();
+                    if (!DBNull.Value.Equals(dr["PartyContactNo"]))
+                        result.ContactNo = dr["PartyContactNo"].ToString();
+                    if (!DBNull.Value.Equals(dr["PartyEmailID"]))
+                        result.EmailID = dr["PartyEmailID"].ToString();
+                    if (!DBNull.Value.Equals(dr["IsVendor"]))
+                        result.IsVendor = bool.Parse(dr["IsVendor"].ToString());
+                    if (!DBNull.Value.Equals(dr["IsCustomer"]))
+                        result.IsCustomer = bool.Parse(dr["IsCustomer"].ToString());
+                    if (!DBNull.Value.Equals(dr["IsActive"]))
+                        result.IsActive = bool.Parse(dr["IsActive"].ToString());
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".Map_Party(DataRow dr, ref string pMsg) " + ex.Message; }
+            return result;
+        }
+
+
 
 
 

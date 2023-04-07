@@ -1,0 +1,103 @@
+﻿@{
+    ViewBag.Title = "Admin - Party Master";
+}
+<div class="row newTable">
+    <div class="col-md-12 mb-4">
+        <div class="table-responsive" style="padding:5px">
+            <table id="tblDataList" class="table table-bordered btnalign">
+                <thead>
+                    <tr>
+                        <th scope="col" style="width:5%">Code</th>
+                        <th scope="col" style="width: 10%">Name</th>
+                        <th scope="col">Address</th>
+                        <th scope="col" style="width: 10%">GSTIN</th>
+                        <th scope="col" style="width: 10%">ContactNumber</th>
+                        <th scope="col" style="width: 10%">EmailID</th>
+                        <th scope="col" style="width: 10%">IsVendor</th>
+                        <th scope="col" style="width: 10%">IsCustomer</th>
+                        <th scope="col" style="width: 10%">IsActive</th>
+                        <th scope="col" style="width: 10%; background-color: #ff7500; color: white;text-align: center;">Actions</th>
+                    </tr>
+                </thead>
+                <thead style="background-color:lightblue;color:black">
+                    <tr id="PickHdrData">
+                        <th>
+                            <input id="cPartyCode" onkeyup="ValidateControl()" type="text" disabled
+                                   class="form-control " data-name="PartyCode" />
+                        </th>
+                        <th>
+                            <input id="cPartyName" onkeyup="ValidateControl()" type="text"
+                                   class="form-control is-invalid" data-name="PartyName" />
+                        </th>
+                        <th>
+                            <input id="cPartyAddress" onkeyup="ValidateControl()" type="text"
+                                   class="form-control is-invalid" data-name="PartyAddress" />
+                        </th>
+                        <th>
+                            <input id="cGSTIN" type="text"
+                                   class="form-control" data-name="GSTIN" />
+                        </th>
+                        <th>
+                            <input id="cContactNo" onkeyup="ValidateControl()" type="text"
+                                   class="form-control is-invalid" data-name="ContactNo" />
+                        </th>
+                        <th>
+                            <input id="cEmailID" onkeyup="ValidateControl()" type="text"
+                                   class="form-control" data-name="EmailID" />
+                        </th>
+                        <th>
+                            <select id="cIsVendor" data-name="IsVendor"
+                                    onchange="ValidateControl()"
+                                    class="form-select content border-red myctrlw100 is-invalid"
+                                    aria-label="Default select example">
+                                <option selected value="">-</option>
+                                <option value="false">No</option>
+                                <option value="true">Yes</option>
+                            </select>
+                        </th>
+                        <th>
+                            <select id="cIsCustomer" data-name="IsCustomer"
+                                    onchange="ValidateControl()"
+                                    class="form-select content border-red myctrlw100 is-invalid"
+                                    aria-label="Default select example">
+                                <option selected value="">-</option>
+                                <option value="false">No</option>
+                                <option value="true">Yes</option>
+                            </select>
+                        </th>
+                        <th>
+                            <select id="cIsActive" data-name="IsActive"
+                                    onchange="ValidateControl()"
+                                    class="form-select content border-red myctrlw100 is-invalid"
+                                    aria-label="Default select example">
+                                <option selected value="">-</option>
+                                <option value="false">No</option>
+                                <option value="true">Yes</option>
+                            </select>
+                        </th>
+                        <th>
+                            <button id="btnSave" disabled
+                                    type="button" class="btn btn-success me-2">
+                                <i data-feather="check-circle"></i>
+                                Save
+                            </button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                <tfoot></tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+@section headers{
+
+}
+@section scripts{
+    <script src="~/UIContent/JS/CustomePage/CommonReusableJS.js"></script>
+    <script src="~/UIContent/JS/CustomePage/Admin/PartyListJS.js"></script>
+    <script>
+
+    </script>
+}

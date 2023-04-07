@@ -204,6 +204,7 @@ $(document).ready(function () {
                             confirmButtonColor: '#2527a2',
                         });
                         dtinstance.ajax.reload();
+
                     }
                     else {
                         Swal.fire({
