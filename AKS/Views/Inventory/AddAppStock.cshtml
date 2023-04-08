@@ -1,0 +1,352 @@
+﻿@using AKS.ViewModel.InventoryVM;
+@model AppStockEntryVM
+@{
+    ViewBag.Title = "Inventory - Stock On Approval - Entry";
+}
+<div class="row newTable">
+    @*@using (Html.BeginForm())
+        {*@
+    <div class="fixedElement">
+        <div class="col-md-12">
+            <div class="heading_text_btn mb-3 mt-4">
+                <div class="leftButton">
+                    <button id="btnBack" type="button" class="btn btn-primary me-2">
+                        <i data-feather="arrow-left-circle"></i>
+                        Back
+                    </button>
+                    <button id="btnSubmit" type="submit" name="Submit" value="create"
+                            class="btn btn-secondary me-2">
+                        <i data-feather="upload"></i>
+                        Submit
+                    </button>
+                    <button type="button"
+                            onclick="window.location.href='/Security/EHG/ClearBtnClicked';"
+                            class="btn btn-white">
+                        <i data-feather="x-circle"></i>
+                        Clear
+                    </button>
+                </div>
+                <h2>Materials Receipt Note - Entry </h2>
+                <div class="rightButton">
+                    <button id="btnAddVendor" type="submit" name="Submit" value="create"
+                            class="btn btn-secondary me-2">
+                        <i data-feather="plus"></i>
+                        Add Vendor
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<div class="col-md-12">
+        <div class="text-center pt-2 pb-2">
+            <button id="btnScan" type="button" class="btn btn-light-green "
+                    onclick="fireSweetAlert()">
+                Scan & Attach
+                “Travelling Request Form”
+            </button>-->
+    @*<button id="btnScanView" type="button" class="btn btn-light-blue @(string.IsNullOrEmpty(Model.ehgHeader.DocFileName)?"inVisible":"")"
+                onclick="btnScanViewClicked()">
+            View Attached “Travelling Request Form”
+        </button>*@
+    <!--</div>
+    </div>-->
+<div class="col-md-12 mb-4" style="vertical-align:central">
+    <div class="card mb-4 mt-4" style="vertical-align:central">
+        <div class="card-body approvalForm">
+            <div class="row d-flex align-items-center mb-4">
+                <label class="col-form-label col-md-1">
+                    Vendor :
+                </label>
+                <div class="col-md-3">
+                    <select id="cVendors"
+                            onchange="ValidateControl()"
+                            class="form-select content border-red myctrlw100 is-invalid"
+                            aria-label="Default select example">
+                        <option selected value="">Select Vendor</option>
+                        @if (Model.VendorList != null && Model.VendorList.Count > 0)
+                        {
+                            foreach (var item in Model.VendorList)
+                            {
+                                <option value="@item.PartyCode">@item.PartyName</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <label class="col-form-label col-md-1" style="text-align:right">
+                    Document Number:
+                </label>
+                <div class="col-md-2">
+                    <input id="cDocumentNumber" type="text"
+                           onkeyup="ValidateControl()"
+                           class="form-control  is-invalid"
+                           value="">
+                </div>
+                <label class="col-form-label col-md-1" style="text-align:right">
+                    Document Date:
+                </label>
+                <div class="col-md-2">
+                    <div class="position-relative pointer">
+                        <input id="cDocumentDate" type="date"
+                               data-name="FromDate"
+                               onchange="ValidateControl()"
+                               class="form-control is-invalid CustomDateFormatCloneRow valid">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mb-4 mt-4" style="vertical-align:central">
+        <div class="card-body">
+            <div class="table-responsive max-content">
+                <table class="table table-bordered w-100 btnalign">
+                    <thead>
+                        <tr>
+                            <th scope="col" rowspan="2" style="text-align: center; vertical-align: middle;">
+                                SL
+                            </th>
+                            <th scope="col" rowspan="2" style="text-align: center; vertical-align: middle;">
+                                Item Category
+                            </th>
+                            <th scope="col" rowspan="2" style="text-align: center; vertical-align: middle;">
+                                Quantity
+                            </th>
+                            <th scope="col" rowspan="2" style="text-align: center; vertical-align: middle;">
+                                Remarks
+                            </th>
+                            <th scope="col" colspan="3" style="text-align: center; vertical-align: middle;">
+                                Metal
+                            </th>
+                            <th scope="col" colspan="3" style="text-align: center; vertical-align: middle;">
+                                Diamond
+                            </th>
+                            <th scope="col" colspan="3" style="text-align: center; vertical-align: middle;">
+                                Other Stone
+                            </th>
+                            <th scope="col" rowspan="2" style="text-align: center; vertical-align: middle;background-color: pink;color: #000;">
+                                Actions
+                            </th>
+                        </tr>
+                        <tr>
+                            <th scope="col" style="text-align: center; vertical-align: middle;" width="2%"></th>
+                            <th scope="col" style="text-align: center; vertical-align: middle;width:10%">Variant</th>
+                            <th scope="col" style="text-align: center; vertical-align: middle;width:8%">Weight In Gram</th>
+
+                            <th scope="col" style="text-align: center; vertical-align: middle;" width="2%"></th>
+                            <th scope="col" style="text-align: center; vertical-align: middle;width:10%">Variant</th>
+                            <th scope="col" style="text-align: center; vertical-align: middle;width:8%">Weight In Karet</th>
+
+                            <th scope="col" style="text-align: center; vertical-align: middle;" width="2%"></th>
+                            <th scope="col" style="text-align: center; vertical-align: middle;width:10%">Variant</th>
+                            <th scope="col" style="text-align: center; vertical-align: middle;width:8%">Weight In Karet</th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="tbody1">
+                        <tr id="0" class="add-row">
+                            <th>1</th>
+                            <td>
+                                <select id="cItemCategory_0"
+                                        onchange="ValidateCloneRowControl()"
+                                        class="form-select myctrlw100 is-invalid alterID inValidTag"
+                                        aria-label="Default select example">
+                                    <option selected value="">Select Category</option>
+                                    @if (Model.CategoryList != null && Model.CategoryList.Count > 0)
+                                    {
+                                        foreach (var item in Model.CategoryList)
+                                        {
+                                            <option value="@item.CategoryCode">@item.CategoryLongText</option>
+                                        }
+                                    }
+                                </select>
+                            </td>
+                            <td>
+                                <input id="cQty_0" type="text"
+                                       onkeyup="ValidateCloneRowControl()"
+                                       class="form-control is-invalid alterID inValidTag"
+                                       value="">
+                            </td>
+                            <td>
+                                <input id="cRemarks_0" type="text"
+                                       onkeyup="ValidateCloneRowControl()"
+                                       class="form-control is-invalid alterID inValidTag"
+                                       value="">
+                            </td>
+                            <td colspan="3">
+                                <table style="width:100%">
+                                    <tbody id="mvTBody1" class="alterID">
+                                        <tr id="0_mvRow">
+                                            <td style="width:10%">
+                                                <span class="actionBtn">
+                                                    <button id="0_addMV" type="button"
+                                                            class="btn primaryLink alterID addBtn cloneBtn"
+                                                            onclick="AddMVClicked()"
+                                                            data-toggle="tooltip"
+                                                            data-placement="top" title="Add New Metal Variant To The Item">
+                                                        <i data-feather="plus"></i>
+                                                    </button>
+                                                    <button id="0_RemoveMV" type="button"
+                                                            class="btn secondaryLink inVisible alterID removeBtn cloneBtn"
+                                                            onclick="RemoveMVChildClicked()"
+                                                            data-toggle="tooltip"
+                                                            data-placement="top" title="Remove Metal Variant From The Item">
+                                                        <i data-feather="x"></i>
+                                                    </button>
+                                                </span>
+                                            </td>
+                                            <td style="width:50%">
+                                                <select id="0_cMetalVariant"
+                                                        onchange="ValidateChildCloneRowControl()"
+                                                        class="form-select content border-red myctrlw100 is-invalid alterID inValidTagc"
+                                                        aria-label="Default select example">
+                                                    <option selected value="">Select Metal Variant</option>
+                                                    @if (Model.MetaVariantList != null && Model.MetaVariantList.Count > 0)
+                                                    {
+                                                        foreach (var item in Model.MetaVariantList)
+                                                        {
+                                                            <option value="@item.ID">@item.VariantCatText - @item.Purity</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </td>
+                                            <td style="width:40%">
+                                                <input id="0_cMetalWt" type="text"
+                                                       onkeyup="ValidateChildCloneRowControl()"
+                                                       class="form-control is-invalid alterID inValidTagc"
+                                                       value="">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody id="mvTBody2" class="alterID ChildTableBody">
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td colspan="3">
+                                <table style="width:100%">
+                                    <tbody id="dvTBody1" class="alterID">
+                                        <tr id="0_dvRow">
+                                            <td style="width:10%">
+                                                <span class="actionBtn">
+                                                    <button id="0_addDV" type="button"
+                                                            class="btn primaryLink alterID cloneBtn addBtn"
+                                                            onclick="AddDVClicked()" data-toggle="tooltip"
+                                                            data-placement="top" title="Add New Diamond Variant To The Item">
+                                                        <i data-feather="plus"></i>
+                                                    </button>
+                                                    <button id="0_RemoveDV" type="button"
+                                                            class="btn secondaryLink inVisible alterID cloneBtn removeBtn"
+                                                            onclick="RemoveDVChildClicked()" data-toggle="tooltip"
+                                                            data-placement="top" title="Remove Diamond Variant From The Item">
+                                                        <i data-feather="x"></i>
+                                                    </button>
+                                                </span>
+                                            </td>
+                                            <td style="width:50%">
+                                                <select id="0_cDiamondVariant"
+                                                        onchange="ValidateChildCloneRowControl()"
+                                                        class="form-select myctrlw100 alterID inValidTagc"
+                                                        aria-label="Default select example">
+                                                    <option selected value="">Select Diamond Variant</option>
+                                                    @if (Model.DiamondVariantList != null && Model.DiamondVariantList.Count > 0)
+                                                    {
+                                                        foreach (var item in Model.DiamondVariantList)
+                                                        {
+                                                            <option value="@item.ID">@item.ShortText</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </td>
+                                            <td style="width:40%">
+                                                <input id="0_cDiamondWt" type="text"
+                                                       onkeyup="ValidateChildCloneRowControl()"
+                                                       class="form-control is-invalid alterID inValidTagc"
+                                                       value="">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody id="dvTBody2" class="ChildTableBody alterID">
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td colspan="3">
+                                <table style="width:100%">
+                                    <tbody id="svTBody1" class="alterID">
+                                        <tr id="0_svRow">
+                                            <td style="width:10%">
+                                                <span class="actionBtn">
+                                                    <button id="0_addSV" type="button"
+                                                            class="btn primaryLink alterID cloneBtn addBtn"
+                                                            onclick="AddSVClicked()" data-toggle="tooltip"
+                                                            data-placement="top" title="Add New Stone Variant To The Item">
+                                                        <i data-feather="plus"></i>
+                                                    </button>
+                                                    <button id="0_RemoveSV" type="button"
+                                                            class="btn secondaryLink inVisible alterID cloneBtn removeBtn"
+                                                            onclick="RemoveSVChildClicked()" data-toggle="tooltip"
+                                                            data-placement="top" title="Remove Stone Variant From The Item">
+                                                        <i data-feather="x"></i>
+                                                    </button>
+                                                </span>
+                                            </td>
+                                            <td style="width:50%">
+                                                <select id="0_cStoneVariant"
+                                                        onchange="ValidateChildCloneRowControl()"
+                                                        class="form-select myctrlw100 alterID inValidTagc"
+                                                        aria-label="Default select example">
+                                                    <option selected value="">Select Stone Variant</option>
+                                                    @if (Model.StoneVariantList != null && Model.StoneVariantList.Count > 0)
+                                                    {
+                                                        foreach (var item in Model.StoneVariantList)
+                                                        {
+                                                            <option value="@item.ID">@item.ShortText</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </td>
+                                            <td style="width:40%">
+                                                <input id="0_cStoneWt" type="text"
+                                                       onkeyup="ValidateChildCloneRowControl()"
+                                                       class="form-control is-invalid alterID inValidTagc"
+                                                       value="">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody id="svTBody2" class="ChildTableBody alterID"></tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <span class="actionBtn">
+                                    <button id="AddBtn_0" type="button"
+                                            class="btn btn-success alterID CloneBtn AddBtn"
+                                            onclick="ParentCloneRowAddClicked()">
+                                        <i data-feather="plus"></i>
+                                        Add Item
+                                    </button>
+                                    <button id="DeleteBtn_0" type="button"
+                                            class="btn btn-outline-danger inVisible alterID CloneBtn RemoveBtn"
+                                            onclick="ParentCloneRowRemoveClicked()"
+                                            data-toggle="tooltip"
+                                            data-placement="top" title="Delete Item">
+                                        <i data-feather="trash"></i>
+                                    </button>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody id="tbody2"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+        @*}*@
+    </div>
+    @section headers{
+        
+    }
+    @section scripts{
+        <script src="~/UIContent/JS/CustomePage/CommonReusableJS.js"></script>
+        <script src="~/UIContent/JS/CustomePage/Inventory/AppStockEntryJS.js"></script>
+
+    }

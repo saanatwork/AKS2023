@@ -148,6 +148,10 @@ namespace AKS.DAL.ObjectMapper
                         result.IsActive = bool.Parse(dr["IsActive"].ToString());
                     if (!DBNull.Value.Equals(dr["RatePerUnit"]))
                         result.RatePerUnit = int.Parse(dr["RatePerUnit"].ToString());
+                    if (!DBNull.Value.Equals(dr["VariantColumn"]))
+                        result.VariantColumn = dr["VariantColumn"].ToString().Trim();
+                    if (!DBNull.Value.Equals(dr["VariantCatText"]))
+                        result.VariantCatText = dr["VariantCatText"].ToString().Trim();
                 }
             }
             catch (Exception ex) { pMsg = objPath + ".Map_Variant(DataRow dr, ref string pMsg) " + ex.Message; }

@@ -15,6 +15,8 @@ namespace AKS.BOL.Master
         public string UOM { get; set; }
         public bool IsActive { get; set; }
         public int RatePerUnit { get; set; }
+        public string VariantColumn { get; set; }
+        public string VariantCatText { get; set; }
     }
     public class VariantForDT : Variant 
     {

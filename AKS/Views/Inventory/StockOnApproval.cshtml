@@ -1,0 +1,97 @@
+﻿
+@{
+    ViewBag.Title = "Inventory - Stock On Approval ";
+}
+<div class="row newTable">
+    <div class="fixedElement">
+        <div class="col-md-12" style="position: relative;">
+            <div class="heading_text_btn mb-4 mt-4">
+                <div class="leftButton">
+                    <button type="submit" class="btn btn-primary me-2" onclick="window.location.href='/Inventory/AddAppStock';">
+                        <i data-feather="plus-circle"></i>
+                        Add
+                    </button>
+                </div>
+                <h2>Hostory Of Stock Brought On Approval </h2>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive mb-4 max-content">
+        <table class="table table-bordered btnalign" id="NoteListTbl">
+            <thead>
+                <tr>
+                    <th scope="col" rowspan="2"> SL.No.</th>
+                    <th scope="col" class=" dtfc-fixed-left" style="width: 233.778px; left: 81.9861px; position: sticky;"> Note No.</th>
+                    <th scope="col"> Date </th>
+                    <th scope="col">Center Code & Name</th>
+                    <th scope="col">Purpose Of Allotment</th>
+                    <th scope="col"> Employee No. </th>
+                    <th scope="col">Vehicle No.</th>
+                    <th scope="col" rowspan="2">Action</th>
+                </tr>
+                <tr>
+                    <th scope="col">
+                        <div class="form-group">
+                            <input type="text" class="form-control tblSearch" placeholder="Search...">
+                        </div>
+                    </th>
+                    <th scope="col">
+                        <div class="form-group">
+                            <input type="text" class="form-control tblSearch" placeholder="Search...">
+                        </div>
+                    </th>
+                    <th scope="col">
+                        <div class="form-group">
+                            <input type="text" class="form-control tblSearch" placeholder="Search...">
+                        </div>
+                    </th>
+                    <th scope="col">
+                        <div class="form-group">
+                            <input type="text" class="form-control tblSearch" placeholder="Search...">
+                        </div>
+                    </th>
+                    <th scope="col">
+                        <div class="form-group">
+                            <input type="text" class="form-control tblSearch" placeholder="Search...">
+                        </div>
+                    </th>
+                    <th scope="col">
+                        <div class="form-group">
+                            <input id="filterMonthnYear" type="text" class="form-control tblSearch" placeholder="Search...">
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Count > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.RowNumber</td>
+                            <td>@item.NoteNumber</td>
+                            <td>@item.EntryDateDisplay</td>
+                            <td>@item.CenterName</td>
+                            <td>@item.PurposeOfAllotment </td>
+                            <td>@item.Instructor</td>
+                            <td>@item.VehicleNumber</td>
+                            <td>
+                                @*<span class="actionBtn">
+                                        <button type="button" class="btn primaryLink" data-toggle="tooltip" data-placement="top" onclick="window.location.href='emp_travelling_detail_vehicle_allotment_by_HG_details_for_office.html';"
+                                                title="Details">
+                                            <i data-feather="eye"></i>
+                                        </button>
+                                        <button type="button" class="btn secondaryLink" data-toggle="tooltip" data-placement="top" onclick="window.location.href='emp_travelling_detail_vehicle_allotment_by_HG_delete_for_office.html';"
+                                                title="Delete">
+                                            <i data-feather="trash-2"></i>
+                                        </button>
+                                    </span>*@
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

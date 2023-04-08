@@ -138,6 +138,7 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -148,6 +149,7 @@
     <Compile Include="ViewModel\AdminVM\PCInfoAjaxRapper.cs" />
     <Compile Include="ViewModel\AdminVM\VariantInfoAjaxRapper.cs" />
     <Compile Include="ViewModel\AdminVM\VariantVM.cs" />
+    <Compile Include="ViewModel\InventoryVM\AppStockEntryVM.cs" />
     <Compile Include="ViewModel\UserVM\LogInVM.cs" />
     <Compile Include="ViewModel\UserVM\SelectPCVM.cs" />
     <Compile Include="ViewModel\UserVM\UserDashBoardVM.cs" />
@@ -247,6 +249,7 @@
     <Content Include="UIContent\JS\CustomePage\Admin\VariantListJS.js" />
     <Content Include="UIContent\JS\CustomePage\CommonReusable.js" />
     <Content Include="UIContent\JS\CustomePage\CommonReusableJS.js" />
+    <Content Include="UIContent\JS\CustomePage\Inventory\AppStockEntryJS.js" />
     <Content Include="UIContent\JS\CustomePage\User\LogInJS.js" />
     <Content Include="UIContent\JS\CustomePage\Admin\ProfitCentreListJS.js" />
     <Content Include="UIContent\JS\CustomePage\User\UserListJS.js" />
@@ -297,6 +300,8 @@
     <Content Include="Views\Admin\Categories.cshtml" />
     <Content Include="Views\Admin\Variants.cshtml" />
     <Content Include="Views\Admin\Party.cshtml" />
+    <Content Include="Views\Inventory\StockOnApproval.cshtml" />
+    <Content Include="Views\Inventory\AddAppStock.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
