@@ -1,4 +1,101 @@
-﻿function ValidateChildCloneRowControl() {
+﻿function GetAppStockRecords(tableName) {
+    //The fields should have an attribute "data-name", Which is the property name of the MVC object
+    var MVariant = '';
+    var DVariant = '';
+    var SVariant = '';
+    var schrecords = '';
+    var dataname;
+    var datavalue;
+    var mrecord = '';
+    $('#' + tableName + ' .Ptbody').each(function () {
+        mRow = $(this);
+        mRow.find('[data-name]').each(function () {
+            that = $(this);
+            dataname = that.attr('data-name');
+            if (that.hasClass('htmlVal')) {
+                datavalue = that.html();
+            }
+            else { datavalue = that.val(); }
+            mrecord = mrecord + '"' + dataname + '":"' + datavalue + '",';
+        });
+        mRow.find('[data-name-text]').each(function () {
+            that = $(this);
+            dataname = that.attr('data-name-text');
+            thatid = that.attr('id');
+            datavalue = $('#' + thatid + ' option:selected').toArray().map(item => item.text).join();
+            mrecord = mrecord + '"' + dataname + '":"' + datavalue + '",';
+        });
+        //mrecord = mrecord.replace(/,\s*$/, "");
+        MVariant = GetRecordsFromChildTableBody(mRow, 'MVTable');
+        DVariant = GetRecordsFromChildTableBody(mRow, 'DVTable');
+        SVariant = GetRecordsFromChildTableBody(mRow, 'SVTable');
+        mrecord = mrecord+ '"MetalVariants":' + MVariant
+            + ',"DiamondVariants":' + DVariant
+            + ',"StoneVariants":' + SVariant
+        schrecords = schrecords + '{' + mrecord + '},';
+        mrecord = '';
+        MVariant = '';
+        DVariant = '';
+        SVariant = '';
+    });
+    schrecords = schrecords.replace(/,\s*$/, "");
+    schrecords = '[' + schrecords+']';
+    return schrecords;
+};
+function SubmitBtnClicked() {
+    var vendor = $('#cVendors').val();
+    var docNumber = $('#cDocumentNumber').val();
+    var docDate = $('#cDocumentDate').val();
+    var schrecords = GetAppStockRecords('tblDataList');
+    var x = '{"VendorID":"' + vendor
+        + '","DocNo":"' + docNumber
+        + '","DocDate":"' + docDate
+        + '","AppStockList":' + schrecords + '}';
+    alert(x);
+    $.ajax({
+        method: 'POST',
+        url: '/Inventory/SetAppStock',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: x,
+        success: function (data) {
+            $(data).each(function (index, item) {
+                if (item.bResponseBool == true) {
+                    $('#cCategoryCode').val('').isInvalid();
+                    $('#cCategoryLongText').val('').isInvalid();
+                    $('#cHSNCode').val('').isInvalid();
+                    $('#cIsActive').val('').isInvalid();
+
+                    $('#btnSave').makeDisable();
+                    Swal.fire({
+                        title: 'Success',
+                        text: 'Category Information Saved Successfully.',
+                        icon: 'success',
+                        customClass: 'swal-wide',
+                        buttons: {
+                            confirm: 'Ok'
+                        },
+                        confirmButtonColor: '#2527a2',
+                    });
+                    dtinstance.ajax.reload();
+                }
+                else {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Failed To Save Category Information.',
+                        icon: 'error',
+                        customClass: 'swal-wide',
+                        buttons: {
+                            confirm: 'Ok'
+                        },
+                        confirmButtonColor: '#2527a2',
+                    });
+                }
+            });
+        },
+    });
+};
+function ValidateChildCloneRowControl() {
     var myCtrl = $(ValidateChildCloneRowControl.caller.arguments[0].target);
     var myCtrlId = myCtrl.attr('id');
     var myRowid = 0;
@@ -68,7 +165,14 @@ function validatectrl(targetid, value,spltag) {
     return isvalid;
 };
 function SaveBtnStatus() {
-
+    //alert($('.is-invalid').length);
+    var btnSubmitCtrl = $('#btnSubmit');
+    if ($('.is-invalid').length > 0) {
+        btnSubmitCtrl.makeDisable();
+    }
+    else {
+        btnSubmitCtrl.makeEnabled();
+    }
 };
 function AddMVClicked() {
     var row = $(AddMVClicked.caller.arguments[0].target.closest('tbody'));
@@ -126,6 +230,11 @@ function ParentCloneRowRemoveClicked() {
 
 $(document).ready(function () {
     $('.cloneBtn').hover(function () {
+        $(this).closest('tr').css('background-color', '#FFC0CB');
+    }, function () {
+        $(this).closest('tr').css('background-color', '#fff');
+    });
+    $('.CloneBtn').hover(function () {
         $(this).closest('tr').css('background-color', '#FFC0CB');
     }, function () {
         $(this).closest('tr').css('background-color', '#fff');

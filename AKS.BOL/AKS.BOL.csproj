@@ -86,6 +86,7 @@
     <Compile Include="Common\CustomComboOptions.cs" />
     <Compile Include="Common\CustomOptionsWithString.cs" />
     <Compile Include="Common\DisplayList.cs" />
+    <Compile Include="Inventory\AppStock.cs" />
     <Compile Include="Inventory\DBGoldRate.cs" />
     <Compile Include="Inventory\GoldRate.cs" />
     <Compile Include="Master\Category.cs" />

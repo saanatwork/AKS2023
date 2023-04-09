@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 
 namespace AKS.ViewModel.InventoryVM
-{
+{    
     public class AppStockEntryVM
     {
         public List<Party> VendorList { get; set; }

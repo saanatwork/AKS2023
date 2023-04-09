@@ -162,6 +162,40 @@ function GetRecordsFromTableHeader(tableName) {
     //alert(schrecords);
     return schrecords;
 };
+function GetRecordsFromChildTableBody(ParentTableRow,ChildTableClass) {
+    //The fields should have an attribute "data-name", Which is the property name of the MVC object
+    //tr id must be 'PickHdrData'
+    var schrecords = '';
+    var dataname;
+    var datavalue;
+    var mrecord = '';
+    ParentTableRow.find('.' + ChildTableClass+' tr').each(function () {
+            var mRow = $(this);
+            mRow.find('[data-name-child]').each(function () {
+                that = $(this);
+                dataname = that.attr('data-name-child');
+                if (that.hasClass('htmlVal')) {
+                    datavalue = that.html();
+                }
+                else { datavalue = that.val(); }
+                mrecord = mrecord + '"' + dataname + '":"' + datavalue + '",';
+            });
+            mRow.find('[data-name-text-child]').each(function () {
+                that = $(this);
+                dataname = that.attr('data-name-text-child');
+                thatid = that.attr('id');
+                datavalue = $('#' + thatid + ' option:selected').toArray().map(item => item.text).join();
+                mrecord = mrecord + '"' + dataname + '":"' + datavalue + '",';
+            });
+            mrecord = mrecord.replace(/,\s*$/, "");
+            schrecords = schrecords + '{' + mrecord + '},';
+            mrecord = '';
+        });        
+    schrecords = schrecords.replace(/,\s*$/, "");
+    schrecords = '[' + schrecords + ']';
+    return schrecords;
+};
+
 
 
 function removeBtnClickFromParentTableCloneRow(row, destinationTBody) {
@@ -322,7 +356,16 @@ function CloneRowParentTableReturningID(sourceTBody, destinationTBody, IsRemoveB
             $(this).tooltip('hide');
         });
     });
-
+    cloneready.find('.cloneBtn').hover(function () {
+        $(this).closest('tr').css('background-color', '#FFC0CB');
+    }, function () {
+        $(this).closest('tr').css('background-color', '#fff');
+    });
+    cloneready.find('.CloneBtn').hover(function () {
+        $(this).closest('tr').css('background-color', '#FFC0CB');
+    }, function () {
+        $(this).closest('tr').css('background-color', '#fff');
+    });
     destinationbody.append(cloneready); //Appending Clone Row to the destination body
     var sl = 2;
     $('#' + destinationTBody + ' th').each(function () {

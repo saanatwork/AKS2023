@@ -1,7 +1,7 @@
 ﻿@using AKS.ViewModel.InventoryVM;
 @model AppStockEntryVM
 @{
-    ViewBag.Title = "Inventory - Stock On Approval - Entry";
+    ViewBag.Title = "Inventory - Stock On Approval";
 }
 <div class="row newTable">
     @*@using (Html.BeginForm())
@@ -10,23 +10,30 @@
         <div class="col-md-12">
             <div class="heading_text_btn mb-3 mt-4">
                 <div class="leftButton">
-                    <button id="btnBack" type="button" class="btn btn-primary me-2">
-                        <i data-feather="arrow-left-circle"></i>
-                        Back
-                    </button>
-                    <button id="btnSubmit" type="submit" name="Submit" value="create"
+                    @*<button id="btnBack" type="button" class="btn btn-primary me-2">
+            <i data-feather="arrow-left-circle"></i>
+            Back
+        </button>*@
+                    <button id="btnSubmit" type="button" disabled
+                            onclick="SubmitBtnClicked()"
                             class="btn btn-secondary me-2">
-                        <i data-feather="upload"></i>
-                        Submit
+                        <i data-feather="check-circle"></i>
+                        Save
                     </button>
                     <button type="button"
                             onclick="window.location.href='/Security/EHG/ClearBtnClicked';"
                             class="btn btn-white">
-                        <i data-feather="x-circle"></i>
-                        Clear
+                        <i data-feather="upload"></i>
+                        Upload Document
+                    </button>
+                    <button type="button"
+                            onclick="window.location.href='/Security/EHG/ClearBtnClicked';"
+                            class="btn btn-light-green inVisible">
+                        <i data-feather="eye"></i>
+                        View Document
                     </button>
                 </div>
-                <h2>Materials Receipt Note - Entry </h2>
+                <h2>Stock On Approval - Entry </h2>
                 <div class="rightButton">
                     <button id="btnAddVendor" type="submit" name="Submit" value="create"
                             class="btn btn-secondary me-2">
@@ -99,7 +106,7 @@
     <div class="card mb-4 mt-4" style="vertical-align:central">
         <div class="card-body">
             <div class="table-responsive max-content">
-                <table class="table table-bordered w-100 btnalign">
+                <table class="table table-bordered w-100 btnalign" id="tblDataList">
                     <thead>
                         <tr>
                             <th scope="col" rowspan="2" style="text-align: center; vertical-align: middle;">
@@ -143,10 +150,10 @@
                         </tr>
                     </thead>
                     <tbody id="tbody1">
-                        <tr id="0" class="add-row">
-                            <th>1</th>
+                        <tr id="0" class="add-row Ptbody">
+                            <th data-name="ItemSL" class="htmlVal">1</th>
                             <td>
-                                <select id="cItemCategory_0"
+                                <select id="cItemCategory_0" data-name="ItemCatCode"
                                         onchange="ValidateCloneRowControl()"
                                         class="form-select myctrlw100 is-invalid alterID inValidTag"
                                         aria-label="Default select example">
@@ -161,19 +168,19 @@
                                 </select>
                             </td>
                             <td>
-                                <input id="cQty_0" type="text"
+                                <input id="cQty_0" type="text"  data-name="Qty"
                                        onkeyup="ValidateCloneRowControl()"
                                        class="form-control is-invalid alterID inValidTag"
                                        value="">
                             </td>
                             <td>
-                                <input id="cRemarks_0" type="text"
+                                <input id="cRemarks_0" type="text" data-name="Remarks"
                                        onkeyup="ValidateCloneRowControl()"
                                        class="form-control is-invalid alterID inValidTag"
                                        value="">
                             </td>
                             <td colspan="3">
-                                <table style="width:100%">
+                                <table class="MVTable" style="width:100%">
                                     <tbody id="mvTBody1" class="alterID">
                                         <tr id="0_mvRow">
                                             <td style="width:10%">
@@ -195,9 +202,10 @@
                                                 </span>
                                             </td>
                                             <td style="width:50%">
-                                                <select id="0_cMetalVariant"
+                                                <select id="0_cMetalVariant" data-name-child="VariantID"
+                                                        data-name-text-child="VariantText"
                                                         onchange="ValidateChildCloneRowControl()"
-                                                        class="form-select content border-red myctrlw100 is-invalid alterID inValidTagc"
+                                                        class="form-select content border-red myctrlw100 is-invalid alterID inValidTagc inValidTag"
                                                         aria-label="Default select example">
                                                     <option selected value="">Select Metal Variant</option>
                                                     @if (Model.MetaVariantList != null && Model.MetaVariantList.Count > 0)
@@ -210,9 +218,9 @@
                                                 </select>
                                             </td>
                                             <td style="width:40%">
-                                                <input id="0_cMetalWt" type="text"
+                                                <input id="0_cMetalWt" type="text" data-name-child="Weight"
                                                        onkeyup="ValidateChildCloneRowControl()"
-                                                       class="form-control is-invalid alterID inValidTagc"
+                                                       class="form-control is-invalid alterID inValidTagc inValidTag"
                                                        value="">
                                             </td>
                                         </tr>
@@ -222,7 +230,7 @@
                                 </table>
                             </td>
                             <td colspan="3">
-                                <table style="width:100%">
+                                <table class="DVTable" style="width:100%">
                                     <tbody id="dvTBody1" class="alterID">
                                         <tr id="0_dvRow">
                                             <td style="width:10%">
@@ -242,7 +250,8 @@
                                                 </span>
                                             </td>
                                             <td style="width:50%">
-                                                <select id="0_cDiamondVariant"
+                                                <select id="0_cDiamondVariant" data-name-child="VariantID"
+                                                        data-name-text-child="VariantText"
                                                         onchange="ValidateChildCloneRowControl()"
                                                         class="form-select myctrlw100 alterID inValidTagc"
                                                         aria-label="Default select example">
@@ -257,9 +266,9 @@
                                                 </select>
                                             </td>
                                             <td style="width:40%">
-                                                <input id="0_cDiamondWt" type="text"
+                                                <input id="0_cDiamondWt" type="text" data-name-child="Weight"
                                                        onkeyup="ValidateChildCloneRowControl()"
-                                                       class="form-control is-invalid alterID inValidTagc"
+                                                       class="form-control is-invalid alterID inValidTagc inValidTag"
                                                        value="">
                                             </td>
                                         </tr>
@@ -269,7 +278,7 @@
                                 </table>
                             </td>
                             <td colspan="3">
-                                <table style="width:100%">
+                                <table class="SVTable" style="width:100%">
                                     <tbody id="svTBody1" class="alterID">
                                         <tr id="0_svRow">
                                             <td style="width:10%">
@@ -289,7 +298,8 @@
                                                 </span>
                                             </td>
                                             <td style="width:50%">
-                                                <select id="0_cStoneVariant"
+                                                <select id="0_cStoneVariant" data-name-child="VariantID"
+                                                        data-name-text-child="VariantText"
                                                         onchange="ValidateChildCloneRowControl()"
                                                         class="form-select myctrlw100 alterID inValidTagc"
                                                         aria-label="Default select example">
@@ -304,9 +314,9 @@
                                                 </select>
                                             </td>
                                             <td style="width:40%">
-                                                <input id="0_cStoneWt" type="text"
+                                                <input id="0_cStoneWt" type="text" data-name-child="Weight"
                                                        onkeyup="ValidateChildCloneRowControl()"
-                                                       class="form-control is-invalid alterID inValidTagc"
+                                                       class="form-control is-invalid alterID inValidTagc inValidTag"
                                                        value="">
                                             </td>
                                         </tr>
