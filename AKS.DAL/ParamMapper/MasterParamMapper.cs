@@ -147,7 +147,21 @@ namespace AKS.DAL.ParamMapper
             }
             return para;
         }
-
+        public SqlParameter[] MapParam_GetNewDocNumber(string DocumentSign, ref string pMsg)
+        {
+            int paracount = 0;
+            SqlParameter[] para = new SqlParameter[1];
+            try
+            {
+                para[paracount] = new SqlParameter("@DocumentSign", SqlDbType.NVarChar,50);
+                para[paracount++].Value = DocumentSign;
+            }
+            catch (Exception ex)
+            {
+                pMsg = objPath + ".MapParam_GetNewDocNumber(string DocumentSign,ref string pMsg) " + ex.Message;
+            }
+            return para;
+        }
 
 
 

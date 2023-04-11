@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AKS.BOL.Inventory;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -28,8 +29,39 @@ namespace AKS.DAL.ParamMapper
             }
             return para;
         }
-    
-    
-    
+        public SqlParameter[] MapParam_SetAppStock(AppStockEntry data, ref string pMsg)
+        {
+            int paracount = 0;
+            CommonTable objItems = new CommonTable(data.AppStockList);
+            CommonTable objItemVariants = new CommonTable(data.AllItemVariants);
+            SqlParameter[] para = new SqlParameter[8];
+            try
+            {
+                para[paracount] = new SqlParameter("@UserID", SqlDbType.Int);
+                para[paracount++].Value =data.CreatrID;
+                para[paracount] = new SqlParameter("@DocumentNumber", SqlDbType.NVarChar, 10);
+                para[paracount++].Value =data.DocumentNumber;
+                para[paracount] = new SqlParameter("@VendorID", SqlDbType.Int);
+                para[paracount++].Value = data.VendorID;
+                para[paracount] = new SqlParameter("@VendorDocNumber", SqlDbType.NVarChar, 10);
+                para[paracount++].Value = data.DocNo;
+                para[paracount] = new SqlParameter("@VendorDocumentDate", SqlDbType.Date);
+                para[paracount++].Value = data.DocDate;
+                para[paracount] = new SqlParameter("@DocumentFileName", SqlDbType.NVarChar);
+                para[paracount++].Value = data.DocumentFileName;
+                para[paracount] = new SqlParameter("@StockItems", SqlDbType.Structured);
+                para[paracount++].Value = objItems.UDTable;
+                para[paracount] = new SqlParameter("@StockItemVariants", SqlDbType.Structured);
+                para[paracount++].Value = objItemVariants.UDTable;
+            }
+            catch (Exception ex)
+            {
+                pMsg = objPath + ".MapParam_SetAppStock(...) " + ex.Message;
+            }
+            return para;
+        }
+
+
+
     }
 }

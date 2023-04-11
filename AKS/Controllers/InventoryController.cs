@@ -1,6 +1,8 @@
 ﻿using AKS.BLL.IRepository;
+using AKS.BOL.Common;
 using AKS.BOL.Inventory;
 using AKS.BOL.Master;
+using AKS.BOL.User;
 using AKS.ViewModel.InventoryVM;
 using System;
 using System.Collections.Generic;
@@ -13,10 +15,14 @@ namespace AKS.Controllers
     public class InventoryController : Controller
     {
         IMasterRepository _iMaster;
+        IInventoryRepository _iInventory;
+        LogInUserInfo LUser;
         string pMsg = "";
-        public InventoryController(IMasterRepository iMaster)
+        public InventoryController(IInventoryRepository iInventory,IMasterRepository iMaster, IUserRepository iuser)
         {
             _iMaster = iMaster;
+            _iInventory = iInventory;
+            LUser = iuser.getLoggedInUser();
         }
         // GET: Inventory
         public ActionResult Index()
@@ -43,54 +49,36 @@ namespace AKS.Controllers
         }
 
         #region Ajax Calling
+        public JsonResult GetAppStockDocList(int iDisplayLength, int iDisplayStart, int iSortCol_0,
+            string sSortDir_0, string sSearch)
+        {
+            List<AppStock4DT> userslist = _iInventory.GetAppStockDocList(iDisplayLength, iDisplayStart, iSortCol_0, sSortDir_0, sSearch, ref pMsg);
+            var result = new
+            {
+                iTotalRecords = userslist.Count == 0 ? 0 : userslist.FirstOrDefault().TotalRecords,
+                iTotalDisplayRecords = userslist.Count == 0 ? 0 : userslist.FirstOrDefault().TotalCount,
+                iDisplayLength = iDisplayLength,
+                iDisplayStart = iDisplayStart,
+                aaData = userslist
+            };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
         [HttpPost]
         public JsonResult SetAppStock(AppStockEntry modelobj) 
         {
+            CustomAjaxResponse result = new CustomAjaxResponse();
             if (modelobj != null) 
             {
-            if(modelobj.AppStockList!=null && modelobj.AppStockList.Count > 0) 
+                modelobj.CreatrID = LUser.user.UserID;
+                if (_iInventory.SetAppStock(modelobj, ref pMsg))
                 {
-                    foreach (AppStock obj1 in modelobj.AppStockList) 
-                    {
-                        string itemdesc = "";
-                        if (obj1.MetalVariants != null && obj1.MetalVariants.Count > 0) 
-                        {
-                            foreach (var item in obj1.MetalVariants) 
-                            {
-                                if (item.VariantID != 0) 
-                                {
-                                    item.ItemSL = obj1.ItemSL;
-                                    itemdesc = itemdesc + "[" + item.VariantText + "("+item.Weight+"g)]";
-                                }
-                            }
-                        }
-                        if (obj1.DiamondVariants != null && obj1.DiamondVariants.Count > 0)
-                        {
-                            foreach (var item in obj1.DiamondVariants)
-                            {
-                                if (item.VariantID != 0)
-                                {
-                                    item.ItemSL = obj1.ItemSL;
-                                    itemdesc = itemdesc + "[" + item.VariantText + "(" + item.Weight + "k)]";
-                                }
-                            }
-                        }
-                        if (obj1.StoneVariants != null && obj1.StoneVariants.Count > 0)
-                        {
-                            foreach (var item in obj1.StoneVariants)
-                            {
-                                if (item.VariantID != 0)
-                                {
-                                    item.ItemSL = obj1.ItemSL;
-                                    itemdesc = itemdesc + "[" + item.VariantText + "(" + item.Weight + "k)]";
-                                }
-                            }
-                        }
-                        obj1.ItemDescription = itemdesc;
-                    }
+                    result.bResponseBool = true;
+                }
+                else
+                {
+                    result.bResponseBool = false; result.sResponseString = pMsg;
                 }
             }
-            bool result = true;
             return Json(result, JsonRequestBehavior.AllowGet);
         }
         #endregion

@@ -249,6 +249,7 @@
     <Content Include="UIContent\JS\CustomePage\Admin\VariantListJS.js" />
     <Content Include="UIContent\JS\CustomePage\CommonReusable.js" />
     <Content Include="UIContent\JS\CustomePage\CommonReusableJS.js" />
+    <Content Include="UIContent\JS\CustomePage\Inventory\AppStockDataTableJS.js" />
     <Content Include="UIContent\JS\CustomePage\Inventory\AppStockEntryJS.js" />
     <Content Include="UIContent\JS\CustomePage\User\LogInJS.js" />
     <Content Include="UIContent\JS\CustomePage\Admin\ProfitCentreListJS.js" />

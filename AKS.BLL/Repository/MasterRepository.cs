@@ -86,11 +86,11 @@ namespace AKS.BLL.Repository
         {
             return _MasterEntity.RemoveParty(PartyCode, ref pMsg);
         }
+        public string GetNewDocNumber(string DocumentSign, ref string pMsg)
+        {
+            return _MasterEntity.GetNewDocNumber(DocumentSign, ref pMsg);
+        }
 
-
-
-
-
-
+        
     }
 }

@@ -30,8 +30,8 @@ namespace AKS.BLL.IRepository
         List<Party> GetPartyInfo(int PartyCode, bool IsVendor, bool IsCustomer, ref string pMsg);
         bool SetPartyInfo(Party data, ref string pMsg);
         bool RemoveParty(int PartyCode, ref string pMsg);
-
-
+        string GetNewDocNumber(string DocumentSign, ref string pMsg);
+        
 
 
 

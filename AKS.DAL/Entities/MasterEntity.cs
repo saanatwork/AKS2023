@@ -237,7 +237,20 @@ namespace AKS.DAL.Entities
             _DBResponseMapper.Map_DBResponse(_MasterDatasync.RemoveParty(PartyCode, ref pMsg), ref pMsg, ref result);
             return result;
         }
-
+        public string GetNewDocNumber(string DocumentSign, ref string pMsg) 
+        {
+            string result = "";
+            try
+            {
+                dt = _MasterDatasync.GetNewDocNumber(DocumentSign, ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    result = _MasterObjectMapper.Map_DocumentNumber(dt.Rows[0], ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetNewDocNumber(...) " + ex.Message; }
+            return result;
+        }
 
 
 

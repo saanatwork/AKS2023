@@ -261,7 +261,20 @@ namespace AKS.DAL.ObjectMapper
             catch (Exception ex) { pMsg = objPath + ".Map_Party(DataRow dr, ref string pMsg) " + ex.Message; }
             return result;
         }
-
+        public string Map_DocumentNumber(DataRow dr, ref string pMsg)
+        {
+            string result ="";
+            try
+            {
+                if (dr != null)
+                {
+                   if (!DBNull.Value.Equals(dr["NewDocumentNumber"]))
+                        result = dr["NewDocumentNumber"].ToString();                    
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".Map_DocumentNumber(DataRow dr, ref string pMsg) " + ex.Message; }
+            return result;
+        }
 
 
 

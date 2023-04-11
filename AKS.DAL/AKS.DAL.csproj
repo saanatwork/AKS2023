@@ -82,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\UnityConfig.cs" />
+    <Compile Include="CommonTable.cs" />
     <Compile Include="DataSync\InventoryDataSync.cs" />
     <Compile Include="DataSync\MasterDatasync.cs" />
     <Compile Include="DataSync\UserDataSync.cs" />

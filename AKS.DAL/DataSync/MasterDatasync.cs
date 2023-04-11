@@ -200,7 +200,17 @@ namespace AKS.DAL.DataSync
             }
             catch (Exception ex) { pMsg = objPath + ".RemoveParty(...) " + ex.Message; return null; }
         }
-
+        public DataTable GetNewDocNumber(string DocumentSign, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("[MTR].[GetNewDocNumber]", CommandType.StoredProcedure))
+                {
+                    return sql.GetDataTable(_MasterParamMapper.MapParam_GetNewDocNumber(DocumentSign, ref pMsg), ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetNewDocNumber(...) " + ex.Message; return null; }
+        }
 
 
 

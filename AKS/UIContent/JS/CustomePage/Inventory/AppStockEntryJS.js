@@ -51,7 +51,6 @@ function SubmitBtnClicked() {
         + '","DocNo":"' + docNumber
         + '","DocDate":"' + docDate
         + '","AppStockList":' + schrecords + '}';
-    alert(x);
     $.ajax({
         method: 'POST',
         url: '/Inventory/SetAppStock',
@@ -61,28 +60,26 @@ function SubmitBtnClicked() {
         success: function (data) {
             $(data).each(function (index, item) {
                 if (item.bResponseBool == true) {
-                    $('#cCategoryCode').val('').isInvalid();
-                    $('#cCategoryLongText').val('').isInvalid();
-                    $('#cHSNCode').val('').isInvalid();
-                    $('#cIsActive').val('').isInvalid();
-
-                    $('#btnSave').makeDisable();
                     Swal.fire({
                         title: 'Success',
-                        text: 'Category Information Saved Successfully.',
+                        text: 'Approval Stock Entry Saved Successfully.',
                         icon: 'success',
                         customClass: 'swal-wide',
                         buttons: {
                             confirm: 'Ok'
                         },
                         confirmButtonColor: '#2527a2',
-                    });
-                    dtinstance.ajax.reload();
+                    }).then(callback);
+                    function callback(result) {
+                        if (result.value) {
+                            window.location.href = "/Inventory/StockOnApproval";
+                        }
+                    }
                 }
                 else {
                     Swal.fire({
                         title: 'Error!',
-                        text: 'Failed To Save Category Information.',
+                        text: 'Failed To Save Approval Stock Entry.',
                         icon: 'error',
                         customClass: 'swal-wide',
                         buttons: {
