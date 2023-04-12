@@ -36,7 +36,7 @@ namespace AKS.Controllers
         public ActionResult AddAppStock() 
         {
             AppStockEntryVM model = new AppStockEntryVM();
-            model.VendorList = _iMaster.GetPartyInfo(0, true, false, ref pMsg);
+            model.VendorList = _iMaster.GetPartyInfo(0, true, false, ref pMsg).Where(o=>o.IsActive==true).ToList();
             model.CategoryList = _iMaster.GetCategories("ALL", ref pMsg);
             List<Variant> variants = _iMaster.GetVariants(0, ref pMsg);
             if (variants != null && variants.Count > 0) 
@@ -49,6 +49,11 @@ namespace AKS.Controllers
         }
 
         #region Ajax Calling
+        public JsonResult GetVendors()
+        {
+            var result = _iMaster.GetPartyInfo(0,true, false, ref pMsg).Where(o=>o.IsActive==true).ToList();
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
         public JsonResult GetAppStockDocList(int iDisplayLength, int iDisplayStart, int iSortCol_0,
             string sSortDir_0, string sSearch)
         {
@@ -71,14 +76,22 @@ namespace AKS.Controllers
             {
                 modelobj.CreatrID = LUser.user.UserID;
                 if (_iInventory.SetAppStock(modelobj, ref pMsg))
-                {
                     result.bResponseBool = true;
-                }
-                else
-                {
-                    result.bResponseBool = false; result.sResponseString = pMsg;
-                }
             }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult SetVendor(Party data) 
+        {
+            CustomAjaxResponse result = new CustomAjaxResponse();
+            if (data != null) 
+            {
+                data.IsActive = true;
+                data.IsVendor = true;
+                data.IsCustomer = false;
+                if (_iMaster.SetPartyInfo(data, ref pMsg))
+                    result.bResponseBool = true;
+            }           
             return Json(result, JsonRequestBehavior.AllowGet);
         }
         #endregion

@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Inventory - Stock On Approval";
 }
+@Html.HiddenFor(m=>m.DocumentFileName)
 <div class="row newTable">
     @*@using (Html.BeginForm())
         {*@
@@ -20,14 +21,14 @@
                         <i data-feather="check-circle"></i>
                         Save
                     </button>
-                    <button type="button"
-                            onclick="window.location.href='/Security/EHG/ClearBtnClicked';"
+                    <button id="btnScan" type="button"
+                            onclick="UploadFile()"
                             class="btn btn-white">
                         <i data-feather="upload"></i>
                         Upload Document
                     </button>
-                    <button type="button"
-                            onclick="window.location.href='/Security/EHG/ClearBtnClicked';"
+                    <button id="btnScanView" type="button"
+                            onclick="ViewUploadedFile()"
                             class="btn btn-light-green inVisible">
                         <i data-feather="eye"></i>
                         View Document
@@ -35,7 +36,8 @@
                 </div>
                 <h2>Stock On Approval - Entry </h2>
                 <div class="rightButton">
-                    <button id="btnAddVendor" type="submit" name="Submit" value="create"
+                    <button id="btnAddVendor" type="button"
+                            onclick="AddVendorClicked()"
                             class="btn btn-secondary me-2">
                         <i data-feather="plus"></i>
                         Add Vendor
@@ -44,20 +46,7 @@
             </div>
         </div>
     </div>
-    <!--<div class="col-md-12">
-        <div class="text-center pt-2 pb-2">
-            <button id="btnScan" type="button" class="btn btn-light-green "
-                    onclick="fireSweetAlert()">
-                Scan & Attach
-                “Travelling Request Form”
-            </button>-->
-    @*<button id="btnScanView" type="button" class="btn btn-light-blue @(string.IsNullOrEmpty(Model.ehgHeader.DocFileName)?"inVisible":"")"
-                onclick="btnScanViewClicked()">
-            View Attached “Travelling Request Form”
-        </button>*@
-    <!--</div>
-    </div>-->
-<div class="col-md-12 mb-4" style="vertical-align:central">
+<div id="HdrDIV" class="col-md-12 mb-4" style="vertical-align:central">
     <div class="card mb-4 mt-4" style="vertical-align:central">
         <div class="card-body approvalForm">
             <div class="row d-flex align-items-center mb-4">
@@ -349,7 +338,88 @@
         </div>
     </div>
 </div>
-
+<div class="modal modal-previous-details fade" id="VendorModal" 
+     tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-header modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalLabel">
+                Add a new vendor
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="VAModalDiv">
+                            <div class="row d-flex  align-items-center">
+                                <label class="col-form-label col-md-6">
+                                    Vendor Name  :
+                                </label>
+                                <div class="col-md-6">
+                                    <input id="cVendorName" type="text" data-name-child="Weight"
+                                           onkeyup="ValidateModalControl()"
+                                           class="form-control is-invalid alterID inValidTagc inValidTag"
+                                           value="">
+                                </div>
+                            </div>
+                            <div class="row d-flex  align-items-center">
+                                <label class="col-form-label col-md-6">
+                                    Address  :
+                                </label>
+                                <div class="col-md-6">
+                                    <input id="cVendorAddress" type="text" data-name-child="Weight"
+                                           onkeyup="ValidateModalControl()"
+                                           class="form-control is-invalid alterID inValidTagc inValidTag"
+                                           value="">
+                                </div>
+                            </div>
+                            <div class="row d-flex  align-items-center">
+                                <label class="col-form-label col-md-6">
+                                    Contact Number  :
+                                </label>
+                                <div class="col-md-6">
+                                    <input id="cVendorContact" type="text" data-name-child="Weight"
+                                           onkeyup="ValidateModalControl()"
+                                           class="form-control is-invalid alterID inValidTagc inValidTag"
+                                           value="">
+                                </div>
+                            </div>
+                            <div class="row d-flex  align-items-center">
+                                <label class="col-form-label col-md-6">
+                                    Email ID :
+                                </label>
+                                <div class="col-md-6">
+                                    <input id="cVendorEmailID" type="text" data-name-child="Weight"
+                                           onkeyup="ValidateModalControl()"
+                                           class="form-control is-invalid alterID inValidTagc inValidTag"
+                                           value="">
+                                </div>
+                            </div>
+                            <div class="row d-flex  align-items-center">
+                                <label class="col-form-label col-md-6">
+                                    GSTIN  :
+                                </label>
+                                <div class="col-md-6">
+                                    <input id="cVendorGSTIN" type="text" data-name-child="Weight"
+                                           onkeyup="ValidateModalControl()"
+                                           class="form-control alterID inValidTagc inValidTag"
+                                           value="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnVendorSave" type="button" 
+                        class="btn btn-success" disabled
+                        onclick="VendorSaveBtnClicked()"
+                        data-bs-dismiss="modal">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
         @*}*@
     </div>
     @section headers{

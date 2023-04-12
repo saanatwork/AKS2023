@@ -88,9 +88,104 @@ function IsValidIntegerOrDecimal(valuestring) {
     }
     return result;
 };
+function UploadFile() {
+    Swal.fire({
+        title: 'Attach Document',
+        text: "",
+        icon: 'success',
+        html: `<div style="text-align:left;">
+                            <div class="form-group">
+                                <label class="swal-label">Attach File(Only Pdf,Png & Jpg Files)</label>
+                                <input type="file" id="uploadCtrl" name="uploadCtrl" class="form-control" placeholder="">
+                            </div>
+                        </div>`,
+        cancelButtonClass: 'btn-cancel',
+        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Submit',
+        confirmButtonColor: '#2527a2',
+        showCancelButton: true,
+    }).then(callback);
+    function callback(result) {
+        if (result.value) {
+            var data = new FormData();
+            var files = $("#uploadCtrl").get(0).files;
+            if (files.length > 0) {
+                data.append("MyImages", files[0]);
+                $.ajax({
+                    url: "/Common/UploadFile",
+                    type: "POST",
+                    processData: false,
+                    contentType: false,
+                    data: data,
+                    success: function (response) {
+                        $(response).each(function (index, item) {
+                            if (item.ResponseStat == 1) {
+                                $('#DocumentFileName').val(item.FileName);
+                                $('#btnScan').addClass('inVisible');
+                                $('#btnScanView').removeClass('inVisible');
+                                var filepath = "/Upload/Forms/" + item.FileName;
+                                window.open(filepath);
+                            }
+                            else {
+                                Swal.fire({
+                                    title: 'Failed To Upload File.',
+                                    text: item.ResponseMsg,
+                                    icon: 'error',
+                                    customClass: 'swal-wide',
+                                    buttons: {
+                                        confirm: 'Ok'
+                                    },
+                                    confirmButtonColor: '#2527a2',
+                                });
+                            }
+                        });
+                    },
+                    error: function (er) {
+                        //alert(er);
+                    }
+                });
+            }
+            else {
+                Swal.fire({
+                    title: 'No Files Selected.',
+                    text: 'Select Only Pdf,Png & Jpg Files.',
+                    icon: 'error',
+                    customClass: 'swal-wide',
+                    buttons: {
+                        confirm: 'Ok'
+                    },
+                    confirmButtonColor: '#2527a2',
+                });
+            }
+        }
+    }
+};
+function ViewUploadedFile() {
+    var filename = $('#DocumentFileName').val();
+    var filepath = "/Upload/Forms/" + filename;
+    if (filename != '') {
+        window.open(filepath);
+    } else {
+        Swal.fire({
+            title: 'No Files Found.',
+            text: 'Unable To Find Uploaded File.',
+            icon: 'error',
+            customClass: 'swal-wide',
+            buttons: {
+                confirm: 'Ok'
+            },
+            confirmButtonColor: '#2527a2',
+        });
+    }
 
-
-
+};
+function GetDivInvalidCount(mdivID) {
+    var x = 0;
+    var mDiv = $('#' + mdivID);
+    x = mDiv.find('.is-invalid').length;
+    //alert(mdivID + ' - ' + x);
+    return x;
+};
 
 
 function GetRecordsFromTableV3(tableName) {

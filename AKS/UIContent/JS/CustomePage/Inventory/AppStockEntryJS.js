@@ -46,8 +46,10 @@ function SubmitBtnClicked() {
     var vendor = $('#cVendors').val();
     var docNumber = $('#cDocumentNumber').val();
     var docDate = $('#cDocumentDate').val();
+    var docFilename = $('#DocumentFileName').val();
     var schrecords = GetAppStockRecords('tblDataList');
     var x = '{"VendorID":"' + vendor
+        + '","DocumentFileName":"' + docFilename
         + '","DocNo":"' + docNumber
         + '","DocDate":"' + docDate
         + '","AppStockList":' + schrecords + '}';
@@ -92,6 +94,12 @@ function SubmitBtnClicked() {
         },
     });
 };
+function ValidateModalControl() {
+    var myCtrl = $(ValidateModalControl.caller.arguments[0].target);
+    var isvalid = validatectrl(myCtrl.attr('id'), myCtrl.val(), 1);
+    if (isvalid) { myCtrl.isValid(); } else { myCtrl.isInvalid(); }
+    SaveVendorBtnStatus();
+};
 function ValidateChildCloneRowControl() {
     var myCtrl = $(ValidateChildCloneRowControl.caller.arguments[0].target);
     var myCtrlId = myCtrl.attr('id');
@@ -106,6 +114,7 @@ function ValidateChildCloneRowControl() {
     var isvalid = validatectrl(myCtrlId, myCtrl.val(), myRowid);
     if (isvalid) { myCtrl.isValid(); } else { myCtrl.isInvalid(); }
     SaveBtnStatus();
+
 };
 function ValidateCloneRowControl() {
     var myCtrl = $(ValidateCloneRowControl.caller.arguments[0].target);
@@ -127,6 +136,8 @@ function validatectrl(targetid, value,spltag) {
         case "cDocumentNumber":
             isvalid = IsAlphaNumeric(value);
             break;
+        case "cVendorName":
+        case "cVendorAddress":
         case "cCategoryLongText":
             isvalid = IsAlphaNumericWithSpace(value);
             break;
@@ -150,13 +161,22 @@ function validatectrl(targetid, value,spltag) {
         case "cVendors":
         case "cDocumentDate":
         case "cItemCategory":
-        case "cMetalVariant":        
-            if (value != '') { isvalid = true; }
+        case "cMetalVariant":
+        case"cVendorGSTIN":
+            if (value != '') {
+                isvalid = true;
+            }
             break;
         case "cMetalWt":
         case "cDiamondWt":
         case "cStoneWt":
             isvalid = IsValidIntegerOrDecimal(value);
+            break;
+        case "cVendorContact":
+            isvalid = IsValidContact(value);
+            break;
+        case "cVendorEmailID":
+            isvalid = IsValidEmail(value);
             break;
     }
     return isvalid;
@@ -164,7 +184,17 @@ function validatectrl(targetid, value,spltag) {
 function SaveBtnStatus() {
     //alert($('.is-invalid').length);
     var btnSubmitCtrl = $('#btnSubmit');
-    if ($('.is-invalid').length > 0) {
+    if (GetDivInvalidCount('HdrDIV') > 0) {
+        btnSubmitCtrl.makeDisable();
+    }
+    else {
+        btnSubmitCtrl.makeEnabled();
+    }
+};
+function SaveVendorBtnStatus() {
+    //alert($('.is-invalid').length);
+    var btnSubmitCtrl = $('#btnVendorSave');
+    if (GetDivInvalidCount('VendorModal') > 0) {
         btnSubmitCtrl.makeDisable();
     }
     else {
@@ -223,8 +253,79 @@ function ParentCloneRowRemoveClicked() {
     var row = ParentCloneRowRemoveClicked.caller.arguments[0].target.closest('tr');
     removeBtnClickFromParentTableCloneRow(row, 'tbody2');
 };
-
-
+function AddVendorClicked() {
+    var modalDiv = $('#VendorModal');
+    modalDiv.modal('show');
+};
+function RefreshVendorDropDown() {
+    var DropdownCtrl = $('#cVendors');
+    $.ajax({
+        url: '/Inventory/GetVendors',
+        method: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            DropdownCtrl.empty();
+            DropdownCtrl.append($('<option/>', {
+                value: "", text: "Select Vendor" }));
+            $(data).each(function (index, item) {
+                DropdownCtrl.append($('<option/>', { value: item.PartyCode, text: item.PartyName }));
+            });
+        }
+    });
+};
+function VendorSaveBtnClicked() {    
+    var vName = $('#cVendorName');
+    var vAddress = $('#cVendorAddress');
+    var vContact = $('#cVendorContact');
+    var vEmail = $('#cVendorEmailID');
+    var vGSTIN = $('#cVendorGSTIN');
+    var x = '{"PartyName":"' + vName.val()
+        + '","PartyAddress":"' + vAddress.val()
+        + '","GSTIN":"' + vGSTIN.val()
+        + '","ContactNo":"' + vContact.val()
+        + '","EmailID":"' + vEmail.val() + '"}';
+    $.ajax({
+        method: 'POST',
+        url: '/Inventory/SetVendor',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: x,
+        success: function (data) {
+            $(data).each(function (index, item) {
+                if (item.bResponseBool == true) {
+                    RefreshVendorDropDown();
+                    vName.val('').isInvalid();
+                    vAddress.val('').isInvalid();
+                    vContact.val('').isInvalid();
+                    vEmail.val('').isInvalid();
+                    vGSTIN.val('').isInvalid();
+                    Swal.fire({
+                        title: 'Success',
+                        text: 'New Vendor Created Successfully.',
+                        icon: 'success',
+                        customClass: 'swal-wide',
+                        buttons: {
+                            confirm: 'Ok'
+                        },
+                        confirmButtonColor: '#2527a2',
+                    });
+                }
+                else {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Failed To Create A New Vendor.',
+                        icon: 'error',
+                        customClass: 'swal-wide',
+                        buttons: {
+                            confirm: 'Ok'
+                        },
+                        confirmButtonColor: '#2527a2',
+                    });
+                }
+            });
+        },
+    });
+};
 $(document).ready(function () {
     $('.cloneBtn').hover(function () {
         $(this).closest('tr').css('background-color', '#FFC0CB');
