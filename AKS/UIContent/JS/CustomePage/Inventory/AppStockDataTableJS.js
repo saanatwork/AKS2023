@@ -1,4 +1,12 @@
-﻿$(document).ready(function () {
+﻿function FnDeleteNote(ctrl) {
+    var primarykey = $(ctrl).attr('data-dt');
+    window.location.href = "/Inventory/ViewAppStock?IsDelete=1&DocumentNumber=" + primarykey;
+};
+function FnViewNote(ctrl) {
+    var primarykey = $(ctrl).attr('id');
+    window.location.href = "/Inventory/ViewAppStock?DocumentNumber=" + primarykey;
+};
+$(document).ready(function () {
     var dtinstance = $('#tblDataList').DataTable({
         columns: [
             { 'data': 'DocumentNumber' },

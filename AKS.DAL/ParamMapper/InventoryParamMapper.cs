@@ -60,7 +60,21 @@ namespace AKS.DAL.ParamMapper
             }
             return para;
         }
-
+        public SqlParameter[] MapParam_GetAppStocks(string DocumentNumer, ref string pMsg)
+        {
+            int paracount = 0;
+            SqlParameter[] para = new SqlParameter[1];
+            try
+            {
+                para[paracount] = new SqlParameter("@DocumentNumber", SqlDbType.NVarChar, 10);
+                para[paracount++].Value = DocumentNumer;                
+            }
+            catch (Exception ex)
+            {
+                pMsg = objPath + ".MapParam_GetAppStocks(...) " + ex.Message;
+            }
+            return para;
+        }
 
 
     }

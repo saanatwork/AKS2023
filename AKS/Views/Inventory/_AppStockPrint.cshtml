@@ -1,0 +1,84 @@
+﻿@model AKS.BOL.Inventory.AppStockView
+<div id="HdrDIV" class="col-md-12 mb-4" style="vertical-align:central">
+    <div class="card mb-4 mt-4" style="vertical-align:central">
+        <div class="card-body approvalForm">
+            <table style="width:100%">
+                <tr>
+                    <td style="width:30%">
+                        From :<br />
+                        <b>@Model.PartyName</b><br />
+                        @Model.PartyAddress<br />
+                        @Model.PartyContactNo<br />
+                        @Model.PartyEmailID<br />
+                        GSTIN : @(string.IsNullOrEmpty(Model.GSTIN)?"Not Available": Model.GSTIN)<br />
+                        <b>Document : @Model.DocNo/@Model.DocDate.ToString("dd-MM-yyyy")</b>
+                    </td>
+                    <td style="text-align:center">
+                        <div style="margin:30px">
+                            <img src="~/img/Logo100x100.png" alt="Aap Ki Sakhi - logo" class="img-fluid">
+                        </div>
+                    </td>
+                    <td style="width:30%">
+                        <table>
+                            <tr>
+                                <td>Document Number: </td>
+                                <td style="padding-left:10px"><b>@Model.DocumentNumber</b></td>
+                            </tr>
+                            <tr>
+                                <td>Document Date: </td>
+                                <td style="padding-left:10px">@Model.CreateDate.ToString("dd-MM-yyyy")</td>
+                            </tr>
+                            <tr>
+                                <td>MRN Number: </td>
+                                <td style="padding-left:10px"><b>@Model.MRNNumber</b></td>
+                            </tr>
+                            <tr>
+                                <td>MRN Date: </td>
+                                <td style="padding-left:10px">@(Model.ApproveDate.Year==1?"":Model.ApproveDate.ToString("dd-MM-yyyy"))</td>
+                            </tr>
+                            <tr>
+                                <td>Status : </td>
+                                <td style="padding-left:10px"><b>@(Model.IsApproved?"Approved":"Not Yet Approved")</b></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div style="vertical-align:central">
+        @*<div class="card-body">*@
+            <div class="table-responsive">
+                <table style="width:100%" class="table table-bordered btnalign">
+                    <thead>
+                        <tr>
+                            <th style="width:10%">SL</th>
+                            <th style="width:25%">CateGory</th>
+                            <th>Description</th>
+                            <th style="width:10%">Quantity</th>
+                            <th style="width:15%">Remarks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.AppStockList != null && Model.AppStockList.Count > 0)
+                        {
+                            foreach (var item in Model.AppStockList)
+                            {
+                                <tr>
+                                    <td>@item.ItemSL</td>
+                                    <td>
+                                        @item.CategoryLongText<br />
+                                        HSN/SAC : @(string.IsNullOrEmpty(item.HSNCode)?"NA": item.HSNCode)
+                                    </td>
+                                    <td>@item.ItemDescription</td>
+                                    <td>@item.Qty</td>
+                                    <td>@item.Remarks</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        @*</div>*@
+    </div>
+</div>

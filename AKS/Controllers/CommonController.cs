@@ -1,8 +1,12 @@
-﻿using AKS.BOL.Common;
+﻿using AKS.BOL;
+using AKS.BOL.Common;
+using SelectPdf;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
+using System.Net.Mime;
 using System.Web;
 using System.Web.Mvc;
 
@@ -58,5 +62,52 @@ namespace AKS.Controllers
             result.FileName = _imgname;
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+        public ActionResult GeneratePdf(string ViewUrl, string PdfFileName)
+        {
+            var converter = new HtmlToPdf();
+            var doc = converter.ConvertUrl(MyHelper.BaseUrl + ViewUrl);
+
+            var pdfPath = Server.MapPath("~/Upload/PDF/" + PdfFileName + ".pdf");
+            doc.Save(pdfPath);
+
+            return File(pdfPath, "application/pdf", PdfFileName + ".pdf");
+        }
+        public JsonResult SendEmail()
+        {
+            CustomAjaxResponse result = new CustomAjaxResponse();
+            string to = "saanatwork@gmail.com";
+            string from = "helpdeskrinnovationlab@gmail.com";
+            string subject = "Test Email with Attachment";
+            string body = "<h1>This is a test email with HTML body.</h1>";
+
+            MailMessage message = new MailMessage(from, to, subject, body);
+            message.IsBodyHtml = true;
+
+            // Create PDF attachment
+            var pdfPath = Server.MapPath("~/Upload/PDF/AS2300003.pdf");
+            Attachment attachment = new Attachment(pdfPath, MediaTypeNames.Application.Pdf);
+            message.Attachments.Add(attachment);
+
+            SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
+            client.EnableSsl = true;
+            client.UseDefaultCredentials = false;
+            client.Credentials = new System.Net.NetworkCredential("helpdeskrinnovationlab@gmail.com", "saan@1234#");
+
+            try
+            {
+                client.Send(message);
+                result.bResponseBool = true;
+            }
+            catch (Exception ex)
+            {
+                result.bResponseBool = false;
+                result.sResponseString = "Error sending email: " + ex.Message;
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+
     }
 }

@@ -6,14 +6,17 @@ using System.Threading.Tasks;
 
 namespace AKS.BOL.Inventory
 {
-    public class AppStockEntry
+    public class AppStockDocument 
+    {
+        public string DocumentNumber { get; set; }
+        public string DocumentFileName { get; set; }
+    }
+    public class AppStockEntry: AppStockDocument
     {
         public int VendorID { get; set; }
         public string DocNo { get; set; }
         public DateTime DocDate { get; set; }
-        public List<AppStock> AppStockList { get; set; }
-        public string DocumentNumber { get; set; }
-        public string DocumentFileName { get; set; }
+        public List<AppStock> AppStockList { get; set; }        
         public int CreatrID { get; set; }
         public List<AppStockVariant> AllItemVariants { get; set; }
     }
@@ -23,7 +26,17 @@ namespace AKS.BOL.Inventory
         public int ApproverID { get; set; }
         public string ApproverName { get; set; }
         public DateTime CreateDate { get; set; }
-        public DateTime ApproveDate { get; set; }        
+        public DateTime ApproveDate { get; set; }
+        public bool IsApproved { get; set; }
+        public int ItemCount { get; set; }
+        public int QtyCount { get; set; }
+        public string MRNNumber { get; set; }
+        public string PartyName { get; set; }
+        public string PartyAddress { get; set; }
+        public string GSTIN { get; set; }
+        public string PartyContactNo { get; set; }
+        public string PartyEmailID { get; set; }
+        public bool IsDelete { get; set; }
     }
     public class AppStock
     {
@@ -37,6 +50,10 @@ namespace AKS.BOL.Inventory
         public List<AppStockVariant> StoneVariants { get; set; }
         public bool IsApproval { get; set; }
         public bool IsOrder { get; set; }
+        public bool IsApproved { get; set; }
+        public string ItemCode { get; set; }
+        public string CategoryLongText { get; set; }
+        public string HSNCode { get; set; }
     }
     public class AppStockVariant 
     {

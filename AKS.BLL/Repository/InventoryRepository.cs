@@ -46,7 +46,7 @@ namespace AKS.BLL.Repository
                                 if (item.VariantID != 0)
                                 {
                                     item.ItemSL = obj1.ItemSL;
-                                    itemdesc = itemdesc + "[" + item.VariantText + "(" + item.Weight + "g)]";
+                                    itemdesc = itemdesc + "[" + item.VariantText + " : " + item.Weight + "g] ";
                                     allvariants.Add(item);
                                 }
                             }
@@ -58,7 +58,7 @@ namespace AKS.BLL.Repository
                                 if (item.VariantID != 0)
                                 {
                                     item.ItemSL = obj1.ItemSL;
-                                    itemdesc = itemdesc + "[" + item.VariantText + "(" + item.Weight + "k)]";
+                                    itemdesc = itemdesc + "[" + item.VariantText + " : " + item.Weight + "k] ";
                                     allvariants.Add(item);
                                 }
                             }
@@ -70,7 +70,7 @@ namespace AKS.BLL.Repository
                                 if (item.VariantID != 0)
                                 {
                                     item.ItemSL = obj1.ItemSL;
-                                    itemdesc = itemdesc + "[" + item.VariantText + "(" + item.Weight + "k)]";
+                                    itemdesc = itemdesc + "[" + item.VariantText + " : " + item.Weight + "k] ";
                                     allvariants.Add(item);
                                 }
                             }
@@ -83,5 +83,16 @@ namespace AKS.BLL.Repository
             }
             return _InventoryEntity.SetAppStock(modelobj, ref pMsg);
         }
+        public AppStockView GetAppStocks(string DocumentNumber, ref string pMsg) 
+        {
+            return _InventoryEntity.GetAppStocks(DocumentNumber, ref pMsg);
+        }
+        public bool RemoveStockEntryDocument(string DocumentNumber, ref string pMsg) 
+        {
+            return _InventoryEntity.RemoveStockEntryDocument(DocumentNumber, ref pMsg);
+        }
+
+
+
     }
 }

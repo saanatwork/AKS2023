@@ -1,0 +1,10 @@
+﻿@model AKS.BOL.Inventory.AppStockView
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutForPrint.cshtml";
+}
+<div style="text-align:center;color:white">
+    <h1>Approval Stock Document</h1>
+</div>
+
+@{Html.RenderPartial("_AppStockPrint", Model);}

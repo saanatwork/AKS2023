@@ -13,6 +13,7 @@ namespace AKS.BLL.IRepository
             string SortDirection, string SearchText, ref string pMsg);
         List<DBGoldRate> GetGoldRate(string City, string CDate, ref string pMsg);
         bool SetAppStock(AppStockEntry modelobj, ref string pMsg);
-
+        AppStockView GetAppStocks(string DocumentNumber, ref string pMsg);
+        bool RemoveStockEntryDocument(string DocumentNumber, ref string pMsg);
     }
 }

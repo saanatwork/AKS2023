@@ -1,11 +1,14 @@
 ﻿using AKS.BLL.IRepository;
+using AKS.BOL;
 using AKS.BOL.Common;
 using AKS.BOL.Inventory;
 using AKS.BOL.Master;
 using AKS.BOL.User;
 using AKS.ViewModel.InventoryVM;
+using SelectPdf;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -27,7 +30,8 @@ namespace AKS.Controllers
         // GET: Inventory
         public ActionResult Index()
         {
-            return View();
+            AppStockView model = _iInventory.GetAppStocks("AS2300005", ref pMsg);
+            return View(model);
         }
         public ActionResult StockOnApproval() 
         {
@@ -47,6 +51,14 @@ namespace AKS.Controllers
             }
             return View(model);
         }
+        public ActionResult ViewAppStock(string DocumentNumber="",int IsDelete=0) 
+        {
+            AppStockView model = _iInventory.GetAppStocks(DocumentNumber, ref pMsg);
+            model.IsDelete= IsDelete==1?true:false;
+            return View(model);
+        }
+
+       
 
         #region Ajax Calling
         public JsonResult GetVendors()
@@ -81,6 +93,17 @@ namespace AKS.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
+        public JsonResult RemoveStockEntryDocument(AppStockDocument model)
+        {
+            CustomAjaxResponse result = new CustomAjaxResponse();
+            if (model!=null && !string.IsNullOrEmpty(model.DocumentNumber))
+            {
+                if (_iInventory.RemoveStockEntryDocument(model.DocumentNumber, ref pMsg))
+                    result.bResponseBool = true;
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
         public JsonResult SetVendor(Party data) 
         {
             CustomAjaxResponse result = new CustomAjaxResponse();
@@ -96,6 +119,18 @@ namespace AKS.Controllers
         }
         #endregion
 
+        #region - Print documents        
+        public ActionResult PrintAppStock(string DocumentNumber = "")
+        {
+            AppStockView model = _iInventory.GetAppStocks(DocumentNumber, ref pMsg);
+            return View(model);
+        }
+
+        #endregion
+        #region - Print Method
+        
+        
+        #endregion
 
     }
 }

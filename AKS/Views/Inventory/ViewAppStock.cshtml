@@ -1,0 +1,83 @@
+﻿@model AKS.BOL.Inventory.AppStockView
+@{
+    ViewBag.Title = "Inventory - Stock On Approval";
+}
+<div class="row newTable">
+    @Html.HiddenFor(m => m.DocumentFileName)
+    @Html.HiddenFor(m => m.DocumentNumber)
+    <div class="fixedElement">
+        <div class="col-md-12">
+            <div class="heading_text_btn mb-3 mt-4">
+                <div class="leftButton">
+                    <button id="btnBack" type="button"
+                            onclick="window.location.href='/Inventory/StockOnApproval';"
+                            class="btn btn-white me-2">
+                        <i data-feather="arrow-left-circle"></i>
+                        Back
+                    </button>
+
+                    @if (!Model.IsApproved && Model.IsDelete)
+                    {
+                        <button id="btnDelete" type="button"
+                                onclick="BtnDeleteClicked()"
+                                class="btn btn-primary me-2">
+                            <i data-feather="trash-2"></i>
+                            Delete
+                        </button>
+                        @*<button id="btnSubmit" type="button"
+                    onclick="SubmitBtnClicked()"
+                    class="btn btn-secondary me-2">
+                <i data-feather="check-circle"></i>
+                Approve
+            </button>*@                        
+                    }
+                </div>
+                <h2>Stock On Approval - View </h2>
+                <div class="rightButton">
+                    <button id="btnScanView" type="button"
+                            onclick="ViewUploadedFile()"
+                            class="btn btn-secondary">
+                        <i data-feather="eye"></i>
+                        View Uploaded
+                    </button>
+                    <a class="btn btn-secondary" href="@Url.Action("GeneratePdf","Common", new { ViewUrl ="/Inventory/PrintAppStock?DocumentNumber="+Model.DocumentNumber ,PdfFileName=Model.DocumentNumber })">
+                        <i data-feather="printer"></i>
+                        Print
+                    </a>
+                    @*<button id="btnPrint" type="button"
+                            onclick=""
+                            class="btn btn-secondary">
+                        <i data-feather="printer"></i>
+                        Print
+                    </button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+    @{Html.RenderPartial("_AppStockPrint", Model);}    
+</div>
+@section headers{
+
+}
+@section scripts{
+    <script src="~/UIContent/JS/CustomePage/CommonReusableJS.js"></script>
+    <script src="~/UIContent/JS/CustomePage/Inventory/AppStockViewJS.js"></script>
+    <script type="text/javascript">
+
+<!--
+        function printPartOfPage(elementId) {
+            var printContent = document.getElementById(elementId);
+            var windowUrl = 'about:blank';
+            var uniqueName = new Date();
+            var windowName = 'Print' + uniqueName.getTime();
+            var printWindow = window.open(windowUrl, windowName, 'left=50000,top=50000,width=0,height=0');
+            printWindow.document.write(printContent.innerHTML);
+            printWindow.document.close();
+            printWindow.focus();
+            printWindow.print();
+            printWindow.close();
+        }
+// -->
+    </script>
+}
+

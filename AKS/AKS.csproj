@@ -52,6 +52,9 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Select.HtmlToPdf, Version=22.2.0.0, Culture=neutral, PublicKeyToken=e0ae9f6e27a97018, processorArchitecture=MSIL">
+      <HintPath>..\packages\Select.HtmlToPdf.22.2.0\lib\net40\Select.HtmlToPdf.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -252,6 +255,7 @@
     <Content Include="UIContent\JS\CustomePage\CommonReusableJS.js" />
     <Content Include="UIContent\JS\CustomePage\Inventory\AppStockDataTableJS.js" />
     <Content Include="UIContent\JS\CustomePage\Inventory\AppStockEntryJS.js" />
+    <Content Include="UIContent\JS\CustomePage\Inventory\AppStockViewJS.js" />
     <Content Include="UIContent\JS\CustomePage\User\LogInJS.js" />
     <Content Include="UIContent\JS\CustomePage\Admin\ProfitCentreListJS.js" />
     <Content Include="UIContent\JS\CustomePage\User\UserListJS.js" />
@@ -276,6 +280,8 @@
     <Content Include="UIContent\JS\multiselect_0711.js" />
     <Content Include="UIContent\JS\popper.min.js" />
     <Content Include="UIContent\JS\sweetalert2.all.min.js" />
+    <Content Include="Upload\Forms\Logo50x50.png" />
+    <Content Include="Upload\PDF\Logo50x50.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -304,12 +310,16 @@
     <Content Include="Views\Admin\Party.cshtml" />
     <Content Include="Views\Inventory\StockOnApproval.cshtml" />
     <Content Include="Views\Inventory\AddAppStock.cshtml" />
+    <Content Include="Views\Inventory\ViewAppStock.cshtml" />
+    <Content Include="Views\Inventory\_AppStockPrint.cshtml" />
+    <Content Include="Views\Common\Index.cshtml" />
+    <Content Include="Views\Inventory\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutForPrint.cshtml" />
+    <Content Include="Views\Inventory\PrintAppStock.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Upload\Forms\" />
-    <Folder Include="Views\Common\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

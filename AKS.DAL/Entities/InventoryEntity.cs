@@ -41,7 +41,6 @@ namespace AKS.DAL.Entities
             catch (Exception ex) { pMsg = objPath + ".GetAppStockDocList(...) " + ex.Message; }
             return result;
         }
-
         public List<DBGoldRate> GetGoldRate(string City, string CDate, ref string pMsg)
         {
             List<DBGoldRate> result = new List<DBGoldRate>();
@@ -65,6 +64,38 @@ namespace AKS.DAL.Entities
             _DBResponseMapper.Map_DBResponse(_InventoryDataSync.SetAppStock(data, ref pMsg), ref pMsg, ref result);
             return result;
         }
+        public AppStockView GetAppStocks(string DocumentNumber, ref string pMsg) 
+        {
+            AppStockView result = new AppStockView();
+            try
+            {
+                ds = _InventoryDataSync.GetAppStocks(DocumentNumber, ref pMsg);
+                if (ds != null) 
+                {
+                    List<AppStock> itemlist = new List<AppStock>();
+                    DataTable hdr = ds.Tables[0];dt = ds.Tables[1];
+                    if (hdr != null && hdr.Rows.Count > 0)
+                        result = _InventoryObjectMapper.Map_AppStockView(hdr.Rows[0], ref pMsg);
+                    if (dt != null && dt.Rows.Count > 0)
+                    {                        
+                        for (int i = 0; i < dt.Rows.Count; i++)
+                        {
+                            itemlist.Add(_InventoryObjectMapper.Map_AppStock(dt.Rows[i], ref pMsg));
+                        }
+                    }
+                    result.AppStockList = itemlist;
+                }                
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetAppStocks(...) " + ex.Message; }
+            return result;
+        }
+        public bool RemoveStockEntryDocument(string DocumentNumber, ref string pMsg) 
+        {
+            bool result = false;
+            _DBResponseMapper.Map_DBResponse(_InventoryDataSync.RemoveStockEntryDocument(DocumentNumber, ref pMsg), ref pMsg, ref result);
+            return result;
+        }
+
 
 
     }
