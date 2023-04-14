@@ -20,9 +20,9 @@ namespace AKS.BLL.Repository
             _MasterEntity = new MasterEntity();
         }
         public List<AppStock4DT> GetAppStockDocList(int DisplayLength, int DisplayStart, int SortColumn,
-            string SortDirection, string SearchText, ref string pMsg)
+            string SortDirection, string SearchText, int ProfitCentreID, ref string pMsg)
         {
-            return _InventoryEntity.GetAppStockDocList(DisplayLength,DisplayStart,SortColumn,SortDirection,SearchText,ref pMsg);
+            return _InventoryEntity.GetAppStockDocList(DisplayLength,DisplayStart,SortColumn,SortDirection,SearchText, ProfitCentreID,ref pMsg);
         }
         public List<DBGoldRate> GetGoldRate(string City, string CDate, ref string pMsg)
         {
@@ -91,6 +91,11 @@ namespace AKS.BLL.Repository
         {
             return _InventoryEntity.RemoveStockEntryDocument(DocumentNumber, ref pMsg);
         }
+        public bool ApproveAppStock(string DocumentNumber, int UserID, ref string pMsg) 
+        {
+            return _InventoryEntity.ApproveAppStock(DocumentNumber, UserID, ref pMsg);
+        }
+
 
 
 

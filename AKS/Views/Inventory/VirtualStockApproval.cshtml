@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Inventory - Stock On Approval ";
 }
+
 <div class="row newTable">
     <div class="fixedElement">
         <div class="col-md-12" style="position: relative;">
@@ -10,7 +11,7 @@
                     <button type="submit" class="btn btn-primary me-2" onclick="window.location.href='/Inventory/AddAppStock';">
                         <i data-feather="plus-circle"></i>
                         Add
-                    </button>                    
+                    </button>
                 </div>
                 <h2>History Of Stock Brought On Approval </h2>
             </div>
@@ -25,9 +26,11 @@
                         <th scope="col" style="width: 10%">Entry Date</th>
                         <th scope="col">Vendor</th>
                         <th scope="col" style="width: 10%">Vendor Document</th>
-                        <th scope="col" style="width: 12%">Vendor Document Date</th>
+                        <th scope="col" style="width: 10%">Vendor Document Date</th>
                         <th scope="col" style="width: 5%">Item Count</th>
                         <th scope="col" style="width: 5%">Qty Count</th>
+                        <th scope="col" style="width:10%">MRN Number</th>
+                        <th scope="col" style="width: 10%">MRN Date</th>
                         <th scope="col" style="width: 10%; background-color: #ff7500; color: white;text-align: center;">Actions</th>
                     </tr>
                 </thead>
@@ -36,15 +39,13 @@
                 <tfoot></tfoot>
             </table>
         </div>
-    </div>        
+    </div>
 </div>
-    @section headers{
+@section headers{
 
-    }
-    @section scripts{
-        <script src="~/UIContent/JS/CustomePage/CommonReusableJS.js"></script>
-        <script src="~/UIContent/JS/CustomePage/Inventory/AppStockDataTableJS.js"></script>
+}
+@section scripts{
+    <script src="~/UIContent/JS/CustomePage/CommonReusableJS.js"></script>
+    <script src="~/UIContent/JS/CustomePage/Inventory/ApproveStockDataTableJS.js"></script>
 
-    }
-
-
+}

@@ -253,8 +253,10 @@
     <Content Include="UIContent\JS\CustomePage\Admin\VariantListJS.js" />
     <Content Include="UIContent\JS\CustomePage\CommonReusable.js" />
     <Content Include="UIContent\JS\CustomePage\CommonReusableJS.js" />
+    <Content Include="UIContent\JS\CustomePage\Inventory\ApproveStockDataTableJS.js" />
     <Content Include="UIContent\JS\CustomePage\Inventory\AppStockDataTableJS.js" />
     <Content Include="UIContent\JS\CustomePage\Inventory\AppStockEntryJS.js" />
+    <Content Include="UIContent\JS\CustomePage\Inventory\AppStockViewAppJS.js" />
     <Content Include="UIContent\JS\CustomePage\Inventory\AppStockViewJS.js" />
     <Content Include="UIContent\JS\CustomePage\User\LogInJS.js" />
     <Content Include="UIContent\JS\CustomePage\Admin\ProfitCentreListJS.js" />
@@ -316,6 +318,8 @@
     <Content Include="Views\Inventory\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutForPrint.cshtml" />
     <Content Include="Views\Inventory\PrintAppStock.cshtml" />
+    <Content Include="Views\Inventory\VirtualStockApproval.cshtml" />
+    <Content Include="Views\Inventory\ViewAppStockApp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -51,14 +51,37 @@ namespace AKS.Controllers
             }
             return View(model);
         }
-        public ActionResult ViewAppStock(string DocumentNumber="",int IsDelete=0) 
+        public ActionResult ViewAppStock(string DocumentNumber="",int IsDelete = 0) 
         {
             AppStockView model = _iInventory.GetAppStocks(DocumentNumber, ref pMsg);
             model.IsDelete= IsDelete==1?true:false;
             return View(model);
         }
+        public ActionResult ViewAppStockApp(string DocumentNumber = "", int IsDelete = 0)
+        {
+            AppStockView model = _iInventory.GetAppStocks(DocumentNumber, ref pMsg);
+            model.IsDelete = IsDelete == 1 ? true : false;
+            return View(model);
+        }
+        public ActionResult EditAppStock(string DocumentNumber = "")
+        {
+            AppStockEntryVM model = new AppStockEntryVM();
+            model.VendorList = _iMaster.GetPartyInfo(0, true, false, ref pMsg).Where(o => o.IsActive == true).ToList();
+            model.CategoryList = _iMaster.GetCategories("ALL", ref pMsg);
+            List<Variant> variants = _iMaster.GetVariants(0, ref pMsg);
+            if (variants != null && variants.Count > 0)
+            {
+                model.MetaVariantList = variants.Where(o => o.VariantColumn == "Metal").ToList();
+                model.DiamondVariantList = variants.Where(o => o.VariantColumn == "Diamond").ToList();
+                model.StoneVariantList = variants.Where(o => o.VariantColumn == "Stone").ToList();
+            }
+            return View(model);
+        }
+        public ActionResult VirtualStockApproval()
+        {
+            return View();
+        }
 
-       
 
         #region Ajax Calling
         public JsonResult GetVendors()
@@ -69,7 +92,7 @@ namespace AKS.Controllers
         public JsonResult GetAppStockDocList(int iDisplayLength, int iDisplayStart, int iSortCol_0,
             string sSortDir_0, string sSearch)
         {
-            List<AppStock4DT> userslist = _iInventory.GetAppStockDocList(iDisplayLength, iDisplayStart, iSortCol_0, sSortDir_0, sSearch, ref pMsg);
+            List<AppStock4DT> userslist = _iInventory.GetAppStockDocList(iDisplayLength, iDisplayStart, iSortCol_0, sSortDir_0, sSearch,LUser.LogInProfitCentreID, ref pMsg);
             var result = new
             {
                 iTotalRecords = userslist.Count == 0 ? 0 : userslist.FirstOrDefault().TotalRecords,
@@ -87,6 +110,7 @@ namespace AKS.Controllers
             if (modelobj != null) 
             {
                 modelobj.CreatrID = LUser.user.UserID;
+                modelobj.ProfitCentreID = LUser.LogInProfitCentreID;
                 if (_iInventory.SetAppStock(modelobj, ref pMsg))
                     result.bResponseBool = true;
             }
@@ -115,6 +139,19 @@ namespace AKS.Controllers
                 if (_iMaster.SetPartyInfo(data, ref pMsg))
                     result.bResponseBool = true;
             }           
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult ApproveStockEntryDocument(AppStockDocument model)
+        {
+            CustomAjaxResponse result = new CustomAjaxResponse();
+            if (model != null && !string.IsNullOrEmpty(model.DocumentNumber))
+            {
+                if (_iInventory.ApproveAppStock(model.DocumentNumber, LUser.user.UserID, ref pMsg))
+                    result.bResponseBool = true;
+                else
+                    result.sResponseString = pMsg;
+            }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
         #endregion

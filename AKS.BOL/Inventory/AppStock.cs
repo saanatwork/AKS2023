@@ -19,6 +19,7 @@ namespace AKS.BOL.Inventory
         public List<AppStock> AppStockList { get; set; }        
         public int CreatrID { get; set; }
         public List<AppStockVariant> AllItemVariants { get; set; }
+        public int ProfitCentreID { get; set; }
     }
     public class AppStockView : AppStockEntry
     {
@@ -37,6 +38,7 @@ namespace AKS.BOL.Inventory
         public string PartyContactNo { get; set; }
         public string PartyEmailID { get; set; }
         public bool IsDelete { get; set; }
+        public string ProfitCentreDesc { get; set; }
     }
     public class AppStock
     {
@@ -78,6 +80,8 @@ namespace AKS.BOL.Inventory
         public int RowNum { get; set; }
         public int TotalCount { get; set; }
         public int TotalRecords { get; set; }
+        public string MRNNumber { get; set; }
+        public string MRNDate { get; set; }
     }
 
 }

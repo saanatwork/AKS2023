@@ -66,6 +66,15 @@ namespace AKS.DAL.ObjectMapper
                         result.IsApproved =bool.Parse(dr["IsApproved"].ToString());
                     if (!DBNull.Value.Equals(dr["VendorID"]))
                         result.VendorID = int.Parse(dr["VendorID"].ToString());
+                    if (!DBNull.Value.Equals(dr["MRNNO"]))
+                        result.MRNNumber = dr["MRNNO"].ToString();
+                    if (!DBNull.Value.Equals(dr["MRNDate"]))
+                    {
+                        DateTime mdt = DateTime.Parse(dr["MRNDate"].ToString());
+                        result.MRNDate = mdt.Year>1?mdt.ToString("dd-MM-yyyy"):"-";
+                    }
+                        
+
                 }
             }
             catch (Exception ex) { pMsg = objPath + ".Map_AppStock4DT(DataRow dr,ref string pMsg) " + ex.Message; }
@@ -114,6 +123,14 @@ namespace AKS.DAL.ObjectMapper
                         result.PartyContactNo = dr["PartyContactNo"].ToString();
                     if (!DBNull.Value.Equals(dr["PartyEmailID"]))
                         result.PartyEmailID = dr["PartyEmailID"].ToString();
+                    if (!DBNull.Value.Equals(dr["profitCentreID"]))
+                        result.ProfitCentreID =int.Parse(dr["profitCentreID"].ToString());
+                    if (!DBNull.Value.Equals(dr["ProfitCentreDesc"]))
+                        result.ProfitCentreDesc = dr["ProfitCentreDesc"].ToString();
+                    if (!DBNull.Value.Equals(dr["CreatorName"]))
+                        result.CreatorName = dr["CreatorName"].ToString();
+                    if (!DBNull.Value.Equals(dr["ApproverName"]))
+                        result.ApproverName = dr["ApproverName"].ToString();
                 }
             }
             catch (Exception ex) { pMsg = objPath + ".Map_AppStockView(DataRow dr,ref string pMsg) " + ex.Message; }

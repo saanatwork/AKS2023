@@ -24,12 +24,12 @@ namespace AKS.DAL.Entities
             _DBResponseMapper = new DBResponseMapper();
         }
         public List<AppStock4DT> GetAppStockDocList(int DisplayLength, int DisplayStart, int SortColumn,
-            string SortDirection, string SearchText, ref string pMsg)
+            string SortDirection, string SearchText, int ProfitCentreID, ref string pMsg)
         {
             List<AppStock4DT> result = new List<AppStock4DT>();
             try
             {
-                dt = _InventoryDataSync.GetAppStockDocList(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ref pMsg);
+                dt = _InventoryDataSync.GetAppStockDocList(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ProfitCentreID, ref pMsg);
                 if (dt != null && dt.Rows.Count > 0)
                 {
                     for (int i = 0; i < dt.Rows.Count; i++)
@@ -95,6 +95,13 @@ namespace AKS.DAL.Entities
             _DBResponseMapper.Map_DBResponse(_InventoryDataSync.RemoveStockEntryDocument(DocumentNumber, ref pMsg), ref pMsg, ref result);
             return result;
         }
+        public bool ApproveAppStock(string DocumentNumber, int UserID, ref string pMsg) 
+        {
+            bool result = false;
+            _DBResponseMapper.Map_DBResponse(_InventoryDataSync.ApproveAppStock(DocumentNumber, UserID, ref pMsg), ref pMsg, ref result);
+            return result;
+        }
+
 
 
 

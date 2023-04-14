@@ -34,7 +34,7 @@ namespace AKS.DAL.ParamMapper
             int paracount = 0;
             CommonTable objItems = new CommonTable(data.AppStockList);
             CommonTable objItemVariants = new CommonTable(data.AllItemVariants);
-            SqlParameter[] para = new SqlParameter[8];
+            SqlParameter[] para = new SqlParameter[9];
             try
             {
                 para[paracount] = new SqlParameter("@UserID", SqlDbType.Int);
@@ -49,6 +49,8 @@ namespace AKS.DAL.ParamMapper
                 para[paracount++].Value = data.DocDate;
                 para[paracount] = new SqlParameter("@DocumentFileName", SqlDbType.NVarChar);
                 para[paracount++].Value = data.DocumentFileName;
+                para[paracount] = new SqlParameter("@ProfitCentreID", SqlDbType.Int);
+                para[paracount++].Value = data.ProfitCentreID;
                 para[paracount] = new SqlParameter("@StockItems", SqlDbType.Structured);
                 para[paracount++].Value = objItems.UDTable;
                 para[paracount] = new SqlParameter("@StockItemVariants", SqlDbType.Structured);
@@ -72,6 +74,23 @@ namespace AKS.DAL.ParamMapper
             catch (Exception ex)
             {
                 pMsg = objPath + ".MapParam_GetAppStocks(...) " + ex.Message;
+            }
+            return para;
+        }
+        public SqlParameter[] MapParam_ApproveAppStock(string DocumentNumer,int UserID, ref string pMsg)
+        {
+            int paracount = 0;
+            SqlParameter[] para = new SqlParameter[2];
+            try
+            {
+                para[paracount] = new SqlParameter("@DocumentNumber", SqlDbType.NVarChar, 10);
+                para[paracount++].Value = DocumentNumer;
+                para[paracount] = new SqlParameter("@UserID", SqlDbType.Int);
+                para[paracount++].Value = UserID;
+            }
+            catch (Exception ex)
+            {
+                pMsg = objPath + ".MapParam_ApproveAppStock(...) " + ex.Message;
             }
             return para;
         }

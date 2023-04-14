@@ -14,5 +14,6 @@ namespace AKS.ViewModel.InventoryVM
         public List<Variant> DiamondVariantList { get; set; }
         public List<Variant> StoneVariantList { get; set; }
         public string DocumentFileName { get; set; }
+        
     }
 }

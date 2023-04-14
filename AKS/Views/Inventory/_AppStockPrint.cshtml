@@ -29,6 +29,10 @@
                                 <td style="padding-left:10px">@Model.CreateDate.ToString("dd-MM-yyyy")</td>
                             </tr>
                             <tr>
+                                <td>Profit Centre: </td>
+                                <td style="padding-left:10px">@Model.ProfitCentreDesc</td>
+                            </tr>
+                            <tr>
                                 <td>MRN Number: </td>
                                 <td style="padding-left:10px"><b>@Model.MRNNumber</b></td>
                             </tr>
@@ -48,37 +52,55 @@
     </div>
     <div style="vertical-align:central">
         @*<div class="card-body">*@
-            <div class="table-responsive">
-                <table style="width:100%" class="table table-bordered btnalign">
-                    <thead>
-                        <tr>
-                            <th style="width:10%">SL</th>
-                            <th style="width:25%">CateGory</th>
-                            <th>Description</th>
-                            <th style="width:10%">Quantity</th>
-                            <th style="width:15%">Remarks</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (Model.AppStockList != null && Model.AppStockList.Count > 0)
+        <div class="table-responsive">
+            <table style="width:100%" class="table table-bordered btnalign">
+                <thead>
+                    <tr>
+                        <th style="width:10%">SL</th>
+                        <th style="width:25%">CateGory</th>
+                        <th>Description</th>
+                        <th style="width:10%">Quantity</th>
+                        <th style="width:15%">Remarks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.AppStockList != null && Model.AppStockList.Count > 0)
+                    {
+                        foreach (var item in Model.AppStockList)
                         {
-                            foreach (var item in Model.AppStockList)
-                            {
-                                <tr>
-                                    <td>@item.ItemSL</td>
-                                    <td>
-                                        @item.CategoryLongText<br />
-                                        HSN/SAC : @(string.IsNullOrEmpty(item.HSNCode)?"NA": item.HSNCode)
-                                    </td>
-                                    <td>@item.ItemDescription</td>
-                                    <td>@item.Qty</td>
-                                    <td>@item.Remarks</td>
-                                </tr>
-                            }
+                            <tr>
+                                <td>@item.ItemSL</td>
+                                <td>
+                                    @item.CategoryLongText<br />
+                                    HSN/SAC : @(string.IsNullOrEmpty(item.HSNCode)?"NA": item.HSNCode)
+                                </td>
+                                <td>@item.ItemDescription</td>
+                                <td>@item.Qty</td>
+                                <td>@item.Remarks</td>
+                            </tr>
                         }
-                    </tbody>
-                </table>
-            </div>
+                    }
+                </tbody>
+            </table>
+        </div>
         @*</div>*@
+    </div>
+    <div class="card mb-4 mt-4" style="vertical-align:central">
+        <div class="card-body approvalForm">
+
+            <table style="width:100%">
+                <tr>
+                    <td style="width:30%">
+                        Created BY :<br />
+                        @Model.CreatorName
+                    </td>
+                    <td></td>
+                    <td style="width:30%">
+                        Approved BY :<br />
+                        @Model.ApproverName
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>
