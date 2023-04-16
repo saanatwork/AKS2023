@@ -57,10 +57,10 @@
                 <thead>
                     <tr>
                         <th style="width:10%">SL</th>
+                        <th style="width:15%">Item Code</th>
                         <th style="width:25%">CateGory</th>
                         <th>Description</th>
                         <th style="width:10%">Quantity</th>
-                        <th style="width:15%">Remarks</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -68,16 +68,19 @@
                     {
                         foreach (var item in Model.AppStockList)
                         {
-                            <tr>
-                                <td>@item.ItemSL</td>
-                                <td>
-                                    @item.CategoryLongText<br />
-                                    HSN/SAC : @(string.IsNullOrEmpty(item.HSNCode)?"NA": item.HSNCode)
-                                </td>
-                                <td>@item.ItemDescription</td>
-                                <td>@item.Qty</td>
-                                <td>@item.Remarks</td>
-                            </tr>
+                    <tr>
+                        <td>@item.ItemSL</td>
+                        <td>
+                            @item.Remarks<br/>
+                            @item.ItemCode
+                        </td>
+                        <td>
+                            @item.CategoryLongText<br />
+                            HSN/SAC : @(string.IsNullOrEmpty(item.HSNCode)?"NA": item.HSNCode)
+                        </td>
+                        <td>@item.ItemDescription</td>
+                        <td>@item.Qty</td>
+                    </tr>
                         }
                     }
                 </tbody>

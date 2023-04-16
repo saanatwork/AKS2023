@@ -38,6 +38,49 @@ namespace AKS.DAL
                 }
             }
         }
+        public CommonTable(List<AppStock> customoptions,bool IsPurchase)
+        {
+            UDTable = new DataTable();
+            UDTable.Columns.Add("iItemSL", typeof(int));
+            UDTable.Columns.Add("sItemCatCode", typeof(string));
+            UDTable.Columns.Add("sItemDescription", typeof(string));
+            UDTable.Columns.Add("iQty", typeof(int));
+            UDTable.Columns.Add("sUserRemarks", typeof(string));
+            UDTable.Columns.Add("bIsApproval", typeof(bool));
+            UDTable.Columns.Add("bIsOrder", typeof(bool));
+            UDTable.Columns.Add("dMCWeight", typeof(decimal));
+            UDTable.Columns.Add("iMCRate", typeof(int));
+            UDTable.Columns.Add("dMCAmount", typeof(decimal));
+            UDTable.Columns.Add("iHallMarkCharge", typeof(int));
+            UDTable.Columns.Add("iOthercharges", typeof(int));
+            UDTable.Columns.Add("dDiscount", typeof(decimal));
+            UDTable.Columns.Add("dGrossAmount", typeof(decimal));
+            UDTable.Columns.Add("dNetAmount", typeof(decimal));
+
+            if (customoptions != null && customoptions.Count > 0)
+            {
+                foreach (var obj in customoptions)
+                {
+                    DataRow dr = UDTable.NewRow();
+                    dr["iItemSL"] = obj.ItemSL;
+                    dr["sItemCatCode"] = obj.ItemCatCode;
+                    dr["sItemDescription"] = obj.ItemDescription;
+                    dr["iQty"] = obj.Qty;
+                    dr["sUserRemarks"] = obj.Remarks;
+                    dr["bIsApproval"] = obj.IsApproval;
+                    dr["bIsOrder"] = obj.IsOrder;
+                    dr["dMCWeight"] = obj.MCWeight;
+                    dr["iMCRate"] = obj.MCRate;
+                    dr["dMCAmount"] = obj.MCAmount;
+                    dr["iHallMarkCharge"] = obj.HallMarkCharge;
+                    dr["iOthercharges"] = obj.Othercharges;
+                    dr["dDiscount"] = obj.Discount;
+                    dr["dGrossAmount"] = obj.GrossAmount;
+                    dr["dNetAmount"] = obj.NetAmount;
+                    UDTable.Rows.Add(dr);
+                }
+            }
+        }
         public CommonTable(List<AppStockVariant> customoptions)
         {
             UDTable = new DataTable();

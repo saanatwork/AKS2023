@@ -325,6 +325,7 @@
     <Content Include="Views\Inventory\ViewAppStockApp.cshtml" />
     <Content Include="Views\Inventory\Purchase.cshtml" />
     <Content Include="Views\Inventory\AddPurchase.cshtml" />
+    <Content Include="Views\Inventory\ViewPurchaseStock.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

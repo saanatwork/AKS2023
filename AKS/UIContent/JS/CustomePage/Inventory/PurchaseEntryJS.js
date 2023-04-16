@@ -1,4 +1,112 @@
-﻿function AddVendorClicked() {
+﻿function SubmitBtnClicked() {    
+    var vendor = $('#cVendors').val();
+    var docNumber = $('#cDocumentNumber').val();
+    var docDate = $('#cDocumentDate').val();
+    var docFilename = $('#DocumentFileName').val();    
+    var itemtotal = $('#cItemTotal').val();
+    var tradediscount = $('#cTradeDiscount').val();
+    var taxableamt = $('#cTaxableAmount').val();    
+    var gst = $('#cGST').val();    
+    var gstamount = $('#cGSTAmount').val();
+    var netpayable = $('#cNetPayable').val();
+    var schrecords = GetAppStockRecords('tblDataList');
+    var x = '{"VendorID":"' + vendor
+        + '","DocumentFileName":"' + docFilename
+        + '","DocNo":"' + docNumber
+        + '","DocDate":"' + docDate
+        + '","ItemTotal":"' + itemtotal
+        + '","TradeDiscount":"' + tradediscount
+        + '","TaxableAmount":"' + taxableamt
+        + '","GST":"' + gst
+        + '","GSTAmount":"' + gstamount
+        + '","NetPayableAmount":"' + netpayable
+        + '","AppStockList":' + schrecords + '}';
+    $.ajax({
+        method: 'POST',
+        url: '/Inventory/SetPurchase',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: x,
+        success: function (data) {
+            $(data).each(function (index, item) {
+                if (item.bResponseBool == true) {
+                    Swal.fire({
+                        title: 'Success',
+                        text: 'Purchase Entry Saved Successfully.',
+                        icon: 'success',
+                        customClass: 'swal-wide',
+                        buttons: {
+                            confirm: 'Ok'
+                        },
+                        confirmButtonColor: '#2527a2',
+                    }).then(callback);
+                    function callback(result) {
+                        if (result.value) {
+                            window.location.href = "/Inventory/Purchase";
+                        }
+                    }
+                }
+                else {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Failed To Save Purchase Entry.',
+                        icon: 'error',
+                        customClass: 'swal-wide',
+                        buttons: {
+                            confirm: 'Ok'
+                        },
+                        confirmButtonColor: '#2527a2',
+                    });
+                }
+            });
+        },
+    });
+};
+function GetAppStockRecords(tableName) {
+    //The fields should have an attribute "data-name", Which is the property name of the MVC object
+    var MVariant = '';
+    var DVariant = '';
+    var SVariant = '';
+    var schrecords = '';
+    var dataname;
+    var datavalue;
+    var mrecord = '';
+    $('#' + tableName + ' .Ptbody').each(function () {
+        mRow = $(this);
+        mRow.find('[data-name]').each(function () {
+            that = $(this);
+            dataname = that.attr('data-name');
+            if (that.hasClass('htmlVal')) {
+                datavalue = that.html();
+            }
+            else { datavalue = that.val(); }
+            mrecord = mrecord + '"' + dataname + '":"' + datavalue + '",';
+        });
+        mRow.find('[data-name-text]').each(function () {
+            that = $(this);
+            dataname = that.attr('data-name-text');
+            thatid = that.attr('id');
+            datavalue = $('#' + thatid + ' option:selected').toArray().map(item => item.text).join();
+            mrecord = mrecord + '"' + dataname + '":"' + datavalue + '",';
+        });
+        //mrecord = mrecord.replace(/,\s*$/, "");
+        MVariant = GetRecordsFromChildTableBody(mRow, 'MVTable');
+        DVariant = GetRecordsFromChildTableBody(mRow, 'DVTable');
+        SVariant = GetRecordsFromChildTableBody(mRow, 'SVTable');
+        mrecord = mrecord + '"MetalVariants":' + MVariant
+            + ',"DiamondVariants":' + DVariant
+            + ',"StoneVariants":' + SVariant
+        schrecords = schrecords + '{' + mrecord + '},';
+        mrecord = '';
+        MVariant = '';
+        DVariant = '';
+        SVariant = '';
+    });
+    schrecords = schrecords.replace(/,\s*$/, "");
+    schrecords = '[' + schrecords + ']';
+    return schrecords;
+};
+function AddVendorClicked() {
     var modalDiv = $('#VendorModal');
     modalDiv.modal('show');
 };

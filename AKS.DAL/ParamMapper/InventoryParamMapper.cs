@@ -94,6 +94,52 @@ namespace AKS.DAL.ParamMapper
             }
             return para;
         }
+        public SqlParameter[] MapParam_SetPurchase(AppStockEntry data, ref string pMsg)
+        {
+            int paracount = 0;
+            CommonTable objItems = new CommonTable(data.AppStockList,true);
+            CommonTable objItemVariants = new CommonTable(data.AllItemVariants);
+            SqlParameter[] para = new SqlParameter[15];
+            try
+            {
+                para[paracount] = new SqlParameter("@UserID", SqlDbType.Int);
+                para[paracount++].Value = data.CreatrID;
+                para[paracount] = new SqlParameter("@DocumentNumber", SqlDbType.NVarChar, 10);
+                para[paracount++].Value = data.DocumentNumber;
+                para[paracount] = new SqlParameter("@VendorID", SqlDbType.Int);
+                para[paracount++].Value = data.VendorID;
+                para[paracount] = new SqlParameter("@VendorDocNumber", SqlDbType.NVarChar, 10);
+                para[paracount++].Value = data.DocNo;
+                para[paracount] = new SqlParameter("@VendorDocumentDate", SqlDbType.Date);
+                para[paracount++].Value = data.DocDate;
+                para[paracount] = new SqlParameter("@DocumentFileName", SqlDbType.NVarChar);
+                para[paracount++].Value = data.DocumentFileName;
+                para[paracount] = new SqlParameter("@ProfitCentreID", SqlDbType.Int);
+                para[paracount++].Value = data.ProfitCentreID;
+                para[paracount] = new SqlParameter("@ItemTotal", SqlDbType.Decimal);
+                para[paracount++].Value = data.ItemTotal;
+                para[paracount] = new SqlParameter("@TradeDiscount", SqlDbType.Decimal);
+                para[paracount++].Value = data.TradeDiscount;
+                para[paracount] = new SqlParameter("@TaxableAmount", SqlDbType.Decimal);
+                para[paracount++].Value = data.TaxableAmount;
+                para[paracount] = new SqlParameter("@GST", SqlDbType.Decimal);
+                para[paracount++].Value = data.GST;
+                para[paracount] = new SqlParameter("@GSTAmount", SqlDbType.Decimal);
+                para[paracount++].Value = data.GSTAmount;
+                para[paracount] = new SqlParameter("@NetPayableAmount", SqlDbType.Decimal);
+                para[paracount++].Value = data.NetPayableAmount;
+                para[paracount] = new SqlParameter("@StockItems", SqlDbType.Structured);
+                para[paracount++].Value = objItems.UDTable;
+                para[paracount] = new SqlParameter("@StockItemVariants", SqlDbType.Structured);
+                para[paracount++].Value = objItemVariants.UDTable;
+            }
+            catch (Exception ex)
+            {
+                pMsg = objPath + ".MapParam_SetPurchase(...) " + ex.Message;
+            }
+            return para;
+        }
+
 
 
     }

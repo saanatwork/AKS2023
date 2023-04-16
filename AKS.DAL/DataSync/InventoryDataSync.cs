@@ -20,13 +20,13 @@ namespace AKS.DAL.DataSync
             _CommonParamMapper = new CommonParamMapper();
         }
         public DataTable GetAppStockDocList(int DisplayLength, int DisplayStart, int SortColumn,
-            string SortDirection, string SearchText,int ProfitCentreID, ref string pMsg)
+            string SortDirection, string SearchText,int ProfitCentreID,bool IsApproval, ref string pMsg)
         {
             try
             {
                 using (SQLHelper sql = new SQLHelper("[INV].[GetAppStockDocList]", CommandType.StoredProcedure))
                 {
-                    return sql.GetDataTable(_CommonParamMapper.MapParam_DIsplayListWithPC(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ProfitCentreID, ref pMsg), ref pMsg);
+                    return sql.GetDataTable(_CommonParamMapper.MapParam_DIsplayListWithPCApprovalStat(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ProfitCentreID,IsApproval, ref pMsg), ref pMsg);
                 }
             }
             catch (Exception ex) { pMsg = objPath + ".GetAppStockDocList(...) " + ex.Message; return null; }
@@ -86,6 +86,18 @@ namespace AKS.DAL.DataSync
             }
             catch (Exception ex) { pMsg = objPath + ".ApproveAppStock(...) " + ex.Message; return null; }
         }
+        public DataTable SetPurchase(AppStockEntry data, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("[INV].[SetPurchase]", CommandType.StoredProcedure))
+                {
+                    return sql.GetDataTable(_InventoryParamMapper.MapParam_SetPurchase(data, ref pMsg), ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".SetPurchase(...) " + ex.Message; return null; }
+        }
+
 
 
 

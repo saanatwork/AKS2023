@@ -50,6 +50,12 @@ namespace AKS.Controllers
             }
             return View(model);
         }
+        public ActionResult ViewPurchaseStock(string DocumentNumber = "", int IsDelete = 0)
+        {
+            AppStockView model = _iInventory.GetAppStocks(DocumentNumber, ref pMsg);
+            model.IsDelete = IsDelete == 1 ? true : false;
+            return View(model);
+        }
         public ActionResult ViewAppStock(string DocumentNumber="",int IsDelete = 0) 
         {
             AppStockView model = _iInventory.GetAppStocks(DocumentNumber, ref pMsg);
@@ -109,7 +115,21 @@ namespace AKS.Controllers
         public JsonResult GetAppStockDocList(int iDisplayLength, int iDisplayStart, int iSortCol_0,
             string sSortDir_0, string sSearch)
         {
-            List<AppStock4DT> userslist = _iInventory.GetAppStockDocList(iDisplayLength, iDisplayStart, iSortCol_0, sSortDir_0, sSearch,LUser.LogInProfitCentreID, ref pMsg);
+            List<AppStock4DT> userslist = _iInventory.GetAppStockDocList(iDisplayLength, iDisplayStart, iSortCol_0, sSortDir_0, sSearch,LUser.LogInProfitCentreID,true, ref pMsg);
+            var result = new
+            {
+                iTotalRecords = userslist.Count == 0 ? 0 : userslist.FirstOrDefault().TotalRecords,
+                iTotalDisplayRecords = userslist.Count == 0 ? 0 : userslist.FirstOrDefault().TotalCount,
+                iDisplayLength = iDisplayLength,
+                iDisplayStart = iDisplayStart,
+                aaData = userslist
+            };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetPurchaseDocList(int iDisplayLength, int iDisplayStart, int iSortCol_0,
+            string sSortDir_0, string sSearch)
+        {
+            List<AppStock4DT> userslist = _iInventory.GetAppStockDocList(iDisplayLength, iDisplayStart, iSortCol_0, sSortDir_0, sSearch, LUser.LogInProfitCentreID, false, ref pMsg);
             var result = new
             {
                 iTotalRecords = userslist.Count == 0 ? 0 : userslist.FirstOrDefault().TotalRecords,
@@ -129,6 +149,19 @@ namespace AKS.Controllers
                 modelobj.CreatrID = LUser.user.UserID;
                 modelobj.ProfitCentreID = LUser.LogInProfitCentreID;
                 if (_iInventory.SetAppStock(modelobj, ref pMsg))
+                    result.bResponseBool = true;
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult SetPurchase(AppStockEntry modelobj)
+        {
+            CustomAjaxResponse result = new CustomAjaxResponse();
+            if (modelobj != null)
+            {
+                modelobj.CreatrID = LUser.user.UserID;
+                modelobj.ProfitCentreID = LUser.LogInProfitCentreID;
+                if (_iInventory.SetPurchase(modelobj, ref pMsg))
                     result.bResponseBool = true;
             }
             return Json(result, JsonRequestBehavior.AllowGet);

@@ -24,12 +24,12 @@ namespace AKS.DAL.Entities
             _DBResponseMapper = new DBResponseMapper();
         }
         public List<AppStock4DT> GetAppStockDocList(int DisplayLength, int DisplayStart, int SortColumn,
-            string SortDirection, string SearchText, int ProfitCentreID, ref string pMsg)
+            string SortDirection, string SearchText, int ProfitCentreID, bool IsApproval, ref string pMsg)
         {
             List<AppStock4DT> result = new List<AppStock4DT>();
             try
             {
-                dt = _InventoryDataSync.GetAppStockDocList(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ProfitCentreID, ref pMsg);
+                dt = _InventoryDataSync.GetAppStockDocList(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ProfitCentreID,IsApproval, ref pMsg);
                 if (dt != null && dt.Rows.Count > 0)
                 {
                     for (int i = 0; i < dt.Rows.Count; i++)
@@ -101,7 +101,12 @@ namespace AKS.DAL.Entities
             _DBResponseMapper.Map_DBResponse(_InventoryDataSync.ApproveAppStock(DocumentNumber, UserID, ref pMsg), ref pMsg, ref result);
             return result;
         }
-
+        public bool SetPurchase(AppStockEntry data, ref string pMsg)
+        {
+            bool result = false;
+            _DBResponseMapper.Map_DBResponse(_InventoryDataSync.SetPurchase(data, ref pMsg), ref pMsg, ref result);
+            return result;
+        }
 
 
 
