@@ -186,6 +186,14 @@ function GetDivInvalidCount(mdivID) {
     //alert(mdivID + ' - ' + x);
     return x;
 };
+function ReturnParentRowID(myCtrl) {
+    var myCtrlID = myCtrl.attr('id');
+    var myParentRowID = 0;
+    if (myCtrlID.indexOf('-') >= 0) {
+        myParentRowID = myCtrlID.split('-')[1] * 1;
+    }
+    return myParentRowID;
+};
 
 
 function GetRecordsFromTableV3(tableName) {
@@ -321,9 +329,11 @@ function CloneRowChildTableReturningID(sourceTBody, destinationTBody, IsRemoveBt
     var clonerowBaseID = '';
     var maxrows = 0, r = 0;
     var sourcebody = $('#' + sourceTBody);
-    var destinationbody = $('#' + destinationTBody);    
-    $('#' + destinationTBody + ' tr').each(function () {
-        clonerowBaseID=$(this).attr('id').split('_')[1];
+    var destinationbody = $('#' + destinationTBody);
+    $('#' + sourceTBody + ' tr').each(function () {
+        clonerowBaseID = $(this).attr('id').split('_')[1];
+    });
+    $('#' + destinationTBody + ' tr').each(function () {        
         var maxr = $(this).attr('id').split('_')[0] * 1;
         if (maxr > maxrows) { maxrows = maxr; }
     });  //Getting Max row id
@@ -336,6 +346,13 @@ function CloneRowChildTableReturningID(sourceTBody, destinationTBody, IsRemoveBt
         var newID =r+'_'+ mID[1];
         that.attr('id', newID);
         that.val('');
+    });
+    cloneready.find('.alterIDvalZero').each(function () {
+        that = $(this);
+        var mID = that.attr('id').split('_');
+        var newID = r + '_' + mID[1];
+        that.attr('id', newID);
+        that.val(0);
     });
     cloneready.find('.inValidTagc').each(function () {
         that = $(this);
@@ -380,6 +397,7 @@ function CloneRowChildTableReturningID(sourceTBody, destinationTBody, IsRemoveBt
             $(this).tooltip('hide');
         });
     });
+    cloneready.css('background-color', '#fff');
     destinationbody.append(cloneready); //Appending Clone Row to the destination body
     var sl = 2;
     $('#' + destinationTBody + ' th').each(function () {
@@ -409,6 +427,13 @@ function CloneRowParentTableReturningID(sourceTBody, destinationTBody, IsRemoveB
         var newID = mID[0]+'-'+r;
         that.attr('id', newID);
         that.val('');
+    });
+    cloneready.find('.alterIDvalZero').each(function () {
+        that = $(this);
+        var mID = that.attr('id').split('-');
+        var newID = mID[0] + '-' + r;
+        that.attr('id', newID);
+        that.val(0);
     });
     cloneready.find('.inValidTag').each(function () {
         that = $(this);
@@ -461,6 +486,7 @@ function CloneRowParentTableReturningID(sourceTBody, destinationTBody, IsRemoveB
     }, function () {
         $(this).closest('tr').css('background-color', '#fff');
     });
+    cloneready.css('background-color', '#fff');
     destinationbody.append(cloneready); //Appending Clone Row to the destination body
     var sl = 2;
     $('#' + destinationTBody + ' th').each(function () {

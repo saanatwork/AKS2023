@@ -12,7 +12,6 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
 namespace AKS.Controllers
 {
     public class InventoryController : Controller
@@ -81,6 +80,24 @@ namespace AKS.Controllers
         {
             return View();
         }
+        public ActionResult Purchase() 
+        {
+            return View();
+        }
+        public ActionResult AddPurchase()
+        {
+            PurchaseEntryVM model = new PurchaseEntryVM();
+            model.VendorList = _iMaster.GetPartyInfo(0, true, false, ref pMsg).Where(o => o.IsActive == true).ToList();
+            model.CategoryList = _iMaster.GetCategories("ALL", ref pMsg);
+            List<Variant> variants = _iMaster.GetVariants(0, ref pMsg);
+            if (variants != null && variants.Count > 0)
+            {
+                model.MetaVariantList = variants.Where(o => o.VariantColumn == "Metal").ToList();
+                model.DiamondVariantList = variants.Where(o => o.VariantColumn == "Diamond").ToList();
+                model.StoneVariantList = variants.Where(o => o.VariantColumn == "Stone").ToList();
+            }
+            return View(model);
+        }
 
 
         #region Ajax Calling
@@ -138,6 +155,8 @@ namespace AKS.Controllers
                 data.IsCustomer = false;
                 if (_iMaster.SetPartyInfo(data, ref pMsg))
                     result.bResponseBool = true;
+                else
+                    result.sResponseString = pMsg;
             }           
             return Json(result, JsonRequestBehavior.AllowGet);
         }

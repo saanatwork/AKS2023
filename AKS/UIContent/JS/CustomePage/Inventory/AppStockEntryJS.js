@@ -147,7 +147,7 @@ function validatectrl(targetid, value,spltag) {
             }
             break;
         case "cRemarks":
-            isvalid = IsAlphaNumericWithSpace(value);
+            if (value != '') { isvalid = true; }
             break;
         case "cDiamondVariant":
         case "cStoneVariant":
@@ -313,7 +313,7 @@ function VendorSaveBtnClicked() {
                 else {
                     Swal.fire({
                         title: 'Error!',
-                        text: 'Failed To Create A New Vendor.',
+                        text: 'Failed To Create A New Vendor. Error : ' + item.sResponseString,
                         icon: 'error',
                         customClass: 'swal-wide',
                         buttons: {

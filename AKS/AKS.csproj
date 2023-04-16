@@ -154,6 +154,7 @@
     <Compile Include="ViewModel\AdminVM\VariantInfoAjaxRapper.cs" />
     <Compile Include="ViewModel\AdminVM\VariantVM.cs" />
     <Compile Include="ViewModel\InventoryVM\AppStockEntryVM.cs" />
+    <Compile Include="ViewModel\InventoryVM\PurchaseEntryVM.cs" />
     <Compile Include="ViewModel\UserVM\LogInVM.cs" />
     <Compile Include="ViewModel\UserVM\SelectPCVM.cs" />
     <Compile Include="ViewModel\UserVM\UserDashBoardVM.cs" />
@@ -258,6 +259,8 @@
     <Content Include="UIContent\JS\CustomePage\Inventory\AppStockEntryJS.js" />
     <Content Include="UIContent\JS\CustomePage\Inventory\AppStockViewAppJS.js" />
     <Content Include="UIContent\JS\CustomePage\Inventory\AppStockViewJS.js" />
+    <Content Include="UIContent\JS\CustomePage\Inventory\PurchaseDataTableJS.js" />
+    <Content Include="UIContent\JS\CustomePage\Inventory\PurchaseEntryJS.js" />
     <Content Include="UIContent\JS\CustomePage\User\LogInJS.js" />
     <Content Include="UIContent\JS\CustomePage\Admin\ProfitCentreListJS.js" />
     <Content Include="UIContent\JS\CustomePage\User\UserListJS.js" />
@@ -320,6 +323,8 @@
     <Content Include="Views\Inventory\PrintAppStock.cshtml" />
     <Content Include="Views\Inventory\VirtualStockApproval.cshtml" />
     <Content Include="Views\Inventory\ViewAppStockApp.cshtml" />
+    <Content Include="Views\Inventory\Purchase.cshtml" />
+    <Content Include="Views\Inventory\AddPurchase.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

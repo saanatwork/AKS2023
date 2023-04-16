@@ -181,7 +181,7 @@ $(document).ready(function () {
                     else {
                         Swal.fire({
                             title: 'Error!',
-                            text: 'Failed To Save Party Information.',
+                            text: 'Failed To Save Party Information. Error : ' + item.sResponseString,
                             icon: 'error',
                             customClass: 'swal-wide',
                             buttons: {
