@@ -107,6 +107,39 @@ namespace AKS.DAL.Entities
             _DBResponseMapper.Map_DBResponse(_InventoryDataSync.SetPurchase(data, ref pMsg), ref pMsg, ref result);
             return result;
         }
+        public AppStockView GetPurchaseDocInfo(string DocumentNumber, ref string pMsg)
+        {
+            AppStockView result = new AppStockView();
+            try
+            {
+                ds = _InventoryDataSync.GetPurchaseDocInfo(DocumentNumber, ref pMsg);
+                if (ds != null)
+                {
+                    List<AppStock> itemlist = new List<AppStock>();
+                    DataTable hdr = ds.Tables[0]; dt = ds.Tables[1];
+                    if (hdr != null && hdr.Rows.Count > 0)
+                        result = _InventoryObjectMapper.Map_PurchaseView(hdr.Rows[0], ref pMsg);
+                    if (dt != null && dt.Rows.Count > 0)
+                    {
+                        for (int i = 0; i < dt.Rows.Count; i++)
+                        {
+                            itemlist.Add(_InventoryObjectMapper.Map_PurchaseItem(dt.Rows[i], ref pMsg));
+                        }
+                    }
+                    result.AppStockList = itemlist;
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetPurchaseDocInfo(...) " + ex.Message; }
+            return result;
+        }
+        public bool ApprovePurchaseDoc(string DocumentNumber, int UserID, ref string pMsg)
+        {
+            bool result = false;
+            _DBResponseMapper.Map_DBResponse(_InventoryDataSync.ApprovePurchaseDoc(DocumentNumber, UserID, ref pMsg), ref pMsg, ref result);
+            return result;
+        }
+
+
 
 
 

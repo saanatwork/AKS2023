@@ -1,0 +1,133 @@
+﻿@model AKS.BOL.Inventory.AppStockView
+<div id="HdrDIV" class="col-md-12 mb-4" style="vertical-align:central">
+    <div class="card mb-4 mt-4" style="vertical-align:central">
+        <div class="card-body approvalForm">
+            <table style="width:100%">
+                <tr>
+                    <td style="width:30%">
+                        From :<br />
+                        <b>@Model.PartyName</b><br />
+                        @Model.PartyAddress<br />
+                        @Model.PartyContactNo<br />
+                        @Model.PartyEmailID<br />
+                        GSTIN : @(string.IsNullOrEmpty(Model.GSTIN)?"Not Available": Model.GSTIN)<br />
+                        <b>Document : @Model.DocNo/@Model.DocDate.ToString("dd-MM-yyyy")</b>
+                    </td>
+                    <td style="text-align:center">
+                        <div style="margin:30px">
+                            <img src="~/img/Logo100x100.png" alt="Aap Ki Sakhi - logo" class="img-fluid">
+                        </div>
+                    </td>
+                    <td style="width:30%">
+                        <table>
+                            <tr>
+                                <td>Document Number: </td>
+                                <td style="padding-left:10px"><b>@Model.DocumentNumber</b></td>
+                            </tr>
+                            <tr>
+                                <td>Document Date: </td>
+                                <td style="padding-left:10px">@Model.CreateDate.ToString("dd-MM-yyyy")</td>
+                            </tr>
+                            <tr>
+                                <td>Profit Centre: </td>
+                                <td style="padding-left:10px">@Model.ProfitCentreDesc</td>
+                            </tr>
+                            <tr>
+                                <td>MRN Number: </td>
+                                <td style="padding-left:10px"><b>@Model.MRNNumber</b></td>
+                            </tr>
+                            <tr>
+                                <td>MRN Date: </td>
+                                <td style="padding-left:10px">@(Model.ApproveDate.Year==1?"":Model.ApproveDate.ToString("dd-MM-yyyy"))</td>
+                            </tr>
+                            <tr>
+                                <td>Status : </td>
+                                <td style="padding-left:10px"><b>@(Model.IsApproved?"Approved":"Not Yet Approved")</b></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div style="vertical-align:central">
+        @*<div class="card-body">*@
+        <div class="table-responsive">
+            <table style="width:100%" class="table table-bordered btnalign">
+                <thead>
+                    <tr>
+                        <th style="width:5%">SL</th>
+                        <th style="width:10%">Item Code</th>
+                        <th style="width:20%">CateGory</th>
+                        <th>Description</th>
+                        <th style="width:5%">Quantity</th>
+                        <th style="width:10%">Gross Amount</th>
+                        <th style="width:10%">Net Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.AppStockList != null && Model.AppStockList.Count > 0)
+                    {
+                        foreach (var item in Model.AppStockList)
+                        {
+                    <tr>
+                        <td>@item.ItemSL</td>
+                        <td>
+                            @item.Remarks<br />
+                            @item.ItemCode
+                        </td>
+                        <td>
+                            @item.CategoryLongText<br />
+                            HSN/SAC : @(string.IsNullOrEmpty(item.HSNCode)?"NA": item.HSNCode)
+                        </td>
+                        <td>@item.ItemDescription</td>
+                        <td style="text-align:center">@item.Qty</td>
+                        <td style="text-align:right">@item.GrossAmount.ToString("0.00")</td>
+                        <td style="text-align:right">@item.NetAmount.ToString("0.00")</td>
+                    </tr>
+                        }
+                    }
+                </tbody>
+                <tbody>
+                    <tr>
+                        <td colspan="4"></td>
+                        <td colspan="2">
+                            Item Total : <br/>
+                            Trade Discount :<br/>
+                            <b>Net Taxable Amount :</b> <br/>
+                            GST (@Model.GST%) :<br/>
+                            <b>Net Payable Amount : </b>
+                        </td>
+                        <td style="text-align:right">
+                            @Model.ItemTotal.ToString("0.00")<br />
+                            @Model.TradeDiscount.ToString("0.00")<br />
+                            <b>@Model.TaxableAmount.ToString("0.00")</b><br />
+                            @Model.GSTAmount.ToString("0.00")<br />
+                            <b>@Model.NetPayableAmount.ToString("0.00")</b>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        @*</div>*@
+    </div>
+    <div class="card mb-4 mt-4" style="vertical-align:central">
+        <div class="card-body approvalForm">
+
+            <table style="width:100%">
+                <tr>
+                    <td style="width:30%">
+                        Created BY :<br />
+                        @Model.CreatorName
+                    </td>
+                    <td></td>
+                    <td style="width:30%">
+                        Approved BY :<br />
+                        @Model.ApproverName
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+

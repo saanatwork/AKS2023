@@ -17,5 +17,7 @@ namespace AKS.BLL.IRepository
         bool RemoveStockEntryDocument(string DocumentNumber, ref string pMsg);
         bool ApproveAppStock(string DocumentNumber, int UserID, ref string pMsg);
         bool SetPurchase(AppStockEntry data, ref string pMsg);
+        AppStockView GetPurchaseDocInfo(string DocumentNumber, ref string pMsg);
+        bool ApprovePurchaseDoc(string DocumentNumber, int UserID, ref string pMsg);
     }
 }

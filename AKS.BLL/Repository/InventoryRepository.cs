@@ -99,7 +99,7 @@ namespace AKS.BLL.Repository
         {
             if (modelobj != null)
             {
-                modelobj.DocumentNumber = _MasterEntity.GetNewDocNumber("PUR" + DateTime.Today.ToString("yy"), ref pMsg);
+                modelobj.DocumentNumber = _MasterEntity.GetNewDocNumber("PUR", ref pMsg);
                 if (modelobj.AppStockList != null && modelobj.AppStockList.Count > 0)
                 {
                     List<AppStockVariant> allvariants = new List<AppStockVariant>();
@@ -150,8 +150,13 @@ namespace AKS.BLL.Repository
             }
             return _InventoryEntity.SetPurchase(modelobj, ref pMsg);
         }
-
-
-
+        public AppStockView GetPurchaseDocInfo(string DocumentNumber, ref string pMsg)
+        {
+            return _InventoryEntity.GetPurchaseDocInfo(DocumentNumber, ref pMsg);
+        }
+        public bool ApprovePurchaseDoc(string DocumentNumber, int UserID, ref string pMsg) 
+        {
+            return _InventoryEntity.ApprovePurchaseDoc(DocumentNumber, UserID, ref pMsg);
+        }
     }
 }

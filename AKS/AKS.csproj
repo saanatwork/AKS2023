@@ -254,13 +254,16 @@
     <Content Include="UIContent\JS\CustomePage\Admin\VariantListJS.js" />
     <Content Include="UIContent\JS\CustomePage\CommonReusable.js" />
     <Content Include="UIContent\JS\CustomePage\CommonReusableJS.js" />
+    <Content Include="UIContent\JS\CustomePage\Inventory\ApprovePurchaseDataTableJS.js" />
     <Content Include="UIContent\JS\CustomePage\Inventory\ApproveStockDataTableJS.js" />
     <Content Include="UIContent\JS\CustomePage\Inventory\AppStockDataTableJS.js" />
     <Content Include="UIContent\JS\CustomePage\Inventory\AppStockEntryJS.js" />
     <Content Include="UIContent\JS\CustomePage\Inventory\AppStockViewAppJS.js" />
     <Content Include="UIContent\JS\CustomePage\Inventory\AppStockViewJS.js" />
     <Content Include="UIContent\JS\CustomePage\Inventory\PurchaseDataTableJS.js" />
+    <Content Include="UIContent\JS\CustomePage\Inventory\PurchaseDocViewJS.js" />
     <Content Include="UIContent\JS\CustomePage\Inventory\PurchaseEntryJS.js" />
+    <Content Include="UIContent\JS\CustomePage\Inventory\PurchaseViewAppJS.js" />
     <Content Include="UIContent\JS\CustomePage\User\LogInJS.js" />
     <Content Include="UIContent\JS\CustomePage\Admin\ProfitCentreListJS.js" />
     <Content Include="UIContent\JS\CustomePage\User\UserListJS.js" />
@@ -326,6 +329,10 @@
     <Content Include="Views\Inventory\Purchase.cshtml" />
     <Content Include="Views\Inventory\AddPurchase.cshtml" />
     <Content Include="Views\Inventory\ViewPurchaseStock.cshtml" />
+    <Content Include="Views\Inventory\_PurchaseDocPrint.cshtml" />
+    <Content Include="Views\Inventory\PrintPurchase.cshtml" />
+    <Content Include="Views\Inventory\PurchaseApp.cshtml" />
+    <Content Include="Views\Inventory\ViewPurchaseStockApp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

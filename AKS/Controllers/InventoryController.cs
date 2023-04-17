@@ -50,9 +50,19 @@ namespace AKS.Controllers
             }
             return View(model);
         }
+        public ActionResult PurchaseApp()
+        {
+            return View();
+        }
         public ActionResult ViewPurchaseStock(string DocumentNumber = "", int IsDelete = 0)
         {
-            AppStockView model = _iInventory.GetAppStocks(DocumentNumber, ref pMsg);
+            AppStockView model = _iInventory.GetPurchaseDocInfo(DocumentNumber, ref pMsg);
+            model.IsDelete = IsDelete == 1 ? true : false;
+            return View(model);
+        }
+        public ActionResult ViewPurchaseStockApp(string DocumentNumber = "", int IsDelete = 0)
+        {
+            AppStockView model = _iInventory.GetPurchaseDocInfo(DocumentNumber, ref pMsg);
             model.IsDelete = IsDelete == 1 ? true : false;
             return View(model);
         }
@@ -206,6 +216,19 @@ namespace AKS.Controllers
             }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+        [HttpPost]
+        public JsonResult ApprovePurchaseDocument(AppStockDocument model)
+        {
+            CustomAjaxResponse result = new CustomAjaxResponse();
+            if (model != null && !string.IsNullOrEmpty(model.DocumentNumber))
+            {
+                if (_iInventory.ApprovePurchaseDoc(model.DocumentNumber, LUser.user.UserID, ref pMsg))
+                    result.bResponseBool = true;
+                else
+                    result.sResponseString = pMsg;
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
         #endregion
 
         #region - Print documents        
@@ -214,11 +237,16 @@ namespace AKS.Controllers
             AppStockView model = _iInventory.GetAppStocks(DocumentNumber, ref pMsg);
             return View(model);
         }
+        public ActionResult PrintPurchase(string DocumentNumber = "")
+        {
+            AppStockView model = _iInventory.GetPurchaseDocInfo(DocumentNumber, ref pMsg);
+            return View(model);
+        }
 
         #endregion
         #region - Print Method
-        
-        
+
+
         #endregion
 
     }

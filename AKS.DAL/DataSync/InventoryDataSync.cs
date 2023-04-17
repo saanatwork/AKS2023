@@ -97,8 +97,28 @@ namespace AKS.DAL.DataSync
             }
             catch (Exception ex) { pMsg = objPath + ".SetPurchase(...) " + ex.Message; return null; }
         }
-
-
+        public DataSet GetPurchaseDocInfo(string DocumentNumber, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("[INV].[GetPurchaseDocInfo]", CommandType.StoredProcedure))
+                {
+                    return sql.GetDataSet(_InventoryParamMapper.MapParam_GetAppStocks(DocumentNumber, ref pMsg), ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetPurchaseDocInfo(...) " + ex.Message; return null; }
+        }
+        public DataTable ApprovePurchaseDoc(string DocumentNumber, int UserID, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("[INV].[ApprovePurchaseDoc]", CommandType.StoredProcedure))
+                {
+                    return sql.GetDataTable(_InventoryParamMapper.MapParam_ApproveAppStock(DocumentNumber, UserID, ref pMsg), ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".ApprovePurchaseDoc(...) " + ex.Message; return null; }
+        }
 
 
 
