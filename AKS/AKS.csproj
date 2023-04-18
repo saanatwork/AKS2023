@@ -266,6 +266,7 @@
     <Content Include="UIContent\JS\CustomePage\Inventory\PurchaseViewAppJS.js" />
     <Content Include="UIContent\JS\CustomePage\User\LogInJS.js" />
     <Content Include="UIContent\JS\CustomePage\Admin\ProfitCentreListJS.js" />
+    <Content Include="UIContent\JS\CustomePage\User\UserIndexJs.js" />
     <Content Include="UIContent\JS\CustomePage\User\UserListJS.js" />
     <Content Include="UIContent\JS\CustomLayout.js" />
     <Content Include="UIContent\JS\DataTablePagingInput.js" />

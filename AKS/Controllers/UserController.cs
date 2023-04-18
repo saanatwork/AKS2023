@@ -38,6 +38,7 @@ namespace AKS.Controllers
             string goldrateurl = "https://www.google.com/search?q=gold+rate+in+kolkata+today&gl=in";
             string city = LUser.userpcs.Where(o => o.PCID == LUser.LogInProfitCentreID).FirstOrDefault().GLocation;
             model.CurrentGoldrate = await GetCurrentGoldRate(goldrateurl, city);
+            model.CategoryList = _iInventory.GetCategoryWithStock(LUser.LogInProfitCentreID, ref pMsg);
             return View(model);
         }
 
@@ -63,16 +64,18 @@ namespace AKS.Controllers
                         {
                             if (dbg.GoldRate != goldrate.rate)
                             {
-                                //dbg.LogGoldRate(city, goldrate.rate);
+                                _iInventory.LogGoldRate(city, goldrate.rate, ref pMsg);
                             }
                         }
                         else
                         {
+                            _iInventory.LogGoldRate(city, goldrate.rate, ref pMsg);
                             //dbg.LogGoldRate(city, goldrate.rate);
                         }
                     }
                     else
                     {
+                        _iInventory.LogGoldRate(city, goldrate.rate, ref pMsg);
                         //dbg.LogGoldRate(city, goldrate.rate);
                     }
                 }

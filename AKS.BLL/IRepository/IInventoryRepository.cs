@@ -1,4 +1,5 @@
-﻿using AKS.BOL.Inventory;
+﻿using AKS.BOL.Common;
+using AKS.BOL.Inventory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,5 +20,9 @@ namespace AKS.BLL.IRepository
         bool SetPurchase(AppStockEntry data, ref string pMsg);
         AppStockView GetPurchaseDocInfo(string DocumentNumber, ref string pMsg);
         bool ApprovePurchaseDoc(string DocumentNumber, int UserID, ref string pMsg);
+        List<CustomComboOptionsWithString> GetCategoryWithStock(int ProfitCentreID, ref string pMsg);
+        List<CustomComboOptionsWithString> GetItemOfCategory(string CategoryCode, ref string pMsg);
+        SItemVariantLists GetItemVariantsForSale(string ItemID, int MakingCharge, int DiDiscount, string City, ref string pMsg);
+        bool LogGoldRate(string City, double GoldRate, ref string pMsg);
     }
 }

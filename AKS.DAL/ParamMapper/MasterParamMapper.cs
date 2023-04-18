@@ -16,7 +16,7 @@ namespace AKS.DAL.ParamMapper
         public SqlParameter[] MapParam_SetProfitCentre(ProfitCentre data, ref string pMsg)
         {
             int paracount = 0;
-            SqlParameter[] para = new SqlParameter[6];
+            SqlParameter[] para = new SqlParameter[7];
             try
             {
                 para[paracount] = new SqlParameter("@ProfitCentreID", SqlDbType.Int);
@@ -31,6 +31,8 @@ namespace AKS.DAL.ParamMapper
                 para[paracount++].Value = data.MakingCharges;
                 para[paracount] = new SqlParameter("@GLocation", SqlDbType.NVarChar,50);
                 para[paracount++].Value = data.GLocation;
+                para[paracount] = new SqlParameter("@DiamondDiscount", SqlDbType.Decimal);
+                para[paracount++].Value = data.DiamondDiscount;
             }
             catch (Exception ex)
             {

@@ -60,6 +60,8 @@ namespace AKS.DAL.ObjectMapper
                         result.MakingCharges = int.Parse(dr["MakingCharges"].ToString());
                     if (!DBNull.Value.Equals(dr["GLocation"]))
                         result.GLocation = dr["GLocation"].ToString();
+                    if (!DBNull.Value.Equals(dr["DiamondDiscount"]))
+                        result.DiamondDiscount =int.Parse(dr["DiamondDiscount"].ToString());
                 }
             }
             catch (Exception ex) { pMsg = objPath + ".Map_ProfitCentre(DataRow dr,ref string pMsg) " + ex.Message; }

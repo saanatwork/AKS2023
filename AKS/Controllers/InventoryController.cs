@@ -122,6 +122,23 @@ namespace AKS.Controllers
             var result = _iMaster.GetPartyInfo(0,true, false, ref pMsg).Where(o=>o.IsActive==true).ToList();
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult GetCategoryWithStock()
+        {
+            var result = _iInventory.GetCategoryWithStock(LUser.LogInProfitCentreID, ref pMsg);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetItemOfCategory(string CategoryCode)
+        {
+            var result = _iInventory.GetItemOfCategory(CategoryCode, ref pMsg);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetItemVariantsForSale(string ItemID)
+        {            
+            ProfitCentre pc=LUser.userpcs.Where(o => o.PCID == LUser.LogInProfitCentreID).FirstOrDefault();
+            SItemVariantLists obj = _iInventory.GetItemVariantsForSale(ItemID, pc.MakingCharges, pc.DiamondDiscount,pc.GLocation, ref pMsg);
+            
+            return Json(obj, JsonRequestBehavior.AllowGet);
+        }
         public JsonResult GetAppStockDocList(int iDisplayLength, int iDisplayStart, int iSortCol_0,
             string sSortDir_0, string sSearch)
         {

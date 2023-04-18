@@ -139,6 +139,24 @@ namespace AKS.DAL.ParamMapper
             }
             return para;
         }
+        public SqlParameter[] MapParam_LogGoldRate(string City, double GoldRate, ref string pMsg)
+        {
+            int paracount = 0;
+            SqlParameter[] para = new SqlParameter[2];
+            try
+            {
+                para[paracount] = new SqlParameter("@City", SqlDbType.NVarChar);
+                para[paracount++].Value = City;
+                para[paracount] = new SqlParameter("@GoldRate", SqlDbType.Int);
+                para[paracount++].Value = GoldRate;
+            }
+            catch (Exception ex)
+            {
+                pMsg = objPath + ".MapParam_LogGoldRate(...) " + ex.Message;
+            }
+            return para;
+        }
+
 
 
 

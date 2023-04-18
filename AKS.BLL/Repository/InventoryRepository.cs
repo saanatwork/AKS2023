@@ -1,4 +1,5 @@
 ﻿using AKS.BLL.IRepository;
+using AKS.BOL.Common;
 using AKS.BOL.Inventory;
 using AKS.DAL.Entities;
 using System;
@@ -158,5 +159,116 @@ namespace AKS.BLL.Repository
         {
             return _InventoryEntity.ApprovePurchaseDoc(DocumentNumber, UserID, ref pMsg);
         }
+        public List<CustomComboOptionsWithString> GetCategoryWithStock(int ProfitCentreID, ref string pMsg) 
+        {
+            return _InventoryEntity.GetCategoryWithStock(ProfitCentreID,ref pMsg);
+        }
+        public List<CustomComboOptionsWithString> GetItemOfCategory(string CategoryCode, ref string pMsg) 
+        {
+            return _InventoryEntity.GetItemOfCategory(CategoryCode,ref pMsg);
+        }
+        public SItemVariantLists GetItemVariantsForSale(string ItemID,int MakingCharge,int DiDiscount,string City, ref string pMsg)
+        {
+            double mcwt = 0;
+            DBGoldRate GoldRates =_InventoryEntity.GetCurrentGoldRate(City, DateTime.Today.ToString("dd.MM.yyyy"), ref pMsg);
+            SItemVariantLists result = new SItemVariantLists();
+            result.ItemCode = ItemID;            
+            result.MetalVariants = new List<SItemVariant>();
+            result.DiamondVariants = new List<SItemVariant>();
+            result.StoneVariants = new List<SItemVariant>();
+            List<SalesItemVriant> obj1 = _InventoryEntity.GetItemVariantsForSale(ItemID,ref pMsg);
+            if (obj1 != null && obj1.Count > 0) 
+            {
+                foreach (SalesItemVriant item in obj1) 
+                {
+                    if (item.VariantColumn.Trim() == "Diamond") 
+                    {
+                        mcwt = mcwt + item.VariantWt/5;
+                        double damt = Math.Round(item.RatePerUnit * item.VariantWt);
+                        double disamt = Math.Round(damt * DiDiscount/100);
+                        result.DiamondVariants.Add(new SItemVariant() 
+                        { 
+                            VariantID=item.VariantID,
+                            VariantDescription=item.VariantDescription,
+                            RatePerUnit=item.RatePerUnit,
+                            VariantWt=item.VariantWt,
+                            DiamondDiscount=DiDiscount,
+                            DiDiscountAmount= disamt,
+                            GrossAmount= damt,
+                            Amount = damt-disamt
+                        });
+                    }
+                    if (item.VariantColumn.Trim() == "Stone")
+                    {
+                        mcwt = mcwt + item.VariantWt / 5;
+                        result.StoneVariants.Add(new SItemVariant()
+                        {
+                            VariantID = item.VariantID,
+                            VariantDescription = item.VariantDescription,
+                            RatePerUnit = item.RatePerUnit,
+                            VariantWt = item.VariantWt,
+                            Amount = item.RatePerUnit * item.VariantWt
+                        });
+                    }
+                    if (item.VariantColumn.Trim() == "Metal")
+                    {
+                        mcwt = mcwt + item.VariantWt;
+                        double goldRate = 0;
+                        if (item.VariantCatText.Trim() == "Gold") 
+                        {
+                            switch (item.Purity.Trim())
+                            {
+                                case "24K":
+                                    goldRate = GoldRates.GoldRate24K1GM;
+                                    break;
+                                case "22K":
+                                    goldRate = GoldRates.GoldRate22K1GM;
+                                    break;
+                                case "20K":
+                                    goldRate = GoldRates.GoldRate20K1GM;
+                                    break;
+                                case "18K":
+                                    goldRate = GoldRates.GoldRate18K1GM;
+                                    break;
+                                case "16K":
+                                    goldRate = GoldRates.GoldRate16K1GM;
+                                    break;
+                                case "14K":
+                                    goldRate = GoldRates.GoldRate14K1GM;
+                                    break;
+                                case "12K":
+                                    goldRate = GoldRates.GoldRate12K1GM;
+                                    break;
+                                default:
+                                    goldRate = 0;
+                                    break;
+                            }
+                        }
+                        result.MetalVariants.Add(new SItemVariant()
+                        {
+                            VariantID = item.VariantID,
+                            VariantDescription = item.VariantDescription,
+                            VariantWt = item.VariantWt,
+                            RatePerUnit = goldRate,                            
+                            Amount = goldRate * item.VariantWt
+                        });
+                    }
+                }
+            }
+            result.MCInfo = new List<ItemMC>();
+            ItemMC mc = new ItemMC();
+            mc.MakingCharge = MakingCharge;
+            mc.VariantWt = Math.Round(mcwt,3);
+            mc.Amount = Math.Round(MakingCharge * mcwt);
+            result.MCInfo.Add(mc);
+            return result;
+        }
+        public bool LogGoldRate(string City, double GoldRate, ref string pMsg) 
+        {
+            return _InventoryEntity.LogGoldRate(City, GoldRate, ref pMsg);
+        }
+
+
+
     }
 }

@@ -60,6 +60,18 @@ namespace AKS.DAL.ObjectMapper
             }
             return result;
         }
+        public CustomComboOptionsWithString Map_CustomComboOptionsWithString(DataRow dr)
+        {
+            CustomComboOptionsWithString result = new CustomComboOptionsWithString();
+            if (dr != null)
+            {
+                if (!DBNull.Value.Equals(dr["ID"]))
+                    result.ID = dr["ID"].ToString();
+                if (!DBNull.Value.Equals(dr["DisplayText"]))
+                    result.DisplayText = dr["DisplayText"].ToString();                
+            }
+            return result;
+        }
 
 
     }

@@ -1,4 +1,5 @@
-﻿using AKS.BOL.Inventory;
+﻿using AKS.BOL.Common;
+using AKS.BOL.Inventory;
 using AKS.DAL.DataSync;
 using AKS.DAL.ObjectMapper;
 using System;
@@ -56,6 +57,36 @@ namespace AKS.DAL.Entities
                 }
             }
             catch (Exception ex) { pMsg = objPath + ".GetGoldRate(...) " + ex.Message; }
+            return result;
+        }
+        public DBGoldRate GetCurrentGoldRate(string City, string CDate, ref string pMsg)
+        {
+            DBGoldRate result = new DBGoldRate();
+            List<DBGoldRate> result2 = new List<DBGoldRate>();
+            try
+            {
+                dt = _InventoryDataSync.GetGoldRate(City, CDate, ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        result2.Add(_InventoryObjectMapper.Map_DBGoldRate(dt.Rows[i], ref pMsg));
+                    }
+                }
+                if (result2 != null && result2.Count > 0) 
+                {                    
+                    result = result2.FirstOrDefault();
+                    double GRate = Math.Round(result.GoldRate/10);
+                    result.GoldRate24K1GM = GRate;
+                    result.GoldRate22K1GM= Math.Round(GRate*22/24);
+                    result.GoldRate20K1GM = Math.Round(GRate * 20 / 24);
+                    result.GoldRate18K1GM = Math.Round(GRate * 18 / 24);
+                    result.GoldRate16K1GM = Math.Round(GRate * 16 / 24);
+                    result.GoldRate14K1GM = Math.Round(GRate * 14 / 24);
+                    result.GoldRate12K1GM = Math.Round(GRate * 12 / 24);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetCurrentGoldRate(...) " + ex.Message; }
             return result;
         }
         public bool SetAppStock(AppStockEntry data, ref string pMsg) 
@@ -138,7 +169,63 @@ namespace AKS.DAL.Entities
             _DBResponseMapper.Map_DBResponse(_InventoryDataSync.ApprovePurchaseDoc(DocumentNumber, UserID, ref pMsg), ref pMsg, ref result);
             return result;
         }
-
+        public List<CustomComboOptionsWithString> GetCategoryWithStock(int ProfitCentreID, ref string pMsg) 
+        {
+            List<CustomComboOptionsWithString> result = new List<CustomComboOptionsWithString>();
+            try
+            {
+                dt = _InventoryDataSync.GetCategoryWithStock(ProfitCentreID, ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        result.Add(_DBResponseMapper.Map_CustomComboOptionsWithString(dt.Rows[i]));
+                    }
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetAppStockDocList(...) " + ex.Message; }
+            return result;
+        }
+        public List<CustomComboOptionsWithString> GetItemOfCategory(string CategoryCode, ref string pMsg) 
+        {
+            List<CustomComboOptionsWithString> result = new List<CustomComboOptionsWithString>();
+            try
+            {
+                dt = _InventoryDataSync.GetItemOfCategory(CategoryCode, ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        result.Add(_DBResponseMapper.Map_CustomComboOptionsWithString(dt.Rows[i]));
+                    }
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetItemOfCategory(...) " + ex.Message; }
+            return result;
+        }
+        public List<SalesItemVriant> GetItemVariantsForSale(string ItemID, ref string pMsg) 
+        {
+            List<SalesItemVriant> result = new List<SalesItemVriant>();
+            try
+            {
+                dt = _InventoryDataSync.GetItemVariantsForSale(ItemID, ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        result.Add(_InventoryObjectMapper.Map_SalesItemVriant(dt.Rows[i],ref pMsg));
+                    }
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetItemVariantsForSale(...) " + ex.Message; }
+            return result;
+        }
+        public bool LogGoldRate(string City, double GoldRate, ref string pMsg) 
+        {
+            bool result = false;
+            _DBResponseMapper.Map_DBResponse(_InventoryDataSync.LogGoldRate(City, GoldRate, ref pMsg), ref pMsg, ref result);
+            return result;
+        }
 
 
 

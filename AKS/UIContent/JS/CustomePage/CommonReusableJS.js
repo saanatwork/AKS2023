@@ -194,7 +194,21 @@ function ReturnParentRowID(myCtrl) {
     }
     return myParentRowID;
 };
-
+async function GetDropDownData(DropDownID, defaultText, dataSourceURL) {
+    var DropdownCtrl = $('#' + DropDownID);
+    $.ajax({
+        url: dataSourceURL,
+        method: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            DropdownCtrl.empty();
+            DropdownCtrl.append($('<option/>', { value: "", text: defaultText }));
+            $(data).each(function (index, item) {
+                DropdownCtrl.append($('<option/>', { value: item.ID, text: item.DisplayText }));
+            });
+        }
+    });
+};
 
 function GetRecordsFromTableV3(tableName) {
     //The fields should have an attribute "data-name", Which is the property name of the MVC object

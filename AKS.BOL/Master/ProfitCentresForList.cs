@@ -15,5 +15,6 @@ namespace AKS.BOL.Master
         public string IsActive { get; set; }
         public int MakingCharges { get; set; }
         public string GLocation { get; set; }
+        public int DiamondDiscount { get; set; }
     }
 }

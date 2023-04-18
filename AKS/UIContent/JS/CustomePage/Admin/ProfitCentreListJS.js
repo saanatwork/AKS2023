@@ -20,6 +20,7 @@ function validatectrl(targetid, value) {
             if (value != '') { isvalid = true; }
             break;
         case "cMakingCharges":
+        case "cDiamondDiscount":
             if (value != '') { isvalid = $.isNumeric(value);}            
             break;
         case "cGLocation":
@@ -47,6 +48,7 @@ function FnViewNote(ctrl) {
                 $('#cIsActive').val(item.IsActive ? 'true' : 'false').isValid();
                 $('#cMakingCharges').val(item.MakingCharges).isValid();
                 $('#cGLocation').val(item.GLocation).isValid();
+                $('#cDiamondDiscount').val(item.DiamondDiscount).isValid();
                 $('#btnSave').makeEnabled();
             });
         }
@@ -64,6 +66,7 @@ $(document).ready(function () {
             { 'data': 'PCAddress' },
             { 'data': 'IsActive' },
             { 'data': 'MakingCharges' },
+            { 'data': 'DiamondDiscount' },
             { 'data': 'GLocation', 'searchable': true, },
             {
                 'data': 'ID', render: function (data, type, row, meta) {
@@ -99,6 +102,7 @@ $(document).ready(function () {
                         $('#cIsActive').val('').isInvalid();
                         $('#cMakingCharges').val('').isInvalid();
                         $('#cGLocation').val('').isInvalid();
+                        $('#cDiamondDiscount').val('').isInvalid();
                         $('#btnSave').makeDisable();
                         Swal.fire({
                             title: 'Success',

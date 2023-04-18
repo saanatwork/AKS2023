@@ -119,6 +119,52 @@ namespace AKS.DAL.DataSync
             }
             catch (Exception ex) { pMsg = objPath + ".ApprovePurchaseDoc(...) " + ex.Message; return null; }
         }
+        public DataTable GetCategoryWithStock(int ProfitCentreID, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("select * from [INV].[GetCategoryWithStock](" + ProfitCentreID + ")", CommandType.Text))
+                {
+                    return sql.GetDataTable(ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetCategoryWithStock(int ProfitCentreID,ref string pMsg) " + ex.Message; return null; }
+        }
+        public DataTable GetItemOfCategory(string CategoryCode, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("select * from [INV].[GetItemOfCategory]('" + CategoryCode + "')", CommandType.Text))
+                {
+                    return sql.GetDataTable(ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetItemOfCategory(...) " + ex.Message; return null; }
+        }
+        public DataTable GetItemVariantsForSale(string ItemID, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("select * from [INV].[GetItemVariantsForSale]('" + ItemID + "')", CommandType.Text))
+                {
+                    return sql.GetDataTable(ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetItemVariantsForSale(...) " + ex.Message; return null; }
+        }
+        public DataTable LogGoldRate(string City, double GoldRate, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("[INV].[LogGoldRate]", CommandType.StoredProcedure))
+                {
+                    return sql.GetDataTable(_InventoryParamMapper.MapParam_LogGoldRate(City,GoldRate, ref pMsg), ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".LogGoldRate(...) " + ex.Message; return null; }
+        }
+
+
 
 
 

@@ -6,7 +6,7 @@
 <div class="row newTable">
     <div class="col-md-12 mb-4">
         <div class="table-responsive" style="padding:5px">
-            <table id="tblDataList" class="table table-bordered btnalign">
+            <table id="tblDataList" class="table table-bordered btnalign w-100">
                 <thead>
                     <tr>
                         <th scope="col" style="width:10%">ID</th>
@@ -14,6 +14,7 @@
                         <th scope="col">Address</th>
                         <th scope="col" style="width: 10%">IsActive</th>
                         <th scope="col" style="width: 10%">Making Charges</th>
+                        <th scope="col" style="width: 10%">Diamond Discount</th>
                         <th scope="col" style="width: 10%">GLocations</th>
                         <th scope="col" style="width: 10%; background-color: #ff7500; color: white;text-align: center;">Actions</th>
                     </tr>
@@ -47,14 +48,18 @@
                                    class="form-control is-invalid" data-name="MakingCharges" />
                         </th>
                         <th>
+                            <input id="cDiamondDiscount" onkeyup="ValidateControl()" type="text"
+                                   class="form-control is-invalid" data-name="DiamondDiscount" />
+                        </th>
+                        <th>
                             <select id="cGLocation" data-name="GLocation"
                                     onchange="ValidateControl()"
                                     class="form-select content border-red myctrlw100 is-invalid"
                                     aria-label="Default select example">
                                 <option selected value="">-</option>
-                                @if(Model!=null && Model.Count > 0) 
+                                @if (Model != null && Model.Count > 0)
                                 {
-                                    foreach(GLocation item in Model) 
+                                    foreach (GLocation item in Model)
                                     {
                                         <option value="@item.LocationName">@item.LocationName</option>
                                     }

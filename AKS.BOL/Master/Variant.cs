@@ -24,6 +24,5 @@ namespace AKS.BOL.Master
         public int TotalCount { get; set; }
         public int TotalRecords { get; set; }
         public string IsActiveStr { get; set; }
-        public string VariantCatText { get; set; }
     }
 }

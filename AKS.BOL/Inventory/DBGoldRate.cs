@@ -15,6 +15,10 @@ namespace AKS.BOL.Inventory
         public double GoldRate { get; set; }
         public double GoldRate24K1GM { get; set; }
         public double GoldRate22K1GM { get; set; }
+        public double GoldRate20K1GM { get; set; }
         public double GoldRate18K1GM { get; set; }
+        public double GoldRate16K1GM { get; set; }
+        public double GoldRate14K1GM { get; set; }
+        public double GoldRate12K1GM { get; set; }
     }
 }

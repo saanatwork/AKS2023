@@ -288,6 +288,34 @@ namespace AKS.DAL.ObjectMapper
             catch (Exception ex) { pMsg = objPath + ".Map_AppStock(DataRow dr,ref string pMsg) " + ex.Message; }
             return result;
         }
+        public SalesItemVriant Map_SalesItemVriant(DataRow dr, ref string pMsg)
+        {
+            SalesItemVriant result = new SalesItemVriant();
+            try
+            {
+                if (dr != null)
+                {
+                    if (!DBNull.Value.Equals(dr["VariantID"]))
+                        result.VariantID = int.Parse(dr["VariantID"].ToString());
+                    if (!DBNull.Value.Equals(dr["VariantDescription"]))
+                        result.VariantDescription = dr["VariantDescription"].ToString();
+                    if (!DBNull.Value.Equals(dr["VariantColumn"]))
+                        result.VariantColumn = dr["VariantColumn"].ToString();
+                    if (!DBNull.Value.Equals(dr["Purity"]))
+                        result.Purity = dr["Purity"].ToString();
+                    if (!DBNull.Value.Equals(dr["VariantCatText"]))
+                        result.VariantCatText = dr["VariantCatText"].ToString();
+                    if (!DBNull.Value.Equals(dr["RatePerUnit"]))
+                        result.RatePerUnit = double.Parse(dr["RatePerUnit"].ToString());
+                    if (!DBNull.Value.Equals(dr["VariantWt"]))
+                        result.VariantWt =double.Parse(dr["VariantWt"].ToString());                    
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".Map_SalesItemVriant(DataRow dr,ref string pMsg) " + ex.Message; }
+            return result;
+        }
+
+
 
 
     }
