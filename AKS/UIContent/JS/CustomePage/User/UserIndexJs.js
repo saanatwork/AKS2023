@@ -40,6 +40,7 @@ function ItemClicked() {
             dataType: 'json',
             success: function (data) {
                 var totItem = 0;
+                var gstamt = 0;
                 $.each(data.MetalVariants, function (index, item) {                    
                     myBodyContent = myBodyContent + '<tr>'
                         + '<td>' + item.VariantDescription + '</td>'
@@ -78,10 +79,18 @@ function ItemClicked() {
                     totItem = totItem + item.Amount;
                 });
                 myBodyContent = myBodyContent + '<tr>'
-                    + '<td colspan="4"><b>Total Amount : </b></td>'                    
+                    + '<td colspan="4"><b>Total Amount : </b></td>'
                     + '<td style="text-align:right"><b>' + totItem + '</b></td>'
+                    + '</tr>';
+                gstamt = Math.round(totItem * 3 / 100);
+                myBodyContent = myBodyContent + '<tr>'
+                    + '<td colspan="4">GST(3%) : </td>'
+                    + '<td style="text-align:right">' + gstamt + '</td>'
+                    + '</tr>';
+                myBodyContent = myBodyContent + '<tr>'
+                    + '<td colspan="4"><b>Net Payable : </b></td>'
+                    + '<td style="text-align:right"><b>' + (totItem+gstamt) + '</b></td>'
                     + '</tr>'
-                
                 myBody.html(myBodyContent);
             }
         });

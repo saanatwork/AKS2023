@@ -114,7 +114,10 @@ namespace AKS.Controllers
             }
             return View(model);
         }
-
+        public ActionResult Sales() 
+        {
+            return View();
+        }
 
         #region Ajax Calling
         public JsonResult GetVendors()

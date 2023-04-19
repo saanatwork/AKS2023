@@ -211,6 +211,17 @@ namespace AKS.DAL.DataSync
             }
             catch (Exception ex) { pMsg = objPath + ".GetNewDocNumber(...) " + ex.Message; return null; }
         }
+        public DataTable SearchPartyInfo(string SearchText, bool IsVendor, bool IsCustomer, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("SELECT * FROM [MTR].[SearchPartyInfo]('" + SearchText + "'," + (IsVendor ? 1 : 0) + "," + (IsCustomer ? 1 : 0) + ")", CommandType.Text))
+                {
+                    return sql.GetDataTable(ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".SearchPartyInfo(...) " + ex.Message; return null; }
+        }
 
 
 

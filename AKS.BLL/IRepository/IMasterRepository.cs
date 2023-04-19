@@ -1,4 +1,5 @@
-﻿using AKS.BOL.Master;
+﻿using AKS.BOL.Common;
+using AKS.BOL.Master;
 using AKS.BOL.User;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace AKS.BLL.IRepository
         bool SetPartyInfo(Party data, ref string pMsg);
         bool RemoveParty(int PartyCode, ref string pMsg);
         string GetNewDocNumber(string DocumentSign, ref string pMsg);
-        
+        List<CustomComboOptions> SearchPartyInfo(string SearchText, bool IsVendor, bool IsCustomer, ref string pMsg);
 
 
 

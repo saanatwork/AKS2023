@@ -3,7 +3,7 @@
     ViewBag.Title = "Home Page";
 }
 <div class="row dashboard-box mt-3 pt-1">
-    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
         <div class="card" style="background-color: #EDF3F6">
             <p class="square-after f-w-600 header-text-primary">Current Gold Rate<i class="fa fa-circle"> </i></p>
             <table style="width:100%">
@@ -45,10 +45,42 @@
                 </tr>
                 <tr>
                     <td style="border:1px solid red;padding:10px">
+                        Gold : 20 K
+                    </td>
+                    <td style="border:1px solid red;padding:10px">
+                        @Model.CurrentGoldrate.GoldRate20K1GM /-
+                    </td>
+                </tr>
+                <tr>
+                    <td style="border:1px solid red;padding:10px">
                         Gold : 18 K
                     </td>
                     <td style="border:1px solid red;padding:10px">
                         @Model.CurrentGoldrate.GoldRate18K1GM /-
+                    </td>
+                </tr>
+                <tr>
+                    <td style="border:1px solid red;padding:10px">
+                        Gold : 16 K
+                    </td>
+                    <td style="border:1px solid red;padding:10px">
+                        @Model.CurrentGoldrate.GoldRate16K1GM /-
+                    </td>
+                </tr>
+                <tr>
+                    <td style="border:1px solid red;padding:10px">
+                        Gold : 14 K
+                    </td>
+                    <td style="border:1px solid red;padding:10px">
+                        @Model.CurrentGoldrate.GoldRate14K1GM /-
+                    </td>
+                </tr>
+                <tr>
+                    <td style="border:1px solid red;padding:10px">
+                        Gold : 12 K
+                    </td>
+                    <td style="border:1px solid red;padding:10px">
+                        @Model.CurrentGoldrate.GoldRate12K1GM /-
                     </td>
                 </tr>
             </table>

@@ -1,4 +1,5 @@
-﻿using AKS.BOL.Master;
+﻿using AKS.BOL.Common;
+using AKS.BOL.Master;
 using AKS.BOL.User;
 using AKS.DAL.DataSync;
 using AKS.DAL.ObjectMapper;
@@ -251,6 +252,24 @@ namespace AKS.DAL.Entities
             catch (Exception ex) { pMsg = objPath + ".GetNewDocNumber(...) " + ex.Message; }
             return result;
         }
+        public List<CustomComboOptions> SearchPartyInfo(string SearchText, bool IsVendor, bool IsCustomer, ref string pMsg) 
+        {
+            List<CustomComboOptions> result = new List<CustomComboOptions>();
+            try
+            {
+                dt = _MasterDatasync.SearchPartyInfo(SearchText, IsVendor, IsCustomer, ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        result.Add(_DBResponseMapper.Map_CustomComboOptions(dt.Rows[i]));
+                    }
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".SearchPartyInfo(...) " + ex.Message; }
+            return result;
+        }
+
 
 
 

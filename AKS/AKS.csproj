@@ -143,6 +143,7 @@
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
+    <Compile Include="Controllers\POSController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -155,6 +156,7 @@
     <Compile Include="ViewModel\AdminVM\VariantVM.cs" />
     <Compile Include="ViewModel\InventoryVM\AppStockEntryVM.cs" />
     <Compile Include="ViewModel\InventoryVM\PurchaseEntryVM.cs" />
+    <Compile Include="ViewModel\POSVM\SalesEntryVM.cs" />
     <Compile Include="ViewModel\UserVM\LogInVM.cs" />
     <Compile Include="ViewModel\UserVM\SelectPCVM.cs" />
     <Compile Include="ViewModel\UserVM\UserDashBoardVM.cs" />
@@ -264,6 +266,8 @@
     <Content Include="UIContent\JS\CustomePage\Inventory\PurchaseDocViewJS.js" />
     <Content Include="UIContent\JS\CustomePage\Inventory\PurchaseEntryJS.js" />
     <Content Include="UIContent\JS\CustomePage\Inventory\PurchaseViewAppJS.js" />
+    <Content Include="UIContent\JS\CustomePage\POS\AddSaleJS.js" />
+    <Content Include="UIContent\JS\CustomePage\POS\SalesDataTableJS.js" />
     <Content Include="UIContent\JS\CustomePage\User\LogInJS.js" />
     <Content Include="UIContent\JS\CustomePage\Admin\ProfitCentreListJS.js" />
     <Content Include="UIContent\JS\CustomePage\User\UserIndexJs.js" />
@@ -334,6 +338,8 @@
     <Content Include="Views\Inventory\PrintPurchase.cshtml" />
     <Content Include="Views\Inventory\PurchaseApp.cshtml" />
     <Content Include="Views\Inventory\ViewPurchaseStockApp.cshtml" />
+    <Content Include="Views\POS\Sales.cshtml" />
+    <Content Include="Views\POS\AddSale.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

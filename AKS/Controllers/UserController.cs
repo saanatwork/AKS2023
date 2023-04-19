@@ -94,7 +94,11 @@ namespace AKS.Controllers
                 dbg.GoldRate = gr10g24k;
                 dbg.GoldRate24K1GM = gr1g24k;
                 dbg.GoldRate22K1GM = Math.Round(gr1g24k * 22 / 24, 0);
+                dbg.GoldRate20K1GM = Math.Round(gr1g24k * 20 / 24, 0);
                 dbg.GoldRate18K1GM = Math.Round(gr1g24k * 18 / 24, 0);
+                dbg.GoldRate16K1GM = Math.Round(gr1g24k * 16 / 24, 0);
+                dbg.GoldRate14K1GM = Math.Round(gr1g24k * 14 / 24, 0);
+                dbg.GoldRate12K1GM = Math.Round(gr1g24k * 12 / 24, 0);
             }
             catch { }
             return dbg;

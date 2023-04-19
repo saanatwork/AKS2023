@@ -1,4 +1,5 @@
 ﻿using AKS.BLL.IRepository;
+using AKS.BOL.Common;
 using AKS.BOL.Master;
 using AKS.BOL.User;
 using AKS.DAL.Entities;
@@ -90,7 +91,11 @@ namespace AKS.BLL.Repository
         {
             return _MasterEntity.GetNewDocNumber(DocumentSign, ref pMsg);
         }
+        public List<CustomComboOptions> SearchPartyInfo(string SearchText, bool IsVendor, bool IsCustomer, ref string pMsg) 
+        {
+            return _MasterEntity.SearchPartyInfo(SearchText, IsVendor, IsCustomer, ref pMsg);
+        }
 
-        
+
     }
 }
