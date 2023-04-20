@@ -25,6 +25,12 @@ namespace AKS.BLL.Repository
         {
             return _InventoryEntity.GetAppStockDocList(DisplayLength,DisplayStart,SortColumn,SortDirection,SearchText, ProfitCentreID,IsApproval, ref pMsg);
         }
+        
+        public List<AppStock4DT> GetAppStockForUserDocList(int DisplayLength, int DisplayStart, int SortColumn,
+            string SortDirection, string SearchText, int ProfitCentreID, bool IsApproval, int UserID, ref string pMsg)
+        {
+            return _InventoryEntity.GetAppStockForUserDocList(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ProfitCentreID, IsApproval, UserID, ref pMsg);
+        }
         public List<DBGoldRate> GetGoldRate(string City, string CDate, ref string pMsg)
         {
             return _InventoryEntity.GetGoldRate(City, CDate,ref pMsg);
@@ -267,8 +273,57 @@ namespace AKS.BLL.Repository
         {
             return _InventoryEntity.LogGoldRate(City, GoldRate, ref pMsg);
         }
-
-
+        public bool SetInvoice(AppStockEntry modelobj, ref string pMsg)
+        {
+            if (modelobj != null)
+            {
+                if (modelobj.AppStockList != null && modelobj.AppStockList.Count > 0)
+                {
+                    List<AppStockVariant> allvariants = new List<AppStockVariant>();
+                    foreach (AppStock obj1 in modelobj.AppStockList)
+                    {
+                        if (obj1.MetalVariants != null && obj1.MetalVariants.Count > 0)
+                        {
+                            foreach (var item in obj1.MetalVariants)
+                            {
+                                if (item.Weight != 0)
+                                {
+                                    item.ItemCode = obj1.ItemCode;
+                                    item.ItemSL = obj1.ItemSL;
+                                    allvariants.Add(item);
+                                }
+                            }
+                        }
+                        if (obj1.DiamondVariants != null && obj1.DiamondVariants.Count > 0)
+                        {
+                            foreach (var item in obj1.DiamondVariants)
+                            {
+                                if (item.Weight != 0)
+                                {
+                                    item.ItemCode = obj1.ItemCode;
+                                    item.ItemSL = obj1.ItemSL;
+                                    allvariants.Add(item);
+                                }
+                            }
+                        }
+                        if (obj1.StoneVariants != null && obj1.StoneVariants.Count > 0)
+                        {
+                            foreach (var item in obj1.StoneVariants)
+                            {
+                                if (item.Weight != 0)
+                                {
+                                    item.ItemCode = obj1.ItemCode;
+                                    item.ItemSL = obj1.ItemSL;
+                                    allvariants.Add(item);
+                                }
+                            }
+                        }
+                    }
+                    modelobj.AllItemVariants = allvariants;
+                }
+            }
+            return _InventoryEntity.SetInvoice(modelobj, ref pMsg);
+        }
 
     }
 }

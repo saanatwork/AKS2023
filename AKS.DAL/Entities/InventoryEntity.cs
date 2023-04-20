@@ -42,6 +42,24 @@ namespace AKS.DAL.Entities
             catch (Exception ex) { pMsg = objPath + ".GetAppStockDocList(...) " + ex.Message; }
             return result;
         }
+        public List<AppStock4DT> GetAppStockForUserDocList(int DisplayLength, int DisplayStart, int SortColumn,
+            string SortDirection, string SearchText, int ProfitCentreID, bool IsApproval,int UserID, ref string pMsg)
+        {
+            List<AppStock4DT> result = new List<AppStock4DT>();
+            try
+            {
+                dt = _InventoryDataSync.GetAppStockForUserDocList(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ProfitCentreID, IsApproval,UserID, ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        result.Add(_InventoryObjectMapper.Map_AppStock4DT(dt.Rows[i], ref pMsg));
+                    }
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetAppStockForUserDocList(...) " + ex.Message; }
+            return result;
+        }
         public List<DBGoldRate> GetGoldRate(string City, string CDate, ref string pMsg)
         {
             List<DBGoldRate> result = new List<DBGoldRate>();
@@ -226,7 +244,12 @@ namespace AKS.DAL.Entities
             _DBResponseMapper.Map_DBResponse(_InventoryDataSync.LogGoldRate(City, GoldRate, ref pMsg), ref pMsg, ref result);
             return result;
         }
-
+        public bool SetInvoice(AppStockEntry data, ref string pMsg)
+        {
+            bool result = false;
+            _DBResponseMapper.Map_DBResponse(_InventoryDataSync.SetInvoice(data, ref pMsg), ref pMsg, ref result);
+            return result;
+        }
 
 
 

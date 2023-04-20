@@ -120,6 +120,13 @@ namespace AKS.Controllers
         }
 
         #region Ajax Calling
+        public JsonResult GetGoldRates(string MDate)
+        {
+            MDate = DateTime.Parse(MDate).ToString("dd.MM.yyyy");
+            string city=LUser.userpcs.Where(o => o.PCID == LUser.LogInProfitCentreID).FirstOrDefault().GLocation;
+            var result=_iInventory.GetGoldRate(city, MDate, ref pMsg);            
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
         public JsonResult GetVendors()
         {
             var result = _iMaster.GetPartyInfo(0,true, false, ref pMsg).Where(o=>o.IsActive==true).ToList();
@@ -156,10 +163,38 @@ namespace AKS.Controllers
             };
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult GetAppStockDocListForUser(int iDisplayLength, int iDisplayStart, int iSortCol_0,
+            string sSortDir_0, string sSearch)
+        {
+            List<AppStock4DT> userslist = _iInventory.GetAppStockForUserDocList(iDisplayLength, iDisplayStart, iSortCol_0, sSortDir_0, sSearch, LUser.LogInProfitCentreID, true,LUser.user.UserID, ref pMsg);
+            var result = new
+            {
+                iTotalRecords = userslist.Count == 0 ? 0 : userslist.FirstOrDefault().TotalRecords,
+                iTotalDisplayRecords = userslist.Count == 0 ? 0 : userslist.FirstOrDefault().TotalCount,
+                iDisplayLength = iDisplayLength,
+                iDisplayStart = iDisplayStart,
+                aaData = userslist
+            };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
         public JsonResult GetPurchaseDocList(int iDisplayLength, int iDisplayStart, int iSortCol_0,
             string sSortDir_0, string sSearch)
         {
             List<AppStock4DT> userslist = _iInventory.GetAppStockDocList(iDisplayLength, iDisplayStart, iSortCol_0, sSortDir_0, sSearch, LUser.LogInProfitCentreID, false, ref pMsg);
+            var result = new
+            {
+                iTotalRecords = userslist.Count == 0 ? 0 : userslist.FirstOrDefault().TotalRecords,
+                iTotalDisplayRecords = userslist.Count == 0 ? 0 : userslist.FirstOrDefault().TotalCount,
+                iDisplayLength = iDisplayLength,
+                iDisplayStart = iDisplayStart,
+                aaData = userslist
+            };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetPurchaseDocListForUser(int iDisplayLength, int iDisplayStart, int iSortCol_0,
+            string sSortDir_0, string sSearch)
+        {
+            List<AppStock4DT> userslist = _iInventory.GetAppStockForUserDocList(iDisplayLength, iDisplayStart, iSortCol_0, sSortDir_0, sSearch, LUser.LogInProfitCentreID, false,LUser.user.UserID, ref pMsg);
             var result = new
             {
                 iTotalRecords = userslist.Count == 0 ? 0 : userslist.FirstOrDefault().TotalRecords,

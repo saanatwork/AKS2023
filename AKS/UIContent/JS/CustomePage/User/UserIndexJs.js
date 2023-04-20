@@ -24,6 +24,7 @@ function CategoryClicked() {
     if (myCtrl.val() != '') {
         GetDropDownData('cItem', 'Select Item', '/Inventory/GetItemOfCategory?CategoryCode=' + myCtrl.val())
         myCtrl.isValid();
+        $('#cItem').isInvalid();
     }
     else { myCtrl.isInvalid(); }
 };
@@ -96,4 +97,27 @@ function ItemClicked() {
         });
     }
     else { myCtrl.isInvalid(); }
+};
+function GHDateChanged() {
+    myCtrl = $(GHDateChanged.caller.arguments[0].target);
+    if (myCtrl.val() != '') { myCtrl.isValid(); } else { myCtrl.isInvalid(); }
+    dataSourceURL = '/Inventory/GetGoldRates?MDate=' + myCtrl.val();
+    var myBody = $('#GHBody');
+    var myBodyContent = '';
+    $.ajax({
+        url: dataSourceURL,
+        method: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            $(data).each(function (index, item) {
+                myBodyContent = myBodyContent + '<tr>'
+                    + '<td>' + item.CDate + '</td>'
+                    + '<td>' + item.CTime + '</td>'
+                    + '<td>' + item.GoldRate + '</td>'
+                    + '<td>' + Math.round(item.GoldRate/10) + '</td>'
+                    + '</tr>'
+            });            
+            myBody.html(myBodyContent);
+        }
+    });
 };

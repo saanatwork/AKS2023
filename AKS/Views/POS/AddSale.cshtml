@@ -53,6 +53,12 @@
             <div class="card-body approvalForm">
                 <div class="row d-flex align-items-center mb-4">
                     <label class="col-form-label col-md-1">
+                        Search :
+                    </label>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" onkeyup="CustomerSearChanged()" />
+                    </div>
+                    <label class="col-form-label col-md-1">
                         Customer :
                     </label>
                     <div class="col-md-3">
@@ -71,37 +77,40 @@
                         </select>
                     </div>
                     <label class="col-form-label col-md-1">
-                        Search :
+                        Invoice Date :
                     </label>
-                    <div class="col-md-3">
-                        <input class="form-control" type="text" onkeyup="CustomerSearChanged()" />
+                    <div class="col-md-2">
+                        <div class="position-relative pointer">
+                            <input id="cInvDate" type="date" max="@DateTime.Today.ToString("yyyy-MM-dd")"
+                                   onchange="IDateChanged()"
+                                   value="@DateTime.Today.ToString("yyyy-MM-dd")"
+                                   class="form-control is-valid CustomDateFormatCloneRow valid">
+                        </div>
                     </div>
-                    </div>
+                </div>
                 <div class="row d-flex align-items-center mb-4">
                     <label class="col-form-label col-md-1">
                         Address:
                     </label>
-                    <div id="cAddress" class="col-md-3">
+                    <div id="cAddress" class="col-md-2">
                     </div>
                     <label class="col-form-label col-md-1">
                         Contact :
                     </label>
                     <div class="col-md-3">
                         <div id="cContact" class="position-relative pointer">
-
                         </div>
-                        
                     </div>
                     <label class="col-form-label col-md-1">
                         Email :
                     </label>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <div id="cEmail" class="position-relative pointer">
 
                         </div>
                     </div>
-                    </div>
                 </div>
+            </div>
         </div>
         <div class="card mb-4 mt-4" style="vertical-align:central">
             <div class="card-body">
@@ -202,7 +211,7 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <select id="cItem" data-name="ItemCatCode"
+                                    <select id="cItem" data-name="ItemCode"
                                             onchange="ItemChanged()"
                                             class="form-select myctrlw100 is-invalid alterID inValidTag"
                                             aria-label="Default select example">
@@ -211,7 +220,7 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <input id="cQty" type="text" data-name="Remarks"
+                                    <input id="cQty" type="text" data-name="Qty"
                                            onkeyup="QtyChanged()"
                                            class="form-control is-valid alterIDvalOne iqty"
                                            value="1">
@@ -222,7 +231,7 @@
                                             <tr id="0_mvRow" class="alterID">
                                                 <td style="width:40%">
                                                     <input id="0_cMetalVariant" type="text"
-                                                           data-name-child="Weight" disabled
+                                                           data-name-child="VariantText" disabled
                                                            class="form-control alterID xvariant"
                                                            value="">
                                                 </td>
@@ -253,8 +262,8 @@
                                         <tbody id="dvTBody1" class="alterID">
                                             <tr id="0_dvRow" class="alterID">
                                                 <td style="width:40%">
-                                                    <input id="0_cDiamondVariant" type="text" 
-                                                           data-name-child="Weight" disabled
+                                                    <input id="0_cDiamondVariant" type="text"
+                                                           data-name-child="VariantText" disabled
                                                            class="form-control alterID xvariant">
                                                 </td>
                                                 <td style="width:10%">
@@ -269,17 +278,18 @@
                                                            value="0">
                                                 </td>
                                                 <td style="width:10%">
-                                                    <input id="0_cDiamondGA" type="text" data-name-child="Rate" disabled
+                                                    <input id="0_cDiamondGA" type="text" data-name-child="DGrossAmount" disabled
                                                            class="form-control alterIDvalZero igamt"
                                                            value="0">
                                                 </td>
                                                 <td style="width:10%">
-                                                    <input id="0_cDiamondDis" type="text" data-name-child="Rate"
+                                                    <input id="0_cDiamondDis" type="text" data-name-child="DDisPercentage"
+                                                           onkeyup="DDiscountChanged()"
                                                            class="form-control alterIDvalZero ddis"
                                                            value="0">
                                                 </td>
                                                 <td style="width:10%">
-                                                    <input id="0_cDiamondDisAmount" type="text" data-name-child="Rate" disabled
+                                                    <input id="0_cDiamondDisAmount" type="text" data-name-child="DDisAmount" disabled
                                                            class="form-control alterIDvalZero ddisamt"
                                                            value="0">
                                                 </td>
@@ -299,7 +309,7 @@
                                         <tbody id="svTBody1" class="alterID">
                                             <tr id="0_svRow" class="alterID">
                                                 <td style="width:40%">
-                                                    <input id="0_cStoneVariant" type="text" data-name-child="Weight" disabled
+                                                    <input id="0_cStoneVariant" type="text" data-name-child="VariantText" disabled
                                                            class="form-control alterID xvariant"
                                                            value="">
                                                 </td>
@@ -350,13 +360,13 @@
                                 </td>
                                 <td>
                                     <input id="cHallMark" type="text" data-name="HallMarkCharge"
-                                           onkeyup="HallMarkChanged()"
+                                           onkeyup="ChargesChanged()"
                                            class="form-control alterIDvalZero iamt"
                                            value="0">
                                 </td>
                                 <td>
                                     <input id="cOtherCharges" type="text" data-name="Othercharges"
-                                           onkeyup="OtherChargeChanged()"
+                                           onkeyup="ChargesChanged()"
                                            class="form-control alterIDvalZero iamt"
                                            value="0">
                                 </td>
@@ -371,20 +381,18 @@
                                            value="0">
                                 </td>
                                 <td>
-                                    <input id="cDiscountPer" type="text" data-name="Discount"
-                                           onkeyup="ItemQtyChanged()"
+                                    <input id="cDiscountPer" type="text" data-name="IDiscountPer"
+                                           onkeyup="ItemDiscountChanged()"
                                            class="form-control alterIDvalZero"
                                            value="0">
                                 </td>
                                 <td>
                                     <input id="cDiscountAmt" type="text" data-name="Discount" disabled
-                                           onkeyup="ItemQtyChanged()"
                                            class="form-control alterIDvalZero idisamt"
                                            value="0">
                                 </td>
                                 <td>
-                                    <input id="cNetAfterDiscount" type="text" data-name="Discount" disabled
-                                           onkeyup="ItemQtyChanged()"
+                                    <input id="cNetAfterDiscount" type="text" data-name="IAmtAfterDiscount" disabled
                                            class="form-control alterIDvalZero inetafterdis"
                                            value="0">
                                 </td>
@@ -412,7 +420,7 @@
                 </div>
             </div>
         </div>
-        <div class="card mb-4 mt-4" style="vertical-align:central">
+        <div class="card mb-4 mt-4" >
             <div class="card-body approvalForm">
                 <div class="row d-flex align-items-center mb-4">
                     <label class="col-form-label col-md-2">
@@ -430,7 +438,7 @@
                     </label>
                     <div class="col-md-3">
                         <input id="cTradeDiscount" type="text"
-                               onkeyup="ValidateTradeDiscount()"
+                               onkeyup="FooterValueChanged()"
                                class="form-control"
                                value="0">
                     </div>
@@ -451,120 +459,178 @@
                     </label>
                     <div class="col-md-3">
                         <input id="cGST" type="text"
-                               onkeyup="ValidateGST()"
+                               onkeyup="FooterValueChanged()"
                                @*onchange="ValidateGST()"*@
                                class="form-control"
                                value="3">
                     </div>
-                    <label class="col-form-label col-md-2" style="text-align:right">
+                    <label class="col-form-label col-md-2">
                         GST Amount:
                     </label>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <input id="cGSTAmount" type="text" disabled
+                               class="form-control"
+                               value="0">
+                    </div>
+                </div>                
+                <div class="row d-flex align-items-center mb-4">
+                    <label class="col-form-label col-md-2 btn-success">
+                        Bill Amount :
+                    </label>
+                    <div class="col-md-3">
+                        <input id="cNetPayable" type="text" disabled
+                               class="form-control btn-success"
+                               value="0">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card mb-4 mt-4" >
+            <div class="card-body approvalForm">
+                <div class="row d-flex align-items-center mb-4">
+                    <label class="col-form-label col-md-2">
+                        Amount Received :
+                    </label>
+                    <div class="col-md-2">
+                        <input id="cAmountReceived" type="text"
+                               onkeyup="FooterValueChanged()"
+                               class="form-control"
+                               value="0">
+                    </div>
+                    <label class="col-form-label col-md-2">
+                        Mode Of Receipt :
+                    </label>
+                    <div class="col-md-2">
+                        <select id="cReceiptMode" data-name="ItemCatCode"
+                                class="form-select myctrlw100"
+                                aria-label="Default select example">
+                            <option selected value="">Select Mode</option>
+                            <option value="1">Cash</option>
+                            <option value="2">Cheque</option>
+                            <option value="3">Online Transfer</option>
+                            <option value="9">Other</option>
+                        </select>
+                    </div>
+                    <label class="col-form-label col-md-2">
+                        Reference No :
+                    </label>
+                    <div class="col-md-2">
+                        <input id="cReceiptRef" type="text"
+                               class="form-control"
+                               value="">
+                    </div>
+                </div>
+                <div class="row d-flex align-items-center mb-4">
+                    <label class="col-form-label col-md-2">
+                        Cash Discount :
+                    </label>
+                    <div class="col-md-2">
+                        <input id="cCashDiscount" type="text"                               
+                               onkeyup="FooterValueChanged()"
                                class="form-control"
                                value="0">
                     </div>
                 </div>
                 <div class="row d-flex align-items-center mb-4">
-                    <label class="col-form-label col-md-2">
-                        Net Payable Amount :
+                    <label class="col-form-label col-md-2 btn-light-green">
+                        Balance :
                     </label>
-                    <div class="col-md-3">
-                        <input id="cNetPayable" type="text" disabled
-                               class="form-control"
+                    <div class="col-md-2">
+                        <input id="cAmountBalance" type="text" disabled
+                               class="form-control btn-light-green"
                                value="0">
                     </div>
                 </div>
             </div>
+            </div>
         </div>
-    </div>
 
-    <div class="modal modal-previous-details fade" id="VendorModal"
-         tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-header modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title text-center" id="exampleModalLabel">
-                        Add a new vendor
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div id="VAModalDiv">
-                                <div class="row d-flex  align-items-center">
-                                    <label class="col-form-label col-md-6">
-                                        Vendor Name  :
-                                    </label>
-                                    <div class="col-md-6">
-                                        <input id="cVendorName" type="text" data-name-child="Weight"
-                                               onkeyup="ValidateModalControl()"
-                                               class="form-control is-invalid alterID inValidTagc inValidTag"
-                                               value="">
+        <div class="modal modal-previous-details fade" id="VendorModal"
+             tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-header modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-center" id="exampleModalLabel">
+                            Add a new customer
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div id="VAModalDiv">
+                                    <div class="row d-flex  align-items-center">
+                                        <label class="col-form-label col-md-6">
+                                            Customer Name  :
+                                        </label>
+                                        <div class="col-md-6">
+                                            <input id="cVendorName" type="text" data-name-child="Weight"
+                                                   onkeyup="ValidateModalControl()"
+                                                   class="form-control is-invalid alterID inValidTagc inValidTag"
+                                                   value="">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row d-flex  align-items-center">
-                                    <label class="col-form-label col-md-6">
-                                        Address  :
-                                    </label>
-                                    <div class="col-md-6">
-                                        <input id="cVendorAddress" type="text" data-name-child="Weight"
-                                               onkeyup="ValidateModalControl()"
-                                               class="form-control is-invalid alterID inValidTagc inValidTag"
-                                               value="">
+                                    <div class="row d-flex  align-items-center">
+                                        <label class="col-form-label col-md-6">
+                                            Address  :
+                                        </label>
+                                        <div class="col-md-6">
+                                            <input id="cVendorAddress" type="text" data-name-child="Weight"
+                                                   onkeyup="ValidateModalControl()"
+                                                   class="form-control is-invalid alterID inValidTagc inValidTag"
+                                                   value="">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row d-flex  align-items-center">
-                                    <label class="col-form-label col-md-6">
-                                        Contact Number  :
-                                    </label>
-                                    <div class="col-md-6">
-                                        <input id="cVendorContact" type="text" data-name-child="Weight"
-                                               onkeyup="ValidateModalControl()"
-                                               class="form-control is-invalid alterID inValidTagc inValidTag"
-                                               value="">
+                                    <div class="row d-flex  align-items-center">
+                                        <label class="col-form-label col-md-6">
+                                            Contact Number  :
+                                        </label>
+                                        <div class="col-md-6">
+                                            <input id="cVendorContact" type="text" data-name-child="Weight"
+                                                   onkeyup="ValidateModalControl()"
+                                                   class="form-control is-invalid alterID inValidTagc inValidTag"
+                                                   value="">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row d-flex  align-items-center">
-                                    <label class="col-form-label col-md-6">
-                                        Email ID :
-                                    </label>
-                                    <div class="col-md-6">
-                                        <input id="cVendorEmailID" type="text" data-name-child="Weight"
-                                               onkeyup="ValidateModalControl()"
-                                               class="form-control is-invalid alterID inValidTagc inValidTag"
-                                               value="">
+                                    <div class="row d-flex  align-items-center">
+                                        <label class="col-form-label col-md-6">
+                                            Email ID :
+                                        </label>
+                                        <div class="col-md-6">
+                                            <input id="cVendorEmailID" type="text" data-name-child="Weight"
+                                                   onkeyup="ValidateModalControl()"
+                                                   class="form-control is-invalid alterID inValidTagc inValidTag"
+                                                   value="">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row d-flex  align-items-center">
-                                    <label class="col-form-label col-md-6">
-                                        GSTIN  :
-                                    </label>
-                                    <div class="col-md-6">
-                                        <input id="cVendorGSTIN" type="text" data-name-child="Weight"
-                                               onkeyup="ValidateModalControl()"
-                                               class="form-control alterID inValidTagc inValidTag"
-                                               value="">
+                                    <div class="row d-flex  align-items-center">
+                                        <label class="col-form-label col-md-6">
+                                            GSTIN  :
+                                        </label>
+                                        <div class="col-md-6">
+                                            <input id="cVendorGSTIN" type="text" data-name-child="Weight"
+                                                   onkeyup="ValidateModalControl()"
+                                                   class="form-control alterID inValidTagc inValidTag"
+                                                   value="">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button id="btnVendorSave" type="button"
-                            class="btn btn-success" disabled
-                            onclick="VendorSaveBtnClicked()"
-                            data-bs-dismiss="modal">
-                        Save
-                    </button>
+                    <div class="modal-footer">
+                        <button id="btnVendorSave" type="button"
+                                class="btn btn-success" disabled
+                                onclick="VendorSaveBtnClicked()"
+                                data-bs-dismiss="modal">
+                            Save
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
+        @*}*@
     </div>
-    @*}*@
-</div>
 @section headers{
 
 }

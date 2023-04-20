@@ -33,7 +33,7 @@ $(document).ready(function () {
             },
         ],
         bServerSide: true,
-        sAjaxSource: '/Inventory/GetAppStockDocList',
+        sAjaxSource: '/Inventory/GetAppStockDocListForUser',
         "pagingType": "input",
     });
     

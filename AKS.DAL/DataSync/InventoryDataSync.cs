@@ -31,6 +31,18 @@ namespace AKS.DAL.DataSync
             }
             catch (Exception ex) { pMsg = objPath + ".GetAppStockDocList(...) " + ex.Message; return null; }
         }
+        public DataTable GetAppStockForUserDocList(int DisplayLength, int DisplayStart, int SortColumn,
+            string SortDirection, string SearchText, int ProfitCentreID, bool IsApproval,int UserID, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("[INV].[GetAppStockForUserDocList]", CommandType.StoredProcedure))
+                {
+                    return sql.GetDataTable(_CommonParamMapper.MapParam_DIsplayListWithPCApprovalStatNUser(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ProfitCentreID, IsApproval,UserID, ref pMsg), ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetAppStockForUserDocList(...) " + ex.Message; return null; }
+        }
         public DataTable GetGoldRate(string City, string CDate, ref string pMsg)
         {
             try
@@ -163,7 +175,17 @@ namespace AKS.DAL.DataSync
             }
             catch (Exception ex) { pMsg = objPath + ".LogGoldRate(...) " + ex.Message; return null; }
         }
-
+        public DataTable SetInvoice(AppStockEntry data, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("[POS].[SetInvoice]", CommandType.StoredProcedure))
+                {
+                    return sql.GetDataTable(_InventoryParamMapper.MapParam_SetInvoice(data, ref pMsg), ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".SetInvoice(...) " + ex.Message; return null; }
+        }
 
 
 

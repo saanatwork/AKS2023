@@ -26,6 +26,11 @@ namespace AKS.BOL.Inventory
         public double GST { get; set; }
         public double GSTAmount { get; set; }
         public double NetPayableAmount { get; set; }
+        public double AmountReceived { get; set; }
+        public int ModeOfRecieve { get; set; }
+        public string RefNo { get; set; }
+        public double CashDiscount { get; set; }
+        public double BalanceAmount { get; set; }
     }
     public class AppStockView : AppStockEntry
     {
@@ -70,6 +75,8 @@ namespace AKS.BOL.Inventory
         public double Discount { get; set; }
         public double GrossAmount { get; set; }
         public double NetAmount { get; set; }
+        public double IDiscountPer { get; set; }
+        public double IAmtAfterDiscount { get; set; }
     }
     public class AppStockVariant 
     {
@@ -79,6 +86,11 @@ namespace AKS.BOL.Inventory
         public int ItemSL { get; set; }
         public int Rate { get; set; }
         public double Amount { get; set; }
+        public double DDisPercentage { get; set; }
+        public double DDisAmount { get; set; }
+        public double DGrossAmount { get; set; }
+        public string ItemCode { get; set; }
+
     }
     public class AppStock4DT 
     {

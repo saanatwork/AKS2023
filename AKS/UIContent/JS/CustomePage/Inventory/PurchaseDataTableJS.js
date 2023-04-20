@@ -30,7 +30,7 @@ $(document).ready(function () {
             },
         ],
         bServerSide: true,
-        sAjaxSource: '/Inventory/GetPurchaseDocList',
+        sAjaxSource: '/Inventory/GetPurchaseDocListForUser',
         "pagingType": "input",
     });
 

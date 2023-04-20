@@ -285,7 +285,7 @@ namespace AKS.DAL.ObjectMapper
                         result.NetAmount = double.Parse(dr["NetAmount"].ToString());
                 }
             }
-            catch (Exception ex) { pMsg = objPath + ".Map_AppStock(DataRow dr,ref string pMsg) " + ex.Message; }
+            catch (Exception ex) { pMsg = objPath + ".Map_PurchaseItem(DataRow dr,ref string pMsg) " + ex.Message; }
             return result;
         }
         public SalesItemVriant Map_SalesItemVriant(DataRow dr, ref string pMsg)

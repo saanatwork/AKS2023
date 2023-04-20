@@ -139,16 +139,54 @@
         </div>
     </div>
 </div>
-@section headers{
-    <style>
-        wrap {
-            word-wrap: break-word;
-        }
-    </style>
-}
-@section scripts{
-    <script src="~/UIContent/JS/CustomePage/CommonReusableJS.js"></script>
-    <script src="~/UIContent/JS/CustomePage/User/UserIndexJs.js"></script>
+<div class="row dashboard-box mt-3 pt-1">
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+        <div class="card" style="background-color: #EDF3F6">
+            <p class="square-after f-w-600 header-text-primary">GoldRate History<i class="fa fa-circle"> </i></p>
+            <div style="padding:10px">
+                <table class="w-100">
+                    <tr>
+                        <td>
+                            Select Date:
+                        </td>
+                        <td>
+                            <div class="position-relative pointer">
+                                <input id="GHDate" type="date" max="@DateTime.Today.ToString("yyyy-MM-dd")"
+                                       onchange="GHDateChanged()"
+                                       class="form-control is-invalid CustomDateFormatCloneRow valid">
 
-}
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <table class="table table-bordered w-100">
+                <thead>
+                    <tr>
+                        <td><b>Date</b></td>
+                        <td><b>Time</b></td>
+                        <td><b>Rate(24K 10G)</b></td>
+                        <td><b>Rate(24K 1G)</b></td>
+                    </tr>
+                </thead>
+                <tbody id="GHBody">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+    @section headers{
+        <style>
+            wrap {
+                word-wrap: break-word;
+            }
+        </style>
+    }
+    @section scripts{
+        <script src="~/UIContent/JS/CustomePage/CommonReusableJS.js"></script>
+        <script src="~/UIContent/JS/CustomePage/User/UserIndexJs.js"></script>
+
+    }
 

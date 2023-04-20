@@ -12,6 +12,8 @@ namespace AKS.BLL.IRepository
     {
         List<AppStock4DT> GetAppStockDocList(int DisplayLength, int DisplayStart, int SortColumn,
             string SortDirection, string SearchText, int ProfitCentreID,bool IsApproval, ref string pMsg);
+        List<AppStock4DT> GetAppStockForUserDocList(int DisplayLength, int DisplayStart, int SortColumn,
+            string SortDirection, string SearchText, int ProfitCentreID, bool IsApproval, int UserID, ref string pMsg);
         List<DBGoldRate> GetGoldRate(string City, string CDate, ref string pMsg);
         bool SetAppStock(AppStockEntry modelobj, ref string pMsg);
         AppStockView GetAppStocks(string DocumentNumber, ref string pMsg);
@@ -24,5 +26,6 @@ namespace AKS.BLL.IRepository
         List<CustomComboOptionsWithString> GetItemOfCategory(string CategoryCode, ref string pMsg);
         SItemVariantLists GetItemVariantsForSale(string ItemID, int MakingCharge, int DiDiscount, string City, ref string pMsg);
         bool LogGoldRate(string City, double GoldRate, ref string pMsg);
+        bool SetInvoice(AppStockEntry data, ref string pMsg);
     }
 }

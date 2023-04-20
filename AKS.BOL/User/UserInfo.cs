@@ -29,7 +29,6 @@ namespace AKS.BOL.User
         public UserInfo user { get; set; }
         public List<ProfitCentre> userpcs { get; set; }
         public int LogInProfitCentreID { get; set; }
-        public int MyProperty { get; set; }
     }
     public class UserInfoAjaxRapper
     {
