@@ -2,6 +2,7 @@
 using AKS.BOL.Common;
 using AKS.BOL.Inventory;
 using AKS.BOL.Master;
+using AKS.BOL.POS;
 using AKS.BOL.User;
 using AKS.ViewModel.InventoryVM;
 using AKS.ViewModel.POSVM;
@@ -38,10 +39,28 @@ namespace AKS.Controllers
             
             return View(model);
         }
-
-
+        public ActionResult ViewInvoice(string InvoiceNumber="") 
+        {
+            Invoice model = _iInventory.GetInvoice(InvoiceNumber, ref pMsg);
+            return View(model);
+        }
+        
 
         #region - Ajax Call
+        public JsonResult GetInvoiceList(int iDisplayLength, int iDisplayStart, int iSortCol_0,
+            string sSortDir_0, string sSearch)
+        {
+            List<Invoice4DT> datalist = _iInventory.GetInvoiceList(iDisplayLength, iDisplayStart, iSortCol_0, sSortDir_0, sSearch, LUser.LogInProfitCentreID, LUser.user.UserID, ref pMsg);
+            var result = new
+            {
+                iTotalRecords = datalist.Count == 0 ? 0 : datalist.FirstOrDefault().TotalRecords,
+                iTotalDisplayRecords = datalist.Count == 0 ? 0 : datalist.FirstOrDefault().TotalCount,
+                iDisplayLength = iDisplayLength,
+                iDisplayStart = iDisplayStart,
+                aaData = datalist
+            };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
         public JsonResult SearchParty(string SearchText)
         {
             var result = _iMaster.SearchPartyInfo(SearchText, false, true, ref pMsg).OrderBy(o=>o.DisplayText);
@@ -77,6 +96,16 @@ namespace AKS.Controllers
                     result.sResponseString = pMsg;
             }
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult PrintInvoice(string DocumentNumber = "")
+        {
+            Invoice model = _iInventory.GetInvoice(DocumentNumber, ref pMsg);
+            return View(model);
+        }
+        public ActionResult PrintInvoiceLandScape(string DocumentNumber = "")
+        {
+            Invoice model = _iInventory.GetInvoice(DocumentNumber, ref pMsg);
+            return View(model);
         }
         #endregion
 

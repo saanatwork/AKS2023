@@ -1,6 +1,7 @@
 ﻿using AKS.BLL.IRepository;
 using AKS.BOL.Common;
 using AKS.BOL.Inventory;
+using AKS.BOL.POS;
 using AKS.DAL.Entities;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,11 @@ namespace AKS.BLL.Repository
         {
             return _InventoryEntity.GetAppStockDocList(DisplayLength,DisplayStart,SortColumn,SortDirection,SearchText, ProfitCentreID,IsApproval, ref pMsg);
         }
-        
+        public List<Invoice4DT> GetInvoiceList(int DisplayLength, int DisplayStart, int SortColumn,
+            string SortDirection, string SearchText, int ProfitCentreID, int UserID, ref string pMsg)
+        {
+            return _InventoryEntity.GetInvoiceList(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ProfitCentreID, UserID, ref pMsg);
+        }
         public List<AppStock4DT> GetAppStockForUserDocList(int DisplayLength, int DisplayStart, int SortColumn,
             string SortDirection, string SearchText, int ProfitCentreID, bool IsApproval, int UserID, ref string pMsg)
         {
@@ -324,6 +329,12 @@ namespace AKS.BLL.Repository
             }
             return _InventoryEntity.SetInvoice(modelobj, ref pMsg);
         }
+        public Invoice GetInvoice(string DocumentNumber, ref string pMsg) 
+        {
+            return _InventoryEntity.GetInvoice(DocumentNumber, ref pMsg); 
+        }
+
+
 
     }
 }

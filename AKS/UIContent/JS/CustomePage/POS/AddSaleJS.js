@@ -460,7 +460,7 @@ function ItemChanged() {
                     gamt = gamt + item.Amount;
                 });
                 $('#' + GrossAmtID).val(gamt);
-                $('#' + QtyID).val(1);
+                $('#' + QtyID).val(1).isValid();
                 $('#' + HallMarkID).val(0);
                 $('#' + OtherChargeID).val(0);
                 $('#' + NetAmtID).val(gamt);
@@ -478,10 +478,36 @@ function ItemChanged() {
 };
 function QtyChanged() {
     var myCtrl = $(QtyChanged.caller.arguments[0].target);
-    if (myCtrl.val() >0) { myCtrl.isValid(); } else { myCtrl.isInvalid(); }
     var myCtrlID = myCtrl.attr('id');
+    var itemdesc = $('#cItem option:selected').text();
+    var avblqty = 0;
+    var x = '';
     var prowid = 0;
-    if (myCtrlID.indexOf('-') > 0) { prowid = myCtrlID.split('-')[1]; }
+    if (myCtrlID.indexOf('-') > 0) {
+        prowid = myCtrlID.split('-')[1];
+        itemdesc = $('#cItem-' + prowid+' option:selected').text();
+    }
+    if (itemdesc.indexOf(':') > 0) {
+        x = itemdesc.split(':')[1].split(')')[0];
+        if ($.isNumeric(x * 1)) { avblqty = x * 1; }        
+    }
+    if (myCtrl.val() > 0) {
+        if (myCtrl.val() <= avblqty) { myCtrl.isValid(); }
+        else {
+            myCtrl.isInvalid();
+            Swal.fire({
+                title: 'Error!',
+                text: 'Quantity Available For Selected Item Is : ' + avblqty,
+                icon: 'error',
+                customClass: 'swal-wide',
+                buttons: {
+                    confirm: 'Ok'
+                },
+                confirmButtonColor: '#2527a2',
+            });
+        }
+    }
+    else { myCtrl.isInvalid(); }
     CalculateItemTotalOfaRow(prowid);
     CalculateItemTotal();
     CalculateNetPayable();

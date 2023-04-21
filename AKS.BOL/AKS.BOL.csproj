@@ -98,6 +98,7 @@
     <Compile Include="Master\Variant.cs" />
     <Compile Include="Master\VariantCategory.cs" />
     <Compile Include="MyHelper.cs" />
+    <Compile Include="POS\Invoice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Master\GLocation.cs" />
     <Compile Include="User\ProfitCentre.cs" />
@@ -110,8 +111,6 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="POS\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

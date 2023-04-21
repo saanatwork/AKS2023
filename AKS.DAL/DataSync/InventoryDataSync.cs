@@ -43,6 +43,18 @@ namespace AKS.DAL.DataSync
             }
             catch (Exception ex) { pMsg = objPath + ".GetAppStockForUserDocList(...) " + ex.Message; return null; }
         }
+        public DataTable GetInvoiceList(int DisplayLength, int DisplayStart, int SortColumn,
+            string SortDirection, string SearchText, int ProfitCentreID, int UserID, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("[POS].[GetInvoiceList]", CommandType.StoredProcedure))
+                {
+                    return sql.GetDataTable(_CommonParamMapper.MapParam_DIsplayListWithPCNUser(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ProfitCentreID, UserID, ref pMsg), ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetInvoiceList(...) " + ex.Message; return null; }
+        }
         public DataTable GetGoldRate(string City, string CDate, ref string pMsg)
         {
             try
@@ -186,7 +198,17 @@ namespace AKS.DAL.DataSync
             }
             catch (Exception ex) { pMsg = objPath + ".SetInvoice(...) " + ex.Message; return null; }
         }
-
+        public DataSet GetInvoice(string DocumentNumber, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("[POS].[GetInvoice]", CommandType.StoredProcedure))
+                {
+                    return sql.GetDataSet(_InventoryParamMapper.MapParam_GetAppStocks(DocumentNumber, ref pMsg), ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetInvoice(...) " + ex.Message; return null; }
+        }
 
 
 

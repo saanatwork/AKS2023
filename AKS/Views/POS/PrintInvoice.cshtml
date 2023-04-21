@@ -1,0 +1,9 @@
+﻿@model AKS.BOL.POS.Invoice
+@{
+    ViewBag.Title = "Print Invoice";
+    Layout = "~/Views/Shared/_LayoutForPrint.cshtml";
+}
+<div style="text-align:center;color:white">
+    <h1></h1>
+</div>
+@{Html.RenderPartial("_InvoicePrint", Model);}

@@ -1,5 +1,6 @@
 ﻿using AKS.BOL.Common;
 using AKS.BOL.Inventory;
+using AKS.BOL.POS;
 using AKS.DAL.DataSync;
 using AKS.DAL.ObjectMapper;
 using System;
@@ -54,6 +55,24 @@ namespace AKS.DAL.Entities
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
                         result.Add(_InventoryObjectMapper.Map_AppStock4DT(dt.Rows[i], ref pMsg));
+                    }
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetAppStockForUserDocList(...) " + ex.Message; }
+            return result;
+        }
+        public List<Invoice4DT> GetInvoiceList(int DisplayLength, int DisplayStart, int SortColumn,
+            string SortDirection, string SearchText, int ProfitCentreID, int UserID, ref string pMsg)
+        {
+            List<Invoice4DT> result = new List<Invoice4DT>();
+            try
+            {
+                dt = _InventoryDataSync.GetInvoiceList(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ProfitCentreID, UserID, ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        result.Add(_InventoryObjectMapper.Map_Invoice4DT(dt.Rows[i], ref pMsg));
                     }
                 }
             }
@@ -250,7 +269,43 @@ namespace AKS.DAL.Entities
             _DBResponseMapper.Map_DBResponse(_InventoryDataSync.SetInvoice(data, ref pMsg), ref pMsg, ref result);
             return result;
         }
+        public Invoice GetInvoice(string DocumentNumber, ref string pMsg)
+        {
+            Invoice result = new Invoice();
+            try
+            {
+                ds = _InventoryDataSync.GetInvoice(DocumentNumber, ref pMsg);
+                if (ds != null)
+                {
+                    List<InvoiceItem> itemlist = new List<InvoiceItem>();
+                    List<InvoiceItemVariants> variantlist = new List<InvoiceItemVariants>();
+                    DataTable hdr = ds.Tables[0]; 
+                    DataTable dtitem = ds.Tables[1];
+                    dt= ds.Tables[2];
+                    if (hdr != null && hdr.Rows.Count > 0)
+                        result = _InventoryObjectMapper.Map_Invoice(hdr.Rows[0], ref pMsg);
+                    if (dtitem != null && dtitem.Rows.Count > 0)
+                    {
+                        for (int i = 0; i < dtitem.Rows.Count; i++)
+                        {
+                            itemlist.Add(_InventoryObjectMapper.Map_InvoiceItem(dtitem.Rows[i], ref pMsg));
+                        }
+                    }
+                    result.Items = itemlist;
 
+                    if (dt != null && dt.Rows.Count > 0)
+                    {
+                        for (int i = 0; i < dt.Rows.Count; i++)
+                        {
+                            variantlist.Add(_InventoryObjectMapper.Map_InvoiceItemVariants(dt.Rows[i], ref pMsg));
+                        }
+                    }
+                    result.AllVariants = variantlist;
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetInvoice(...) " + ex.Message; }
+            return result;
+        }
 
 
     }

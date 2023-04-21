@@ -1,0 +1,48 @@
+﻿@model AKS.BOL.POS.Invoice
+@{
+    ViewBag.Title = "POS - Sales ";
+}
+
+<div class="row newTable">
+    @Html.HiddenFor(m => m.DocumentFileName)
+    @Html.HiddenFor(m => m.InvoiceNumber)
+    <div class="fixedElement">
+        <div class="col-md-12">
+            <div class="heading_text_btn mb-3 mt-4">
+                <div class="leftButton">
+                    <button id="btnBack" type="button"
+                            onclick="window.location.href='/POS/Sales';"
+                            class="btn btn-white me-2">
+                        <i data-feather="arrow-left-circle"></i>
+                        Back
+                    </button>
+                    <button id="btnScanView" type="button"
+                            onclick="ViewUploadedFile()"
+                            class="btn btn-secondary">
+                        <i data-feather="eye"></i>
+                        View Uploaded
+                    </button>
+                </div>
+                <h2>Sales Invoice - View </h2>
+                <div class="rightButton">
+                    <a class="btn btn-secondary" href="@Url.Action("GeneratePdf","Common", new { ViewUrl ="/POS/PrintInvoice?DocumentNumber="+Model.InvoiceNumber ,PdfFileName=Model.InvoiceNumber })">
+                        <i data-feather="printer"></i>
+                        Print
+                    </a>
+                    @*<a class="btn btn-secondary" href="@Url.Action("GeneratePdf","Common", new { ViewUrl ="/POS/PrintInvoiceLandScape?DocumentNumber="+Model.InvoiceNumber ,PdfFileName=Model.InvoiceNumber })">
+                        <i data-feather="printer"></i>
+                        Print Landscape
+                    </a>*@
+                </div>
+            </div>
+        </div>
+    </div>
+    @{Html.RenderPartial("_InvoicePrint", Model);}
+</div>
+@section headers{
+
+}
+@section scripts{
+    <script src="~/UIContent/JS/CustomePage/CommonReusableJS.js"></script>
+
+}
