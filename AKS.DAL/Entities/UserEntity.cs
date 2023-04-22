@@ -166,7 +166,18 @@ namespace AKS.DAL.Entities
             _DBResponseMapper.Map_DBResponse(_UserDataSync.SetUserInfo(data, ref pMsg), ref pMsg, ref result);
             return result;
         }
-        
+        public bool SetUser(UserInfoWithPwd data, ref string pMsg)
+        {
+            bool result = false;
+            _DBResponseMapper.Map_DBResponse(_UserDataSync.SetUser(data, ref pMsg), ref pMsg, ref result);
+            return result;
+        }
+        public bool ChangePassword(int UserID, string Password, ref string pMsg)
+        {
+            bool result = false;
+            _DBResponseMapper.Map_DBResponse(_UserDataSync.ChangePassword(UserID, Password, ref pMsg), ref pMsg, ref result);
+            return result;
+        }
 
 
 

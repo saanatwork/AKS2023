@@ -269,8 +269,40 @@ namespace AKS.DAL.Entities
             catch (Exception ex) { pMsg = objPath + ".SearchPartyInfo(...) " + ex.Message; }
             return result;
         }
-
-
+        public List<CustomComboOptionsWithString> GetRoles(ref string pMsg) 
+        {
+            List<CustomComboOptionsWithString> result = new List<CustomComboOptionsWithString>();
+            try
+            {
+                dt = _MasterDatasync.GetRoles(ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        result.Add(_DBResponseMapper.Map_CustomComboOptionsWithString(dt.Rows[i]));
+                    }
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetRoles(...) " + ex.Message; }
+            return result;
+        }
+        public List<UserRole> GetRoleOfUser(int UserID, ref string pMsg) 
+        {
+            List<UserRole> result = new List<UserRole>();
+            try
+            {
+                dt = _MasterDatasync.GetRoleOfUser(UserID,ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        result.Add(_MasterObjectMapper.Map_UserRole(dt.Rows[i], ref pMsg));
+                    }
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".UserRole(...) " + ex.Message; }
+            return result;
+        }
 
 
     }

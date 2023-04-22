@@ -33,7 +33,8 @@ namespace AKS.BLL.IRepository
         bool RemoveParty(int PartyCode, ref string pMsg);
         string GetNewDocNumber(string DocumentSign, ref string pMsg);
         List<CustomComboOptions> SearchPartyInfo(string SearchText, bool IsVendor, bool IsCustomer, ref string pMsg);
-
+        List<CustomComboOptionsWithString> GetRoles(ref string pMsg);
+        List<UserRole> GetRoleOfUser(int UserID, ref string pMsg);
 
 
 

@@ -222,8 +222,28 @@ namespace AKS.DAL.DataSync
             }
             catch (Exception ex) { pMsg = objPath + ".SearchPartyInfo(...) " + ex.Message; return null; }
         }
-
-
+        public DataTable GetRoles(ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("select * from [MTR].[GetRoles]()", CommandType.Text))
+                {
+                    return sql.GetDataTable(ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetRoles(ref string pMsg) " + ex.Message; return null; }
+        }
+        public DataTable GetRoleOfUser(int UserID,ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("select * from [MTR].[GetRoleOfUser]("+ UserID + ")", CommandType.Text))
+                {
+                    return sql.GetDataTable(ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetRoleOfUser(...) " + ex.Message; return null; }
+        }
 
 
 

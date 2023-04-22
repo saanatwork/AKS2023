@@ -1,4 +1,5 @@
 ﻿using AKS.BLL.IRepository;
+using AKS.BOL.Common;
 using AKS.BOL.User;
 using AKS.DAL.Entities;
 using Newtonsoft.Json;
@@ -103,10 +104,22 @@ namespace AKS.BLL.Repository
         {
             return _UserEntity.SetUserInfo(data, ref pMsg);
         }
+        public bool SetUser(UserInfoWithPwd data, ref string pMsg) 
+        {
+            data.HashedPassword = Crypto.HashPassword(data.HashedPassword);
+            return _UserEntity.SetUser(data, ref pMsg);
+        }
+        public bool ChangePassword(string Contactno,string OldPassword,int UserID, string Password, ref string pMsg) 
+        {
+            string HashedPwd = "";
+            _UserEntity.GetUserInfo(Contactno, ref pMsg, ref HashedPwd);
+            if (Crypto.VerifyHashedPassword(HashedPwd, OldPassword))
+            {
+                return _UserEntity.ChangePassword(UserID, Crypto.HashPassword(Password), ref pMsg);
+            }
+            else 
+            { pMsg = "Invalid Old Password"; return false; }
+        }
         
-
-
-
-
     }
 }

@@ -277,7 +277,27 @@ namespace AKS.DAL.ObjectMapper
             catch (Exception ex) { pMsg = objPath + ".Map_DocumentNumber(DataRow dr, ref string pMsg) " + ex.Message; }
             return result;
         }
-
+        public UserRole Map_UserRole(DataRow dr, ref string pMsg)
+        {
+            UserRole result = new UserRole();
+            try
+            {
+                if (dr != null)
+                {
+                    if (!DBNull.Value.Equals(dr["UserID"]))
+                        result.UserID = int.Parse(dr["UserID"].ToString());
+                    if (!DBNull.Value.Equals(dr["Role"]))
+                        result.URole = dr["Role"].ToString();
+                    if (!DBNull.Value.Equals(dr["ProfitCentreID"]))
+                        result.ProfitCentreID = int.Parse(dr["ProfitCentreID"].ToString());
+                    if (!DBNull.Value.Equals(dr["ProfitCentreName"]))
+                        result.ProfitCentreName = dr["ProfitCentreName"].ToString();
+                    
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".Map_UserRole(DataRow dr, ref string pMsg) " + ex.Message; }
+            return result;
+        }
 
 
 

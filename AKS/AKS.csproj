@@ -152,12 +152,14 @@
     <Compile Include="ViewModel\AdminVM\CategoryInfoAjaxRapper.cs" />
     <Compile Include="ViewModel\AdminVM\PartyInfoAjaxRapper.cs" />
     <Compile Include="ViewModel\AdminVM\PCInfoAjaxRapper.cs" />
+    <Compile Include="ViewModel\AdminVM\UserRoleVM.cs" />
     <Compile Include="ViewModel\AdminVM\VariantInfoAjaxRapper.cs" />
     <Compile Include="ViewModel\AdminVM\VariantVM.cs" />
     <Compile Include="ViewModel\InventoryVM\AppStockEntryVM.cs" />
     <Compile Include="ViewModel\InventoryVM\PurchaseEntryVM.cs" />
     <Compile Include="ViewModel\POSVM\SalesEntryVM.cs" />
     <Compile Include="ViewModel\UserVM\LogInVM.cs" />
+    <Compile Include="ViewModel\UserVM\RegisterUserVM.cs" />
     <Compile Include="ViewModel\UserVM\SelectPCVM.cs" />
     <Compile Include="ViewModel\UserVM\UserDashBoardVM.cs" />
   </ItemGroup>
@@ -270,6 +272,7 @@
     <Content Include="UIContent\JS\CustomePage\POS\SalesDataTableJS.js" />
     <Content Include="UIContent\JS\CustomePage\User\LogInJS.js" />
     <Content Include="UIContent\JS\CustomePage\Admin\ProfitCentreListJS.js" />
+    <Content Include="UIContent\JS\CustomePage\User\RegisterUserJS.js" />
     <Content Include="UIContent\JS\CustomePage\User\UserIndexJs.js" />
     <Content Include="UIContent\JS\CustomePage\User\UserListJS.js" />
     <Content Include="UIContent\JS\CustomLayout.js" />
@@ -343,6 +346,9 @@
     <Content Include="Views\POS\ViewInvoice.cshtml" />
     <Content Include="Views\POS\_InvoicePrint.cshtml" />
     <Content Include="Views\POS\PrintInvoice.cshtml" />
+    <Content Include="Views\Home\RegisterUser.cshtml" />
+    <Content Include="Views\Home\ChangePassword.cshtml" />
+    <Content Include="Views\Admin\UserRole.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

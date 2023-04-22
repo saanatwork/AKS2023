@@ -86,7 +86,28 @@ namespace AKS.DAL.DataSync
             }
             catch (Exception ex) { pMsg = objPath + ".SetUserInfo(MyUser data, ref string pMsg) " + ex.Message; return null; }
         }
-        
+        public DataTable SetUser(UserInfoWithPwd data, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("[USR].[SetUser]", CommandType.StoredProcedure))
+                {
+                    return sql.GetDataTable(_UserParamMapper.MapParam_SetUser(data, ref pMsg), ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".SetUser(UserInfoWithPwd data, ref string pMsg) " + ex.Message; return null; }
+        }
+        public DataTable ChangePassword(int UserID, string Password, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("[USR].[ChangePassword]", CommandType.StoredProcedure))
+                {
+                    return sql.GetDataTable(_UserParamMapper.MapParam_ChangePassword(UserID, Password, ref pMsg), ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".ChangePassword(...) " + ex.Message; return null; }
+        }
 
 
 

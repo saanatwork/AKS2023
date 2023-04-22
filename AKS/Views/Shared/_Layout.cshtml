@@ -456,13 +456,16 @@
                                     <ul class="submenu collapse ">
                                         @foreach (var menuoption in MenuList.Where(o => o.MenuName == menu).ToList())
                                         {
-                                            <li>@Html.ActionLink(menuoption.OptionName, menuoption.ActionName, menuoption.ControllerName,new { },htmlAttributes: new { @class = "nav-link" })</li>
+                                            <li>@Html.ActionLink(menuoption.OptionName, menuoption.ActionName, menuoption.ControllerName, new { }, htmlAttributes: new { @class = "nav-link" })</li>
                                         }
                                     </ul>
                                 </li>
                             }
 
                         </ul>
+                        <br/>
+                        @Html.ActionLink("Change Password", "ChangePassword", "Home", new { }, htmlAttributes: new { @class = "nav-link" })
+                        
                     </nav>
                 </div>
             </div>

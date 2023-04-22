@@ -51,6 +51,24 @@ namespace AKS.Controllers
         {
             return View();
         }
+        public ActionResult UserRole(int UserID=0,string FullName="") 
+        {
+            UserRoleVM model = new UserRoleVM();
+            model.UserID = UserID;
+            model.UserName = FullName;
+            model.UserRoleList = _iMaster.GetRoleOfUser(UserID, ref pMsg);
+            model.RoleList = _iMaster.GetRoles(ref pMsg);
+            model.ProfitCentreList = _iMaster.GetProfitCentreInfo(0, ref pMsg);
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult UserRole(UserRoleVM model)
+        {   
+            model.UserRoleList = _iMaster.GetRoleOfUser(model.UserID, ref pMsg);
+            model.RoleList = _iMaster.GetRoles(ref pMsg);
+            model.ProfitCentreList = _iMaster.GetProfitCentreInfo(0, ref pMsg);
+            return View(model);
+        }
         #region - Ajax Call
         public JsonResult GetUser(string UserID) 
         {

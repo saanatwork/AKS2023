@@ -95,7 +95,14 @@ namespace AKS.BLL.Repository
         {
             return _MasterEntity.SearchPartyInfo(SearchText, IsVendor, IsCustomer, ref pMsg);
         }
-
+        public List<CustomComboOptionsWithString> GetRoles(ref string pMsg)
+        {
+            return _MasterEntity.GetRoles(ref pMsg);
+        }
+        public List<UserRole> GetRoleOfUser(int UserID, ref string pMsg) 
+        {
+            return _MasterEntity.GetRoleOfUser(UserID,ref pMsg);
+        }
 
     }
 }

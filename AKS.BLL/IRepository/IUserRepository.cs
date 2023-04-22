@@ -1,4 +1,5 @@
-﻿using AKS.BOL.User;
+﻿using AKS.BOL.Common;
+using AKS.BOL.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +19,9 @@ namespace AKS.BLL.IRepository
             string SortDirection, string SearchText, ref string pMsg);
         UserInfo GetUser(int UserID, ref string pMsg);
         bool SetUserInfo(MyUser data, ref string pMsg);
+        bool SetUser(UserInfoWithPwd data, ref string pMsg);
+        bool ChangePassword(string Contactno,string OldPassword,int UserID, string Password, ref string pMsg);
         
-
-
 
     }
 }

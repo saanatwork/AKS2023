@@ -86,7 +86,44 @@ namespace AKS.DAL.ParamMapper
             }
             return para;
         }
-
+        public SqlParameter[] MapParam_SetUser(UserInfoWithPwd data, ref string pMsg)
+        {
+            int paracount = 0;
+            SqlParameter[] para = new SqlParameter[4];
+            try
+            {                
+                para[paracount] = new SqlParameter("@UserName", SqlDbType.NVarChar);
+                para[paracount++].Value = data.UserName;
+                para[paracount] = new SqlParameter("@EmailID", SqlDbType.NVarChar);
+                para[paracount++].Value = data.EmailID;
+                para[paracount] = new SqlParameter("@ContactNo", SqlDbType.NVarChar);
+                para[paracount++].Value = data.ContactNo;
+                para[paracount] = new SqlParameter("@Passwod", SqlDbType.NVarChar);
+                para[paracount++].Value = data.HashedPassword;
+            }
+            catch (Exception ex)
+            {
+                pMsg = objPath + ".MapParam_SetUser(...) " + ex.Message;
+            }
+            return para;
+        }
+        public SqlParameter[] MapParam_ChangePassword(int UserID,string Password, ref string pMsg)
+        {
+            int paracount = 0;
+            SqlParameter[] para = new SqlParameter[2];
+            try
+            {
+                para[paracount] = new SqlParameter("@UserID", SqlDbType.Int);
+                para[paracount++].Value = UserID;
+                para[paracount] = new SqlParameter("@Password", SqlDbType.NVarChar);
+                para[paracount++].Value = Password;                
+            }
+            catch (Exception ex)
+            {
+                pMsg = objPath + ".MapParam_ChangePassword(...) " + ex.Message;
+            }
+            return para;
+        }
 
 
 

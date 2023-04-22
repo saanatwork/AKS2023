@@ -72,6 +72,55 @@ namespace AKS.Controllers
             }
             return View(LoginModel);
         }
+        public ActionResult RegisterUser() 
+        {
+            RegisterUserVM model = new RegisterUserVM();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult RegisterUser(RegisterUserVM model)
+        {
+            if (model.Password == model.CnfPassword)
+            {
+                UserInfoWithPwd obj = new UserInfoWithPwd();
+                obj.UserName = model.UserName;
+                obj.EmailID = model.EmailID;
+                obj.ContactNo = model.ContactNo;
+                obj.HashedPassword = model.Password;
+                if (_iUser.SetUser(obj, ref pMsg)) 
+                {
+                    ViewBag.Msg = "User Registered Successfully. Contact To System Admin For Required Permission.";
+                } 
+                else 
+                {
+                    ViewBag.ErrMsg = pMsg;
+                }
+            }
+            else { ViewBag.ErrMsg = "Password Confirmation Failed."; }            
+            return View(model);
+        }
+        public ActionResult ChangePassword() 
+        {
+            RegisterUserVM model = new RegisterUserVM();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult ChangePassword(RegisterUserVM model)
+        {
+            if (model.Password == model.CnfPassword)
+            {                
+                if (_iUser.ChangePassword(LUser.user.ContactNo, model.OldPassword,LUser.user.UserID, model.Password, ref pMsg))
+                {
+                    ViewBag.Msg = "Password Changed Successfully.";
+                }
+                else
+                {
+                    ViewBag.ErrMsg = pMsg;
+                }
+            }
+            else { ViewBag.ErrMsg = "Password Confirmation Failed."; }
+            return View(model);
+        }
         public ActionResult SelectPC() 
         {
             SelectPCVM model = new SelectPCVM();

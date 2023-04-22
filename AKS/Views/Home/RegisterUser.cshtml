@@ -1,4 +1,4 @@
-﻿@model AKS.ViewModel.UserVM.LogInVM
+﻿@model AKS.ViewModel.UserVM.RegisterUserVM
 @{
     Layout = null;
 }
@@ -33,22 +33,54 @@
                                     @*<form action="" class="pt-3">*@
                                     <div class="input-container">
                                         <i class="fa fa-user icon"></i>
-                                        @Html.TextBoxFor(m => m.UserEmailContact,
+                                        @Html.TextBoxFor(m => m.UserName,
                                                htmlAttributes: new
                                                {
                                                    @class = "input-field form-control",
                                                    placeholder = "Username",
-                                                   @onkeyup = "ValidateEmailContact()"
+                                                   @onkeyup = "ValidateUserName()"
+                                               })
+
+                                    </div>
+                                    <div class="input-container">
+                                        <i class="fa fa-inbox icon"></i>
+                                        @Html.TextBoxFor(m => m.EmailID,
+                                               htmlAttributes: new
+                                               {
+                                                   @class = "input-field form-control",
+                                                   placeholder = "Email ID",
+                                                   @onkeyup = "ValidateEmail()"
+                                               })
+
+                                    </div>
+                                    <div class="input-container">
+                                        <i class="fa fa-mobile-phone icon"></i>
+                                        @Html.TextBoxFor(m => m.ContactNo,
+                                               htmlAttributes: new
+                                               {
+                                                   @class = "input-field form-control",
+                                                   placeholder = "Contact Number",
+                                                   @onkeyup = "ValidateContact()"
                                                })
 
                                     </div>
                                     <div class="input-container">
                                         <i class="fa fa-lock icon"></i>
-                                        @Html.PasswordFor(m => m.UserCredentials,
+                                        @Html.PasswordFor(m => m.Password,
                                                htmlAttributes: new
                                                {
                                                    @class = "input-field form-control",
                                                    placeholder = "Password",
+                                                   @onkeyup = "ValidatePassword()"
+                                               })
+                                    </div>
+                                    <div class="input-container">
+                                        <i class="fa fa-lock icon"></i>
+                                        @Html.PasswordFor(m => m.CnfPassword,
+                                               htmlAttributes: new
+                                               {
+                                                   @class = "input-field form-control",
+                                                   placeholder = "Confirm Password",
                                                    @onkeyup = "ValidatePassword()"
                                                })
                                     </div>
@@ -58,14 +90,14 @@
                                     </div>
                                     <div class="mt-3">
                                         <button id="btnLogIn" type="submit"
-                                                name="Submit" value="Login"
+                                                name="Submit" value="Register"
                                                 class="btn btn-success w-100">
-                                            Login
+                                            Submit
                                         </button>
                                     </div>
-                                    <br/>
+                                    <br />
                                     <div class="">
-                                        @Html.ActionLink("Register New User", "RegisterUser", "Home", new { }, htmlAttributes: new { @class = "auth-link" })
+                                        @Html.ActionLink("Log In", "Index", "Home", new { }, htmlAttributes: new { @class = "auth-link" })
                                         @*<a href="@Html.ActionLink("")" class="auth-link ">Register New User</a>*@
                                     </div>
                                     @*<div class="forgetPWD">
@@ -97,12 +129,12 @@
     <script src="~/UIContent/JS/sweetalert2.all.min.js"></script>
 
     <script src="~/UIContent/JS/CustomePage/CommonReusableJS.js"></script>
-    <script src="~/UIContent/JS/CustomePage/User/LogInJS.js"></script>
+    <script src="~/UIContent/JS/CustomePage/User/RegisterUserJS.js"></script>
     <script>
         $(document).ready(function () {
             if ('@ViewBag.ErrMsg' != '') {
                 Swal.fire({
-                    title: 'Login failed',
+                    title: 'Registration Failed',
                     text: "@ViewBag.ErrMsg",
                     icon: 'error',
                     customClass: 'swal-wide',
