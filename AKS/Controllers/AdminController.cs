@@ -63,7 +63,22 @@ namespace AKS.Controllers
         }
         [HttpPost]
         public ActionResult UserRole(UserRoleVM model)
-        {   
+        {
+            if (model != null) 
+            {
+                UserRole obj = new UserRole();
+                obj.ProfitCentreID = model.ProfitCentreID;
+                obj.UserID = model.UserID;
+                obj.URole = model.URole;
+                if (_iMaster.SetUserRole(obj, ref pMsg))
+                {
+                    ViewBag.Msg = "Role Sucessfully Asigned To The User.";
+                }
+                else 
+                {
+                    ViewBag.ErrMsg =pMsg ;
+                }
+            }
             model.UserRoleList = _iMaster.GetRoleOfUser(model.UserID, ref pMsg);
             model.RoleList = _iMaster.GetRoles(ref pMsg);
             model.ProfitCentreList = _iMaster.GetProfitCentreInfo(0, ref pMsg);
@@ -265,7 +280,21 @@ namespace AKS.Controllers
             }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-
+        [HttpPost]
+        public ActionResult RemoveRole(string URole,int UserID,int ProfitCentreID)
+        {
+            UserRole obj = new UserRole();
+            obj.URole = URole;
+            obj.UserID = UserID;
+            obj.ProfitCentreID = ProfitCentreID;
+            CustomAjaxResponse result = new CustomAjaxResponse();
+            if (_iMaster.RemoveUserRole(obj, ref pMsg))
+            {
+                result.bResponseBool = true;
+            }
+            else { result.bResponseBool = false; result.sResponseString = pMsg; }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
 
 
 

@@ -303,7 +303,18 @@ namespace AKS.DAL.Entities
             catch (Exception ex) { pMsg = objPath + ".UserRole(...) " + ex.Message; }
             return result;
         }
-
+        public bool SetUserRole(UserRole data, ref string pMsg) 
+        {
+            bool result = false;
+            _DBResponseMapper.Map_DBResponse(_MasterDatasync.SetUserRole(data, ref pMsg), ref pMsg, ref result);
+            return result;
+        }
+        public bool RemoveUserRole(UserRole data, ref string pMsg)
+        {
+            bool result = false;
+            _DBResponseMapper.Map_DBResponse(_MasterDatasync.RemoveUserRole(data, ref pMsg), ref pMsg, ref result);
+            return result;
+        }
 
     }
 }

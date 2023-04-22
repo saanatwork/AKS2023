@@ -103,6 +103,13 @@ namespace AKS.BLL.Repository
         {
             return _MasterEntity.GetRoleOfUser(UserID,ref pMsg);
         }
-
+        public bool SetUserRole(UserRole data, ref string pMsg) 
+        {
+            return _MasterEntity.SetUserRole(data, ref pMsg);
+        }
+        public bool RemoveUserRole(UserRole data, ref string pMsg) 
+        {
+            return _MasterEntity.RemoveUserRole(data, ref pMsg);
+        }
     }
 }

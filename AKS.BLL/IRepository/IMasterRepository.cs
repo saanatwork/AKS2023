@@ -35,8 +35,8 @@ namespace AKS.BLL.IRepository
         List<CustomComboOptions> SearchPartyInfo(string SearchText, bool IsVendor, bool IsCustomer, ref string pMsg);
         List<CustomComboOptionsWithString> GetRoles(ref string pMsg);
         List<UserRole> GetRoleOfUser(int UserID, ref string pMsg);
-
-
+        bool SetUserRole(UserRole data, ref string pMsg);
+        bool RemoveUserRole(UserRole data, ref string pMsg);
 
     }
 }

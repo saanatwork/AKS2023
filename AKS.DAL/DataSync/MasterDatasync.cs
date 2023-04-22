@@ -244,7 +244,28 @@ namespace AKS.DAL.DataSync
             }
             catch (Exception ex) { pMsg = objPath + ".GetRoleOfUser(...) " + ex.Message; return null; }
         }
-
+        public DataTable SetUserRole(UserRole data, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("[MTR].[SetUserRole]", CommandType.StoredProcedure))
+                {
+                    return sql.GetDataTable(_MasterParamMapper.MapParam_SetUserRole(data, ref pMsg), ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".SetUserRole(...) " + ex.Message; return null; }
+        }
+        public DataTable RemoveUserRole(UserRole data, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("[MTR].[RemoveUserRole]", CommandType.StoredProcedure))
+                {
+                    return sql.GetDataTable(_MasterParamMapper.MapParam_SetUserRole(data, ref pMsg), ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".RemoveUserRole(...) " + ex.Message; return null; }
+        }
 
 
 

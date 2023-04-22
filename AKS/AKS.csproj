@@ -255,6 +255,7 @@
     <Content Include="UIContent\JS\bootstrap.bundle.min.js" />
     <Content Include="UIContent\JS\CustomePage\Admin\CategoryListJS.js" />
     <Content Include="UIContent\JS\CustomePage\Admin\PartyListJS.js" />
+    <Content Include="UIContent\JS\CustomePage\Admin\UserRoleJS.js" />
     <Content Include="UIContent\JS\CustomePage\Admin\VariantListJS.js" />
     <Content Include="UIContent\JS\CustomePage\CommonReusable.js" />
     <Content Include="UIContent\JS\CustomePage\CommonReusableJS.js" />

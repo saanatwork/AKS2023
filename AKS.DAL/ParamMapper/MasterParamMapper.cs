@@ -164,6 +164,25 @@ namespace AKS.DAL.ParamMapper
             }
             return para;
         }
+        public SqlParameter[] MapParam_SetUserRole(UserRole data, ref string pMsg)
+        {
+            int paracount = 0;
+            SqlParameter[] para = new SqlParameter[3];
+            try
+            {
+                para[paracount] = new SqlParameter("@UserID", SqlDbType.Int);
+                para[paracount++].Value = data.UserID;
+                para[paracount] = new SqlParameter("@Role", SqlDbType.NVarChar);
+                para[paracount++].Value = data.URole;
+                para[paracount] = new SqlParameter("@ProfitCentreID", SqlDbType.Int);
+                para[paracount++].Value = data.ProfitCentreID;
+            }
+            catch (Exception ex)
+            {
+                pMsg = objPath + ".MapParam_SetUserRole(...) " + ex.Message;
+            }
+            return para;
+        }
 
 
 
