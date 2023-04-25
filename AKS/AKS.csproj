@@ -254,6 +254,8 @@
     <Content Include="UIContent\JS\bootstrap-datetimepicker.min.js" />
     <Content Include="UIContent\JS\bootstrap-multiselect.js" />
     <Content Include="UIContent\JS\bootstrap.bundle.min.js" />
+    <Content Include="UIContent\JS\CustomePage\Accounts\ViewVoucherJS.js" />
+    <Content Include="UIContent\JS\CustomePage\Accounts\VoucherDataTableJS.js" />
     <Content Include="UIContent\JS\CustomePage\Admin\CategoryListJS.js" />
     <Content Include="UIContent\JS\CustomePage\Admin\PartyListJS.js" />
     <Content Include="UIContent\JS\CustomePage\Admin\UserRoleJS.js" />
@@ -355,11 +357,14 @@
     <Content Include="Views\Admin\UserRole.cshtml" />
     <Content Include="Views\Inventory\EditAppStock.cshtml" />
     <Content Include="Views\Inventory\EditPurDocument.cshtml" />
+    <Content Include="Views\Accounts\Journal.cshtml" />
+    <Content Include="Views\Accounts\ViewVoucher.cshtml" />
+    <Content Include="Views\Accounts\_VoucherPrint.cshtml" />
+    <Content Include="Views\Accounts\PrintVoucher.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Accounts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

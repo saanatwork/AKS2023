@@ -81,6 +81,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Accounts\Journal.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Common\CustomAjaxResponse.cs" />
     <Compile Include="Common\CustomCheckBoxOption.cs" />

@@ -225,6 +225,7 @@ function ValidateGST() {
     }
     $('#cGSTAmount').val(gstamount);
     $('#cNetPayable').val(taxableamt + gstamount);
+    SaveBtnStatus();
 };
 function CalculateNetPayable() {
     var amt = 0;
@@ -246,6 +247,7 @@ function CalculateNetPayable() {
     
     $('#cGSTAmount').val(gstamount);
     $('#cNetPayable').val(taxableamt + gstamount);
+    SaveBtnStatus();
 };
 function ValidateCtrlWithNumberOrDecimal(myCtrl) {
     if (myCtrl.val() != '' && IsValidIntegerOrDecimal(myCtrl.val())) {
@@ -263,6 +265,14 @@ function ValidateMcRate() {
     var myCtrl = $(ValidateMcRate.caller.arguments[0].target);
     
     var mcWt = myChildRow.find('.mcwt').val() * 1;
+    myChildRow.find('.mcamt').val(Math.round(mcWt * (myCtrl.val() * 1)));
+    ValidateCtrlWithNumberOrDecimal(myCtrl);
+};
+function MCWtChanged() {
+    var myChildRow = $(MCWtChanged.caller.arguments[0].target.closest('tr'));
+    var myCtrl = $(MCWtChanged.caller.arguments[0].target);
+
+    var mcWt = myChildRow.find('.mcrate').val() * 1;
     myChildRow.find('.mcamt').val(Math.round(mcWt * (myCtrl.val() * 1)));
     ValidateCtrlWithNumberOrDecimal(myCtrl);
 };

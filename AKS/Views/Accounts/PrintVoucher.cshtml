@@ -1,0 +1,9 @@
+﻿@model AKS.BOL.Accounts.Journal
+@{
+    ViewBag.Title = "Print Voucher";
+    Layout = "~/Views/Shared/_LayoutForPrint.cshtml";
+}
+<div style="text-align:center;color:white">
+    <h1>@(Model.Header.VoucherType=="JV"?"Journal Voucher":"")</h1>
+</div>
+@{Html.RenderPartial("_VoucherPrint", Model);}

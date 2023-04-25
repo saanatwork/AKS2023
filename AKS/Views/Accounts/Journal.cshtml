@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "Accounts - Vouchers ";
+}
+<div class="row newTable">
+    <div class="fixedElement">
+        <div class="col-md-12" style="position: relative;">
+            <div class="heading_text_btn mb-4 mt-4">
+                <div class="leftButton">
+                    <button type="submit" class="btn btn-primary me-2" onclick="window.location.href='/Inventory/AddAppStock';">
+                        <i data-feather="plus-circle"></i>
+                        Add
+                    </button>
+                </div>
+                <h2>List Of Vouchers </h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 mb-4">
+        <div class="table-responsive mb-4 ">
+            <table id="tblDataList" class="table table-bordered btnalign w-100">
+                <thead>
+                    <tr>
+                        <th scope="col" style="width:15%">Voucher Number</th>
+                        <th scope="col" style="width: 15%">Date</th>
+                        <th scope="col" style="width: 15%">Status</th>
+                        <th scope="col" style="width: 10%">Type</th>
+                        <th scope="col" style="width: 15%">Ref Document</th>
+                        <th scope="col">Created By</th>
+                        <th scope="col" style="width: 10%; background-color: #ff7500; color: white;text-align: center;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                <tfoot></tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+@section headers{
+
+}
+@section scripts{
+    <script src="~/UIContent/JS/CustomePage/CommonReusableJS.js"></script>
+    <script src="~/UIContent/JS/CustomePage/Accounts/VoucherDataTableJS.js"></script>
+
+}
+
+

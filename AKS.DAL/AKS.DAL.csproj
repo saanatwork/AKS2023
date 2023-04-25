@@ -83,17 +83,21 @@
   <ItemGroup>
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="CommonTable.cs" />
+    <Compile Include="DataSync\AccountsDataSync.cs" />
     <Compile Include="DataSync\InventoryDataSync.cs" />
     <Compile Include="DataSync\MasterDatasync.cs" />
     <Compile Include="DataSync\UserDataSync.cs" />
     <Compile Include="DbConnectionString.cs" />
+    <Compile Include="Entities\AccountsEntity.cs" />
     <Compile Include="Entities\InventoryEntity.cs" />
     <Compile Include="Entities\MasterEntity.cs" />
     <Compile Include="Entities\UserEntity.cs" />
+    <Compile Include="ObjectMapper\AccountsObjectMapper.cs" />
     <Compile Include="ObjectMapper\DBResponseMapper.cs" />
     <Compile Include="ObjectMapper\InventoryObjectMapper.cs" />
     <Compile Include="ObjectMapper\MasterObjectMapper.cs" />
     <Compile Include="ObjectMapper\UserObjectMapper.cs" />
+    <Compile Include="ParamMapper\AccountsParamMapper.cs" />
     <Compile Include="ParamMapper\CommonParamMapper.cs" />
     <Compile Include="ParamMapper\InventoryParamMapper.cs" />
     <Compile Include="ParamMapper\MasterParamMapper.cs" />

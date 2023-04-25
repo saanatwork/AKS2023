@@ -1,0 +1,100 @@
+﻿@model AKS.BOL.Accounts.Journal
+<div id="HdrDIV" class="col-md-12 mb-4" style="vertical-align:central">
+    <div class="card mb-4 mt-4" style="vertical-align:central">
+        <div class="card-body approvalForm">
+            <table style="width:100%">
+                <tr>
+                    <td style="width:30%">
+                        <table>
+                            <tr>
+                                <td>Ref Document : </td>
+                                <td style="padding-left:10px"><b>@Model.Header.RefDocNo</b></td>
+                            </tr>
+                            <tr>
+                                <td>Voucher Type : </td>
+                                <td style="padding-left:10px">@Model.Header.VoucherType</td>
+                            </tr>
+                            <tr>
+                                <td>Profit Centre: </td>
+                                <td style="padding-left:10px">@Model.Details.FirstOrDefault().ProfitCentreDesc</td>
+                            </tr>                            
+                            <tr>
+                                <td>Created By : </td>
+                                <td style="padding-left:10px">@Model.Header.CreatorName</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td style="text-align:center">
+                        <div style="margin:30px">
+                            <img src="~/img/Logo100x100.png" alt="Aap Ki Sakhi - logo" class="img-fluid">
+                        </div>
+                    </td>
+                    <td style="width:30%">
+                        <table>
+                            <tr>
+                                <td>Voucher Number: </td>
+                                <td style="padding-left:10px"><b>@Model.Header.VoucherNumber</b></td>
+                            </tr>
+                            <tr>
+                                <td>Date: </td>
+                                <td style="padding-left:10px">@Model.Header.VoucherDate.ToString("dd-MM-yyyy")</td>
+                            </tr>
+                            <tr>
+                                <td>Status : </td>
+                                <td style="padding-left:10px">@(Model.Header.IsUpdated?"Updated":"Not Yet Updated")</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div style="vertical-align:central">
+        @*<div class="card-body">*@
+        <div class="table-responsive">
+            <table style="width:100%" class="table table-bordered btnalign">
+                <thead>
+                    <tr style="text-align:center">
+                        <th style="width:20%">Account Head</th>
+                        <th style="width:20%">Party</th>
+                        <th>Particulars</th>
+                        <th style="width:15%">Debit</th>
+                        <th style="width:15%">Credit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Details != null && Model.Details.Count > 0)
+                    {
+                        foreach (var item in Model.Details.OrderByDescending(o=>o.CD).ToList())
+                        {
+                            <tr>
+                                <td>@item.ACD <br />@item.ACDDesc</td>
+                                <td>@item.SCD <br />@item.SCDDesc</td>
+                                <td>@item.VoucherDescription</td>
+                                <td style="text-align:right">@(item.DAmount==0?"-": item.DAmount.ToString())</td>
+                                <td style="text-align:right">@(item.CAmount==0?"-": item.CAmount.ToString())</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3"></td>
+                        <td style="text-align:right"><b>@Model.Details.Select(o => o.DAmount).Sum()</b></td>
+                        <td style="text-align:right"><b>@Model.Details.Select(o => o.CAmount).Sum()</b></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        @*</div>*@
+    </div>
+    <div class="card mb-4 mt-4" style="vertical-align:central">
+        <div class="card-body approvalForm">
+            <div style="padding:10px">
+                <b>Remarks :</b><br/>
+                @Model.Header.JVRemarks
+            </div>            
+        </div>
+    </div>
+</div>
+
