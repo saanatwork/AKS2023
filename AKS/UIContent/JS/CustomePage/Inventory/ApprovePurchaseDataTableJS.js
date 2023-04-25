@@ -16,6 +16,7 @@ $(document).ready(function () {
             { 'data': 'VendorDocumentDate' },
             { 'data': 'ItemCount' },
             { 'data': 'QtyCount' },
+            { 'data': 'NetPayableAmount' },
             { 'data': 'MRNNumber' },
             { 'data': 'MRNDate' },
             {

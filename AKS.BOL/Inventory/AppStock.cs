@@ -50,6 +50,7 @@ namespace AKS.BOL.Inventory
         public string PartyEmailID { get; set; }
         public bool IsDelete { get; set; }
         public string ProfitCentreDesc { get; set; }
+        public string DocDateStr { get; set; }
     }
     public class AppStock
     {
@@ -90,6 +91,7 @@ namespace AKS.BOL.Inventory
         public double DDisAmount { get; set; }
         public double DGrossAmount { get; set; }
         public string ItemCode { get; set; }
+        public string VariantColumn { get; set; }
 
     }
     public class AppStock4DT 
@@ -109,6 +111,7 @@ namespace AKS.BOL.Inventory
         public int TotalRecords { get; set; }
         public string MRNNumber { get; set; }
         public string MRNDate { get; set; }
+        public double NetPayableAmount { get; set; }
     }
 
 }

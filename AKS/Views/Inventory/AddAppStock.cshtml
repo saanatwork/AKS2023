@@ -85,7 +85,7 @@
                 <div class="col-md-2">
                     <div class="position-relative pointer">
                         <input id="cDocumentDate" type="date"
-                               data-name="FromDate"
+                               data-name="FromDate" max="@(DateTime.Today.ToString("yyyy-MM-dd"))"
                                onchange="ValidateControl()"
                                class="form-control is-invalid CustomDateFormatCloneRow valid">
 

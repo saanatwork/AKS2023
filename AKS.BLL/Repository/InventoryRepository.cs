@@ -44,7 +44,7 @@ namespace AKS.BLL.Repository
         {
             if (modelobj != null) 
             {
-                modelobj.DocumentNumber=_MasterEntity.GetNewDocNumber("AS"+DateTime.Today.ToString("yy"), ref pMsg);
+                modelobj.DocumentNumber= string.IsNullOrEmpty(modelobj.DocumentNumber)?_MasterEntity.GetNewDocNumber("AS"+DateTime.Today.ToString("yy"), ref pMsg): modelobj.DocumentNumber;
                 if (modelobj.AppStockList != null && modelobj.AppStockList.Count > 0)
                 {
                     List<AppStockVariant> allvariants = new List<AppStockVariant>();
@@ -111,7 +111,7 @@ namespace AKS.BLL.Repository
         {
             if (modelobj != null)
             {
-                modelobj.DocumentNumber = _MasterEntity.GetNewDocNumber("PUR", ref pMsg);
+                modelobj.DocumentNumber =string.IsNullOrEmpty(modelobj.DocumentNumber)? _MasterEntity.GetNewDocNumber("PUR", ref pMsg): modelobj.DocumentNumber;
                 if (modelobj.AppStockList != null && modelobj.AppStockList.Count > 0)
                 {
                     List<AppStockVariant> allvariants = new List<AppStockVariant>();

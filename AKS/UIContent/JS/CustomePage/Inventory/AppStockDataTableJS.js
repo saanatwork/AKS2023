@@ -1,6 +1,6 @@
 ﻿function FnEditNote(ctrl) {
-    //var primarykey = $(ctrl).attr('data-dt');
-    //window.location.href = "/Inventory/EditAppStock?DocumentNumber=" + primarykey;
+    var primarykey = $(ctrl).attr('data-dt');
+    window.location.href = "/Inventory/EditAppStock?DocumentNumber=" + primarykey;
 };
 function FnDeleteNote(ctrl) {
     var primarykey = $(ctrl).attr('data-dt');

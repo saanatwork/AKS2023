@@ -81,6 +81,22 @@ namespace AKS.Controllers
         public ActionResult EditAppStock(string DocumentNumber = "")
         {
             AppStockEntryVM model = new AppStockEntryVM();
+            model.EDocumentNumber = DocumentNumber;
+            model.VendorList = _iMaster.GetPartyInfo(0, true, false, ref pMsg).Where(o => o.IsActive == true).ToList();
+            model.CategoryList = _iMaster.GetCategories("ALL", ref pMsg);
+            List<Variant> variants = _iMaster.GetVariants(0, ref pMsg);
+            if (variants != null && variants.Count > 0)
+            {
+                model.MetaVariantList = variants.Where(o => o.VariantColumn == "Metal").ToList();
+                model.DiamondVariantList = variants.Where(o => o.VariantColumn == "Diamond").ToList();
+                model.StoneVariantList = variants.Where(o => o.VariantColumn == "Stone").ToList();
+            }
+            return View(model);
+        }
+        public ActionResult EditPurDocument(string DocumentNumber = "") 
+        {
+            PurchaseEntryVM model = new PurchaseEntryVM();
+            model.EDocumentNumber = DocumentNumber;
             model.VendorList = _iMaster.GetPartyInfo(0, true, false, ref pMsg).Where(o => o.IsActive == true).ToList();
             model.CategoryList = _iMaster.GetCategories("ALL", ref pMsg);
             List<Variant> variants = _iMaster.GetVariants(0, ref pMsg);
@@ -119,7 +135,36 @@ namespace AKS.Controllers
             return View();
         }
 
+
         #region Ajax Calling
+        public JsonResult GetAppStock(string DocumentNumber = "")
+        {
+            AppStockView model = _iInventory.GetAppStocks(DocumentNumber, ref pMsg);
+            if(model.AllItemVariants!=null && model.AppStockList != null) 
+            {
+                foreach(var item in model.AppStockList) 
+                {
+                    item.MetalVariants = model.AllItemVariants.Where(o => o.ItemSL == item.ItemSL && o.VariantColumn == "Metal").ToList();
+                    item.DiamondVariants = model.AllItemVariants.Where(o => o.ItemSL == item.ItemSL && o.VariantColumn == "Diamond").ToList();
+                    item.StoneVariants = model.AllItemVariants.Where(o => o.ItemSL == item.ItemSL && o.VariantColumn == "Stone").ToList();
+                }
+            }
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetPurDoc(string DocumentNumber = "")
+        {
+            AppStockView model = _iInventory.GetPurchaseDocInfo(DocumentNumber, ref pMsg);
+            if (model.AllItemVariants != null && model.AppStockList != null)
+            {
+                foreach (var item in model.AppStockList)
+                {
+                    item.MetalVariants = model.AllItemVariants.Where(o => o.ItemSL == item.ItemSL && o.VariantColumn == "Metal").ToList();
+                    item.DiamondVariants = model.AllItemVariants.Where(o => o.ItemSL == item.ItemSL && o.VariantColumn == "Diamond").ToList();
+                    item.StoneVariants = model.AllItemVariants.Where(o => o.ItemSL == item.ItemSL && o.VariantColumn == "Stone").ToList();
+                }
+            }
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
         public JsonResult GetGoldRates(string MDate)
         {
             MDate = DateTime.Parse(MDate).ToString("dd.MM.yyyy");
@@ -286,7 +331,7 @@ namespace AKS.Controllers
         }
         #endregion
 
-        #region - Print documents        
+        #region - Print documents         
         public ActionResult PrintAppStock(string DocumentNumber = "")
         {
             AppStockView model = _iInventory.GetAppStocks(DocumentNumber, ref pMsg);

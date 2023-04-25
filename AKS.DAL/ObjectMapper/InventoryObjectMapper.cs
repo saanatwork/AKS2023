@@ -75,7 +75,8 @@ namespace AKS.DAL.ObjectMapper
                         DateTime mdt = DateTime.Parse(dr["MRNDate"].ToString());
                         result.MRNDate = mdt.Year>1?mdt.ToString("dd-MM-yyyy"):"-";
                     }
-                        
+                    if (!DBNull.Value.Equals(dr["NetPayableAmount"]))
+                        result.NetPayableAmount =double.Parse(dr["NetPayableAmount"].ToString());
 
                 }
             }
@@ -133,6 +134,8 @@ namespace AKS.DAL.ObjectMapper
                         result.CreatorName = dr["CreatorName"].ToString();
                     if (!DBNull.Value.Equals(dr["ApproverName"]))
                         result.ApproverName = dr["ApproverName"].ToString();
+
+                    result.DocDateStr = result.DocDate.ToString("yyyy-MM-dd");
                 }
             }
             catch (Exception ex) { pMsg = objPath + ".Map_AppStockView(DataRow dr,ref string pMsg) " + ex.Message; }
@@ -235,6 +238,7 @@ namespace AKS.DAL.ObjectMapper
                         result.GSTAmount = double.Parse(dr["GSTAmount"].ToString());
                     if (!DBNull.Value.Equals(dr["NetPayableAmount"]))
                         result.NetPayableAmount = double.Parse(dr["NetPayableAmount"].ToString());
+                    result.DocDateStr = result.DocDate.ToString("yyyy-MM-dd");
                 }
             }
             catch (Exception ex) { pMsg = objPath + ".Map_PurchaseView(DataRow dr,ref string pMsg) " + ex.Message; }
@@ -517,7 +521,34 @@ namespace AKS.DAL.ObjectMapper
             catch (Exception ex) { pMsg = objPath + ".Map_Invoice(DataRow dr,ref string pMsg) " + ex.Message; }
             return result;
         }
-
+        public AppStockVariant Map_AppStockVariant(DataRow dr, ref string pMsg) 
+        {
+            AppStockVariant result = new AppStockVariant();
+            try
+            {
+                if (dr != null)
+                {
+                    if (!DBNull.Value.Equals(dr["ItemSL"]))
+                        result.ItemSL = int.Parse(dr["ItemSL"].ToString());
+                    if (!DBNull.Value.Equals(dr["ItemCode"]))
+                        result.ItemCode = dr["ItemCode"].ToString();
+                    if (!DBNull.Value.Equals(dr["VariantText"]))
+                        result.VariantText = dr["VariantText"].ToString();
+                    if (!DBNull.Value.Equals(dr["Weight"]))
+                        result.Weight = double.Parse(dr["Weight"].ToString());
+                    if (!DBNull.Value.Equals(dr["Rate"]))
+                        result.Rate = int.Parse(dr["Rate"].ToString());
+                    if (!DBNull.Value.Equals(dr["Amount"]))
+                        result.Amount = double.Parse(dr["Amount"].ToString());                    
+                    if (!DBNull.Value.Equals(dr["VariantID"]))
+                        result.VariantID = int.Parse(dr["VariantID"].ToString());
+                    if (!DBNull.Value.Equals(dr["VariantColumn"]))
+                        result.VariantColumn = dr["VariantColumn"].ToString().Trim();
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".Map_AppStockVariant(DataRow dr,ref string pMsg) " + ex.Message; }
+            return result;
+        }
 
 
     }

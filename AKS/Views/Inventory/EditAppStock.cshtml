@@ -1,9 +1,10 @@
 ﻿@using AKS.ViewModel.InventoryVM;
-@model PurchaseEntryVM
+@model AppStockEntryVM
 @{
-    ViewBag.Title = "Inventory - Purchase ";
+    ViewBag.Title = "Inventory - Stock On Approval";
 }
 @Html.HiddenFor(m => m.DocumentFileName)
+@Html.HiddenFor(m => m.EDocumentNumber)
 <div class="row newTable">
     @*@using (Html.BeginForm())
         {*@
@@ -12,7 +13,7 @@
             <div class="heading_text_btn mb-3 mt-4">
                 <div class="leftButton">
                     <button id="btnBack" type="button"
-                            onclick="window.location.href='/Inventory/Purchase';"
+                            onclick="window.location.href='/Inventory/StockOnApproval';"
                             class="btn btn-white me-2">
                         <i data-feather="arrow-left-circle"></i>
                         Back
@@ -36,7 +37,7 @@
                         View Document
                     </button>
                 </div>
-                <h2>Purchase - Entry </h2>
+                <h2>Stock On Approval - Entry </h2>
                 <div class="rightButton">
                     <button id="btnAddVendor" type="button"
                             onclick="AddVendorClicked()"
@@ -85,7 +86,7 @@
                     <div class="col-md-2">
                         <div class="position-relative pointer">
                             <input id="cDocumentDate" type="date"
-                                   data-name="FromDate" max="@(DateTime.Today.ToString("yyyy-MM-dd"))"
+                                   data-name="FromDate" max="@DateTime.Today.ToString("yyyy-MM-dd")"
                                    onchange="ValidateControl()"
                                    class="form-control is-invalid CustomDateFormatCloneRow valid">
 
@@ -97,74 +98,46 @@
         <div class="card mb-4 mt-4" style="vertical-align:central">
             <div class="card-body">
                 <div class="table-responsive max-content">
-                    <table class="table table-bordered btnalign" id="tblDataList">
+                    <table class="table table-bordered w-100 btnalign" id="tblDataList">
                         <thead>
                             <tr>
-                                <th scope="col" rowspan="2" style="text-align: center; vertical-align: middle; width: 50px ">
+                                <th scope="col" rowspan="2" style="text-align: center; vertical-align: middle;">
                                     SL
                                 </th>
-                                <th scope="col" rowspan="2" style="text-align: center; vertical-align: middle; width: 300px ">
+                                <th scope="col" rowspan="2" style="text-align: center; vertical-align: middle;">
                                     Item Category
                                 </th>
-                                <th scope="col" rowspan="2" style="text-align: center; vertical-align: middle; width: 100px ">
+                                <th scope="col" rowspan="2" style="text-align: center; vertical-align: middle;">
                                     Quantity
                                 </th>
-                                <th scope="col" rowspan="2" style="text-align: center; vertical-align: middle; width: 200px ">
+                                <th scope="col" rowspan="2" style="text-align: center; vertical-align: middle;">
                                     Item Code
                                 </th>
-                                <th scope="col" colspan="5" style="text-align: center; vertical-align: middle; ">
+                                <th scope="col" colspan="3" style="text-align: center; vertical-align: middle;">
                                     Metal
                                 </th>
-                                <th scope="col" colspan="5" style="text-align: center; vertical-align: middle;">
+                                <th scope="col" colspan="3" style="text-align: center; vertical-align: middle;">
                                     Diamond
                                 </th>
-                                <th scope="col" colspan="5" style="text-align: center; vertical-align: middle;">
+                                <th scope="col" colspan="3" style="text-align: center; vertical-align: middle;">
                                     Other Stone
                                 </th>
-                                <th scope="col" colspan="3" style="text-align: center; vertical-align: middle;">
-                                    Making Charges
-                                </th>
-                                <th scope="col" rowspan="2" style="text-align: center; vertical-align: middle; width: 200px ">
-                                    Hall Mark
-                                </th>
-                                <th scope="col" rowspan="2" style="text-align: center; vertical-align: middle; width: 200px ">
-                                    Other Charges
-                                </th>
-                                <th scope="col" rowspan="2" style="text-align: center; vertical-align: middle; width: 200px">
-                                    Discount
-                                </th>
-                                <th scope="col" rowspan="2" style="text-align: center; vertical-align: middle; width: 200px">
-                                    Gross Amount
-                                </th>
-                                <th scope="col" rowspan="2" style="text-align: center; vertical-align: middle; width: 200px ">
-                                    Net Amount
-                                </th>
-                                <th scope="col" rowspan="2" style="text-align: center; vertical-align: middle; background-color: pink; color: #000; width: 200px ">
+                                <th scope="col" rowspan="2" style="text-align: center; vertical-align: middle;background-color: pink;color: #000;">
                                     Actions
                                 </th>
                             </tr>
                             <tr>
-                                <th scope="col" style="text-align: center; vertical-align: middle;" width="50px"></th>
-                                <th scope="col" style="text-align: center; vertical-align: middle;width:400px">Variant</th>
-                                <th scope="col" style="text-align: center; vertical-align: middle;width:150px">Weight In Gram</th>
-                                <th scope="col" style="text-align: center; vertical-align: middle;width:150px">Rate</th>
-                                <th scope="col" style="text-align: center; vertical-align: middle;width:250px">Amount</th>
+                                <th scope="col" style="text-align: center; vertical-align: middle;" width="2%"></th>
+                                <th scope="col" style="text-align: center; vertical-align: middle;width:10%">Variant</th>
+                                <th scope="col" style="text-align: center; vertical-align: middle;width:8%">Weight In Gram</th>
 
-                                <th scope="col" style="text-align: center; vertical-align: middle;" width="50px"></th>
-                                <th scope="col" style="text-align: center; vertical-align: middle;width:400px">Variant</th>
-                                <th scope="col" style="text-align: center; vertical-align: middle;width:150px">Weight In Karet</th>
-                                <th scope="col" style="text-align: center; vertical-align: middle;width:150px">Rate</th>
-                                <th scope="col" style="text-align: center; vertical-align: middle;width:250px">Amount</th>
+                                <th scope="col" style="text-align: center; vertical-align: middle;" width="2%"></th>
+                                <th scope="col" style="text-align: center; vertical-align: middle;width:10%">Variant</th>
+                                <th scope="col" style="text-align: center; vertical-align: middle;width:8%">Weight In Karet</th>
 
-                                <th scope="col" style="text-align: center; vertical-align: middle;" width="50px"></th>
-                                <th scope="col" style="text-align: center; vertical-align: middle;width:400px">Variant</th>
-                                <th scope="col" style="text-align: center; vertical-align: middle;width:150px">Weight In Karet</th>
-                                <th scope="col" style="text-align: center; vertical-align: middle;width:150px">Rate</th>
-                                <th scope="col" style="text-align: center; vertical-align: middle;width:250px">Amount</th>
-
-                                <th scope="col" style="text-align: center; vertical-align: middle;width:150px">Weight In Gram</th>
-                                <th scope="col" style="text-align: center; vertical-align: middle;width:150px">Rate</th>
-                                <th scope="col" style="text-align: center; vertical-align: middle;width:200px">Amount</th>
+                                <th scope="col" style="text-align: center; vertical-align: middle;" width="2%"></th>
+                                <th scope="col" style="text-align: center; vertical-align: middle;width:10%">Variant</th>
+                                <th scope="col" style="text-align: center; vertical-align: middle;width:8%">Weight In Karet</th>
 
                             </tr>
                         </thead>
@@ -188,8 +161,8 @@
                                 </td>
                                 <td>
                                     <input id="cQty_0" type="text" data-name="Qty"
-                                           onkeyup="ItemQtyChanged()"
-                                           class="form-control is-invalid alterID inValidTag Rqty"
+                                           onkeyup="ValidateCloneRowControl()"
+                                           class="form-control is-invalid alterID inValidTag"
                                            value="">
                                 </td>
                                 <td>
@@ -198,11 +171,11 @@
                                            class="form-control is-invalid alterID inValidTag"
                                            value="">
                                 </td>
-                                <td colspan="5">
+                                <td colspan="3">
                                     <table class="MVTable" style="width:100%">
                                         <tbody id="mvTBody1" class="alterID">
-                                            <tr id="0_mvRow" class="alterID">
-                                                <td style="width:5%">
+                                            <tr id="0_mvRow">
+                                                <td style="width:10%">
                                                     <span class="actionBtn">
                                                         <button id="0_addMV" type="button"
                                                                 class="btn primaryLink alterID addBtn cloneBtn"
@@ -220,7 +193,7 @@
                                                         </button>
                                                     </span>
                                                 </td>
-                                                <td style="width:40%">
+                                                <td style="width:50%">
                                                     <select id="0_cMetalVariant" data-name-child="VariantID"
                                                             data-name-text-child="VariantText"
                                                             onchange="ValidateChildCloneRowControl()"
@@ -236,23 +209,11 @@
                                                         }
                                                     </select>
                                                 </td>
-                                                <td style="width:15%">
+                                                <td style="width:40%">
                                                     <input id="0_cMetalWt" type="text" data-name-child="Weight"
-                                                           onkeyup="ValidateMetalWt()"
-                                                           class="form-control alterIDvalZero mwt mwtg"
-                                                           value="0">
-                                                </td>
-                                                <td style="width:15%">
-                                                    <input id="0_cMetalRate" type="text" data-name-child="Rate"
-                                                           onkeyup="ValidateMetalWt()"
-                                                           class="form-control alterIDvalZero mrate"
-                                                           value="0">
-                                                </td>
-                                                <td style="width:25%">
-                                                    <input id="0_cMetalAmount" type="text" data-name-child="Amount"
-                                                           onkeyup="ValidateMetalAmount()"
-                                                           class="form-control alterIDvalZero mamt grossamt"
-                                                           value="0">
+                                                           onkeyup="ValidateChildCloneRowControl()"
+                                                           class="form-control is-invalid alterID inValidTagc inValidTag"
+                                                           value="">
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -260,11 +221,11 @@
                                         </tbody>
                                     </table>
                                 </td>
-                                <td colspan="5">
+                                <td colspan="3">
                                     <table class="DVTable" style="width:100%">
                                         <tbody id="dvTBody1" class="alterID">
-                                            <tr id="0_dvRow" class="alterID">
-                                                <td style="width:5%">
+                                            <tr id="0_dvRow">
+                                                <td style="width:10%">
                                                     <span class="actionBtn">
                                                         <button id="0_addDV" type="button"
                                                                 class="btn primaryLink alterID cloneBtn addBtn"
@@ -280,7 +241,7 @@
                                                         </button>
                                                     </span>
                                                 </td>
-                                                <td style="width:40%">
+                                                <td style="width:50%">
                                                     <select id="0_cDiamondVariant" data-name-child="VariantID"
                                                             data-name-text-child="VariantText"
                                                             onchange="ValidateChildCloneRowControl()"
@@ -296,23 +257,11 @@
                                                         }
                                                     </select>
                                                 </td>
-                                                <td style="width:15%">
+                                                <td style="width:40%">
                                                     <input id="0_cDiamondWt" type="text" data-name-child="Weight"
-                                                           onkeyup="ValidateMetalWt()"
-                                                           class="form-control alterIDvalZero mwt mwtk"
-                                                           value="0">
-                                                </td>
-                                                <td style="width:15%">
-                                                    <input id="0_cDiamondRate" type="text" data-name-child="Rate"
-                                                           onkeyup="ValidateMetalWt()"
-                                                           class="form-control alterIDvalZero mrate"
-                                                           value="0">
-                                                </td>
-                                                <td style="width:25%">
-                                                    <input id="0_cDiamondAmount" type="text" data-name-child="Amount"
-                                                           onkeyup="ValidateMetalAmount()"
-                                                           class="form-control alterIDvalZero mamt grossamt"
-                                                           value="0">
+                                                           onkeyup="ValidateChildCloneRowControl()"
+                                                           class="form-control is-invalid alterID inValidTagc inValidTag"
+                                                           value="">
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -320,11 +269,11 @@
                                         </tbody>
                                     </table>
                                 </td>
-                                <td colspan="5">
+                                <td colspan="3">
                                     <table class="SVTable" style="width:100%">
                                         <tbody id="svTBody1" class="alterID">
-                                            <tr id="0_svRow" class="alterID">
-                                                <td style="width:5%">
+                                            <tr id="0_svRow">
+                                                <td style="width:10%">
                                                     <span class="actionBtn">
                                                         <button id="0_addSV" type="button"
                                                                 class="btn primaryLink alterID cloneBtn addBtn"
@@ -340,7 +289,7 @@
                                                         </button>
                                                     </span>
                                                 </td>
-                                                <td style="width:40%">
+                                                <td style="width:50%">
                                                     <select id="0_cStoneVariant" data-name-child="VariantID"
                                                             data-name-text-child="VariantText"
                                                             onchange="ValidateChildCloneRowControl()"
@@ -356,81 +305,16 @@
                                                         }
                                                     </select>
                                                 </td>
-                                                <td style="width:15%">
+                                                <td style="width:40%">
                                                     <input id="0_cStoneWt" type="text" data-name-child="Weight"
-                                                           onkeyup="ValidateMetalWt()"
-                                                           class="form-control alterIDvalZero mwt mwtk"
-                                                           value="0">
-                                                </td>
-                                                <td style="width:15%">
-                                                    <input id="0_cStoneRate" type="text" data-name-child="Rate"
-                                                           onkeyup="ValidateMetalWt()"
-                                                           class="form-control alterIDvalZero mrate"
-                                                           value="0">
-                                                </td>
-                                                <td style="width:25%">
-                                                    <input id="0_cStoneAmount" type="text" data-name-child="Amount"
-                                                           onkeyup="ValidateMetalAmount()"
-                                                           class="form-control alterIDvalZero mamt grossamt"
-                                                           value="0">
+                                                           onkeyup="ValidateChildCloneRowControl()"
+                                                           class="form-control is-invalid alterID inValidTagc inValidTag"
+                                                           value="">
                                                 </td>
                                             </tr>
                                         </tbody>
                                         <tbody id="svTBody2" class="ChildTableBody alterID"></tbody>
                                     </table>
-                                </td>
-                                <td colspan="3">
-                                    <table class="MCTable" style="width:100%">
-                                        <tbody id="MCTBody1" class="alterID">
-                                            <tr id="0_mcRow" class="alterID">
-                                                <td style="width:15%">
-                                                    <input id="cMCWt" type="text" data-name="MCWeight" disabled
-                                                           class="form-control alterIDvalZero mcwt"
-                                                           value="0">
-                                                </td>
-                                                <td style="width:15%">
-                                                    <input id="cMCRate" type="text" data-name="MCRate"
-                                                           onkeyup="ValidateMcRate()"
-                                                           class="form-control alterIDvalZero mcrate"
-                                                           value="0">
-                                                </td>
-                                                <td style="width:20%">
-                                                    <input id="cMCAmount" type="text" data-name="MCAmount" disabled
-                                                           class="form-control alterIDvalZero mcamt grossamt"
-                                                           value="0">
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                        <tbody id="MCTBody2" class="ChildTableBody alterID"></tbody>
-                                    </table>
-                                </td>
-                                <td>
-                                    <input id="cHallMark_0" type="text" data-name="HallMarkCharge"
-                                           onkeyup="ItemQtyChanged()"
-                                           class="form-control alterIDvalZero grossamt"
-                                           value="0">
-                                </td>
-                                <td>
-                                    <input id="cOtherCharges_0" type="text" data-name="Othercharges"
-                                           onkeyup="ItemQtyChanged()"
-                                           class="form-control alterIDvalZero grossamt"
-                                           value="0">
-                                </td>
-                                <td>
-                                    <input id="cDiscount_0" type="text" data-name="Discount"
-                                           onkeyup="ItemQtyChanged()"
-                                           class="form-control alterIDvalZero Ngrossamt"
-                                           value="0">
-                                </td>
-                                <td>
-                                    <input id="cGrossAmount_0" type="text" data-name="GrossAmount" disabled
-                                           class="form-control alterIDvalZero Rgrossamt"
-                                           value="0">
-                                </td>
-                                <td>
-                                    <input id="cNet_0" type="text" data-name="NetAmount" disabled
-                                           class="form-control alterIDvalZero Rnetamount"
-                                           value="0">
                                 </td>
                                 <td>
                                     <span class="actionBtn">
@@ -456,73 +340,7 @@
                 </div>
             </div>
         </div>
-        <div class="card mb-4 mt-4" style="vertical-align:central">
-            <div class="card-body approvalForm">
-                <div class="row d-flex align-items-center mb-4">
-                    <label class="col-form-label col-md-2">
-                        Item Total :
-                    </label>
-                    <div class="col-md-3">
-                        <input id="cItemTotal" type="text" disabled
-                               class="form-control"
-                               value="0">
-                    </div>
-                </div>
-                <div class="row d-flex align-items-center mb-4">
-                    <label class="col-form-label col-md-2">
-                        Trade Discount :
-                    </label>
-                    <div class="col-md-3">
-                        <input id="cTradeDiscount" type="text"
-                               onkeyup="ValidateTradeDiscount()"
-                               class="form-control"
-                               value="0">
-                    </div>
-                </div>
-                <div class="row d-flex align-items-center mb-4">
-                    <label class="col-form-label col-md-2">
-                        Taxable Amount :
-                    </label>
-                    <div class="col-md-3">
-                        <input id="cTaxableAmount" type="text" disabled
-                               class="form-control"
-                               value="0">
-                    </div>
-                </div>
-                <div class="row d-flex align-items-center mb-4">
-                    <label class="col-form-label col-md-2">
-                        GST %:
-                    </label>
-                    <div class="col-md-3">
-                        <input id="cGST" type="text"
-                               onkeyup="ValidateGST()"
-                               @*onchange="ValidateGST()"*@
-                               class="form-control"
-                               value="0">
-                    </div>
-                    <label class="col-form-label col-md-2" style="text-align:right">
-                        GST Amount:
-                    </label>
-                    <div class="col-md-2">
-                        <input id="cGSTAmount" type="text" disabled
-                               class="form-control"
-                               value="0">
-                    </div>
-                </div>
-                <div class="row d-flex align-items-center mb-4">
-                    <label class="col-form-label col-md-2">
-                        Net Payable Amount :
-                    </label>
-                    <div class="col-md-3">
-                        <input id="cNetPayable" type="text" disabled
-                               class="form-control"
-                               value="0">
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
-
     <div class="modal modal-previous-details fade" id="VendorModal"
          tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-header modal-dialog-centered modal-dialog-scrollable">
@@ -614,6 +432,6 @@
 }
 @section scripts{
     <script src="~/UIContent/JS/CustomePage/CommonReusableJS.js"></script>
-    <script src="~/UIContent/JS/CustomePage/Inventory/PurchaseEntryJS.js"></script>
+    <script src="~/UIContent/JS/CustomePage/Inventory/AppStockEditJS.js"></script>
 
 }

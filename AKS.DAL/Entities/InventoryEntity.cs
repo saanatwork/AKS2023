@@ -141,6 +141,7 @@ namespace AKS.DAL.Entities
                 if (ds != null) 
                 {
                     List<AppStock> itemlist = new List<AppStock>();
+                    List<AppStockVariant> Variantlist = new List<AppStockVariant>();
                     DataTable hdr = ds.Tables[0];dt = ds.Tables[1];
                     if (hdr != null && hdr.Rows.Count > 0)
                         result = _InventoryObjectMapper.Map_AppStockView(hdr.Rows[0], ref pMsg);
@@ -152,6 +153,15 @@ namespace AKS.DAL.Entities
                         }
                     }
                     result.AppStockList = itemlist;
+                    dt = ds.Tables[2];
+                    if (dt != null && dt.Rows.Count > 0)
+                    {
+                        for (int i = 0; i < dt.Rows.Count; i++)
+                        {
+                            Variantlist.Add(_InventoryObjectMapper.Map_AppStockVariant(dt.Rows[i], ref pMsg));
+                        }
+                    }
+                    result.AllItemVariants = Variantlist;
                 }                
             }
             catch (Exception ex) { pMsg = objPath + ".GetAppStocks(...) " + ex.Message; }
@@ -184,6 +194,7 @@ namespace AKS.DAL.Entities
                 if (ds != null)
                 {
                     List<AppStock> itemlist = new List<AppStock>();
+                    List<AppStockVariant> Variantlist = new List<AppStockVariant>();
                     DataTable hdr = ds.Tables[0]; dt = ds.Tables[1];
                     if (hdr != null && hdr.Rows.Count > 0)
                         result = _InventoryObjectMapper.Map_PurchaseView(hdr.Rows[0], ref pMsg);
@@ -195,6 +206,15 @@ namespace AKS.DAL.Entities
                         }
                     }
                     result.AppStockList = itemlist;
+                    dt = ds.Tables[2];
+                    if (dt != null && dt.Rows.Count > 0)
+                    {
+                        for (int i = 0; i < dt.Rows.Count; i++)
+                        {
+                            Variantlist.Add(_InventoryObjectMapper.Map_AppStockVariant(dt.Rows[i], ref pMsg));
+                        }
+                    }
+                    result.AllItemVariants = Variantlist;
                 }
             }
             catch (Exception ex) { pMsg = objPath + ".GetPurchaseDocInfo(...) " + ex.Message; }

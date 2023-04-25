@@ -139,6 +139,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
+    <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -262,11 +263,13 @@
     <Content Include="UIContent\JS\CustomePage\Inventory\ApprovePurchaseDataTableJS.js" />
     <Content Include="UIContent\JS\CustomePage\Inventory\ApproveStockDataTableJS.js" />
     <Content Include="UIContent\JS\CustomePage\Inventory\AppStockDataTableJS.js" />
+    <Content Include="UIContent\JS\CustomePage\Inventory\AppStockEditJS.js" />
     <Content Include="UIContent\JS\CustomePage\Inventory\AppStockEntryJS.js" />
     <Content Include="UIContent\JS\CustomePage\Inventory\AppStockViewAppJS.js" />
     <Content Include="UIContent\JS\CustomePage\Inventory\AppStockViewJS.js" />
     <Content Include="UIContent\JS\CustomePage\Inventory\PurchaseDataTableJS.js" />
     <Content Include="UIContent\JS\CustomePage\Inventory\PurchaseDocViewJS.js" />
+    <Content Include="UIContent\JS\CustomePage\Inventory\PurchaseEditJS.js" />
     <Content Include="UIContent\JS\CustomePage\Inventory\PurchaseEntryJS.js" />
     <Content Include="UIContent\JS\CustomePage\Inventory\PurchaseViewAppJS.js" />
     <Content Include="UIContent\JS\CustomePage\POS\AddSaleJS.js" />
@@ -350,10 +353,13 @@
     <Content Include="Views\Home\RegisterUser.cshtml" />
     <Content Include="Views\Home\ChangePassword.cshtml" />
     <Content Include="Views\Admin\UserRole.cshtml" />
+    <Content Include="Views\Inventory\EditAppStock.cshtml" />
+    <Content Include="Views\Inventory\EditPurDocument.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Accounts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
