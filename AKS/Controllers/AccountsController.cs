@@ -1,6 +1,7 @@
 ﻿using AKS.BLL.IRepository;
 using AKS.BOL.Accounts;
 using AKS.BOL.User;
+using AKS.ViewModel.AccountsVM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace AKS.Controllers
 {
     public class AccountsController : Controller
     {
+        
         IMasterRepository _iMaster;
         IInventoryRepository _iInventory;
         IAccountsRepository _iAccounts;
@@ -20,7 +22,7 @@ namespace AKS.Controllers
         {
             _iMaster = iMaster;
             _iInventory = iInventory;
-            _iAccounts = iAccounts;
+            _iAccounts = iAccounts;            
             LUser = iuser.getLoggedInUser();
         }
         // GET: Accounts
@@ -34,7 +36,10 @@ namespace AKS.Controllers
         }
         public ActionResult GLSummary()
         {
-            return View();
+            GLSummaryVM model = new GLSummaryVM();
+            model.ProfitCentreList = _iMaster.GetProfitCentreInfo(0, ref pMsg);
+            model.ACDList = _iAccounts.GetCOA("ALL", ref pMsg);
+            return View(model);
         }
         public ActionResult GLDetails()
         {
@@ -65,6 +70,17 @@ namespace AKS.Controllers
             };
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+        public ActionResult GLSummaryPartialView(string ACD,string ACDDesc,string AsOnDate)
+        {
+            GLSummaryVM modelobj = new GLSummaryVM();
+            modelobj.ACD = ACD;
+            modelobj.ACDDesc = ACDDesc;
+            modelobj.AsOnDate =DateTime.Parse(AsOnDate);
+            modelobj.GLSummary = _iAccounts.GetGLSummary(ACD, LUser.LogInProfitCentreID, modelobj.AsOnDate, ref pMsg);
+            
+            modelobj.ProfitCentreDesc = LUser.userpcs.Where(o => o.PCID == LUser.LogInProfitCentreID).FirstOrDefault().PCDesc;
+            return View("~/Views/Accounts/_GlSummary.cshtml", modelobj);            
+        }
         #endregion
 
         #region - Print documents      
@@ -73,6 +89,17 @@ namespace AKS.Controllers
             Journal model = _iAccounts.GetVoucher(VoucherNumber, ref pMsg);
             return View(model);
         }
+        public ActionResult PrintGLSummary(string ACD, string ACDDesc, string AsOnDate,string PCDesc)
+        {
+            GLSummaryVM modelobj = new GLSummaryVM();
+            modelobj.ACD = ACD;
+            modelobj.ACDDesc = ACDDesc;
+            modelobj.AsOnDate = DateTime.Parse(AsOnDate);
+            modelobj.GLSummary = _iAccounts.GetGLSummary(ACD, LUser.LogInProfitCentreID, modelobj.AsOnDate, ref pMsg);
+            modelobj.ProfitCentreDesc = PCDesc;
+            return View(modelobj);
+        }
+
         #endregion
 
 

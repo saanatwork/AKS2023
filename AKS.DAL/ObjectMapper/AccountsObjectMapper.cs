@@ -134,6 +134,55 @@ namespace AKS.DAL.ObjectMapper
             catch (Exception ex) { pMsg = objPath + ".Map_JournalDetails(DataRow dr,ref string pMsg) " + ex.Message; }
             return result;
         }
+        public GLSummary Map_GLSummary(DataRow dr, ref string pMsg)
+        {
+            GLSummary result = new GLSummary();
+            try
+            {
+                if (dr != null)
+                {                    
+                    if (!DBNull.Value.Equals(dr["ACD"]))
+                        result.ACD = dr["ACD"].ToString();
+                    if (!DBNull.Value.Equals(dr["SCD"]))
+                        result.SCD = int.Parse(dr["SCD"].ToString());
+                    if (!DBNull.Value.Equals(dr["SCDDesc"]))
+                        result.SCDDesc = dr["SCDDesc"].ToString();
+                    if (!DBNull.Value.Equals(dr["Amount"]))
+                        result.Amount = double.Parse(dr["Amount"].ToString());
+                    if (!DBNull.Value.Equals(dr["CD"]))
+                        result.CD = dr["CD"].ToString();
+                    if (!DBNull.Value.Equals(dr["DAmount"]))
+                        result.DAmount = double.Parse(dr["DAmount"].ToString());
+                    if (!DBNull.Value.Equals(dr["CAmount"]))
+                        result.CAmount = double.Parse(dr["CAmount"].ToString());
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".Map_GLSummary(DataRow dr,ref string pMsg) " + ex.Message; }
+            return result;
+        }
+        public COA Map_COA(DataRow dr, ref string pMsg) 
+        {
+            COA result = new COA();
+            try
+            {
+                if (dr != null)
+                {
+                    if (!DBNull.Value.Equals(dr["ACD"]))
+                        result.ACD = dr["ACD"].ToString();
+                    if (!DBNull.Value.Equals(dr["ACDShortText"]))
+                        result.ACDShortText =dr["ACDShortText"].ToString();
+                    if (!DBNull.Value.Equals(dr["ACDLongText"]))
+                        result.ACDLongText = dr["ACDLongText"].ToString();
+                    if (!DBNull.Value.Equals(dr["CD"]))
+                        result.CD = dr["CD"].ToString();
+                    if (!DBNull.Value.Equals(dr["ACDType"]))
+                        result.ACDType = dr["ACDType"].ToString();                    
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".Map_COA(DataRow dr,ref string pMsg) " + ex.Message; }
+            return result;
+        }
+
 
 
 

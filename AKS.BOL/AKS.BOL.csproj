@@ -81,6 +81,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Accounts\COA.cs" />
+    <Compile Include="Accounts\GLSummary.cs" />
     <Compile Include="Accounts\Journal.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Common\CustomAjaxResponse.cs" />

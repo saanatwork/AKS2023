@@ -1,0 +1,82 @@
+﻿@model AKS.ViewModel.AccountsVM.GLSummaryVM
+@{
+    ViewBag.Title = "Accounts - GL Summary";
+}
+@Html.HiddenFor(m => m.ACD)
+@Html.HiddenFor(m => m.ACDDesc)
+@Html.HiddenFor(m => m.AsOnDate)
+<div class="row newTable">
+    <div class="fixedElement">
+        <div class="col-md-12">
+            <div class="heading_text_btn mb-3 mt-4">
+                <div class="leftButton">
+
+                </div>
+                <h2>GL Summary</h2>
+                <div class="rightButton">
+                    <a id="PrintAnchor" class="btn btn-secondary">
+                            <i data-feather="printer"></i>
+                            Print
+                        </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="HdrDIV" class="col-md-12 mb-4" style="vertical-align:central">
+        <div class="card mb-4 mt-4" style="vertical-align:central">
+            <div class="card-body approvalForm">
+                <div class="row d-flex align-items-center mb-4">
+                    <label class="col-form-label col-md-1">
+                        Account Head :
+                    </label>
+                    <div class="col-md-3">
+                        <select id="cACD"
+                                onchange="ValidateControl()"
+                                class="form-select content border-red myctrlw100 is-invalid"
+                                aria-label="Default select example">
+                            <option selected value="">Select Account Code</option>
+                            @if (Model.ACDList != null && Model.ACDList.Count > 0)
+                            {
+                                foreach (var item in Model.ACDList)
+                                {
+                                    <option value="@item.ACD">@item.ACDShortText</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <label class="col-form-label col-md-1" style="text-align:right">
+                        As On Date:
+                    </label>
+                    <div class="col-md-2">
+                        <div class="position-relative pointer">
+                            <input id="cAsOnDate" type="date"
+                                   data-name="FromDate" max="@(DateTime.Today.ToString("yyyy-MM-dd"))"
+                                   onchange="ValidateControl()"
+                                   class="form-control is-invalid CustomDateFormatCloneRow valid">
+
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button id="btnReport" type="button" disabled
+                                onclick="BtnReportClicked()"
+                                class="btn btn-outline-success me-2">
+                            <i data-feather="plus"></i>
+                            Get Report
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="PartialViewDiv"></div>
+    </div>
+    
+</div>
+@section headers{
+
+}
+@section scripts{
+    <script src="~/UIContent/JS/CustomePage/CommonReusableJS.js"></script>
+    <script src="~/UIContent/JS/CustomePage/Accounts/GLSummaryJS.js"></script>
+
+}
+

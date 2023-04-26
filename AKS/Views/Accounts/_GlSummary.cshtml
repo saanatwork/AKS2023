@@ -1,0 +1,64 @@
+﻿@model AKS.ViewModel.AccountsVM.GLSummaryVM
+    @{ 
+        var DrAmt = Model.GLSummary.Select(o => o.DAmount).Sum();
+        var CrAmt = Model.GLSummary.Select(o => o.CAmount).Sum();
+        var TotalAmt = DrAmt - CrAmt;
+        var BalanceDr = TotalAmt >= 0 ? TotalAmt.ToString() : "-";
+        var BalanceCr = TotalAmt >= 0 ?"-":(TotalAmt*-1).ToString();
+        Layout = null;
+    }
+
+    <div id="HdrDIV" class="col-md-12 mb-4" style="vertical-align:central">
+        <div class="mb-4 mt-4" style="vertical-align:central">
+            <div class="card-body approvalForm">
+                <div class="w-100 text-center" style="font-size:larger"><b>GL Summary As On @Model.AsOnDate.ToString("dd-MM-yyyy")</b></div>
+                <div class="w-100 text-center">For Account Head @Model.ACD - @Model.ACDDesc</div>
+                <div class="w-100 text-center">Profit Centre :  @Model.ProfitCentreDesc</div>
+
+            </div>
+        </div>
+        <div style="vertical-align:central">
+            @*<div class="card-body">*@
+            <div class="table-responsive">
+                <table style="width:100%" class="table table-bordered btnalign">
+                    <thead>
+                        <tr style="text-align:center">
+                            <th style="width:20%">Party Code</th>
+                            <th>Party Name</th>
+                            <th style="width:15%">Debit</th>
+                            <th style="width:15%">Credit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.GLSummary != null && Model.GLSummary.Count > 0)
+                        {
+                            foreach (var item in Model.GLSummary.OrderByDescending(o => o.CD).ToList())
+                            {
+                                <tr>
+                                    <td>@item.SCD</td>
+                                    <td>@item.SCDDesc</td>
+                                    <td style="text-align:right">@(item.DAmount==0?"-": item.DAmount.ToString())</td>
+                                    <td style="text-align:right">@(item.CAmount==0?"-": item.CAmount.ToString())</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td style="text-align:right"><b>@(DrAmt == 0?"-": DrAmt.ToString())</b></td>
+                            <td style="text-align:right"><b>@(CrAmt == 0?"-": CrAmt.ToString())</b></td>
+                        </tr>
+                        <tr style="font-weight:bold">
+                            <td style="text-align:right" colspan="2">Balance : </td>
+                            <td style="text-align:right">@BalanceDr</td>
+                            <td style="text-align:right">@BalanceCr</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            @*</div>*@
+        </div>
+
+    </div>
+   

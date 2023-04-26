@@ -50,6 +50,30 @@ namespace AKS.DAL.DataSync
             }
             catch (Exception ex) { pMsg = objPath + ".GetVoucherRemarks(...) " + ex.Message; return null; }
         }
+        public DataTable GetGLSummary(string ACD,int ProfitCentreID,DateTime AsOnDate, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("select * from [ACC].[GetGLSummary]('" + ACD + "',"+ ProfitCentreID + ",'"+ AsOnDate.ToString("yyyy-MM-dd") + "')", CommandType.Text))
+                {
+                    return sql.GetDataTable(ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetGLSummary(...) " + ex.Message; return null; }
+        }
+        public DataTable GetCOA(string ACD, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("select * from [ACC].[GetCOA]('" + ACD + "')", CommandType.Text))
+                {
+                    return sql.GetDataTable(ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetCOA(...) " + ex.Message; return null; }
+        }
+
+
 
 
     }

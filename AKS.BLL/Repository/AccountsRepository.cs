@@ -24,6 +24,14 @@ namespace AKS.BLL.Repository
         {
             return _AccountsEntity.GetVoucher(VoucherNumber, ref pMsg);
         }
+        public List<GLSummary> GetGLSummary(string ACD, int ProfitCentreID, DateTime AsOnDate, ref string pMsg) 
+        {
+            return _AccountsEntity.GetGLSummary(ACD, ProfitCentreID, AsOnDate, ref pMsg);
+        }
+        public List<COA> GetCOA(string ACD, ref string pMsg) 
+        {
+            return _AccountsEntity.GetCOA(ACD, ref pMsg);
+        }
 
 
 

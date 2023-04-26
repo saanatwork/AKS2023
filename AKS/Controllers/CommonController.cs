@@ -1,5 +1,7 @@
-﻿using AKS.BOL;
+﻿using AKS.BLL.IRepository;
+using AKS.BOL;
 using AKS.BOL.Common;
+using AKS.BOL.User;
 using SelectPdf;
 using System;
 using System.Collections.Generic;
@@ -14,7 +16,13 @@ namespace AKS.Controllers
 {
     public class CommonController : Controller
     {
+        //IUserRepository _iUser;
+        LogInUserInfo LUser;
         // GET: Common
+        public CommonController(IUserRepository iuser)
+        {
+            LUser = iuser.getLoggedInUser(); 
+        }
         public ActionResult Index()
         {
             return View();
@@ -66,6 +74,17 @@ namespace AKS.Controllers
         {
             var converter = new HtmlToPdf();
             var doc = converter.ConvertUrl(MyHelper.BaseUrl + ViewUrl);
+
+            var pdfPath = Server.MapPath("~/Upload/PDF/" + PdfFileName + ".pdf");
+            doc.Save(pdfPath);
+
+            return File(pdfPath, "application/pdf", PdfFileName + ".pdf");
+        }
+        public ActionResult GeneratePdfForGLSummary(string ACD,string ACDDesc,string AsOnDate, string PdfFileName)
+        {
+            var pcdesc= LUser.userpcs.Where(o => o.PCID == LUser.LogInProfitCentreID).FirstOrDefault().PCDesc;
+            var converter = new HtmlToPdf();
+            var doc = converter.ConvertUrl(MyHelper.BaseUrl + "/Accounts/PrintGLSummary?ACD="+ ACD+ "&ACDDesc="+ ACDDesc+ "&AsOnDate="+ AsOnDate+ "&PCDesc="+ pcdesc);
 
             var pdfPath = Server.MapPath("~/Upload/PDF/" + PdfFileName + ".pdf");
             doc.Save(pdfPath);

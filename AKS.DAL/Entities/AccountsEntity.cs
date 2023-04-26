@@ -50,6 +50,44 @@ namespace AKS.DAL.Entities
             catch (Exception ex) { pMsg = objPath + ".GetVoucher(...) " + ex.Message; }
             return result;
         }
+        public List<GLSummary> GetGLSummary(string ACD, int ProfitCentreID, DateTime AsOnDate, ref string pMsg) 
+        {
+            List<GLSummary> result = new List<GLSummary>();
+            try
+            {
+                dt = _AccountsDataSync.GetGLSummary(ACD, ProfitCentreID,AsOnDate, ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        result.Add(_AccountsObjectMapper.Map_GLSummary(dt.Rows[i], ref pMsg));
+                    }
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetGLSummary(...) " + ex.Message; }
+            return result;
+        }
+        public List<COA> GetCOA(string ACD, ref string pMsg)
+        {
+            List<COA> result = new List<COA>();
+            try
+            {
+                dt = _AccountsDataSync.GetCOA(ACD, ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        result.Add(_AccountsObjectMapper.Map_COA(dt.Rows[i], ref pMsg));
+                    }
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetCOA(...) " + ex.Message; }
+            return result;
+        }
+
+
+
+
 
     }
 }
