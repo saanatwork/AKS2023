@@ -1,5 +1,6 @@
 ﻿using AKS.BLL.IRepository;
 using AKS.BOL.Accounts;
+using AKS.BOL.Common;
 using AKS.DAL.Entities;
 using System;
 using System.Collections.Generic;
@@ -32,10 +33,22 @@ namespace AKS.BLL.Repository
         {
             return _AccountsEntity.GetCOA(ACD, ref pMsg);
         }
-
-
-
-
+        public List<GLDetails> GetGLDetails(string ACD, int ProfitCentreID, DateTime FromDate, DateTime AsOnDate, ref string pMsg) 
+        {
+            return _AccountsEntity.GetGLDetails(ACD, ProfitCentreID, FromDate, AsOnDate, ref pMsg);
+        }
+        public List<TrialBalance> GetTrialBalance(int ProfitCentreID, DateTime FromDate, DateTime AsOnDate, ref string pMsg) 
+        {
+            return _AccountsEntity.GetTrialBalance(ProfitCentreID, FromDate, AsOnDate, ref pMsg);
+        }
+        public List<PartyDetails> GetPartyDetails(string SCD, int ProfitCentreID, DateTime FromDate, DateTime AsOnDate, ref string pMsg) 
+        {
+            return _AccountsEntity.GetPartyDetails(SCD, ProfitCentreID, FromDate, AsOnDate, ref pMsg);
+        }
+        public List<CustomComboOptions> GetParties(ref string pMsg) 
+        {
+            return _AccountsEntity.GetParties(ref pMsg);
+        }
 
 
     }

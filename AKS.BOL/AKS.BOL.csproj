@@ -82,8 +82,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Accounts\COA.cs" />
+    <Compile Include="Accounts\GLDetails.cs" />
     <Compile Include="Accounts\GLSummary.cs" />
     <Compile Include="Accounts\Journal.cs" />
+    <Compile Include="Accounts\PartyDetails.cs" />
+    <Compile Include="Accounts\TrialBalance.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Common\CustomAjaxResponse.cs" />
     <Compile Include="Common\CustomCheckBoxOption.cs" />

@@ -182,6 +182,114 @@ namespace AKS.DAL.ObjectMapper
             catch (Exception ex) { pMsg = objPath + ".Map_COA(DataRow dr,ref string pMsg) " + ex.Message; }
             return result;
         }
+        public GLDetails Map_GLDetails(DataRow dr, ref string pMsg)
+        {
+            GLDetails result = new GLDetails();
+            try
+            {
+                if (dr != null)
+                {
+                    if (!DBNull.Value.Equals(dr["VoucherNumber"]))
+                        result.VoucherNumber = dr["VoucherNumber"].ToString();
+                    if (!DBNull.Value.Equals(dr["VoucherDate"]))
+                        result.VoucherDate =DateTime.Parse(dr["VoucherDate"].ToString());
+                    if (!DBNull.Value.Equals(dr["SCD"]))
+                        result.SCD = int.Parse(dr["SCD"].ToString());
+                    if (!DBNull.Value.Equals(dr["SCDDesc"]))
+                        result.SCDDesc = dr["SCDDesc"].ToString();
+                    if (!DBNull.Value.Equals(dr["Amount"]))
+                        result.Amount = double.Parse(dr["Amount"].ToString());
+                    if (!DBNull.Value.Equals(dr["CD"]))
+                        result.CD = dr["CD"].ToString();
+                    if (!DBNull.Value.Equals(dr["VoucherDescription"]))
+                        result.VoucherDescription = dr["VoucherDescription"].ToString();
+                    if (!DBNull.Value.Equals(dr["VoucherType"]))
+                        result.VoucherType = dr["VoucherType"].ToString();
+                    if (!DBNull.Value.Equals(dr["RefDocNo"]))
+                        result.RefDocNo = dr["RefDocNo"].ToString();
+                    if (!DBNull.Value.Equals(dr["ProfitCentreID"]))
+                        result.ProfitCentreID =int.Parse(dr["ProfitCentreID"].ToString());
+                    if (!DBNull.Value.Equals(dr["ProfitCentreDesc"]))
+                        result.ProfitCentreDesc = dr["ProfitCentreDesc"].ToString();
+                    if (!DBNull.Value.Equals(dr["DAmount"]))
+                        result.DAmount = double.Parse(dr["DAmount"].ToString());
+                    if (!DBNull.Value.Equals(dr["CAmount"]))
+                        result.CAmount = double.Parse(dr["CAmount"].ToString());
+                    if (!DBNull.Value.Equals(dr["OpeningBalance"]))
+                        result.OpeningBalance = double.Parse(dr["OpeningBalance"].ToString());
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".Map_GLDetails(DataRow dr,ref string pMsg) " + ex.Message; }
+            return result;
+        }
+        public TrialBalance Map_TrialBalance(DataRow dr, ref string pMsg)
+        {
+            TrialBalance result = new TrialBalance();
+            try
+            {
+                if (dr != null)
+                {
+                    if (!DBNull.Value.Equals(dr["ACD"]))
+                        result.ACD = dr["ACD"].ToString();
+                    if (!DBNull.Value.Equals(dr["ACDDesc"]))
+                        result.ACDDesc = dr["ACDDesc"].ToString();
+                    if (!DBNull.Value.Equals(dr["AsOnAmount"]))
+                        result.AsOnAmount = double.Parse(dr["AsOnAmount"].ToString());
+                    if (!DBNull.Value.Equals(dr["AsOnCD"]))
+                        result.AsOnCD = dr["AsOnCD"].ToString();
+                    if (!DBNull.Value.Equals(dr["PreAsOnAmount"]))
+                        result.PreAsOnAmount = double.Parse(dr["PreAsOnAmount"].ToString());
+                    if (!DBNull.Value.Equals(dr["PreAsOnCD"]))
+                        result.PreAsOnCD = dr["PreAsOnCD"].ToString();
+                    if (!DBNull.Value.Equals(dr["TranAmount"]))
+                        result.TranAmount =double.Parse(dr["TranAmount"].ToString());                    
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".Map_TrialBalance(DataRow dr,ref string pMsg) " + ex.Message; }
+            return result;
+        }
+        public PartyDetails Map_PartyDetails(DataRow dr, ref string pMsg)
+        {
+            PartyDetails result = new PartyDetails();
+            try
+            {
+                if (dr != null)
+                {
+                    if (!DBNull.Value.Equals(dr["VoucherNumber"]))
+                        result.VoucherNumber = dr["VoucherNumber"].ToString();
+                    if (!DBNull.Value.Equals(dr["VoucherDate"]))
+                        result.VoucherDate = DateTime.Parse(dr["VoucherDate"].ToString());
+                    if (!DBNull.Value.Equals(dr["ACD"]))
+                        result.ACD = int.Parse(dr["ACD"].ToString());
+                    if (!DBNull.Value.Equals(dr["ACDDesc"]))
+                        result.ACDDesc = dr["ACDDesc"].ToString();
+                    if (!DBNull.Value.Equals(dr["Amount"]))
+                        result.Amount = double.Parse(dr["Amount"].ToString());
+                    if (!DBNull.Value.Equals(dr["CD"]))
+                        result.CD = dr["CD"].ToString();
+                    if (!DBNull.Value.Equals(dr["VoucherDescription"]))
+                        result.VoucherDescription = dr["VoucherDescription"].ToString();
+                    if (!DBNull.Value.Equals(dr["VoucherType"]))
+                        result.VoucherType = dr["VoucherType"].ToString();
+                    if (!DBNull.Value.Equals(dr["RefDocNo"]))
+                        result.RefDocNo = dr["RefDocNo"].ToString();
+                    if (!DBNull.Value.Equals(dr["ProfitCentreID"]))
+                        result.ProfitCentreID = int.Parse(dr["ProfitCentreID"].ToString());
+                    if (!DBNull.Value.Equals(dr["ProfitCentreDesc"]))
+                        result.ProfitCentreDesc = dr["ProfitCentreDesc"].ToString();
+                    if (!DBNull.Value.Equals(dr["DAmount"]))
+                        result.DAmount = double.Parse(dr["DAmount"].ToString());
+                    if (!DBNull.Value.Equals(dr["CAmount"]))
+                        result.CAmount = double.Parse(dr["CAmount"].ToString());
+                    if (!DBNull.Value.Equals(dr["OpeningBalance"]))
+                        result.OpeningBalance = double.Parse(dr["OpeningBalance"].ToString());
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".Map_PartyDetails(DataRow dr,ref string pMsg) " + ex.Message; }
+            return result;
+        }
+
+
 
 
 

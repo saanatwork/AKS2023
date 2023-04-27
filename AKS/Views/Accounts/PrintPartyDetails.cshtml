@@ -1,12 +1,12 @@
-﻿@model AKS.BOL.Accounts.Journal
+﻿@model AKS.ViewModel.AccountsVM.GLSummaryVM
 @{
-    ViewBag.Title = "Print Voucher";
+    ViewBag.Title = "Print Party Details";
     Layout = "~/Views/Shared/_PrintLayOutNoHeaderImg.cshtml";
 }
 <div style="text-align:center;color:white">
-    <h1>@(Model.Header.VoucherType=="JV"?"Journal Voucher":"")</h1>
+    <h1></h1>
 </div>
-@{Html.RenderPartial("_VoucherPrint", Model);}
+@{Html.RenderPartial("_PartyDetails", Model);}
 <div class="mb-4" style="vertical-align:central">
     <div class="card-body approvalForm">
         <div style="padding-left:10px">

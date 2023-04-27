@@ -1,0 +1,81 @@
+﻿@model AKS.ViewModel.AccountsVM.TrialBalanceVM
+@{
+    double OBDr = 0;double OBCr = 0;double TranDr = 0;
+    double TranCr = 0;double CBDr = 0;double CBCr = 0;
+    if(Model.TBList!=null && Model.TBList.Count > 0)
+    {
+        OBDr= Model.TBList.Where(o=>o.PreAsOnCD=="D").Select(o => o.PreAsOnAmount).Sum();
+        OBCr = Model.TBList.Where(o => o.PreAsOnCD == "C").Select(o => o.PreAsOnAmount).Sum();
+        CBDr = Model.TBList.Where(o => o.AsOnCD == "D").Select(o => o.AsOnAmount).Sum();
+        CBCr = Model.TBList.Where(o => o.AsOnCD == "C").Select(o => o.AsOnAmount).Sum();
+        TranDr = Model.TBList.Where(o => o.TranAmount > 0).Select(o => o.TranAmount).Sum();
+        TranCr = Model.TBList.Where(o => o.TranAmount < 0).Select(o => o.TranAmount).Sum() * -1;
+    }
+
+    Layout = null;
+}
+
+<div id="HdrDIV" class="col-md-12 mb-4" style="vertical-align:central">
+    <div class="mb-4 mt-4" style="vertical-align:central">
+        <div class="card-body approvalForm">
+            <div class="w-100 text-center" style="font-size:larger"><b>Trial Balance <br/>As On @Model.ToDate.ToString("dd-MM-yyyy")</b></div>
+            <div class="w-100 text-center">Profit Centre :  @Model.ProfitCentreDesc</div>
+        </div>
+    </div>
+    <div style="vertical-align:central">
+        @*<div class="card-body">*@
+        <div class="table-responsive">
+            <table style="width:100%" class="table table-bordered btnalign">
+                <thead>
+                    <tr style="text-align:center">
+                        <th rowspan="2" style="width:10%">Account Code</th>
+                        <th rowspan="2">Description</th>
+                        <th colspan="2">Balance As On <br />@Model.OpeningBalDate.ToString("dd-MM-yyyy")</th>
+                        <th colspan="2">Transaction</th>
+                        <th colspan="2">Balance As On <br/>@Model.ToDate.ToString("dd-MM-yyyy")</th>
+                    </tr>
+                    <tr>
+                        <td style="width:10%">Debit</td>
+                        <td style="width:10%">Credit</td>
+                        <td style="width:10%">Debit</td>
+                        <td style="width:10%">Credit</td>
+                        <td style="width:10%">Debit</td>
+                        <td style="width:10%">Credit</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.TBList != null && Model.TBList.Count > 0)
+                    {
+                        foreach (var item in Model.TBList.OrderBy(o => o.ACD).ToList())
+                        {
+                            <tr>
+                                <td>@item.ACD</td>
+                                <td>@item.ACDDesc</td>
+                                <td style="text-align:right">@(item.PreAsOnCD=="D" && item.PreAsOnAmount > 0? item.PreAsOnAmount.ToString():"-")</td>
+                                <td style="text-align:right">@(item.PreAsOnCD == "C" && item.PreAsOnAmount > 0 ? item.PreAsOnAmount.ToString() : "-")</td>
+                                <td style="text-align:right">@(item.TranAmount >0 ? item.TranAmount.ToString() : "-")</td>
+                                <td style="text-align:right">@(item.TranAmount <0 ? (item.TranAmount*-1).ToString() : "-")</td>
+                                <td style="text-align:right">@(item.AsOnCD=="D" && item.AsOnAmount > 0 ? item.AsOnAmount.ToString():"-")</td>
+                                <td style="text-align:right">@(item.AsOnCD == "C" && item.AsOnAmount > 0 ? item.AsOnAmount.ToString() : "-")</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+                <tfoot>
+                    <tr style="font-weight:bold">
+                        <td colspan="2"></td>
+                        <td style="text-align:right">@(OBDr == 0?"-": OBDr.ToString())</td>
+                        <td style="text-align:right">@(OBCr == 0?"-": OBCr.ToString())</td>
+                        <td style="text-align:right">@(TranDr == 0?"-": TranDr.ToString())</td>
+                        <td style="text-align:right">@(TranCr == 0?"-": TranCr.ToString())</td>
+                        <td style="text-align:right">@(CBDr == 0?"-": CBDr.ToString())</td>
+                        <td style="text-align:right">@(CBCr == 0?"-": CBCr.ToString())</td>
+                    </tr>                   
+                </tfoot>
+            </table>
+        </div>
+        @*</div>*@
+    </div>
+</div>
+
+

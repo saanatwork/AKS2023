@@ -72,6 +72,50 @@ namespace AKS.DAL.DataSync
             }
             catch (Exception ex) { pMsg = objPath + ".GetCOA(...) " + ex.Message; return null; }
         }
+        public DataTable GetGLDetails(string ACD, int ProfitCentreID,DateTime FromDate, DateTime AsOnDate, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("select * from [ACC].[GetGLDetails]('" + ACD + "'," + ProfitCentreID + ",'"+ FromDate.ToString("yyyy-MM-dd") + "','" + AsOnDate.ToString("yyyy-MM-dd") + "')", CommandType.Text))
+                {
+                    return sql.GetDataTable(ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetGLDetails(...) " + ex.Message; return null; }
+        }
+        public DataTable GetTrialBalance(int ProfitCentreID, DateTime FromDate, DateTime AsOnDate, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("select * from [ACC].[GetTrialBalance](" + ProfitCentreID + ",'" + FromDate.ToString("yyyy-MM-dd") + "','" + AsOnDate.ToString("yyyy-MM-dd") + "')", CommandType.Text))
+                {
+                    return sql.GetDataTable(ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetTrialBalance(...) " + ex.Message; return null; }
+        }
+        public DataTable GetPartyDetails(string SCD, int ProfitCentreID, DateTime FromDate, DateTime AsOnDate, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("select * from [ACC].[GetPartyDetails]('" + SCD + "'," + ProfitCentreID + ",'" + FromDate.ToString("yyyy-MM-dd") + "','" + AsOnDate.ToString("yyyy-MM-dd") + "')", CommandType.Text))
+                {
+                    return sql.GetDataTable(ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetPartyDetails(...) " + ex.Message; return null; }
+        }
+        public DataTable GetParties(ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("select * from [ACC].[GetParties]()", CommandType.Text))
+                {
+                    return sql.GetDataTable(ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetParties(...) " + ex.Message; return null; }
+        }
 
 
 

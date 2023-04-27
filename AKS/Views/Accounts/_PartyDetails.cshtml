@@ -1,0 +1,91 @@
+﻿@model AKS.ViewModel.AccountsVM.GLSummaryVM
+@{
+    double gltrandr = 0; double gltrancr = 0; double glclosing = 0;
+    if (Model.PartyDetail != null && Model.PartyDetail.Count > 0)
+    {
+        gltrandr = Model.PartyDetail.Select(o => o.DAmount).Sum();
+        gltrancr = Model.PartyDetail.Select(o => o.CAmount).Sum();
+        glclosing = Model.PartyDetailHdrs != null ? Model.PartyDetailHdrs.Select(o => o.OpeningBalance).Sum() : 0;
+    }
+    glclosing = glclosing + gltrandr - gltrancr;
+    Layout = null;
+}
+
+<div id="HdrDIV" class="col-md-12 mb-4" style="vertical-align:central">
+    <div class="mb-4 mt-4" style="vertical-align:central">
+        <div class="card-body approvalForm">
+            <div class="w-100 text-center" style="font-size:larger"><b>Party Details <br />From @Model.FromDate.ToString("dd-MM-yyyy") To @Model.AsOnDate.ToString("dd-MM-yyyy")</b></div>
+            <div class="w-100 text-center">For @Model.SCDDesc</div>
+            <div class="w-100 text-center">Profit Centre :  @Model.ProfitCentreDesc</div>
+        </div>
+    </div>
+    <div style="vertical-align:central">
+        @*<div class="card-body">*@
+        <div class="table-responsive">
+            <table style="width:100%" class="table table-bordered btnalign">
+                <thead>
+                    <tr style="text-align:center">
+                        <th style="width:15%">Voucher Number</th>
+                        <th style="width:15%">Date</th>
+                        <th style="width:5%">Type</th>
+                        <th>Description</th>
+                        <th style="width:15%">Debit</th>
+                        <th style="width:15%">Credit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.PartyDetailHdrs != null && Model.PartyDetailHdrs.Count > 0)
+                    {
+                        foreach (var party in Model.PartyDetailHdrs)
+                        {
+                            <tr style="font-weight:bold">
+                                <td colspan="4">
+                                    Account Head : @party.ACD - @party.ACDDesc
+                                </td>
+                                <td style="text-align:right">@(party.OpeningBalance>0?party.OpeningBalance.ToString():"-")</td>
+                                <td style="text-align:right">@(party.OpeningBalance<0?(party.OpeningBalance*-1).ToString():"-")</td>
+                            </tr>
+                            double dtot = 0; double ctot = 0; double balance = 0;
+                            foreach (var dtl in Model.PartyDetail.Where(o => o.ACD == party.ACD).ToList())
+                            {
+                                <tr>
+                                    <td>@dtl.VoucherNumber</td>
+                                    <td>@dtl.VoucherDate.ToString("dd-MM-yyyy")</td>
+                                    <td style="text-align:center">@dtl.VoucherType</td>
+                                    <td>@dtl.VoucherDescription</td>
+                                    <td style="text-align:right">@(dtl.DAmount>0? dtl.DAmount.ToString() : "-")</td>
+                                    <td style="text-align:right">@(dtl.CAmount>0? dtl.CAmount.ToString() : "-")</td>
+                                </tr>
+                                dtot = dtot + dtl.DAmount;
+                                ctot = ctot + dtl.CAmount;
+                            }
+                            balance = dtot - ctot + party.OpeningBalance;
+                            <tr>
+                                <td colspan="4">
+                                    Transaction Total :
+                                </td>
+                                <td style="text-align:right">@(dtot > 0? dtot.ToString():"-")</td>
+                                <td style="text-align:right">@(ctot > 0? ctot.ToString():"-")</td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    Closing Balance :
+                                </td>
+                                <td style="text-align:right;font-weight:bold">@(balance > 0? balance.ToString():"-")</td>
+                                <td style="text-align: right; font-weight: bold">@(balance < 0? (balance*-1).ToString():"-")</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+                <tfoot>
+                    
+                </tfoot>
+            </table>
+        </div>
+        @*</div>*@
+    </div>
+
+</div>
+
+
+

@@ -1,4 +1,5 @@
 ﻿using AKS.BOL.Accounts;
+using AKS.BOL.Common;
 using AKS.DAL.DataSync;
 using AKS.DAL.ObjectMapper;
 using System;
@@ -16,10 +17,12 @@ namespace AKS.DAL.Entities
         string objPath = "AKS.DAL.Entities.AccountsEntity";
         AccountsDataSync _AccountsDataSync;
         AccountsObjectMapper _AccountsObjectMapper;
+        DBResponseMapper _DBResponseMapper;
         public AccountsEntity()
         {
             _AccountsDataSync = new AccountsDataSync();
             _AccountsObjectMapper = new AccountsObjectMapper();
+            _DBResponseMapper = new DBResponseMapper();
         }
         public List<Journal4DT> GetVoucherList(int DisplayLength, int DisplayStart, int SortColumn,
             string SortDirection, string SearchText, int ProfitCentreID, ref string pMsg)
@@ -82,6 +85,74 @@ namespace AKS.DAL.Entities
                 }
             }
             catch (Exception ex) { pMsg = objPath + ".GetCOA(...) " + ex.Message; }
+            return result;
+        }
+        public List<GLDetails> GetGLDetails(string ACD, int ProfitCentreID, DateTime FromDate, DateTime AsOnDate, ref string pMsg) 
+        {
+            List<GLDetails> result = new List<GLDetails>();
+            try
+            {
+                dt = _AccountsDataSync.GetGLDetails(ACD, ProfitCentreID,FromDate, AsOnDate, ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        result.Add(_AccountsObjectMapper.Map_GLDetails(dt.Rows[i], ref pMsg));
+                    }
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetGLDetails(...) " + ex.Message; }
+            return result;
+        }
+        public List<TrialBalance> GetTrialBalance(int ProfitCentreID, DateTime FromDate, DateTime AsOnDate, ref string pMsg)
+        {
+            List<TrialBalance> result = new List<TrialBalance>();
+            try
+            {
+                dt = _AccountsDataSync.GetTrialBalance(ProfitCentreID, FromDate, AsOnDate, ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        result.Add(_AccountsObjectMapper.Map_TrialBalance(dt.Rows[i], ref pMsg));
+                    }
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetTrialBalance(...) " + ex.Message; }
+            return result;
+        }
+        public List<PartyDetails> GetPartyDetails(string SCD, int ProfitCentreID, DateTime FromDate, DateTime AsOnDate, ref string pMsg)
+        {
+            List<PartyDetails> result = new List<PartyDetails>();
+            try
+            {
+                dt = _AccountsDataSync.GetPartyDetails(SCD, ProfitCentreID, FromDate, AsOnDate, ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        result.Add(_AccountsObjectMapper.Map_PartyDetails(dt.Rows[i], ref pMsg));
+                    }
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetPartyDetails(...) " + ex.Message; }
+            return result;
+        }
+        public List<CustomComboOptions> GetParties(ref string pMsg) 
+        {
+            List<CustomComboOptions> result = new List<CustomComboOptions>();
+            try
+            {
+                dt = _AccountsDataSync.GetParties(ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        result.Add(_DBResponseMapper.Map_CustomComboOptions(dt.Rows[i]));
+                    }
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetParties(...) " + ex.Message; }
             return result;
         }
 

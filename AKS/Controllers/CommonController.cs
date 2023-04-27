@@ -84,7 +84,40 @@ namespace AKS.Controllers
         {
             var pcdesc= LUser.userpcs.Where(o => o.PCID == LUser.LogInProfitCentreID).FirstOrDefault().PCDesc;
             var converter = new HtmlToPdf();
-            var doc = converter.ConvertUrl(MyHelper.BaseUrl + "/Accounts/PrintGLSummary?ACD="+ ACD+ "&ACDDesc="+ ACDDesc+ "&AsOnDate="+ AsOnDate+ "&PCDesc="+ pcdesc);
+            var doc = converter.ConvertUrl(MyHelper.BaseUrl + "/Accounts/PrintGLSummary?ACD="+ ACD+ "&ACDDesc="+ ACDDesc+ "&AsOnDate="+ AsOnDate+ "&PCDesc="+ pcdesc+ "&PCID="+LUser.LogInProfitCentreID);
+
+            var pdfPath = Server.MapPath("~/Upload/PDF/" + PdfFileName + ".pdf");
+            doc.Save(pdfPath);
+
+            return File(pdfPath, "application/pdf", PdfFileName + ".pdf");
+        }
+        public ActionResult GeneratePdfForGLDetails(string ACD, string ACDDesc,string FromDate, string AsOnDate, string PdfFileName)
+        {
+            var pcdesc = LUser.userpcs.Where(o => o.PCID == LUser.LogInProfitCentreID).FirstOrDefault().PCDesc;
+            var converter = new HtmlToPdf();
+            var doc = converter.ConvertUrl(MyHelper.BaseUrl + "/Accounts/PrintGLDetails?ACD=" + ACD + "&ACDDesc=" + ACDDesc + "&FromDate="+ FromDate + "&AsOnDate=" + AsOnDate + "&PCDesc=" + pcdesc + "&PCID=" + LUser.LogInProfitCentreID);
+
+            var pdfPath = Server.MapPath("~/Upload/PDF/" + PdfFileName + ".pdf");
+            doc.Save(pdfPath);
+
+            return File(pdfPath, "application/pdf", PdfFileName + ".pdf");
+        }
+        public ActionResult GeneratePdfForTrialBalance(string FromDate, string AsOnDate, string PdfFileName)
+        {
+            var pcdesc = LUser.userpcs.Where(o => o.PCID == LUser.LogInProfitCentreID).FirstOrDefault().PCDesc;
+            var converter = new HtmlToPdf();
+            var doc = converter.ConvertUrl(MyHelper.BaseUrl + "/Accounts/PrintTrialBalance?FromDate=" + FromDate + "&AsOnDate=" + AsOnDate + "&PCDesc=" + pcdesc + "&PCID=" + LUser.LogInProfitCentreID);
+
+            var pdfPath = Server.MapPath("~/Upload/PDF/" + PdfFileName + ".pdf");
+            doc.Save(pdfPath);
+
+            return File(pdfPath, "application/pdf", PdfFileName + ".pdf");
+        }
+        public ActionResult GeneratePdfForPartyDetails(string SCD, string SCDDesc, string FromDate, string AsOnDate, string PdfFileName)
+        {
+            var pcdesc = LUser.userpcs.Where(o => o.PCID == LUser.LogInProfitCentreID).FirstOrDefault().PCDesc;
+            var converter = new HtmlToPdf();
+            var doc = converter.ConvertUrl(MyHelper.BaseUrl + "/Accounts/PrintPartyDetails?SCD=" + SCD + "&SCDDesc=" + SCDDesc + "&FromDate=" + FromDate + "&AsOnDate=" + AsOnDate + "&PCDesc=" + pcdesc + "&PCID=" + LUser.LogInProfitCentreID);
 
             var pdfPath = Server.MapPath("~/Upload/PDF/" + PdfFileName + ".pdf");
             doc.Save(pdfPath);
