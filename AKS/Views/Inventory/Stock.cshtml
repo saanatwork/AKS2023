@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "Inventory - Stock ";
+}
+<div class="row newTable">
+    <div class="fixedElement">
+        <div class="col-md-12" style="position: relative;">
+            <div class="heading_text_btn mb-4 mt-4">
+                <div class="leftButton">
+                    <button type="submit" class="btn btn-primary me-2" onclick="window.location.href='/Inventory/StockDtls';">
+                        <i data-feather="eye"></i>
+                        Stock In Details
+                    </button>
+                </div>
+                <h2>Stock As On @DateTime.Today.ToString("dd-MM-yyyy") </h2>
+                <div class="rightButton">                    
+                    <a class="btn btn-secondary" href="@Url.Action("GeneratePdfForStockSummary","Common", new {PdfFileName="Stock On "+DateTime.Today.ToString("dd-MM-yyyy") })">
+                        <i data-feather="printer"></i>
+                        Print
+                    </a>                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 mb-4">
+        <div class="table-responsive mb-4 ">
+            <table id="tblDataList" style="width:100%" class="table table-bordered btnalign">
+                <thead>
+                    <tr>
+                        <th scope="col" style="width:10%">Code</th>
+                        <th scope="col">Description</th>
+                        <th scope="col" style="width: 20%">Available Quantity</th>
+                        <th scope="col" style="width: 10%; background-color: #ff7500; color: white;text-align: center;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                <tfoot></tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+@section headers{
+
+}
+@section scripts{
+    <script src="~/UIContent/JS/CustomePage/CommonReusableJS.js"></script>
+    <script src="~/UIContent/JS/CustomePage/Inventory/StockDataTableJS.js"></script>
+
+}
+
+

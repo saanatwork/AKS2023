@@ -1,0 +1,53 @@
+﻿@model AKS.ViewModel.InventoryVM.StockVM
+@{
+    Layout = null;
+}
+
+<div id="HdrDIV" class="col-md-12 mb-2" style="vertical-align:central">    
+        <div class="mb-1 mt-1" style="vertical-align:central">
+            <div class="card-body approvalForm">
+                <div class="w-100 text-center mb-1" style="font-size:larger">                
+                    <img src="~/img/Logo50x50.png" alt="Aap Ki Sakhi - logo" class="img-fluid" height="40px">
+                </div>
+                <div class="w-100 text-center" style="font-size:larger"><b>Stock As On @DateTime.Today.ToString("dd-MM-yyyy")</b></div>
+                <div class="w-100 text-center">Profit Centre :  @Model.ProfitCentreDesc</div>
+            </div>
+        </div>
+        <div style="vertical-align:central">
+            @*<div class="card-body">*@
+            <div class="table-responsive">
+                <table style="width:100%" class="table table-bordered btnalign">
+                    <thead>
+                        <tr style="text-align:center">
+                            <th style="width:5%">SL</th>
+                            <th style="width:15%">Categoy Code</th>
+                            <th>Description</th>
+                            <th style="width:20%">Available Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.StockSummaryList != null && Model.StockSummaryList.Count > 0)
+                        {
+                            int i = 1;
+                            foreach (var item in Model.StockSummaryList.OrderBy(o => o.ItemCatLongText).ToList())
+                            {
+                                <tr>
+                                    <td style="text-align:center">@i</td>
+                                    <td>@item.ItemCatCode</td>
+                                    <td>@item.ItemCatLongText</td>
+                                    <td style="text-align:center">@item.Qty</td>
+                                </tr>
+                                i += 1;
+                            }
+                        }
+                    </tbody>
+                    <tfoot>
+                    </tfoot>
+                </table>
+            </div>
+            @*</div>*@
+        </div>
+
+    </div>
+
+

@@ -134,7 +134,25 @@ namespace AKS.Controllers
         {
             return View();
         }
-
+        public ActionResult Stock() 
+        {
+            return View();
+        }
+        public ActionResult StockDtls() 
+        {
+            Stocks model = _iInventory.GetStockWithItems(LUser.LogInProfitCentreID,ref pMsg);
+            model.ProfitCentreID = LUser.LogInProfitCentreID;
+            model.ProfitCentreDesc = LUser.userpcs.Where(o => o.PCID == LUser.LogInProfitCentreID).FirstOrDefault().PCDesc;
+            return View(model);
+        }
+        public ActionResult StockItemDetails(string ItemCatCode) 
+        {
+            Stocks model = _iInventory.GetItemTranDtls(LUser.LogInProfitCentreID, ItemCatCode, ref pMsg);
+            model.ProfitCentreID = LUser.LogInProfitCentreID;
+            model.ProfitCentreDesc = LUser.userpcs.Where(o => o.PCID == LUser.LogInProfitCentreID).FirstOrDefault().PCDesc;
+          
+            return View(model);
+        }
 
         #region Ajax Calling
         public JsonResult GetAppStock(string DocumentNumber = "")
@@ -198,6 +216,20 @@ namespace AKS.Controllers
             string sSortDir_0, string sSearch)
         {
             List<AppStock4DT> userslist = _iInventory.GetAppStockDocList(iDisplayLength, iDisplayStart, iSortCol_0, sSortDir_0, sSearch,LUser.LogInProfitCentreID,true, ref pMsg);
+            var result = new
+            {
+                iTotalRecords = userslist.Count == 0 ? 0 : userslist.FirstOrDefault().TotalRecords,
+                iTotalDisplayRecords = userslist.Count == 0 ? 0 : userslist.FirstOrDefault().TotalCount,
+                iDisplayLength = iDisplayLength,
+                iDisplayStart = iDisplayStart,
+                aaData = userslist
+            };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetStockList(int iDisplayLength, int iDisplayStart, int iSortCol_0,
+            string sSortDir_0, string sSearch)
+        {
+            List<StockSummary4DT> userslist = _iInventory.GetStockSummaryList(iDisplayLength, iDisplayStart, iSortCol_0, sSortDir_0, sSearch, LUser.LogInProfitCentreID, ref pMsg);
             var result = new
             {
                 iTotalRecords = userslist.Count == 0 ? 0 : userslist.FirstOrDefault().TotalRecords,
@@ -342,7 +374,28 @@ namespace AKS.Controllers
             AppStockView model = _iInventory.GetPurchaseDocInfo(DocumentNumber, ref pMsg);
             return View(model);
         }
-
+        public ActionResult PrintStockSummary(int PCID, string PCDesc) 
+        {
+            StockVM model = new StockVM();
+            model.ProfitCentreID = PCID;
+            model.ProfitCentreDesc = PCDesc;
+            model.StockSummaryList = _iInventory.GetStockSummary(PCID, ref pMsg);
+            return View(model);
+        }
+        public ActionResult PrintStockItem(int PCID, string PCDesc)
+        {
+            Stocks model = _iInventory.GetStockWithItems(PCID, ref pMsg);
+            model.ProfitCentreID = PCID;
+            model.ProfitCentreDesc = PCDesc;
+            return View(model);
+        }
+        public ActionResult PrintStockItemTran(string CatCode,int PCID, string PCDesc)
+        {
+            Stocks model = _iInventory.GetItemTranDtls(PCID,CatCode, ref pMsg);
+            model.ProfitCentreID = PCID;
+            model.ProfitCentreDesc = PCDesc;
+            return View(model);
+        }
         #endregion
         #region - Print Method
 

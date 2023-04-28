@@ -1,6 +1,7 @@
 ﻿using AKS.BLL.IRepository;
 using AKS.BOL.Accounts;
 using AKS.BOL.Common;
+using AKS.BOL.Inventory;
 using AKS.DAL.Entities;
 using System;
 using System.Collections.Generic;
@@ -49,6 +50,10 @@ namespace AKS.BLL.Repository
         {
             return _AccountsEntity.GetParties(ref pMsg);
         }
+        
+
+
+
 
 
     }

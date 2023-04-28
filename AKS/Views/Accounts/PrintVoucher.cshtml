@@ -3,7 +3,7 @@
     ViewBag.Title = "Print Voucher";
     Layout = "~/Views/Shared/_PrintLayOutNoHeaderImg.cshtml";
 }
-<div style="text-align:center;color:white">
+<div class="mt-4" style="text-align:center">
     <h1>@(Model.Header.VoucherType=="JV"?"Journal Voucher":"")</h1>
 </div>
 @{Html.RenderPartial("_VoucherPrint", Model);}
@@ -11,7 +11,7 @@
     <div class="card-body approvalForm">
         <div style="padding-left:10px">
             Print Time :
-            @DateTime.Today.ToString("dd-MM-yyyy hh:mm:ss tt");
+            @DateTime.Today.ToString("dd-MM-yyyy hh:mm:ss tt")
         </div>
     </div>
 </div>

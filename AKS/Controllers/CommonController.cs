@@ -124,6 +124,39 @@ namespace AKS.Controllers
 
             return File(pdfPath, "application/pdf", PdfFileName + ".pdf");
         }
+        public ActionResult GeneratePdfForStockSummary(string PdfFileName)
+        {
+            var pcdesc = LUser.userpcs.Where(o => o.PCID == LUser.LogInProfitCentreID).FirstOrDefault().PCDesc;
+            var converter = new HtmlToPdf();
+            var doc = converter.ConvertUrl(MyHelper.BaseUrl + "/Inventory/PrintStockSummary?PCDesc=" + pcdesc + "&PCID=" + LUser.LogInProfitCentreID);
+
+            var pdfPath = Server.MapPath("~/Upload/PDF/" + PdfFileName + ".pdf");
+            doc.Save(pdfPath);
+
+            return File(pdfPath, "application/pdf", PdfFileName + ".pdf");
+        }
+        public ActionResult GeneratePdfForStockItems(string PdfFileName)
+        {
+            var pcdesc = LUser.userpcs.Where(o => o.PCID == LUser.LogInProfitCentreID).FirstOrDefault().PCDesc;
+            var converter = new HtmlToPdf();
+            var doc = converter.ConvertUrl(MyHelper.BaseUrl + "/Inventory/PrintStockItem?PCDesc=" + pcdesc + "&PCID=" + LUser.LogInProfitCentreID);
+
+            var pdfPath = Server.MapPath("~/Upload/PDF/" + PdfFileName + ".pdf");
+            doc.Save(pdfPath);
+
+            return File(pdfPath, "application/pdf", PdfFileName + ".pdf");
+        }
+        public ActionResult GeneratePdfForStockItemTrans(string CatCode,string PdfFileName)
+        {
+            var pcdesc = LUser.userpcs.Where(o => o.PCID == LUser.LogInProfitCentreID).FirstOrDefault().PCDesc;
+            var converter = new HtmlToPdf();
+            var doc = converter.ConvertUrl(MyHelper.BaseUrl + "/Inventory/PrintStockItemTran?CatCode="+CatCode+"&PCDesc=" + pcdesc + "&PCID=" + LUser.LogInProfitCentreID);
+
+            var pdfPath = Server.MapPath("~/Upload/PDF/" + PdfFileName + ".pdf");
+            doc.Save(pdfPath);
+
+            return File(pdfPath, "application/pdf", PdfFileName + ".pdf");
+        }
         public JsonResult SendEmail()
         {
             CustomAjaxResponse result = new CustomAjaxResponse();

@@ -1,0 +1,55 @@
+﻿@model AKS.BOL.Inventory.Stocks
+@{
+    Layout = null;
+}
+<div id="HdrDIV" class="col-md-12 mb-2" style="vertical-align:central">
+<div class="mb-1 mt-1" style="vertical-align:central">
+    <div class="card-body approvalForm">        
+        <div class="w-100 text-center" style="font-size:larger"><b>Stock Details As On @DateTime.Today.ToString("dd-MM-yyyy")</b></div>
+        <div class="w-100 text-center">Profit Centre :  @Model.ProfitCentreDesc</div>
+    </div>
+</div>
+<div style="vertical-align:central">
+    @*<div class="card-body">*@
+    <div class="table-responsive">
+        <table style="width:100%" class="table table-bordered btnalign">
+            <thead>
+                <tr style="text-align:center">
+                    <th style="width:10%">Item ID</th>
+                    <th style="width:10%">Item Code</th>
+                    <th>Description</th>
+                    <th style="width:10%">Available Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.DtlList!=null && Model.HdrList != null && Model.HdrList.Count > 0)
+                {
+                    foreach (var cat in Model.HdrList.OrderBy(o => o.ItemCatLongText).ToList())
+                    {
+                        <tr style="font-weight:bold">
+                            <td style="text-align:center;background-color: #DEF9E6" colspan="3">@cat.ItemCatCode - @cat.ItemCatLongText</td>
+                            <td style="text-align: center; background-color: #A5F5BC">@cat.Qty</td>
+                        </tr>
+                        foreach (var item in Model.DtlList.Where(o => o.ItemCatCode == cat.ItemCatCode).ToList()) 
+                        {
+                        <tr>
+                            <td>@item.ItemCode</td>
+                            <td>@item.UserRemarks</td>
+                            <td style="font-size:smaller">@item.ItemDescription</td>
+                            <td style="text-align:center">@item.ItemQty</td>
+                        </tr>
+                        }
+                    }
+                }
+            </tbody>
+            <tfoot>
+            </tfoot>
+        </table>
+    </div>
+    @*</div>*@
+</div>
+
+</div>
+
+
+

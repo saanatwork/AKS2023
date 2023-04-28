@@ -11,6 +11,8 @@ namespace AKS.BLL.IRepository
 {
     public interface IInventoryRepository
     {
+        List<StockSummary4DT> GetStockSummaryList(int DisplayLength, int DisplayStart, int SortColumn,
+           string SortDirection, string SearchText, int ProfitCentreID, ref string pMsg);
         List<AppStock4DT> GetAppStockDocList(int DisplayLength, int DisplayStart, int SortColumn,
             string SortDirection, string SearchText, int ProfitCentreID,bool IsApproval, ref string pMsg);
         List<AppStock4DT> GetAppStockForUserDocList(int DisplayLength, int DisplayStart, int SortColumn,
@@ -31,5 +33,8 @@ namespace AKS.BLL.IRepository
         bool LogGoldRate(string City, double GoldRate, ref string pMsg);
         bool SetInvoice(AppStockEntry data, ref string pMsg);
         Invoice GetInvoice(string DocumentNumber, ref string pMsg);
+        List<StockSummary> GetStockSummary(int ProfitCentreID, ref string pMsg);
+        Stocks GetStockWithItems(int ProfitCentreID, ref string pMsg);
+        Stocks GetItemTranDtls(int ProfitCentreID, string ItemCatCode, ref string pMsg);
     }
 }

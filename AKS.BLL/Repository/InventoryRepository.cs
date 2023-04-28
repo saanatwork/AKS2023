@@ -21,6 +21,11 @@ namespace AKS.BLL.Repository
             _InventoryEntity = new InventoryEntity();
             _MasterEntity = new MasterEntity();
         }
+        public List<StockSummary4DT> GetStockSummaryList(int DisplayLength, int DisplayStart, int SortColumn,
+           string SortDirection, string SearchText, int ProfitCentreID, ref string pMsg)
+        {
+            return _InventoryEntity.GetStockSummaryList(DisplayLength,DisplayStart,SortColumn,SortDirection,SearchText,ProfitCentreID,ref pMsg);
+        }
         public List<AppStock4DT> GetAppStockDocList(int DisplayLength, int DisplayStart, int SortColumn,
             string SortDirection, string SearchText, int ProfitCentreID, bool IsApproval, ref string pMsg)
         {
@@ -333,6 +338,68 @@ namespace AKS.BLL.Repository
         {
             return _InventoryEntity.GetInvoice(DocumentNumber, ref pMsg); 
         }
+        public List<StockSummary> GetStockSummary(int ProfitCentreID, ref string pMsg)
+        {
+            return _InventoryEntity.GetStockSummary(ProfitCentreID, ref pMsg);
+        }
+        public Stocks GetStockWithItems(int ProfitCentreID, ref string pMsg)
+        {
+            Stocks result = new Stocks();            
+            try
+            {
+                result.DtlList = _InventoryEntity.GetStockWithItems(ProfitCentreID, ref pMsg);
+                if (result.DtlList != null && result.DtlList.Count > 0)
+                {
+                    result.HdrList = new List<StockSummary>();
+                    foreach (var item in result.DtlList.Select(o => new { o.ItemCatCode, o.ItemCatLongText, o.Qty }).Distinct().ToList())
+                    {
+                        result.HdrList.Add(new StockSummary()
+                        {
+                            ItemCatCode = item.ItemCatCode,
+                            ItemCatLongText = item.ItemCatLongText,
+                            Qty = item.Qty
+                        });
+                    }
+                }
+            }
+            catch(Exception ex) { pMsg = objPath + ".GetStockWithItems(...) " +ex.Message; }
+            return result;
+        }
+        public Stocks GetItemTranDtls(int ProfitCentreID, string ItemCatCode, ref string pMsg) 
+        {
+            Stocks result = new Stocks();
+            try
+            {
+                result.ItemTranList = _InventoryEntity.GetItemTranDtls(ProfitCentreID, ItemCatCode, ref pMsg);
+                if (result.ItemTranList != null && result.ItemTranList.Count > 0)
+                {
+                    result.DtlList = new List<StockItems>();
+                    foreach (var item in result.ItemTranList.Select(o => new { o.ItemCatCode, o.ItemCatLongText }).Distinct().ToList())
+                    {
+                        result.HdrForItemTran = new StockSummary()
+                        {
+                            ItemCatCode = item.ItemCatCode,
+                            ItemCatLongText = item.ItemCatLongText,
+                            Qty = result.ItemTranList.Select(o => o.ItemQty).Sum()
+                        };
+                    }
+                    foreach (var item in result.ItemTranList.Select(o => new { o.ItemCatCode, o.ItemCode, o.UserRemarks, o.ItemDescription }).Distinct().ToList())
+                    {
+                        result.DtlList.Add(new StockItems()
+                        {
+                            ItemCatCode = item.ItemCatCode,
+                            ItemCode = item.ItemCode,
+                            UserRemarks=item.UserRemarks,
+                            ItemDescription=item.ItemDescription,
+                            ItemQty = result.ItemTranList.Where(o=>o.ItemCode==item.ItemCode).Select(o => o.ItemQty).Sum()
+                        });
+                    }
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetItemTranDtls(...) " + ex.Message; }
+            return result;
+        }
+
 
 
 

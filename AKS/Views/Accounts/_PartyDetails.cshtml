@@ -39,11 +39,11 @@
                         foreach (var party in Model.PartyDetailHdrs)
                         {
                             <tr style="font-weight:bold">
-                                <td colspan="4">
+                                <td colspan="4" style="background-color: #DEF9E6">
                                     Account Head : @party.ACD - @party.ACDDesc
                                 </td>
-                                <td style="text-align:right">@(party.OpeningBalance>0?party.OpeningBalance.ToString():"-")</td>
-                                <td style="text-align:right">@(party.OpeningBalance<0?(party.OpeningBalance*-1).ToString():"-")</td>
+                                <td style="text-align: right; background-color: #DEF9E6">@(party.OpeningBalance>0?party.OpeningBalance.ToString():"-")</td>
+                                <td style="text-align: right; background-color: #DEF9E6">@(party.OpeningBalance<0?(party.OpeningBalance*-1).ToString():"-")</td>
                             </tr>
                             double dtot = 0; double ctot = 0; double balance = 0;
                             foreach (var dtl in Model.PartyDetail.Where(o => o.ACD == party.ACD).ToList())
@@ -71,8 +71,8 @@
                                 <td colspan="4">
                                     Closing Balance :
                                 </td>
-                                <td style="text-align:right;font-weight:bold">@(balance > 0? balance.ToString():"-")</td>
-                                <td style="text-align: right; font-weight: bold">@(balance < 0? (balance*-1).ToString():"-")</td>
+                                <td style="text-align: right; font-weight: bold; background-color: #A5F5BC">@(balance > 0? balance.ToString():"-")</td>
+                                <td style="text-align: right; font-weight: bold; background-color: #A5F5BC">@(balance < 0? (balance*-1).ToString():"-")</td>
                             </tr>
                         }
                     }

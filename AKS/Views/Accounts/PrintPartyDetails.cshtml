@@ -3,15 +3,15 @@
     ViewBag.Title = "Print Party Details";
     Layout = "~/Views/Shared/_PrintLayOutNoHeaderImg.cshtml";
 }
-<div style="text-align:center;color:white">
-    <h1></h1>
+<div class="w-100 text-right" style="font-size:larger;margin-top:20px;margin-bottom:-120px">
+    <img src="~/img/Logo100x100.png" alt="Aap Ki Sakhi - logo" class="img-fluid" height="40px">
 </div>
 @{Html.RenderPartial("_PartyDetails", Model);}
 <div class="mb-4" style="vertical-align:central">
     <div class="card-body approvalForm">
         <div style="padding-left:10px">
             Print Time :
-            @DateTime.Today.ToString("dd-MM-yyyy hh:mm:ss tt");
+            @DateTime.Today.ToString("dd-MM-yyyy hh:mm:ss tt")
         </div>
     </div>
 </div>

@@ -690,6 +690,7 @@ function SaveBtnStatus() {
 };
 function ParentCloneRowAddClicked() {
     var rowid = CloneRowParentTableReturningID('tbody1', 'tbody2', true, true);
+    SaveBtnStatus();
 };
 function ParentCloneRowRemoveClicked() {
     var row = ParentCloneRowRemoveClicked.caller.arguments[0].target.closest('tr');

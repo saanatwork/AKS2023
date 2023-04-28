@@ -11,7 +11,7 @@
     <div id="HdrDIV" class="col-md-12 mb-4" style="vertical-align:central">
         <div class="mb-4 mt-4" style="vertical-align:central">
             <div class="card-body approvalForm">
-                <div class="w-100 text-center" style="font-size:larger"><b>GL Summary As On @Model.AsOnDate.ToString("dd-MM-yyyy")</b></div>
+                <div class="w-100 text-center" style="font-size:larger"><b>General Ledger Summary <br/>As On @Model.AsOnDate.ToString("dd-MM-yyyy")</b></div>
                 <div class="w-100 text-center">For Account Head @Model.ACD - @Model.ACDDesc</div>
                 <div class="w-100 text-center">Profit Centre :  @Model.ProfitCentreDesc</div>
 
@@ -46,13 +46,13 @@
                     <tfoot>
                         <tr>
                             <td colspan="2"></td>
-                            <td style="text-align:right"><b>@(DrAmt == 0?"-": DrAmt.ToString())</b></td>
-                            <td style="text-align:right"><b>@(CrAmt == 0?"-": CrAmt.ToString())</b></td>
+                            <td style="text-align:right;background-color: #DEF9E6 "><b>@(DrAmt == 0?"-": DrAmt.ToString())</b></td>
+                            <td style="text-align:right;background-color: #DEF9E6 "><b>@(CrAmt == 0?"-": CrAmt.ToString())</b></td>
                         </tr>
                         <tr style="font-weight:bold">
                             <td style="text-align:right" colspan="2">Balance : </td>
-                            <td style="text-align:right">@BalanceDr</td>
-                            <td style="text-align:right">@BalanceCr</td>
+                            <td style="text-align: right; background-color: #A5F5BC">@BalanceDr</td>
+                            <td style="text-align: right; background-color: #A5F5BC">@BalanceCr</td>
                         </tr>
                     </tfoot>
                 </table>

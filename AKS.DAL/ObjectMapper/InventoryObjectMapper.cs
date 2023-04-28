@@ -549,6 +549,118 @@ namespace AKS.DAL.ObjectMapper
             catch (Exception ex) { pMsg = objPath + ".Map_AppStockVariant(DataRow dr,ref string pMsg) " + ex.Message; }
             return result;
         }
+        public StockSummary4DT Map_StockSummary4DT(DataRow dr, ref string pMsg)
+        {
+            StockSummary4DT result = new StockSummary4DT();
+            try
+            {
+                if (dr != null)
+                {
+                    if (!DBNull.Value.Equals(dr["RowNum"]))
+                        result.RowNum = int.Parse(dr["RowNum"].ToString());
+                    if (!DBNull.Value.Equals(dr["TotalCount"]))
+                        result.TotalCount = int.Parse(dr["TotalCount"].ToString());
+                    if (!DBNull.Value.Equals(dr["TotalRecords"]))
+                        result.TotalRecords = int.Parse(dr["TotalRecords"].ToString());
+                    if (!DBNull.Value.Equals(dr["ItemCatCode"]))
+                        result.ItemCatCode = dr["ItemCatCode"].ToString();
+                    if (!DBNull.Value.Equals(dr["ItemCatLongText"]))
+                        result.ItemCatLongText = dr["ItemCatLongText"].ToString();
+                    if (!DBNull.Value.Equals(dr["Qty"]))
+                        result.Qty =int.Parse(dr["Qty"].ToString());
+                    
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".Map_StockSummary4DT(DataRow dr,ref string pMsg) " + ex.Message; }
+            return result;
+        }
+        public StockSummary Map_StockSummary(DataRow dr, ref string pMsg)
+        {
+            StockSummary result = new StockSummary();
+            try
+            {
+                if (dr != null)
+                {                    
+                    if (!DBNull.Value.Equals(dr["ItemCatCode"]))
+                        result.ItemCatCode = dr["ItemCatCode"].ToString();
+                    if (!DBNull.Value.Equals(dr["ItemCatLongText"]))
+                        result.ItemCatLongText = dr["ItemCatLongText"].ToString();
+                    if (!DBNull.Value.Equals(dr["Qty"]))
+                        result.Qty = int.Parse(dr["Qty"].ToString());
+
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".Map_StockSummary(DataRow dr,ref string pMsg) " + ex.Message; }
+            return result;
+        }
+        public StockItems Map_StockItems(DataRow dr, ref string pMsg)
+        {
+            StockItems result = new StockItems();
+            try
+            {
+                if (dr != null)
+                {
+                    if (!DBNull.Value.Equals(dr["ItemCatCode"]))
+                        result.ItemCatCode = dr["ItemCatCode"].ToString();
+                    if (!DBNull.Value.Equals(dr["ItemCatLongText"]))
+                        result.ItemCatLongText = dr["ItemCatLongText"].ToString();
+                    if (!DBNull.Value.Equals(dr["Qty"]))
+                        result.Qty = int.Parse(dr["Qty"].ToString());
+                    if (!DBNull.Value.Equals(dr["ItemCode"]))
+                        result.ItemCode = dr["ItemCode"].ToString();
+                    if (!DBNull.Value.Equals(dr["UserRemarks"]))
+                        result.UserRemarks = dr["UserRemarks"].ToString();
+                    if (!DBNull.Value.Equals(dr["ItemDescription"]))
+                        result.ItemDescription = dr["ItemDescription"].ToString();
+                    if (!DBNull.Value.Equals(dr["ItemQty"]))
+                        result.ItemQty =int.Parse(dr["ItemQty"].ToString());
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".Map_StockItems(DataRow dr,ref string pMsg) " + ex.Message; }
+            return result;
+        }
+        public StockItemDetails Map_StockItemDetails(DataRow dr, ref string pMsg)
+        {
+            StockItemDetails result = new StockItemDetails();
+            try
+            {
+                if (dr != null)
+                {
+                    if (!DBNull.Value.Equals(dr["ItemCatCode"]))
+                        result.ItemCatCode = dr["ItemCatCode"].ToString();
+                    if (!DBNull.Value.Equals(dr["ItemCatLongText"]))
+                        result.ItemCatLongText = dr["ItemCatLongText"].ToString();
+                    if (!DBNull.Value.Equals(dr["Qty"]))
+                        result.Qty = int.Parse(dr["Qty"].ToString());
+                    if (!DBNull.Value.Equals(dr["ItemCode"]))
+                        result.ItemCode = dr["ItemCode"].ToString();
+                    if (!DBNull.Value.Equals(dr["UserRemarks"]))
+                        result.UserRemarks = dr["UserRemarks"].ToString();
+                    if (!DBNull.Value.Equals(dr["ItemDescription"]))
+                        result.ItemDescription = dr["ItemDescription"].ToString();
+                    if (!DBNull.Value.Equals(dr["ItemQty"]))
+                        result.ItemQty = int.Parse(dr["ItemQty"].ToString());
+                    if (!DBNull.Value.Equals(dr["DocumentNumber"]))
+                        result.DocumentNumber = dr["DocumentNumber"].ToString();
+                    if (!DBNull.Value.Equals(dr["IsApproval"]))
+                        result.IsApproval =bool.Parse(dr["IsApproval"].ToString());
+                    if (!DBNull.Value.Equals(dr["TranTag"]))
+                        result.TranTag = dr["TranTag"].ToString();
+                    if (!DBNull.Value.Equals(dr["UDocNumber"]))
+                        result.UDocNumber = dr["UDocNumber"].ToString();
+                    if (!DBNull.Value.Equals(dr["UDocDate"]))
+                        result.UDocDate =DateTime.Parse(dr["UDocDate"].ToString());
+                    if (!DBNull.Value.Equals(dr["Vendorid"]))
+                        result.Vendorid =int.Parse(dr["Vendorid"].ToString());
+                    if (!DBNull.Value.Equals(dr["VendorName"]))
+                        result.VendorName = dr["VendorName"].ToString();
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".Map_StockItemDetails(DataRow dr,ref string pMsg) " + ex.Message; }
+            return result;
+        }
+
+
 
 
     }

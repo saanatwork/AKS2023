@@ -19,6 +19,18 @@ namespace AKS.DAL.DataSync
             _InventoryParamMapper = new InventoryParamMapper();
             _CommonParamMapper = new CommonParamMapper();
         }
+        public DataTable GetStockSummaryList(int DisplayLength, int DisplayStart, int SortColumn,
+            string SortDirection, string SearchText, int ProfitCentreID, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("[INV].[GetStockSummaryList]", CommandType.StoredProcedure))
+                {
+                    return sql.GetDataTable(_CommonParamMapper.MapParam_DIsplayListWithPC(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ProfitCentreID, ref pMsg), ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetStockSummaryList(...) " + ex.Message; return null; }
+        }
         public DataTable GetAppStockDocList(int DisplayLength, int DisplayStart, int SortColumn,
             string SortDirection, string SearchText,int ProfitCentreID,bool IsApproval, ref string pMsg)
         {
@@ -209,6 +221,29 @@ namespace AKS.DAL.DataSync
             }
             catch (Exception ex) { pMsg = objPath + ".GetInvoice(...) " + ex.Message; return null; }
         }
+        public DataTable GetStockWithItems(int ProfitCentreID, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("select * from [INV].[GetStockWithItems](" + ProfitCentreID + ")", CommandType.Text))
+                {
+                    return sql.GetDataTable(ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetStockWithItems(int ProfitCentreID,ref string pMsg) " + ex.Message; return null; }
+        }
+        public DataTable GetItemTranDtls(int ProfitCentreID,string ItemCatCode, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("select * from [INV].[GetItemTranDtls](" + ProfitCentreID + ",'"+ ItemCatCode + "')", CommandType.Text))
+                {
+                    return sql.GetDataTable(ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetItemTranDtls(...) " + ex.Message; return null; }
+        }
+
 
 
 

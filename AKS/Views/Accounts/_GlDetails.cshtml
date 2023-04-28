@@ -13,8 +13,8 @@
 
 <div id="HdrDIV" class="col-md-12 mb-4" style="vertical-align:central">
     <div class="mb-4 mt-4" style="vertical-align:central">
-        <div class="card-body approvalForm">
-            <div class="w-100 text-center" style="font-size:larger"><b>General Ledger Details <br/>From @Model.FromDate.ToString("dd-MM-yyyy") To @Model.AsOnDate.ToString("dd-MM-yyyy")</b></div>
+        <div class="card-body approvalForm">            
+            <div class="w-100 text-center" style="font-size:larger"><b>GL Transaction Details <br/>From @Model.FromDate.ToString("dd-MM-yyyy") To @Model.AsOnDate.ToString("dd-MM-yyyy")</b></div>
             <div class="w-100 text-center">For Account Head @Model.ACD - @Model.ACDDesc</div>
             <div class="w-100 text-center">Profit Centre :  @Model.ProfitCentreDesc</div>
         </div>
@@ -39,11 +39,11 @@
                         foreach (var party in Model.GLDetailHdrs)
                         {
                             <tr style="font-weight:bold">
-                                <td colspan="4">
+                                <td colspan="4" style="background-color: #DEF9E6">
                                     Party : @party.SCD - @party.SCDDesc
                                 </td>
-                                <td style="text-align:right">@(party.OpeningBalance>0?party.OpeningBalance.ToString():"-")</td>
-                                <td style="text-align:right">@(party.OpeningBalance<0?(party.OpeningBalance*-1).ToString():"-")</td>
+                                <td style="text-align: right; background-color: #DEF9E6 ">@(party.OpeningBalance>0?party.OpeningBalance.ToString():"-")</td>
+                                <td style="text-align: right; background-color: #DEF9E6">@(party.OpeningBalance<0?(party.OpeningBalance*-1).ToString():"-")</td>
                             </tr>
                             double dtot = 0; double ctot = 0; double balance = 0;
                             foreach (var dtl in Model.GLDetail.Where(o => o.SCD == party.SCD).ToList())
@@ -64,15 +64,15 @@
                                 <td colspan="4">
                                     Transaction Total :
                                 </td>
-                                <td style="text-align:right">@(dtot > 0? dtot.ToString():"-")</td>
-                                <td style="text-align:right">@(ctot < 0? ctot.ToString():"-")</td>
+                                <td style="text-align: right; ">@(dtot > 0? dtot.ToString():"-")</td>
+                                <td style="text-align: right;">@(ctot < 0? ctot.ToString():"-")</td>
                             </tr>
                             <tr>
                                 <td colspan="4">
                                     Closing Balance :
                                 </td>
-                                <td style="text-align:right;font-weight:bold">@(balance > 0? balance.ToString():"-")</td>
-                                <td style="text-align: right; font-weight: bold">@(balance > 0? (balance*-1).ToString():"-")</td>
+                                <td style="text-align: right; font-weight: bold; background-color: #C8ECD3 ">@(balance > 0? balance.ToString():"-")</td>
+                                <td style="text-align: right; font-weight: bold; background-color: #C8ECD3 ">@(balance < 0? (balance*-1).ToString():"-")</td>
                             </tr>
                         }
                     }

@@ -25,6 +25,24 @@ namespace AKS.DAL.Entities
             _InventoryDataSync = new InventoryDataSync();
             _DBResponseMapper = new DBResponseMapper();
         }
+        public List<StockSummary4DT> GetStockSummaryList(int DisplayLength, int DisplayStart, int SortColumn,
+           string SortDirection, string SearchText, int ProfitCentreID, ref string pMsg)
+        {
+            List<StockSummary4DT> result = new List<StockSummary4DT>();
+            try
+            {
+                dt = _InventoryDataSync.GetStockSummaryList(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ProfitCentreID, ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        result.Add(_InventoryObjectMapper.Map_StockSummary4DT(dt.Rows[i], ref pMsg));
+                    }
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetStockSummaryList(...) " + ex.Message; }
+            return result;
+        }
         public List<AppStock4DT> GetAppStockDocList(int DisplayLength, int DisplayStart, int SortColumn,
             string SortDirection, string SearchText, int ProfitCentreID, bool IsApproval, ref string pMsg)
         {
@@ -326,6 +344,58 @@ namespace AKS.DAL.Entities
             catch (Exception ex) { pMsg = objPath + ".GetInvoice(...) " + ex.Message; }
             return result;
         }
+        public List<StockSummary> GetStockSummary(int ProfitCentreID, ref string pMsg)
+        {
+            List<StockSummary> result = new List<StockSummary>();
+            try
+            {
+                dt = _InventoryDataSync.GetCategoryWithStock(ProfitCentreID, ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        result.Add(_InventoryObjectMapper.Map_StockSummary(dt.Rows[i],ref pMsg));
+                    }
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetStockSummary(...) " + ex.Message; }
+            return result;
+        }
+        public List<StockItems> GetStockWithItems(int ProfitCentreID, ref string pMsg) 
+        {
+            List<StockItems> result = new List<StockItems>();
+            try
+            {
+                dt = _InventoryDataSync.GetStockWithItems(ProfitCentreID, ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        result.Add(_InventoryObjectMapper.Map_StockItems(dt.Rows[i], ref pMsg));
+                    }
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetStockWithItems(...) " + ex.Message; }
+            return result;
+        }
+        public List<StockItemDetails> GetItemTranDtls(int ProfitCentreID, string ItemCatCode, ref string pMsg) 
+        {
+            List<StockItemDetails> result = new List<StockItemDetails>();
+            try
+            {
+                dt = _InventoryDataSync.GetItemTranDtls(ProfitCentreID, ItemCatCode, ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        result.Add(_InventoryObjectMapper.Map_StockItemDetails(dt.Rows[i], ref pMsg));
+                    }
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetItemTranDtls(...) " + ex.Message; }
+            return result;
+        }
+
 
 
     }

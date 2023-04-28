@@ -160,6 +160,7 @@
     <Compile Include="ViewModel\AdminVM\VariantVM.cs" />
     <Compile Include="ViewModel\InventoryVM\AppStockEntryVM.cs" />
     <Compile Include="ViewModel\InventoryVM\PurchaseEntryVM.cs" />
+    <Compile Include="ViewModel\InventoryVM\StockVM.cs" />
     <Compile Include="ViewModel\POSVM\SalesEntryVM.cs" />
     <Compile Include="ViewModel\UserVM\LogInVM.cs" />
     <Compile Include="ViewModel\UserVM\RegisterUserVM.cs" />
@@ -280,6 +281,7 @@
     <Content Include="UIContent\JS\CustomePage\Inventory\PurchaseEditJS.js" />
     <Content Include="UIContent\JS\CustomePage\Inventory\PurchaseEntryJS.js" />
     <Content Include="UIContent\JS\CustomePage\Inventory\PurchaseViewAppJS.js" />
+    <Content Include="UIContent\JS\CustomePage\Inventory\StockDataTableJS.js" />
     <Content Include="UIContent\JS\CustomePage\POS\AddSaleJS.js" />
     <Content Include="UIContent\JS\CustomePage\POS\SalesDataTableJS.js" />
     <Content Include="UIContent\JS\CustomePage\User\LogInJS.js" />
@@ -380,6 +382,15 @@
     <Content Include="Views\Accounts\PartyLedger.cshtml" />
     <Content Include="Views\Accounts\_PartyDetails.cshtml" />
     <Content Include="Views\Accounts\PrintPartyDetails.cshtml" />
+    <Content Include="Views\Inventory\Stock.cshtml" />
+    <Content Include="Views\Inventory\PrintStockSummary.cshtml" />
+    <Content Include="Views\Inventory\_PrintStockSummary.cshtml" />
+    <Content Include="Views\Inventory\StockDtls.cshtml" />
+    <Content Include="Views\Inventory\_StockDtls.cshtml" />
+    <Content Include="Views\Inventory\PrintStockItem.cshtml" />
+    <Content Include="Views\Inventory\StockItemDetails.cshtml" />
+    <Content Include="Views\Inventory\_StockItemDtls.cshtml" />
+    <Content Include="Views\Inventory\PrintStockItemTran.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
