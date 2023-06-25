@@ -305,6 +305,8 @@ namespace AKS.Controllers
                 modelobj.ProfitCentreID = LUser.LogInProfitCentreID;
                 if (_iInventory.SetPurchase(modelobj, ref pMsg))
                     result.bResponseBool = true;
+                else
+                    result.sResponseString = pMsg;
             }
             return Json(result, JsonRequestBehavior.AllowGet);
         }

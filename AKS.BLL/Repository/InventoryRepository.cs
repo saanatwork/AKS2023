@@ -399,7 +399,39 @@ namespace AKS.BLL.Repository
             catch (Exception ex) { pMsg = objPath + ".GetItemTranDtls(...) " + ex.Message; }
             return result;
         }
-
+        public double GetCurrentGoldRate(string GoldKarate, string City, string CDate, ref string pMsg)
+        {
+            double result = 0;
+            DBGoldRate GoldRate= _InventoryEntity.GetGoldRate(City, CDate, ref pMsg).FirstOrDefault();
+            double GoldRate24K = Math.Round(GoldRate.GoldRate/10,0);
+            switch (GoldKarate)
+            {
+                case "24K":
+                    result = GoldRate24K;
+                    break;
+                case "22K":
+                    result = Math.Round(GoldRate24K * 22 / 24, 0);
+                    break;
+                case "20K":
+                    result = Math.Round(GoldRate24K * 20 / 24, 0);
+                    break;
+                case "18K":
+                    result = Math.Round(GoldRate24K * 18 / 24, 0);
+                    break;
+                case "16K":
+                    result = Math.Round(GoldRate24K * 16 / 24, 0);
+                    break;
+                case "14K":
+                    result = Math.Round(GoldRate24K * 14 / 24, 0);
+                    break;
+                case "12K":
+                    result = Math.Round(GoldRate24K * 12 / 24, 0);
+                    break;
+                default:
+                    break;
+            }
+            return result;
+        }
 
 
 

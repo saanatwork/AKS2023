@@ -51,7 +51,7 @@
                 else {
                     Swal.fire({
                         title: 'Error!',
-                        text: 'Failed To Save Purchase Entry.',
+                        text: 'Failed To Save Purchase Entry. Error Message: ' + item.sResponseString,
                         icon: 'error',
                         customClass: 'swal-wide',
                         buttons: {
@@ -508,7 +508,7 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (data) {
                 $(data).each(function (index, item) {
-                    $('#DocumentFileName').val(item.DocumentFileName).isValid();
+                    $('#DocumentFileName').val(item.DocumentFileName);
                     $('#cVendors').val(item.VendorID).isValid();
                     $('#cDocumentNumber').val(item.DocNo).isValid();
                     $('#cDocumentDate').val(item.DocDateStr).isValid();

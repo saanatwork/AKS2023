@@ -20,6 +20,7 @@ namespace AKS.BLL.IRepository
         List<Invoice4DT> GetInvoiceList(int DisplayLength, int DisplayStart, int SortColumn,
             string SortDirection, string SearchText, int ProfitCentreID, int UserID, ref string pMsg);
         List<DBGoldRate> GetGoldRate(string City, string CDate, ref string pMsg);
+        double GetCurrentGoldRate(string GoldKarate, string City, string CDate, ref string pMsg);
         bool SetAppStock(AppStockEntry modelobj, ref string pMsg);
         AppStockView GetAppStocks(string DocumentNumber, ref string pMsg);
         bool RemoveStockEntryDocument(string DocumentNumber, ref string pMsg);
