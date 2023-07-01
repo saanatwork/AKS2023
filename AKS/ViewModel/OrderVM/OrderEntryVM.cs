@@ -14,5 +14,6 @@ namespace AKS.ViewModel.OrderVM
         public List<Variant> MetaVariantList { get; set; }
         public List<Variant> DiamondVariantList { get; set; }
         public List<Variant> StoneVariantList { get; set; }
+        public int MakingCharges { get; set; }
     }
 }

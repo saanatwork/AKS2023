@@ -111,5 +111,9 @@ namespace AKS.BLL.Repository
         {
             return _MasterEntity.RemoveUserRole(data, ref pMsg);
         }
+        public int GetVariantRates(int VariantID, ref string pMsg)
+        {
+            return _MasterEntity.GetVariantRates(VariantID, ref pMsg);
+        }
     }
 }

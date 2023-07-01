@@ -81,16 +81,16 @@ function ItemClicked() {
                 });
                 myBodyContent = myBodyContent + '<tr>'
                     + '<td colspan="4"><b>Total Amount : </b></td>'
-                    + '<td style="text-align:right"><b>' + totItem + '</b></td>'
+                    + '<td style="text-align:right"><b>' + Math.round(totItem,0) + '</b></td>'
                     + '</tr>';
-                gstamt = Math.round(totItem * 3 / 100);
+                gstamt = Math.round(totItem * 3 / 100,0);
                 myBodyContent = myBodyContent + '<tr>'
                     + '<td colspan="4">GST(3%) : </td>'
                     + '<td style="text-align:right">' + gstamt + '</td>'
                     + '</tr>';
                 myBodyContent = myBodyContent + '<tr>'
                     + '<td colspan="4"><b>Net Payable : </b></td>'
-                    + '<td style="text-align:right"><b>' + (totItem+gstamt) + '</b></td>'
+                    + '<td style="text-align:right"><b>' + Math.round(totItem+gstamt,0) + '</b></td>'
                     + '</tr>'
                 myBody.html(myBodyContent);
             }

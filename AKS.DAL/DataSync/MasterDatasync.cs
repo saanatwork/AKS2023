@@ -266,7 +266,17 @@ namespace AKS.DAL.DataSync
             }
             catch (Exception ex) { pMsg = objPath + ".RemoveUserRole(...) " + ex.Message; return null; }
         }
-
+        public int GetVariantRates(int VariantID, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("SELECT [MTR].[GetVariantRates](" + VariantID + ")", CommandType.Text))
+                {
+                    return int.Parse(sql.ExecuteScaler(ref pMsg).ToString());
+                }
+            }
+            catch (Exception ex) { pMsg = ex.Message; return 0; }
+        }
 
 
 

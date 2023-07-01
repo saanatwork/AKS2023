@@ -315,6 +315,9 @@ namespace AKS.DAL.Entities
             _DBResponseMapper.Map_DBResponse(_MasterDatasync.RemoveUserRole(data, ref pMsg), ref pMsg, ref result);
             return result;
         }
-
+        public int GetVariantRates(int VariantID, ref string pMsg) 
+        {
+            return _MasterDatasync.GetVariantRates(VariantID, ref pMsg);
+        }
     }
 }

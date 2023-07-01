@@ -38,6 +38,7 @@ namespace AKS.Controllers
                 model.DiamondVariantList = variants.Where(o => o.VariantColumn == "Diamond").ToList();
                 model.StoneVariantList = variants.Where(o => o.VariantColumn == "Stone").ToList();
             }
+            model.MakingCharges = LUser.userpcs.Where(o=>o.PCID==LUser.LogInProfitCentreID).FirstOrDefault().MakingCharges;
             return View(model);
         }
 
@@ -49,6 +50,16 @@ namespace AKS.Controllers
             {
                 string city = LUser.userpcs.Where(o => o.PCID == LUser.LogInProfitCentreID).FirstOrDefault().GLocation;
                 result = _iInventory.GetCurrentGoldRate(GoldKarate, city, DateTime.Today.ToString("dd.MM.yyyy"), ref pMsg);
+            }
+            catch { }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetVariantRates(int VariantID)
+        {
+            double result = 0;
+            try
+            {               
+                result = _iMaster.GetVariantRates(VariantID,ref pMsg);
             }
             catch { }
             return Json(result, JsonRequestBehavior.AllowGet);

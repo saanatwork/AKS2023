@@ -37,6 +37,6 @@ namespace AKS.BLL.IRepository
         List<UserRole> GetRoleOfUser(int UserID, ref string pMsg);
         bool SetUserRole(UserRole data, ref string pMsg);
         bool RemoveUserRole(UserRole data, ref string pMsg);
-
+        int GetVariantRates(int VariantID, ref string pMsg);
     }
 }

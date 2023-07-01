@@ -456,6 +456,12 @@ function CloneRowParentTableReturningID(sourceTBody, destinationTBody, IsRemoveB
         that.attr('id', newID);
         that.val(1);
     });
+    cloneready.find('.alterIDcarryVal').each(function () {
+        that = $(this);
+        var mID = that.attr('id').split('-');
+        var newID = mID[0] + '-' + r;
+        that.attr('id', newID);        
+    });
     cloneready.find('.inValidTag').each(function () {
         that = $(this);
         that.isInvalid();
