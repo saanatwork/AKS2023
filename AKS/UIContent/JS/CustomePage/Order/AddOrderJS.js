@@ -1,4 +1,120 @@
-﻿function ValidateModalControl() {
+﻿function SubmitBtnClicked() {
+    var customer = $('#cCustomer').val();
+    var expDelDate = $('#cInvDate').val();
+    var itemtot = $('#cItemTotal').val();
+    var tradeDis = $('#cTradeDiscount').val();
+    var taxableAmt = $('#cTaxableAmount').val();
+    var gst = $('#cGST').val();
+    var gstAmount = $('#cGSTAmount').val();
+    var netpayable = $('#cNetPayable').val();
+    var amtReceived = $('#cAmountReceived').val();
+    var modeofReceipt = $('#cReceiptMode').val();
+    var payRef = $('#cReceiptRef').val();
+    var balanceAmt = $('#cAmountBalance').val();
+    var schrecords = GetOrderRecords('tblDataList');
+    var x = '{"CustomerID":"' + customer
+        + '","ExpectedDeliveryDate":"' + expDelDate
+        + '","ItemTotal":"' + itemtot
+        + '","TradeDiscount":"' + tradeDis
+        + '","TaxableAmount":"' + taxableAmt
+        + '","GST":"' + gst
+        + '","GSTAmount":"' + gstAmount
+        + '","NetPayableAmount":"' + netpayable
+        + '","AmountReceived":"' + amtReceived
+        + '","ModeodofPayment":"' + modeofReceipt
+        + '","PaymentRef":"' + payRef
+        + '","ApproxPayable":"' + balanceAmt
+        + '","AppStockList":' + schrecords + '}';
+    $.ajax({
+        method: 'POST',
+        url: '/Order/SetOrder',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: x,
+        success: function (data) {
+            $(data).each(function (index, item) {
+                if (item.bResponseBool == true) {
+                    Swal.fire({
+                        title: 'Success',
+                        text: 'Order Saved Successfully.',
+                        icon: 'success',
+                        customClass: 'swal-wide',
+                        buttons: {
+                            confirm: 'Ok'
+                        },
+                        confirmButtonColor: '#2527a2',
+                    }).then(callback);
+                    function callback(result) {
+                        if (result.value) {
+                            window.location.href = "/Order/Index";
+                        }
+                    }
+                }
+                else {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Failed To Save Order Due To: ' + item.sResponseString,
+                        icon: 'error',
+                        customClass: 'swal-wide',
+                        buttons: {
+                            confirm: 'Ok'
+                        },
+                        confirmButtonColor: '#2527a2',
+                    });
+                }
+            });
+        },
+    });
+};
+function GetOrderRecords(tableName) {
+    //The fields should have an attribute "data-name", Which is the property name of the MVC object
+    var MVariant = '';
+    var DVariant = '';
+    var SVariant = '';
+    var schrecords = '';
+    var dataname;
+    var datavalue;
+    var mrecord = '';
+    $('#' + tableName + ' .Ptbody').each(function () {
+        mRow = $(this);
+        mRow.find('[data-name]').each(function () {
+            that = $(this);
+            dataname = that.attr('data-name');
+            if (that.hasClass('htmlVal')) {
+                datavalue = that.html();
+            }
+            else { datavalue = that.val(); }
+            mrecord = mrecord + '"' + dataname + '":"' + datavalue + '",';
+        });
+        mRow.find('[data-name-text]').each(function () {
+            that = $(this);
+            dataname = that.attr('data-name-text');
+            thatid = that.attr('id');
+            datavalue = $('#' + thatid + ' option:selected').toArray().map(item => item.text).join();
+            mrecord = mrecord + '"' + dataname + '":"' + datavalue + '",';
+        });
+        //mrecord = mrecord.replace(/,\s*$/, "");
+        MVariant = GetRecordsFromChildTableBody(mRow, 'MVTable');
+        DVariant = GetRecordsFromChildTableBody(mRow, 'DVTable');
+        SVariant = GetRecordsFromChildTableBody(mRow, 'SVTable');
+        mrecord = mrecord + '"MetalVariants":' + MVariant
+            + ',"DiamondVariants":' + DVariant
+            + ',"StoneVariants":' + SVariant
+        schrecords = schrecords + '{' + mrecord + '},';
+        mrecord = '';
+        MVariant = '';
+        DVariant = '';
+        SVariant = '';
+    });
+    schrecords = schrecords.replace(/,\s*$/, "");
+    schrecords = '[' + schrecords + ']';
+    return schrecords;
+};
+function CustomerSearchFocused() {
+    var myCtrl = $(CustomerSearchFocused.caller.arguments[0].target);
+    myCtrl.tooltip('show');
+};
+function ValidateModalControl() {
     var myCtrl = $(ValidateModalControl.caller.arguments[0].target);
     var isvalid = validatectrl(myCtrl.attr('id'), myCtrl.val(), 1);
     if (isvalid) { myCtrl.isValid(); } else { myCtrl.isInvalid(); }
@@ -146,17 +262,18 @@ function VendorSaveBtnClicked() {
 function ItemCategoryChanged() {
     var myCtrl = $(ItemCategoryChanged.caller.arguments[0].target);
     if (myCtrl.val() != '') { myCtrl.isValid(); } else { myCtrl.isInvalid(); }
+    SaveBtnStatus();
 };
 function ItemCodeChanged() {
     var myCtrl = $(ItemCodeChanged.caller.arguments[0].target);
     if (myCtrl.val() != '') { myCtrl.isValid(); } else { myCtrl.isInvalid(); }
-
+    SaveBtnStatus();
 };
 function QtyChanged() {
     var myCtrl = $(QtyChanged.caller.arguments[0].target);
     if (myCtrl.val() >0) { myCtrl.isValid(); } else { myCtrl.isInvalid(); }
     var pRowID = GetParentRowID(myCtrl.attr('id'));
-    calculateItemNetAmount(pRowID);
+    calculateItemNetAmount(pRowID);    
 };
 
 function AddMVClicked() {
@@ -508,6 +625,7 @@ function FooterValueChanged() {
     if (tradeDisAmt >= 0) { $('#cTradeDiscount').isValid(); } else { $('#cTradeDiscount').isInvalid();}
     if (gstrate >= 0) { $('#cGST').isValid(); } else { $('#cGST').isInvalid(); }
     if (advReceived >= 0) { $('#cAmountReceived').isValid(); } else { $('#cAmountReceived').isInvalid(); }
+    SaveBtnStatus();
 };
 
 function GetParentRowID(myCtrlID) {

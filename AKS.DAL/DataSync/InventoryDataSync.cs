@@ -1,4 +1,5 @@
 ﻿using AKS.BOL.Inventory;
+using AKS.BOL.Order;
 using AKS.DAL.ParamMapper;
 using System;
 using System.Collections.Generic;
@@ -243,8 +244,29 @@ namespace AKS.DAL.DataSync
             }
             catch (Exception ex) { pMsg = objPath + ".GetItemTranDtls(...) " + ex.Message; return null; }
         }
-
-
+        public DataTable SetOrder(OrderEntry data, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("[ORD].[SetOrder]", CommandType.StoredProcedure))
+                {
+                    return sql.GetDataTable(_InventoryParamMapper.MapParam_SetOrder(data, ref pMsg), ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".SetOrder(...) " + ex.Message; return null; }
+        }
+        public DataTable GetOrderStockDocList(int DisplayLength, int DisplayStart, int SortColumn,
+            string SortDirection, string SearchText, int ProfitCentreID, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("[ORD].[GetOrderStockDocList]", CommandType.StoredProcedure))
+                {
+                    return sql.GetDataTable(_CommonParamMapper.MapParam_DIsplayListWithPC(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ProfitCentreID, ref pMsg), ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetOrderStockDocList(...) " + ex.Message; return null; }
+        }
 
 
     }

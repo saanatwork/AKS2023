@@ -1,5 +1,6 @@
 ﻿using AKS.BOL;
 using AKS.BOL.Inventory;
+using AKS.BOL.Order;
 using AKS.BOL.POS;
 using System;
 using System.Collections.Generic;
@@ -659,7 +660,38 @@ namespace AKS.DAL.ObjectMapper
             catch (Exception ex) { pMsg = objPath + ".Map_StockItemDetails(DataRow dr,ref string pMsg) " + ex.Message; }
             return result;
         }
-
+        public OrderList Map_OrderList(DataRow dr, ref string pMsg) 
+        {
+            OrderList result = new OrderList();
+            try
+            {
+                if (dr != null)
+                {
+                    if (!DBNull.Value.Equals(dr["DocumentNumber"]))
+                        result.DocumentNumber = dr["DocumentNumber"].ToString();
+                    if (!DBNull.Value.Equals(dr["EntryDate"]))
+                        result.EntryDate =DateTime.Parse(dr["EntryDate"].ToString());
+                    if (!DBNull.Value.Equals(dr["Customer"]))
+                        result.Customer = dr["Customer"].ToString();
+                    if (!DBNull.Value.Equals(dr["AmountReceived"]))
+                        result.AmountReceived =double.Parse(dr["AmountReceived"].ToString());
+                    if (!DBNull.Value.Equals(dr["ExpectedDeliveryDate"]))
+                        result.ExpectedDeliveryDate =DateTime.Parse(dr["ExpectedDeliveryDate"].ToString());
+                    if (!DBNull.Value.Equals(dr["ItemCount"]))
+                        result.ItemCount =int.Parse(dr["ItemCount"].ToString());
+                    if (!DBNull.Value.Equals(dr["TotalRecords"]))
+                        result.TotalRecords = int.Parse(dr["TotalRecords"].ToString());
+                    if (!DBNull.Value.Equals(dr["OrderStatus"]))
+                        result.OrderStatus =int.Parse(dr["OrderStatus"].ToString());
+                    if (!DBNull.Value.Equals(dr["OrderStatusStr"]))
+                        result.OrderStatusStr =dr["OrderStatusStr"].ToString();
+                    result.EntryDateStr = result.EntryDate.ToString("dd-MM-yyyy");
+                    result.ExpectedDeliveryDateStr = result.ExpectedDeliveryDate.ToString("dd-MM-yyyy");
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".Map_OrderList(DataRow dr,ref string pMsg) " + ex.Message; }
+            return result;
+        }
 
 
 

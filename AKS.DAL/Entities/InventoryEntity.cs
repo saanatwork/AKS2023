@@ -1,5 +1,6 @@
 ﻿using AKS.BOL.Common;
 using AKS.BOL.Inventory;
+using AKS.BOL.Order;
 using AKS.BOL.POS;
 using AKS.DAL.DataSync;
 using AKS.DAL.ObjectMapper;
@@ -393,6 +394,30 @@ namespace AKS.DAL.Entities
                 }
             }
             catch (Exception ex) { pMsg = objPath + ".GetItemTranDtls(...) " + ex.Message; }
+            return result;
+        }
+        public bool SetOrder(OrderEntry data, ref string pMsg)
+        {
+            bool result = false;
+            _DBResponseMapper.Map_DBResponse(_InventoryDataSync.SetOrder(data, ref pMsg), ref pMsg, ref result);
+            return result;
+        }
+        public List<OrderList> GetOrderStockDocList(int DisplayLength, int DisplayStart, int SortColumn,
+            string SortDirection, string SearchText, int ProfitCentreID, ref string pMsg)
+        {
+            List<OrderList> result = new List<OrderList>();
+            try
+            {
+                dt = _InventoryDataSync.GetOrderStockDocList(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ProfitCentreID, ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        result.Add(_InventoryObjectMapper.Map_OrderList(dt.Rows[i], ref pMsg));
+                    }
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetOrderStockDocList(...) " + ex.Message; }
             return result;
         }
 

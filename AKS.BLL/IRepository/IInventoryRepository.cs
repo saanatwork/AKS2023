@@ -1,5 +1,6 @@
 ﻿using AKS.BOL.Common;
 using AKS.BOL.Inventory;
+using AKS.BOL.Order;
 using AKS.BOL.POS;
 using System;
 using System.Collections.Generic;
@@ -37,5 +38,8 @@ namespace AKS.BLL.IRepository
         List<StockSummary> GetStockSummary(int ProfitCentreID, ref string pMsg);
         Stocks GetStockWithItems(int ProfitCentreID, ref string pMsg);
         Stocks GetItemTranDtls(int ProfitCentreID, string ItemCatCode, ref string pMsg);
+        bool SetOrder(OrderEntry data, ref string pMsg);
+        List<OrderList> GetOrderStockDocList(int DisplayLength, int DisplayStart, int SortColumn,
+            string SortDirection, string SearchText, int ProfitCentreID, ref string pMsg);
     }
 }

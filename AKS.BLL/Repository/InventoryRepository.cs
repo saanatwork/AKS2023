@@ -1,6 +1,7 @@
 ﻿using AKS.BLL.IRepository;
 using AKS.BOL.Common;
 using AKS.BOL.Inventory;
+using AKS.BOL.Order;
 using AKS.BOL.POS;
 using AKS.DAL.Entities;
 using System;
@@ -431,6 +432,65 @@ namespace AKS.BLL.Repository
                     break;
             }
             return result;
+        }
+        public bool SetOrder(OrderEntry modelobj, ref string pMsg)
+        {
+            if (modelobj != null)
+            {
+                modelobj.DocumentNumber = string.IsNullOrEmpty(modelobj.DocumentNumber) ? _MasterEntity.GetNewDocNumber("ORD", ref pMsg) : modelobj.DocumentNumber;
+                if (modelobj.AppStockList != null && modelobj.AppStockList.Count > 0)
+                {
+                    List<OrderStockVariant> allvariants = new List<OrderStockVariant>();
+                    foreach (OrderStock obj1 in modelobj.AppStockList)
+                    {
+                        string itemdesc = "";
+                        if (obj1.MetalVariants != null && obj1.MetalVariants.Count > 0)
+                        {
+                            foreach (var item in obj1.MetalVariants)
+                            {
+                                if (item.VariantID != 0)
+                                {
+                                    item.ItemSL = obj1.ItemSL;
+                                    itemdesc = itemdesc + "[" + item.VariantText + " : " + item.Weight + "g] ";
+                                    allvariants.Add(item);
+                                }
+                            }
+                        }
+                        if (obj1.DiamondVariants != null && obj1.DiamondVariants.Count > 0)
+                        {
+                            foreach (var item in obj1.DiamondVariants)
+                            {
+                                if (item.VariantID != 0)
+                                {
+                                    item.ItemSL = obj1.ItemSL;
+                                    itemdesc = itemdesc + "[" + item.VariantText + " : " + item.Weight + "k] ";
+                                    allvariants.Add(item);
+                                }
+                            }
+                        }
+                        if (obj1.StoneVariants != null && obj1.StoneVariants.Count > 0)
+                        {
+                            foreach (var item in obj1.StoneVariants)
+                            {
+                                if (item.VariantID != 0)
+                                {
+                                    item.ItemSL = obj1.ItemSL;
+                                    itemdesc = itemdesc + "[" + item.VariantText + " : " + item.Weight + "k] ";
+                                    allvariants.Add(item);
+                                }
+                            }
+                        }
+                        obj1.ItemDescription = itemdesc;
+                        obj1.IsApproval = false;
+                    }
+                    modelobj.AllItemVariants = allvariants;
+                }
+            }
+            return _InventoryEntity.SetOrder(modelobj, ref pMsg);
+        }
+        public List<OrderList> GetOrderStockDocList(int DisplayLength, int DisplayStart, int SortColumn, string SortDirection, string SearchText, int ProfitCentreID, ref string pMsg)
+        {
+            return _InventoryEntity.GetOrderStockDocList(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ProfitCentreID,ref pMsg);
         }
 
 
