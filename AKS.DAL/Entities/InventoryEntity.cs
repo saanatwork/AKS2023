@@ -420,7 +420,41 @@ namespace AKS.DAL.Entities
             catch (Exception ex) { pMsg = objPath + ".GetOrderStockDocList(...) " + ex.Message; }
             return result;
         }
-
+        public ViewOrder GetOrderDetails(string DocumentNumber, ref string pMsg)
+        {
+            ViewOrder result = new ViewOrder();
+            try
+            {
+                ds = _InventoryDataSync.GetOrderDetails(DocumentNumber, ref pMsg);
+                if (ds != null)
+                {
+                    List<OrderStock> itemlist = new List<OrderStock>();
+                    List<OrderStockVariant> Variantlist = new List<OrderStockVariant>();
+                    DataTable hdr = ds.Tables[0]; dt = ds.Tables[1];
+                    if (hdr != null && hdr.Rows.Count > 0)
+                        result = _InventoryObjectMapper.Map_ViewOrder(hdr.Rows[0], ref pMsg);
+                    if (dt != null && dt.Rows.Count > 0)
+                    {
+                        for (int i = 0; i < dt.Rows.Count; i++)
+                        {
+                            itemlist.Add(_InventoryObjectMapper.Map_OrderStock(dt.Rows[i], ref pMsg));
+                        }
+                    }
+                    result.AppStockList = itemlist;
+                    dt = ds.Tables[2];
+                    if (dt != null && dt.Rows.Count > 0)
+                    {
+                        for (int i = 0; i < dt.Rows.Count; i++)
+                        {
+                            Variantlist.Add(_InventoryObjectMapper.Map_OrderStockVariant(dt.Rows[i], ref pMsg));
+                        }
+                    }
+                    result.AllItemVariants = Variantlist;
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetOrderDetails(...) " + ex.Message; }
+            return result;
+        }
 
 
     }

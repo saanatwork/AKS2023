@@ -1,17 +1,54 @@
-﻿
+﻿@model AKS.BOL.Order.ViewOrder
 @{
-    Layout = null;
+    ViewBag.Title = "Order - View Document ";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>ViewOrder</title>
-</head>
-<body>
-    <div> 
+<div class="row newTable">    
+    @Html.HiddenFor(m => m.DocumentNumber)
+    <div class="fixedElement">
+        <div class="col-md-12">
+            <div class="heading_text_btn mb-3 mt-4">
+                <div class="leftButton">
+                    <button id="btnBack" type="button"
+                            onclick="window.location.href='/Order/Index';"
+                            class="btn btn-white me-2">
+                        <i data-feather="arrow-left-circle"></i>
+                        Back
+                    </button>
+                    @*@if (!Model.IsApproved)
+                    {
+                        <button id="btnDelete" type="button"
+                                onclick="BtnDeleteClicked()"
+                                class="btn btn-primary me-2">
+                            <i data-feather="trash-2"></i>
+                            Delete
+                        </button>
+                        
+                    }*@
+                </div>
+                <h2>Order Document </h2>
+                <div class="rightButton">
+                    @*<button id="btnScanView" type="button"
+                            onclick="ViewUploadedFile()"
+                            class="btn btn-secondary">
+                        <i data-feather="eye"></i>
+                        View Uploaded
+                    </button>*@
+                    <a class="btn btn-secondary" href="@Url.Action("GeneratePdf","Common", new { ViewUrl ="/Order/PrintOrder?DocumentNumber="+Model.DocumentNumber ,PdfFileName=Model.DocumentNumber })">
+                        <i data-feather="printer"></i>
+                        Print
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
-</body>
-</html>
+    @{Html.RenderPartial("_OrderDocPrint", Model);}
+</div>
+@section headers{
+
+}
+@section scripts{
+    <script src="~/UIContent/JS/CustomePage/CommonReusableJS.js"></script>
+    <script src="~/UIContent/JS/CustomePage/Order/ViewOrderJS.js"></script>
+
+}

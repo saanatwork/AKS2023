@@ -1,0 +1,190 @@
+﻿@model AKS.BOL.Order.ViewOrder
+<div id="HdrDIV" class="col-md-12 mb-4" style="vertical-align:central">
+    <div class="card mb-4 mt-4" style="vertical-align:central">
+        <div class="card-body approvalForm">
+            <table style="width:100%">
+                <tr>
+                    <td style="width:30%">
+                        From :<br />
+                        <b>@Model.PartyName</b><br />
+                        @Model.PartyAddress<br />
+                        @Model.PartyContactNo<br />
+                        @Model.PartyEmailID<br />
+                        GSTIN : @(string.IsNullOrEmpty(Model.GSTIN)?"Not Available": Model.GSTIN)<br />
+                        Profit Centre : @Model.ProfitCentreDesc<br/>
+                        Expected Delivery Date : <b>@Model.ExpectedDeliveryDate.ToString("dd-MM-yyyy")</b>
+                    </td>
+                    <td style="text-align:center">
+                        <div style="margin:30px">
+                            <img src="~/img/Logo100x100.png" alt="Aap Ki Sakhi - logo" class="img-fluid">
+                        </div>
+                    </td>
+                    <td style="width:30%">
+                        <table>
+                            <tr>
+                                <td>Document Number: </td>
+                                <td style="padding-left:10px"><b>@Model.DocumentNumber</b></td>
+                            </tr>
+                            <tr>
+                                <td>Document Date: </td>
+                                <td style="padding-left:10px">@Model.EntryDate.ToString("dd-MM-yyyy")</td>
+                            </tr>
+                            @if (Model.StockEntryDate.Year != 1)
+                            {
+                                <tr>
+                                    <td>Stock Document: </td>
+                                    <td style="padding-left:10px"><b>@Model.StockDocumentnumber</b></td>
+                                </tr>
+                                <tr>
+                                    <td>Stock Entry Date: </td>
+                                    <td style="padding-left:10px">@(Model.StockEntryDate.Year==1?"":Model.StockEntryDate.ToString("dd-MM-yyyy"))</td>
+                                </tr>
+                            }
+                            @if (Model.DeliverDate.Year != 1)
+                            {
+                                <tr>
+                                    <td>Delivery Document: </td>
+                                    <td style="padding-left:10px"><b>@Model.POSDocumentnumber</b></td>
+                                </tr>
+                                <tr>
+                                    <td>Delivery Entry Date: </td>
+                                    <td style="padding-left:10px">@(Model.DeliverDate.Year==1?"":Model.DeliverDate.ToString("dd-MM-yyyy"))</td>
+                                </tr>
+                            }
+                            <tr>
+                                <td>Status : </td>
+                                <td style="padding-left:10px"><b>@(Model.StausText)</b></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div style="vertical-align:central">
+        @*<div class="card-body">*@
+        <div class="table-responsive">
+            <table style="width:100%" class="table table-bordered btnalign">
+                <thead>
+                    <tr style="text-align: center">
+                        <th style="width:5%">SL</th>
+                        <th style="width:10%">Item Code</th>
+                        <th style="width:15%">CateGory</th>
+                        <th>Description</th>
+                        <th style="width:5%">Quantity</th>
+                        <th style="width:10%">Gross Amount</th>
+                        <th style="width:18%;">Net Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.AppStockList != null && Model.AppStockList.Count > 0)
+                    {
+                        foreach (var item in Model.AppStockList)
+                        {
+                            <tr>
+                                <td style="text-align: center">@item.ItemSL</td>
+                                <td>
+                                    @item.Remarks<br />
+                                    @item.ItemCode
+                                </td>
+                                <td>
+                                    @item.CategoryLongText<br />
+                                    HSN/SAC : @(string.IsNullOrEmpty(item.HSNCode)?"NA": item.HSNCode)
+                                </td>
+                                <td>@item.ItemDescription</td>
+                                <td style="text-align:center">@item.Qty</td>
+                                <td style="text-align:right">@item.GrossAmount.ToString("0.00")</td>
+                                <td style="text-align:right">
+                                @item.NetAmount.ToString("0.00")
+                                    @if (item.IDiscountPer > 0) 
+                                    { 
+                                        <div style="font-size:small">
+                                            Dis(@item.IDiscountPer%)=@item.Discount.ToString("0.00")<br/>
+                                            After Dis:<strong> @item.IAmtAfterDiscount.ToString("0.00")</strong>
+                                        </div>
+                                    }
+                                
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+                <tbody>
+                    <tr>
+                        <td colspan="4" style="text-align:center">
+                            @if (Model.AmountReceived > 0) 
+                            {
+                            <div>
+                                Amount Received :
+                                <b>@Model.AmountReceivedInWords Only</b><br />
+                                Mode of payment : @Model.ModeodofPayment/@Model.PaymentRef<br />
+
+                            </div>
+                            }
+                            @if (Model.DeliverDate.Year != 1) 
+                            {
+                                if (Model.ExpectedDeliveryDate >= Model.DeliverDate) 
+                                {
+                                    <div>Order Delivered On Time</div>
+                                }
+                                else 
+                                {
+                                    <div>Order Delivered Late By @((Model.DeliverDate- Model.ExpectedDeliveryDate).Days) days.</div>
+                                }
+                            }
+                        </td>
+                        <td colspan="2">
+                            Item Total : <br />
+                            Trade Discount :<br />
+                            <b>Net Taxable Amount :</b> <br />
+                            GST (@Model.GST%) :<br />
+                            <b>Net Payable Amount : </b>
+                            @if (Model.AmountReceived > 0) 
+                            {
+                                <div>
+                                    Amount Received : <br />
+                                    Approx Payable : 
+                                </div>
+                            }
+                        </td>
+                        <td style="text-align:right">
+                            @Model.ItemTotal.ToString("0.00")<br />
+                            @Model.TradeDiscount.ToString("0.00")<br />
+                            <b>@Model.TaxableAmount.ToString("0.00")</b><br />
+                            @Model.GSTAmount.ToString("0.00")<br />
+                            <b>@Model.NetPayableAmount.ToString("0.00")</b>
+                            @if (Model.AmountReceived > 0)
+                            {
+                                <div>
+                                    @Model.AmountReceived.ToString("0.00") <br />
+                                    @Model.ApproxPayable.ToString("0.00")
+                                </div>
+                            }
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        @*</div>*@
+    </div>
+    <div class="card mb-4 mt-4" style="vertical-align:central">
+        <div class="card-body approvalForm">
+
+            <table style="width:100%">
+                <tr>
+                    <td style="width:30%;font-size:small">
+                        Print Date :<br />
+                        @DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt")
+                    </td>
+                    <td></td>                    
+                    <td style="width: 30%; font-size: small">
+                        Order Received BY :<br />
+                        @Model.CreatorName
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+

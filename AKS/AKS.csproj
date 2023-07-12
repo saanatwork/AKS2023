@@ -286,6 +286,7 @@
     <Content Include="UIContent\JS\CustomePage\Inventory\StockDataTableJS.js" />
     <Content Include="UIContent\JS\CustomePage\Order\AddOrderJS.js" />
     <Content Include="UIContent\JS\CustomePage\Order\OrderEntryDataTableJS.js" />
+    <Content Include="UIContent\JS\CustomePage\Order\ViewOrderJS.js" />
     <Content Include="UIContent\JS\CustomePage\POS\AddSaleJS.js" />
     <Content Include="UIContent\JS\CustomePage\POS\SalesDataTableJS.js" />
     <Content Include="UIContent\JS\CustomePage\User\LogInJS.js" />
@@ -399,6 +400,8 @@
     <Content Include="Views\Order\AddOrder.cshtml" />
     <Content Include="Views\Order\ViewOrder.cshtml" />
     <Content Include="Views\Order\EditOrder.cshtml" />
+    <Content Include="Views\Order\_OrderDocPrint.cshtml" />
+    <Content Include="Views\Order\PrintOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

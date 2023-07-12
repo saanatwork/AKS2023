@@ -45,7 +45,13 @@ namespace AKS.Controllers
         }
         public ActionResult ViewOrder(string DocumentNumber) 
         {
-            return View();
+            ViewOrder model = _iInventory.GetOrderDetails(DocumentNumber, ref pMsg);
+            return View(model);
+        }
+        public ActionResult PrintOrder(string DocumentNumber) 
+        {
+            ViewOrder model = _iInventory.GetOrderDetails(DocumentNumber, ref pMsg);
+            return View(model);
         }
         public ActionResult EditOrder(string DocumentNumber)
         {

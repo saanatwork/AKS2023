@@ -492,8 +492,9 @@ namespace AKS.BLL.Repository
         {
             return _InventoryEntity.GetOrderStockDocList(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ProfitCentreID,ref pMsg);
         }
-
-
-
+        public ViewOrder GetOrderDetails(string DocumentNumber, ref string pMsg)
+        {
+            return _InventoryEntity.GetOrderDetails(DocumentNumber, ref pMsg);
+        }
     }
 }

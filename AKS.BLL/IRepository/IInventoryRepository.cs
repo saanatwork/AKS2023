@@ -41,5 +41,6 @@ namespace AKS.BLL.IRepository
         bool SetOrder(OrderEntry data, ref string pMsg);
         List<OrderList> GetOrderStockDocList(int DisplayLength, int DisplayStart, int SortColumn,
             string SortDirection, string SearchText, int ProfitCentreID, ref string pMsg);
+        ViewOrder GetOrderDetails(string DocumentNumber, ref string pMsg);
     }
 }

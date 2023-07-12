@@ -1,0 +1,9 @@
+﻿@model AKS.BOL.Order.ViewOrder
+@{
+    ViewBag.Title = "PrintOrder";
+    Layout = "~/Views/Shared/_LayoutForPrint.cshtml";
+}
+<div style="text-align:center;color:white">
+    <h1>Received Order</h1>
+</div>
+@{Html.RenderPartial("_OrderDocPrint", Model);}

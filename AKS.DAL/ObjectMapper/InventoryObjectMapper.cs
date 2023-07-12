@@ -692,6 +692,164 @@ namespace AKS.DAL.ObjectMapper
             catch (Exception ex) { pMsg = objPath + ".Map_OrderList(DataRow dr,ref string pMsg) " + ex.Message; }
             return result;
         }
+        public ViewOrder Map_ViewOrder(DataRow dr, ref string pMsg)
+        {
+            ViewOrder result = new ViewOrder();
+            try
+            {
+                if (dr != null)
+                {
+                    if (!DBNull.Value.Equals(dr["DocumentNumber"]))
+                        result.DocumentNumber = dr["DocumentNumber"].ToString();
+                    if (!DBNull.Value.Equals(dr["EmtryDate"]))
+                        result.EntryDate = DateTime.Parse(dr["EmtryDate"].ToString());
+                    if (!DBNull.Value.Equals(dr["CustomerID"]))
+                        result.CustomerID =int.Parse(dr["CustomerID"].ToString());
+                    if (!DBNull.Value.Equals(dr["CreateID"]))
+                        result.CreatrID = int.Parse(dr["CreateID"].ToString());
+                    if (!DBNull.Value.Equals(dr["ItemCount"]))
+                        result.ItemCount = int.Parse(dr["ItemCount"].ToString());
+                    if (!DBNull.Value.Equals(dr["ProfitCentreID"]))
+                        result.ProfitCentreID = int.Parse(dr["ProfitCentreID"].ToString());
+                    if (!DBNull.Value.Equals(dr["ItemTotal"]))
+                        result.ItemTotal = double.Parse(dr["ItemTotal"].ToString());
+                    if (!DBNull.Value.Equals(dr["TradeDiscount"]))
+                        result.TradeDiscount = double.Parse(dr["TradeDiscount"].ToString());
+                    if (!DBNull.Value.Equals(dr["TaxableAmount"]))
+                        result.TaxableAmount = double.Parse(dr["TaxableAmount"].ToString());
+                    if (!DBNull.Value.Equals(dr["GST"]))
+                        result.GST = double.Parse(dr["GST"].ToString());
+                    if (!DBNull.Value.Equals(dr["GSTAmount"]))
+                        result.GSTAmount = double.Parse(dr["GSTAmount"].ToString());
+                    if (!DBNull.Value.Equals(dr["NetPayableAmount"]))
+                        result.NetPayableAmount = double.Parse(dr["NetPayableAmount"].ToString());
+                    if (!DBNull.Value.Equals(dr["ExpectedDeliveryDate"]))
+                        result.ExpectedDeliveryDate = DateTime.Parse(dr["ExpectedDeliveryDate"].ToString());
+                    if (!DBNull.Value.Equals(dr["Status"]))
+                        result.Status = int.Parse(dr["Status"].ToString());
+                    if (!DBNull.Value.Equals(dr["StockDocumentnumber"]))
+                        result.StockDocumentnumber = dr["StockDocumentnumber"].ToString();
+                    if (!DBNull.Value.Equals(dr["POSDocumentnumber"]))
+                        result.POSDocumentnumber = dr["POSDocumentnumber"].ToString();
+                    if (!DBNull.Value.Equals(dr["StockEntryDate"]))
+                        result.StockEntryDate = DateTime.Parse(dr["StockEntryDate"].ToString());
+                    if (!DBNull.Value.Equals(dr["DeliverDate"]))
+                        result.DeliverDate = DateTime.Parse(dr["DeliverDate"].ToString());
+                    if (!DBNull.Value.Equals(dr["AmountReceived"]))
+                        result.AmountReceived = double.Parse(dr["AmountReceived"].ToString());
+                    if (!DBNull.Value.Equals(dr["ModeoofPayment"]))
+                        result.MOP =int.Parse(dr["ModeoofPayment"].ToString());
+                    if (!DBNull.Value.Equals(dr["PaymentRef"]))
+                        result.PaymentRef = dr["PaymentRef"].ToString();
+                    if (!DBNull.Value.Equals(dr["ApproxPayable"]))
+                        result.ApproxPayable =double.Parse(dr["ApproxPayable"].ToString());
+                    result.StausText = MyHelper.GetOrderStatusText(result.Status);
+                    result.ModeodofPayment = MyHelper.GetModeOfPaymentDesc(result.MOP);
+                    if (!DBNull.Value.Equals(dr["PartyName"]))
+                        result.PartyName = dr["PartyName"].ToString();
+                    if (!DBNull.Value.Equals(dr["PartyAddress"]))
+                        result.PartyAddress = dr["PartyAddress"].ToString();
+                    if (!DBNull.Value.Equals(dr["GSTIN"]))
+                        result.GSTIN = dr["GSTIN"].ToString();
+                    if (!DBNull.Value.Equals(dr["PartyContactNo"]))
+                        result.PartyContactNo = dr["PartyContactNo"].ToString();
+                    if (!DBNull.Value.Equals(dr["PartyEmailID"]))
+                        result.PartyEmailID = dr["PartyEmailID"].ToString();
+                    if (!DBNull.Value.Equals(dr["ProfitCentreDesc"]))
+                        result.ProfitCentreDesc = dr["ProfitCentreDesc"].ToString();
+                    if (!DBNull.Value.Equals(dr["CreatorName"]))
+                        result.CreatorName = dr["CreatorName"].ToString();
+                    if (!DBNull.Value.Equals(dr["ApproverName"]))
+                        result.ApproverName = dr["ApproverName"].ToString();
+                    result.AmountReceivedInWords = MyHelper.ConvertToWords(result.AmountReceived);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".Map_ViewOrder(DataRow dr,ref string pMsg) " + ex.Message; }
+            return result;
+        }
+        public OrderStock Map_OrderStock(DataRow dr, ref string pMsg)
+        {
+            OrderStock result = new OrderStock();
+            try
+            {
+                if (dr != null)
+                {
+                    if (!DBNull.Value.Equals(dr["ItemSL"]))
+                        result.ItemSL = int.Parse(dr["ItemSL"].ToString());
+                    if (!DBNull.Value.Equals(dr["ItemCatCode"]))
+                        result.ItemCatCode =dr["ItemCatCode"].ToString();
+                    if (!DBNull.Value.Equals(dr["ItemDescription"]))
+                        result.ItemDescription = dr["ItemDescription"].ToString();
+                    if (!DBNull.Value.Equals(dr["Qty"]))
+                        result.Qty = int.Parse(dr["Qty"].ToString());
+                    if (!DBNull.Value.Equals(dr["UserRemarks"]))
+                        result.Remarks = dr["UserRemarks"].ToString();
+                    if (!DBNull.Value.Equals(dr["ItemCode"]))
+                        result.ItemCode = dr["ItemCode"].ToString();
+                    if (!DBNull.Value.Equals(dr["MCWeight"]))
+                        result.MCWeight = double.Parse(dr["MCWeight"].ToString());
+                    if (!DBNull.Value.Equals(dr["MCRate"]))
+                        result.MCRate = int.Parse(dr["MCRate"].ToString());
+                    if (!DBNull.Value.Equals(dr["MCAmount"]))
+                        result.MCAmount = double.Parse(dr["MCAmount"].ToString());
+                    if (!DBNull.Value.Equals(dr["HallMarkCharge"]))
+                        result.HallMarkCharge = int.Parse(dr["HallMarkCharge"].ToString());
+                    if (!DBNull.Value.Equals(dr["Othercharges"]))
+                        result.Othercharges = int.Parse(dr["Othercharges"].ToString());
+                    if (!DBNull.Value.Equals(dr["Discount"]))
+                        result.IDiscountPer = double.Parse(dr["Discount"].ToString());
+                    if (!DBNull.Value.Equals(dr["GrossAmount"]))
+                        result.GrossAmount = double.Parse(dr["GrossAmount"].ToString());
+                    if (!DBNull.Value.Equals(dr["NetAmount"]))
+                        result.NetAmount = double.Parse(dr["NetAmount"].ToString());
+                    if (!DBNull.Value.Equals(dr["DiscountAmount"]))
+                        result.Discount =double.Parse(dr["DiscountAmount"].ToString());
+                    if (!DBNull.Value.Equals(dr["NetAfterDiscount"]))
+                        result.IAmtAfterDiscount =double.Parse(dr["NetAfterDiscount"].ToString());
+                    if (!DBNull.Value.Equals(dr["CategoryLongText"]))
+                        result.CategoryLongText = dr["CategoryLongText"].ToString();
+                    if (!DBNull.Value.Equals(dr["HSNCode"]))
+                        result.HSNCode = dr["HSNCode"].ToString();
+                    
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".Map_OrderStock(DataRow dr,ref string pMsg) " + ex.Message; }
+            return result;
+        }
+        public OrderStockVariant Map_OrderStockVariant(DataRow dr, ref string pMsg)
+        {
+            OrderStockVariant result = new OrderStockVariant();
+            try
+            {
+                if (dr != null)
+                {
+                    if (!DBNull.Value.Equals(dr["ItemSL"]))
+                        result.ItemSL = int.Parse(dr["ItemSL"].ToString());
+                    if (!DBNull.Value.Equals(dr["VariantID"]))
+                        result.VariantID =int.Parse(dr["VariantID"].ToString());
+                    if (!DBNull.Value.Equals(dr["VariantText"]))
+                        result.VariantText = dr["VariantText"].ToString();
+                    if (!DBNull.Value.Equals(dr["Weight"]))
+                        result.Weight = double.Parse(dr["Weight"].ToString());
+                    if (!DBNull.Value.Equals(dr["Rate"]))
+                        result.Rate =int.Parse(dr["Rate"].ToString());
+                    if (!DBNull.Value.Equals(dr["Amount"]))
+                        result.DGrossAmount = double.Parse(dr["Amount"].ToString());
+                    if (!DBNull.Value.Equals(dr["Dicount"]))
+                        result.DDisPercentage = double.Parse(dr["Dicount"].ToString());
+                    if (!DBNull.Value.Equals(dr["DiscountAmt"]))
+                        result.DDisAmount = int.Parse(dr["DiscountAmt"].ToString());
+                    if (!DBNull.Value.Equals(dr["AmtAfterDiscount"]))
+                        result.Amount = double.Parse(dr["AmtAfterDiscount"].ToString());
+                    if (!DBNull.Value.Equals(dr["VariantColumn"]))
+                        result.VariantColumn = dr["VariantColumn"].ToString();                 
+
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".Map_OrderStockVariant(DataRow dr,ref string pMsg) " + ex.Message; }
+            return result;
+        }
+
 
 
 

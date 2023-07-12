@@ -24,7 +24,28 @@ namespace AKS.BOL.Order
         public int CreatrID { get; set; }
         public string DocumentNumber { get; set; }
         public List<OrderStock> AppStockList { get; set; }
-        public List<OrderStockVariant> AllItemVariants { get; set; }
+        public List<OrderStockVariant> AllItemVariants { get; set; }        
+    }
+    public class ViewOrder : OrderEntry
+    {
+        public DateTime EntryDate { get; set; }
+        public int ItemCount { get; set; }
+        public int Status { get; set; }
+        public string StausText { get; set; }
+        public string StockDocumentnumber { get; set; }
+        public string POSDocumentnumber { get; set; }
+        public DateTime StockEntryDate { get; set; }
+        public DateTime DeliverDate { get; set; }
+        public int MOP { get; set; }
+        public string PartyName { get; set; }
+        public string PartyAddress { get; set; }
+        public string GSTIN { get; set; }
+        public string PartyContactNo { get; set; }
+        public string PartyEmailID { get; set; }
+        public string ProfitCentreDesc { get; set; }
+        public string CreatorName { get; set; }
+        public string ApproverName { get; set; }
+        public string AmountReceivedInWords { get; set; }
     }
     public class OrderStock
     {

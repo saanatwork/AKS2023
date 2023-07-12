@@ -80,6 +80,29 @@ namespace AKS.BOL
 
             return words;
         }
+        public static string GetOrderStatusText(int status)
+        {
+            string result;
+            switch (status)
+            {
+                case 0:
+                    result = "Order Placed";
+                    break;
+                case 1:
+                    result = "Order Completed";
+                    break;
+                case 2:
+                    result = "Order Delivered";
+                    break;
+                case 9:
+                    result = "Other";
+                    break;
+                default:
+                    result = "NA";
+                    break;
+            }
+            return result;
+        }
         public static string GetModeOfPaymentDesc(int ModeOfPayment) 
         {
             string result;

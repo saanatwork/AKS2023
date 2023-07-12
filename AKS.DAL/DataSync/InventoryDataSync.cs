@@ -267,6 +267,18 @@ namespace AKS.DAL.DataSync
             }
             catch (Exception ex) { pMsg = objPath + ".GetOrderStockDocList(...) " + ex.Message; return null; }
         }
+        public DataSet GetOrderDetails(string DocumentNumber, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("[ORD].[GetOrderDetails]", CommandType.StoredProcedure))
+                {
+                    return sql.GetDataSet(_InventoryParamMapper.MapParam_GetAppStocks(DocumentNumber, ref pMsg), ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetOrderDetails(...) " + ex.Message; return null; }
+        }
+
 
 
     }
