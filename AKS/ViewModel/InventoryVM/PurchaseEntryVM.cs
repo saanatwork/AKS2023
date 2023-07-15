@@ -1,4 +1,5 @@
-﻿using AKS.BOL.Master;
+﻿using AKS.BOL.Common;
+using AKS.BOL.Master;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +16,6 @@ namespace AKS.ViewModel.InventoryVM
         public List<Variant> StoneVariantList { get; set; }
         public string DocumentFileName { get; set; }
         public string EDocumentNumber { get; set; }
+        public List<CustomComboOptionsWithString> OrderList { get; set; }
     }
 }

@@ -1,4 +1,27 @@
-﻿function SubmitBtnClicked() {
+﻿function OrderIDBtnClicked() {
+    var myRow = $(OrderIDBtnClicked.caller.arguments[0].target.closest('tr'));
+    var rowid = myRow.attr('id');
+    var oderno = '';
+    if (rowid == 0) {
+        oderno = $('#cOrderID_0').val();
+    } else { oderno = $('#cOrderID_0-' + rowid).val(); }
+    if (oderno != '') {
+        var url = '/Order/ViewOrder?DocumentNumber=' + oderno;
+        window.open(url);
+    } else {
+        Swal.fire({
+            title: 'Error!',
+            text: 'Select Order Number To View Details.',
+            icon: 'error',
+            customClass: 'swal-wide',
+            buttons: {
+                confirm: 'Ok'
+            },
+            confirmButtonColor: '#2527a2',
+        });
+    }
+};
+function SubmitBtnClicked() {
     var EDocnumber = $('#EDocumentNumber').val();
     var vendor = $('#cVendors').val();
     var docNumber = $('#cDocumentNumber').val();
@@ -517,10 +540,10 @@ $(document).ready(function () {
                     $('#cTaxableAmount').val(item.TaxableAmount);
                     $('#cGST').val(item.GST).isValid();
                     $('#cGSTAmount').val(item.GSTAmount);
-                    $('#cNetPayable').val(item.NetPayableAmount);
+                    $('#cNetPayable').val(item.NetPayableAmount);                   
                 });
                 $.each(data.AppStockList, function (index, item) {
-                    if (index > 0) {
+                    if (index > 0) {                        
                         var rowid = CloneRowParentTableReturningID('tbody1', 'tbody2', true, true);
                         $('#cItemCategory_0-' + rowid).val(item.ItemCatCode).isValid();
                         $('#cQty_0-' + rowid).val(item.Qty).isValid();
@@ -533,6 +556,7 @@ $(document).ready(function () {
                         $('#cMCWt-' + rowid).val(item.MCWeight);
                         $('#cMCRate-' + rowid).val(item.MCRate);
                         $('#cMCAmount-' + rowid).val(item.MCAmount);
+                        $('#cOrderID_0-' + rowid).val(item.SelectedOrderID);
                         $.each(item.MetalVariants, function (ind, itm) {
                             if (ind > 0) {
                                 var crid = CloneRowChildTableReturningID('mvTBody1-' + rowid, 'mvTBody2-' + rowid, true, false);
@@ -592,6 +616,7 @@ $(document).ready(function () {
                         $('#cMCWt').val(item.MCWeight);
                         $('#cMCRate').val(item.MCRate);
                         $('#cMCAmount').val(item.MCAmount);
+                        $('#cOrderID_0').val(item.SelectedOrderID);
                         $.each(item.MetalVariants, function (ind, itm) {
                             if (ind > 0) {
                                 var crid = CloneRowChildTableReturningID('mvTBody1', 'mvTBody2', true, false);

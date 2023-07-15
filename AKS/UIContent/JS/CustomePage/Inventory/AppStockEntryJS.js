@@ -1,4 +1,27 @@
-﻿function GetAppStockRecords(tableName) {
+﻿function OrderIDBtnClicked() {
+    var myRow = $(OrderIDBtnClicked.caller.arguments[0].target.closest('tr'));
+    var rowid = myRow.attr('id');
+    var oderno = '';
+    if (rowid == 0) {
+        oderno = $('#cOrderID_0').val();
+    } else { oderno = $('#cOrderID_0-' + rowid).val();}
+    if (oderno != '') {
+        var url = '/Order/ViewOrder?DocumentNumber=' + oderno;
+        window.open(url);
+    } else {
+        Swal.fire({
+            title: 'Error!',
+            text: 'Select Order Number To View Details.',
+            icon: 'error',
+            customClass: 'swal-wide',
+            buttons: {
+                confirm: 'Ok'
+            },
+            confirmButtonColor: '#2527a2',
+        });
+    }
+};
+function GetAppStockRecords(tableName) {
     //The fields should have an attribute "data-name", Which is the property name of the MVC object
     var MVariant = '';
     var DVariant = '';

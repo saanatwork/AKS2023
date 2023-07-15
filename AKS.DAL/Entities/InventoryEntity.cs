@@ -403,12 +403,12 @@ namespace AKS.DAL.Entities
             return result;
         }
         public List<OrderList> GetOrderStockDocList(int DisplayLength, int DisplayStart, int SortColumn,
-            string SortDirection, string SearchText, int ProfitCentreID, ref string pMsg)
+            string SortDirection, string SearchText, int ProfitCentreID,int UserID, ref string pMsg)
         {
             List<OrderList> result = new List<OrderList>();
             try
             {
-                dt = _InventoryDataSync.GetOrderStockDocList(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ProfitCentreID, ref pMsg);
+                dt = _InventoryDataSync.GetOrderStockDocList(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ProfitCentreID,UserID, ref pMsg);
                 if (dt != null && dt.Rows.Count > 0)
                 {
                     for (int i = 0; i < dt.Rows.Count; i++)
@@ -455,7 +455,40 @@ namespace AKS.DAL.Entities
             catch (Exception ex) { pMsg = objPath + ".GetOrderDetails(...) " + ex.Message; }
             return result;
         }
-
-
+        public List<CustomComboOptionsWithString> GetOrderListForSales(int ProfitCentreID, int CustomerID, ref string pMsg)
+        {
+            List<CustomComboOptionsWithString> result = new List<CustomComboOptionsWithString>();
+            try
+            {
+                dt = _InventoryDataSync.GetOrderListForSales(ProfitCentreID, CustomerID, ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        result.Add(_DBResponseMapper.Map_CustomComboOptionsWithString(dt.Rows[i]));
+                    }
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetOrderListForSales(...) " + ex.Message; }
+            return result;
+        }
+        public List<CustomComboOptionsWithString> GetOrderListForPurchase(int ProfitCentreID, ref string pMsg)
+        {
+            List<CustomComboOptionsWithString> result = new List<CustomComboOptionsWithString>();
+            try
+            {
+                dt = _InventoryDataSync.GetOrderListForPurchase(ProfitCentreID, ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        result.Add(_DBResponseMapper.Map_CustomComboOptionsWithString(dt.Rows[i]));
+                    }
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetOrderListForPurchase(...) " + ex.Message; }
+            return result;
+        }
+    
     }
 }

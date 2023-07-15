@@ -87,6 +87,7 @@ namespace AKS.Controllers
             {
                 modelobj.CreatrID = LUser.user.UserID;
                 modelobj.ProfitCentreID = LUser.LogInProfitCentreID;
+                //modelobj.ModeodofPayment = modelobj.ModeodofPayment!=;
                 if (_iInventory.SetOrder(modelobj, ref pMsg))
                     result.bResponseBool = true;
                 else
@@ -97,7 +98,7 @@ namespace AKS.Controllers
         public JsonResult GetOrderList(int iDisplayLength, int iDisplayStart, int iSortCol_0,
             string sSortDir_0, string sSearch)
         {
-            List<OrderList> userslist = _iInventory.GetOrderStockDocList(iDisplayLength, iDisplayStart, iSortCol_0, sSortDir_0, sSearch, LUser.LogInProfitCentreID, ref pMsg);
+            List<OrderList> userslist = _iInventory.GetOrderStockDocList(iDisplayLength, iDisplayStart, iSortCol_0, sSortDir_0, sSearch, LUser.LogInProfitCentreID,LUser.user.UserID, ref pMsg);
             var result = new
             {
                 iTotalRecords = userslist.Count == 0 ? 0 : userslist.FirstOrDefault().TotalRecords,

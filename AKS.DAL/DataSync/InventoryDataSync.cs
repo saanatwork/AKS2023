@@ -256,13 +256,13 @@ namespace AKS.DAL.DataSync
             catch (Exception ex) { pMsg = objPath + ".SetOrder(...) " + ex.Message; return null; }
         }
         public DataTable GetOrderStockDocList(int DisplayLength, int DisplayStart, int SortColumn,
-            string SortDirection, string SearchText, int ProfitCentreID, ref string pMsg)
+            string SortDirection, string SearchText, int ProfitCentreID,int UserID, ref string pMsg)
         {
             try
             {
                 using (SQLHelper sql = new SQLHelper("[ORD].[GetOrderStockDocList]", CommandType.StoredProcedure))
                 {
-                    return sql.GetDataTable(_CommonParamMapper.MapParam_DIsplayListWithPC(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ProfitCentreID, ref pMsg), ref pMsg);
+                    return sql.GetDataTable(_CommonParamMapper.MapParam_DIsplayListWithPCNUser(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ProfitCentreID,UserID, ref pMsg), ref pMsg);
                 }
             }
             catch (Exception ex) { pMsg = objPath + ".GetOrderStockDocList(...) " + ex.Message; return null; }
@@ -277,6 +277,28 @@ namespace AKS.DAL.DataSync
                 }
             }
             catch (Exception ex) { pMsg = objPath + ".GetOrderDetails(...) " + ex.Message; return null; }
+        }
+        public DataTable GetOrderListForSales(int ProfitCentreID, int CustomerID, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("select * from [ORD].[GetOrderListForSales](" + ProfitCentreID + "," + CustomerID + ")", CommandType.Text))
+                {
+                    return sql.GetDataTable(ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetOrderListForSales(...) " + ex.Message; return null; }
+        }
+        public DataTable GetOrderListForPurchase(int ProfitCentreID, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("select * from [ORD].[GetOrderListForPurchase](" + ProfitCentreID + ")", CommandType.Text))
+                {
+                    return sql.GetDataTable(ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetOrderListForPurchase(...) " + ex.Message; return null; }
         }
 
 

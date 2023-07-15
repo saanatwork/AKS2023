@@ -40,7 +40,9 @@ namespace AKS.BLL.IRepository
         Stocks GetItemTranDtls(int ProfitCentreID, string ItemCatCode, ref string pMsg);
         bool SetOrder(OrderEntry data, ref string pMsg);
         List<OrderList> GetOrderStockDocList(int DisplayLength, int DisplayStart, int SortColumn,
-            string SortDirection, string SearchText, int ProfitCentreID, ref string pMsg);
+            string SortDirection, string SearchText, int ProfitCentreID,int UserID, ref string pMsg);
         ViewOrder GetOrderDetails(string DocumentNumber, ref string pMsg);
+        List<CustomComboOptionsWithString> GetOrderListForSales(int ProfitCentreID, int CustomerID, ref string pMsg);
+        List<CustomComboOptionsWithString> GetOrderListForPurchase(int ProfitCentreID, ref string pMsg);
     }
 }

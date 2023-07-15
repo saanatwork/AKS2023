@@ -488,13 +488,24 @@ namespace AKS.BLL.Repository
             }
             return _InventoryEntity.SetOrder(modelobj, ref pMsg);
         }
-        public List<OrderList> GetOrderStockDocList(int DisplayLength, int DisplayStart, int SortColumn, string SortDirection, string SearchText, int ProfitCentreID, ref string pMsg)
+        public List<OrderList> GetOrderStockDocList(int DisplayLength, int DisplayStart, int SortColumn, string SortDirection, string SearchText, int ProfitCentreID, int UserID, ref string pMsg)
         {
-            return _InventoryEntity.GetOrderStockDocList(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ProfitCentreID,ref pMsg);
+            return _InventoryEntity.GetOrderStockDocList(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ProfitCentreID, UserID, ref pMsg);
         }
         public ViewOrder GetOrderDetails(string DocumentNumber, ref string pMsg)
         {
             return _InventoryEntity.GetOrderDetails(DocumentNumber, ref pMsg);
         }
+        public List<CustomComboOptionsWithString> GetOrderListForSales(int ProfitCentreID, int CustomerID, ref string pMsg)
+        {
+            return _InventoryEntity.GetOrderListForSales(ProfitCentreID, CustomerID, ref pMsg);
+        }
+        public List<CustomComboOptionsWithString> GetOrderListForPurchase(int ProfitCentreID, ref string pMsg)
+        {
+            return _InventoryEntity.GetOrderListForPurchase(ProfitCentreID, ref pMsg);
+        }
+
+
+
     }
 }

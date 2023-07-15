@@ -48,6 +48,7 @@ namespace AKS.Controllers
                 model.DiamondVariantList = variants.Where(o => o.VariantColumn == "Diamond").ToList();
                 model.StoneVariantList = variants.Where(o => o.VariantColumn == "Stone").ToList();
             }
+            model.OrderList = _iInventory.GetOrderListForPurchase(LUser.LogInProfitCentreID, ref pMsg);
             return View(model);
         }
         public ActionResult PurchaseApp()
@@ -91,6 +92,7 @@ namespace AKS.Controllers
                 model.DiamondVariantList = variants.Where(o => o.VariantColumn == "Diamond").ToList();
                 model.StoneVariantList = variants.Where(o => o.VariantColumn == "Stone").ToList();
             }
+            model.OrderList = _iInventory.GetOrderListForPurchase(LUser.LogInProfitCentreID, ref pMsg);
             return View(model);
         }
         public ActionResult EditPurDocument(string DocumentNumber = "") 
@@ -106,6 +108,7 @@ namespace AKS.Controllers
                 model.DiamondVariantList = variants.Where(o => o.VariantColumn == "Diamond").ToList();
                 model.StoneVariantList = variants.Where(o => o.VariantColumn == "Stone").ToList();
             }
+            model.OrderList = _iInventory.GetOrderListForPurchase(LUser.LogInProfitCentreID, ref pMsg);
             return View(model);
         }
         public ActionResult VirtualStockApproval()
@@ -128,6 +131,7 @@ namespace AKS.Controllers
                 model.DiamondVariantList = variants.Where(o => o.VariantColumn == "Diamond").ToList();
                 model.StoneVariantList = variants.Where(o => o.VariantColumn == "Stone").ToList();
             }
+            model.OrderList = _iInventory.GetOrderListForPurchase(LUser.LogInProfitCentreID, ref pMsg);
             return View(model);
         }
         public ActionResult Sales() 

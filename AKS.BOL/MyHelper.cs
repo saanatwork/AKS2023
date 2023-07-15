@@ -89,10 +89,16 @@ namespace AKS.BOL
                     result = "Order Placed";
                     break;
                 case 1:
-                    result = "Order Completed";
+                    result = "Order Partially Completed";
                     break;
                 case 2:
-                    result = "Order Delivered";
+                    result = "Order Completed";
+                    break;
+                case 3:
+                    result = "Order Partially Deliered";
+                    break;
+                case 4:
+                    result = "Order Deliered";
                     break;
                 case 9:
                     result = "Other";

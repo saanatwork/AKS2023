@@ -104,6 +104,9 @@
                                     SL
                                 </th>
                                 <th scope="col" rowspan="2" style="text-align: center; vertical-align: middle; width: 300px ">
+                                    Order Number
+                                </th>
+                                <th scope="col" rowspan="2" style="text-align: center; vertical-align: middle; width: 300px ">
                                     Item Category
                                 </th>
                                 <th scope="col" rowspan="2" style="text-align: center; vertical-align: middle; width: 100px ">
@@ -171,6 +174,33 @@
                         <tbody id="tbody1">
                             <tr id="0" class="add-row Ptbody">
                                 <th data-name="ItemSL" class="htmlVal">1</th>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-lg-9">
+                                            <select id="cOrderID_0" data-name="SelectedOrderID"
+                                                    class="form-select myctrlw100 alterID"
+                                                    aria-label="Default select example">
+                                                <option selected value="">Select Order</option>
+                                                @if (Model.OrderList != null && Model.OrderList.Count > 0)
+                                                {
+                                                    foreach (var item in Model.OrderList)
+                                                    {
+                                                        <option value="@item.ID">@item.DisplayText</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <button id="cOrderIDBtn_0" type="button"
+                                                    class="btn btn-warning alterID"
+                                                    onclick="OrderIDBtnClicked()"
+                                                    data-toggle="tooltip"
+                                                    data-placement="top" title="View Order Details">
+                                                <i data-feather="eye"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
                                 <td>
                                     <select id="cItemCategory_0" data-name="ItemCatCode"
                                             onchange="ValidateCloneRowControl()"

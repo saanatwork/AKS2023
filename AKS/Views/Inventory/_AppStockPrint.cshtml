@@ -61,6 +61,7 @@
                         <th style="width:25%">CateGory</th>
                         <th>Description</th>
                         <th style="width:10%">Quantity</th>
+                        <th style="width:10%">Order</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -71,7 +72,7 @@
                     <tr>
                         <td>@item.ItemSL</td>
                         <td>
-                            @item.Remarks<br/>
+                            @item.Remarks<br />
                             @item.ItemCode
                         </td>
                         <td>
@@ -80,6 +81,7 @@
                         </td>
                         <td>@item.ItemDescription</td>
                         <td>@item.Qty</td>
+                        <td>@(item.IsOrder?item.SelectedOrderID:"-")</td>
                     </tr>
                         }
                     }

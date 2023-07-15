@@ -1,70 +1,86 @@
 ﻿function SubmitBtnClicked() {
-    var customer = $('#cCustomer').val();
-    var expDelDate = $('#cInvDate').val();
-    var itemtot = $('#cItemTotal').val();
-    var tradeDis = $('#cTradeDiscount').val();
-    var taxableAmt = $('#cTaxableAmount').val();
-    var gst = $('#cGST').val();
-    var gstAmount = $('#cGSTAmount').val();
-    var netpayable = $('#cNetPayable').val();
-    var amtReceived = $('#cAmountReceived').val();
-    var modeofReceipt = $('#cReceiptMode').val();
-    var payRef = $('#cReceiptRef').val();
-    var balanceAmt = $('#cAmountBalance').val();
-    var schrecords = GetOrderRecords('tblDataList');
-    var x = '{"CustomerID":"' + customer
-        + '","ExpectedDeliveryDate":"' + expDelDate
-        + '","ItemTotal":"' + itemtot
-        + '","TradeDiscount":"' + tradeDis
-        + '","TaxableAmount":"' + taxableAmt
-        + '","GST":"' + gst
-        + '","GSTAmount":"' + gstAmount
-        + '","NetPayableAmount":"' + netpayable
-        + '","AmountReceived":"' + amtReceived
-        + '","ModeodofPayment":"' + modeofReceipt
-        + '","PaymentRef":"' + payRef
-        + '","ApproxPayable":"' + balanceAmt
-        + '","AppStockList":' + schrecords + '}';
-    $.ajax({
-        method: 'POST',
-        url: '/Order/SetOrder',
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        data: x,
-        success: function (data) {
-            $(data).each(function (index, item) {
-                if (item.bResponseBool == true) {
-                    Swal.fire({
-                        title: 'Success',
-                        text: 'Order Saved Successfully.',
-                        icon: 'success',
-                        customClass: 'swal-wide',
-                        buttons: {
-                            confirm: 'Ok'
-                        },
-                        confirmButtonColor: '#2527a2',
-                    }).then(callback);
-                    function callback(result) {
-                        if (result.value) {
-                            window.location.href = "/Order/Index";
+    Swal.fire({
+        title: 'Confirmation',
+        text: "Are You Sure Want To Place Order?",
+        icon: 'question',
+        customClass: 'swal-wide',
+        confirmButtonText: "Yes",
+        cancelButtonText: "No",
+        cancelButtonClass: 'btn-cancel',
+        confirmButtonColor: '#2527a2',
+        showCancelButton: true,
+    }).then(callback);
+    function callback(result) {
+        if (result.value) {
+            var customer = $('#cCustomer').val();
+            var expDelDate = $('#cInvDate').val();
+            var itemtot = $('#cItemTotal').val();
+            var tradeDis = $('#cTradeDiscount').val();
+            var taxableAmt = $('#cTaxableAmount').val();
+            var gst = $('#cGST').val();
+            var gstAmount = $('#cGSTAmount').val();
+            var netpayable = $('#cNetPayable').val();
+            var amtReceived = $('#cAmountReceived').val();
+            var modeofReceipt = $('#cReceiptMode').val();
+            var payRef = $('#cReceiptRef').val();
+            var balanceAmt = $('#cAmountBalance').val();
+            var schrecords = GetOrderRecords('tblDataList');
+            var x = '{"CustomerID":"' + customer
+                + '","ExpectedDeliveryDate":"' + expDelDate
+                + '","ItemTotal":"' + itemtot
+                + '","TradeDiscount":"' + tradeDis
+                + '","TaxableAmount":"' + taxableAmt
+                + '","GST":"' + gst
+                + '","GSTAmount":"' + gstAmount
+                + '","NetPayableAmount":"' + netpayable
+                + '","AmountReceived":"' + amtReceived
+                + '","ModeodofPayment":"' + modeofReceipt
+                + '","PaymentRef":"' + payRef
+                + '","ApproxPayable":"' + balanceAmt
+                + '","AppStockList":' + schrecords + '}';
+            $.ajax({
+                method: 'POST',
+                url: '/Order/SetOrder',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: x,
+                success: function (data) {
+                    $(data).each(function (index, item) {
+                        if (item.bResponseBool == true) {
+                            Swal.fire({
+                                title: 'Success',
+                                text: 'Order Placed Successfully.',
+                                icon: 'success',
+                                customClass: 'swal-wide',
+                                buttons: {
+                                    confirm: 'Ok'
+                                },
+                                confirmButtonColor: '#2527a2',
+                            }).then(callback);
+                            function callback(result) {
+                                if (result.value) {
+                                    window.location.href = "/Order/Index";
+                                }
+                            }
                         }
-                    }
-                }
-                else {
-                    Swal.fire({
-                        title: 'Error!',
-                        text: 'Failed To Save Order Due To: ' + item.sResponseString,
-                        icon: 'error',
-                        customClass: 'swal-wide',
-                        buttons: {
-                            confirm: 'Ok'
-                        },
-                        confirmButtonColor: '#2527a2',
+                        else {
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'Failed To Place Order Due To: ' + item.sResponseString,
+                                icon: 'error',
+                                customClass: 'swal-wide',
+                                buttons: {
+                                    confirm: 'Ok'
+                                },
+                                confirmButtonColor: '#2527a2',
+                            });
+                        }
                     });
-                }
+                },
             });
-        },
-    });
+        }
+    }   
+
 };
 function GetOrderRecords(tableName) {
     //The fields should have an attribute "data-name", Which is the property name of the MVC object

@@ -157,11 +157,11 @@ namespace AKS.Controllers
 
             return File(pdfPath, "application/pdf", PdfFileName + ".pdf");
         }
-        public JsonResult SendEmail()
+        public ActionResult SendEmail()
         {
             CustomAjaxResponse result = new CustomAjaxResponse();
             string to = "saanatwork@gmail.com";
-            string from = "helpdeskrinnovationlab@gmail.com";
+            string from = "billing.aapkisakhi@asjbilling.in";
             string subject = "Test Email with Attachment";
             string body = "<h1>This is a test email with HTML body.</h1>";
 
@@ -169,14 +169,14 @@ namespace AKS.Controllers
             message.IsBodyHtml = true;
 
             // Create PDF attachment
-            var pdfPath = Server.MapPath("~/Upload/PDF/AS2300003.pdf");
+            var pdfPath = Server.MapPath("~/Upload/PDF/ORD00003.pdf");
             Attachment attachment = new Attachment(pdfPath, MediaTypeNames.Application.Pdf);
             message.Attachments.Add(attachment);
 
-            SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
+            SmtpClient client = new SmtpClient("smtp.gmail.com", 465);
             client.EnableSsl = true;
             client.UseDefaultCredentials = false;
-            client.Credentials = new System.Net.NetworkCredential("helpdeskrinnovationlab@gmail.com", "saan@1234#");
+            client.Credentials = new System.Net.NetworkCredential("billing.aapkisakhi@asjbilling.in", "Saan@1234#");
 
             try
             {

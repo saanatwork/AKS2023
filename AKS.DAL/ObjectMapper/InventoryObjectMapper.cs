@@ -171,6 +171,8 @@ namespace AKS.DAL.ObjectMapper
                         result.CategoryLongText = dr["CategoryLongText"].ToString();
                     if (!DBNull.Value.Equals(dr["HSNCode"]))
                         result.HSNCode = dr["HSNCode"].ToString();
+                    if (!DBNull.Value.Equals(dr["OrderNumber"]))
+                        result.SelectedOrderID = dr["OrderNumber"].ToString();
                 }
             }
             catch (Exception ex) { pMsg = objPath + ".Map_AppStock(DataRow dr,ref string pMsg) " + ex.Message; }
@@ -290,6 +292,8 @@ namespace AKS.DAL.ObjectMapper
                         result.GrossAmount = double.Parse(dr["GrossAmount"].ToString());
                     if (!DBNull.Value.Equals(dr["NetAmount"]))
                         result.NetAmount = double.Parse(dr["NetAmount"].ToString());
+                    if (!DBNull.Value.Equals(dr["OrderNumber"]))
+                        result.SelectedOrderID = dr["OrderNumber"].ToString();
                 }
             }
             catch (Exception ex) { pMsg = objPath + ".Map_PurchaseItem(DataRow dr,ref string pMsg) " + ex.Message; }

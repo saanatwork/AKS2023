@@ -1,4 +1,27 @@
-﻿function SubmitBtnClicked() {    
+﻿function OrderIDBtnClicked() {
+    var myRow = $(OrderIDBtnClicked.caller.arguments[0].target.closest('tr'));
+    var rowid = myRow.attr('id');
+    var oderno = '';
+    if (rowid == 0) {
+        oderno = $('#cOrderID_0').val();
+    } else { oderno = $('#cOrderID_0-' + rowid).val(); }
+    if (oderno != '') {
+        var url = '/Order/ViewOrder?DocumentNumber=' + oderno;
+        window.open(url);
+    } else {
+        Swal.fire({
+            title: 'Error!',
+            text: 'Select Order Number To View Details.',
+            icon: 'error',
+            customClass: 'swal-wide',
+            buttons: {
+                confirm: 'Ok'
+            },
+            confirmButtonColor: '#2527a2',
+        });
+    }
+};
+function SubmitBtnClicked() {
     var vendor = $('#cVendors').val();
     var docNumber = $('#cDocumentNumber').val();
     var docDate = $('#cDocumentDate').val();

@@ -22,7 +22,7 @@ namespace AKS.DAL
             UDTable.Columns.Add("sUserRemarks", typeof(string));
             UDTable.Columns.Add("bIsApproval", typeof(bool));
             UDTable.Columns.Add("bIsOrder", typeof(bool));
-           
+            UDTable.Columns.Add("sOrderNo", typeof(string));
             if (customoptions != null && customoptions.Count > 0)
             {
                 foreach (var obj in customoptions)
@@ -34,7 +34,8 @@ namespace AKS.DAL
                     dr["iQty"] = obj.Qty;
                     dr["sUserRemarks"] = obj.Remarks;
                     dr["bIsApproval"] = obj.IsApproval;
-                    dr["bIsOrder"] = obj.IsOrder;
+                    dr["bIsOrder"] = obj.SelectedOrderID != null && obj.SelectedOrderID != "" ? true : false;
+                    dr["sOrderNo"] = obj.SelectedOrderID;
                     UDTable.Rows.Add(dr);
                 }
             }
@@ -57,7 +58,7 @@ namespace AKS.DAL
             UDTable.Columns.Add("dDiscount", typeof(decimal));
             UDTable.Columns.Add("dGrossAmount", typeof(decimal));
             UDTable.Columns.Add("dNetAmount", typeof(decimal));
-
+            UDTable.Columns.Add("sOrderNo", typeof(string));
             if (customoptions != null && customoptions.Count > 0)
             {
                 foreach (var obj in customoptions)
@@ -69,7 +70,7 @@ namespace AKS.DAL
                     dr["iQty"] = obj.Qty;
                     dr["sUserRemarks"] = obj.Remarks;
                     dr["bIsApproval"] = obj.IsApproval;
-                    dr["bIsOrder"] = obj.IsOrder;
+                    dr["bIsOrder"] = obj.SelectedOrderID!=null && obj.SelectedOrderID!=""?true:false;
                     dr["dMCWeight"] = obj.MCWeight;
                     dr["iMCRate"] = obj.MCRate;
                     dr["dMCAmount"] = obj.MCAmount;
@@ -78,6 +79,7 @@ namespace AKS.DAL
                     dr["dDiscount"] = obj.Discount;
                     dr["dGrossAmount"] = obj.GrossAmount;
                     dr["dNetAmount"] = obj.NetAmount;
+                    dr["sOrderNo"] = obj.SelectedOrderID;
                     UDTable.Rows.Add(dr);
                 }
             }

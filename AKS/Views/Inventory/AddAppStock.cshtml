@@ -103,6 +103,9 @@
                             <th scope="col" rowspan="2" style="text-align: center; vertical-align: middle;">
                                 SL
                             </th>
+                            <th scope="col" rowspan="2" style="text-align: center; vertical-align: middle; width: 300px ">
+                                Order Number
+                            </th>
                             <th scope="col" rowspan="2" style="text-align: center; vertical-align: middle;">
                                 Item Category
                             </th>
@@ -121,7 +124,7 @@
                             <th scope="col" colspan="3" style="text-align: center; vertical-align: middle;">
                                 Other Stone
                             </th>
-                            <th scope="col" rowspan="2" style="text-align: center; vertical-align: middle;background-color: pink;color: #000;">
+                            <th scope="col" rowspan="2" style="text-align: center; vertical-align: middle; background-color: pink; color: #000; width: 200px">
                                 Actions
                             </th>
                         </tr>
@@ -144,6 +147,33 @@
                         <tr id="0" class="add-row Ptbody">
                             <th data-name="ItemSL" class="htmlVal">1</th>
                             <td>
+                                <div class="row">
+                                    <div class="col-lg-9">
+                                        <select id="cOrderID_0" data-name="SelectedOrderID"
+                                                class="form-select myctrlw100 alterID"
+                                                aria-label="Default select example">
+                                            <option selected value="">Select Order</option>
+                                            @if (Model.OrderList != null && Model.OrderList.Count > 0)
+                                            {
+                                                foreach (var item in Model.OrderList)
+                                                {
+                                                    <option value="@item.ID">@item.DisplayText</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <button id="cOrderIDBtn_0" type="button"
+                                                class="btn btn-warning alterID"
+                                                onclick="OrderIDBtnClicked()"
+                                                data-toggle="tooltip"
+                                                data-placement="top" title="View Order Details">
+                                            <i data-feather="eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
                                 <select id="cItemCategory_0" data-name="ItemCatCode"
                                         onchange="ValidateCloneRowControl()"
                                         class="form-select myctrlw100 is-invalid alterID inValidTag"
@@ -157,9 +187,9 @@
                                         }
                                     }
                                 </select>
-                            </td>
+                            </td>                            
                             <td>
-                                <input id="cQty_0" type="text"  data-name="Qty"
+                                <input id="cQty_0" type="text" data-name="Qty"
                                        onkeyup="ValidateCloneRowControl()"
                                        class="form-control is-invalid alterID inValidTag"
                                        value="">
