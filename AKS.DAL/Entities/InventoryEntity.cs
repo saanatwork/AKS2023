@@ -262,9 +262,9 @@ namespace AKS.DAL.Entities
             catch (Exception ex) { pMsg = objPath + ".GetAppStockDocList(...) " + ex.Message; }
             return result;
         }
-        public List<CustomComboOptionsWithString> GetItemOfCategory(string CategoryCode, ref string pMsg) 
+        public List<CustomOptionsWithString> GetItemOfCategory(string CategoryCode, ref string pMsg) 
         {
-            List<CustomComboOptionsWithString> result = new List<CustomComboOptionsWithString>();
+            List<CustomOptionsWithString> result = new List<CustomOptionsWithString>();
             try
             {
                 dt = _InventoryDataSync.GetItemOfCategory(CategoryCode, ref pMsg);
@@ -272,7 +272,7 @@ namespace AKS.DAL.Entities
                 {
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
-                        result.Add(_DBResponseMapper.Map_CustomComboOptionsWithString(dt.Rows[i]));
+                        result.Add(_DBResponseMapper.Map_CustomOptionsWithString(dt.Rows[i]));
                     }
                 }
             }

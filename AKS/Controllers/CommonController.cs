@@ -173,7 +173,7 @@ namespace AKS.Controllers
             Attachment attachment = new Attachment(pdfPath, MediaTypeNames.Application.Pdf);
             message.Attachments.Add(attachment);
 
-            SmtpClient client = new SmtpClient("smtp.gmail.com", 465);
+            SmtpClient client = new SmtpClient("webmail.asjbilling.in", 465);
             client.EnableSsl = true;
             client.UseDefaultCredentials = false;
             client.Credentials = new System.Net.NetworkCredential("billing.aapkisakhi@asjbilling.in", "Saan@1234#");

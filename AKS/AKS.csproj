@@ -210,6 +210,7 @@
     <Content Include="UIContent\CSS\fixedColumns.dataTables.min.css" />
     <Content Include="UIContent\CSS\font-awesome.min.css" />
     <Content Include="UIContent\CSS\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="UIContent\CSS\img\LogoBig.png" />
     <Content Include="UIContent\CSS\img\main-banner.png" />
     <Content Include="UIContent\CSS\jquery.dataTables.min.css" />
     <Content Include="UIContent\CSS\print-css.css" />

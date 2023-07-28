@@ -30,7 +30,7 @@ namespace AKS.BLL.IRepository
         AppStockView GetPurchaseDocInfo(string DocumentNumber, ref string pMsg);
         bool ApprovePurchaseDoc(string DocumentNumber, int UserID, ref string pMsg);
         List<CustomComboOptionsWithString> GetCategoryWithStock(int ProfitCentreID, ref string pMsg);
-        List<CustomComboOptionsWithString> GetItemOfCategory(string CategoryCode, ref string pMsg);
+        List<CustomOptionsWithString> GetItemOfCategory(string CategoryCode, ref string pMsg);
         SItemVariantLists GetItemVariantsForSale(string ItemID, int MakingCharge, int DiDiscount, string City, ref string pMsg);
         bool LogGoldRate(string City, double GoldRate, ref string pMsg);
         bool SetInvoice(AppStockEntry data, ref string pMsg);

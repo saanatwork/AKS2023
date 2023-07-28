@@ -180,7 +180,7 @@ namespace AKS.BLL.Repository
         {
             return _InventoryEntity.GetCategoryWithStock(ProfitCentreID,ref pMsg);
         }
-        public List<CustomComboOptionsWithString> GetItemOfCategory(string CategoryCode, ref string pMsg) 
+        public List<CustomOptionsWithString> GetItemOfCategory(string CategoryCode, ref string pMsg) 
         {
             return _InventoryEntity.GetItemOfCategory(CategoryCode,ref pMsg);
         }

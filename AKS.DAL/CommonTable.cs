@@ -34,7 +34,7 @@ namespace AKS.DAL
                     dr["iQty"] = obj.Qty;
                     dr["sUserRemarks"] = obj.Remarks;
                     dr["bIsApproval"] = obj.IsApproval;
-                    dr["bIsOrder"] = obj.SelectedOrderID != null && obj.SelectedOrderID != "" ? true : false;
+                    dr["bIsOrder"] = obj.SelectedOrderID != null && obj.SelectedOrderID != "" && obj.SelectedOrderID != "null" ? true : false;
                     dr["sOrderNo"] = obj.SelectedOrderID;
                     UDTable.Rows.Add(dr);
                 }
@@ -70,7 +70,7 @@ namespace AKS.DAL
                     dr["iQty"] = obj.Qty;
                     dr["sUserRemarks"] = obj.Remarks;
                     dr["bIsApproval"] = obj.IsApproval;
-                    dr["bIsOrder"] = obj.SelectedOrderID!=null && obj.SelectedOrderID!=""?true:false;
+                    dr["bIsOrder"] = obj.SelectedOrderID!=null && obj.SelectedOrderID!="" && obj.SelectedOrderID != "null"? true:false;
                     dr["dMCWeight"] = obj.MCWeight;
                     dr["iMCRate"] = obj.MCRate;
                     dr["dMCAmount"] = obj.MCAmount;

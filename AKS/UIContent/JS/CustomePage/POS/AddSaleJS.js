@@ -290,7 +290,12 @@ function ItemCategoryChanged() {
                     DropdownCtrl.empty();
                     DropdownCtrl.append($('<option/>', { value: "", text: "Select Item" }));
                     $(data).each(function (index, item) {
-                        DropdownCtrl.append($('<option/>', { value: item.ID, text: item.DisplayText }));
+                        if (item.IsSelected) {
+                            DropdownCtrl.append('<option style="background-color:#AFE1AF" value="' + item.ID + '">' + item.DisplayText + '</option>');
+                        }
+                        else {
+                            DropdownCtrl.append('<option value="' + item.ID + '">' + item.DisplayText + '</option>');
+                        }
                     });
                 });
                 DropdownCtrl.isInvalid();
