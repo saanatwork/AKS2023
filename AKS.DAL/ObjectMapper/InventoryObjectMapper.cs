@@ -517,6 +517,8 @@ namespace AKS.DAL.ObjectMapper
                         result.JVNo = dr["JVNo"].ToString();
                     if (!DBNull.Value.Equals(dr["CRNo"]))
                         result.CRNo = dr["CRNo"].ToString();
+                    if (!DBNull.Value.Equals(dr["IsIGST"]))
+                        result.IsIGST =bool.Parse(dr["IsIGST"].ToString());
 
                     result.ReceiveModeStr = MyHelper.GetModeOfPaymentDesc(result.ModeOfRecieve);
                     result.BillAmountInWords = MyHelper.ConvertToWords(result.NetPayableAmount);

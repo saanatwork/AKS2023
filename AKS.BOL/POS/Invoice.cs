@@ -43,6 +43,7 @@ namespace AKS.BOL.POS
         public string ReceiveModeStr { get; set; }
         public List<InvoiceItem> Items { get; set; }
         public List<InvoiceItemVariants> AllVariants { get; set; }
+        public bool IsIGST { get; set; }
     }
     public class InvoiceItem 
     {

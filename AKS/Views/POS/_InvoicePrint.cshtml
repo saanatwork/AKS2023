@@ -202,15 +202,36 @@
                         <td colspan="2">
                             Item Total : <br />
                             Trade Discount :<br />
-                            <b>Taxable Amount :</b> <br />
-                            GST (@Model.GST%) :<br />
+                            <b>Taxable Amount :</b> 
+                            @if (Model.IsIGST) 
+                            {
+                                <div>IGST(@Model.GST%) :<br /></div>
+                            }
+                            else 
+                            { 
+                        <div>
+                            CGST(@(Math.Round(Model.GST/2,2))%) :<br />
+                            SGST(@(Math.Round(Model.GST/2,2))%) :<br />
+                        </div>
+                            }                            
                             <b>Bill Amount : </b>
                         </td>
                         <td style="text-align:right">
                             @Model.ItemTotal.ToString("0.00")<br />
                             @Model.TradeDiscount.ToString("0.00")<br />
-                            <b>@Model.TaxableAmount.ToString("0.00")</b><br />
-                            @Model.GSTAmount.ToString("0.00")<br />
+                            <b>@Model.TaxableAmount.ToString("0.00")</b>
+                            @if (Model.IsIGST)
+                            {
+                        <div>@Model.GSTAmount.ToString("0.00")<br /></div>
+                            }
+                            else
+                            {
+                                <div>
+                                    @(Math.Round(Model.GSTAmount / 2,2).ToString("0.00"))<br />
+                                    @(Math.Round(Model.GSTAmount / 2,2).ToString("0.00"))<br />
+                                </div>
+                            }
+                            
                             <b>@Model.NetPayableAmount.ToString("0.00")</b>
                         </td>
                     </tr>

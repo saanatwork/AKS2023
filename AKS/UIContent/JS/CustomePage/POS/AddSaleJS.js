@@ -124,6 +124,8 @@ function SubmitBtnClicked() {
     var receiptref = $('#cReceiptRef').val();
     var balanceamt = $('#cAmountBalance').val();
     var cashdis = $('#cCashDiscount').val();
+    var isigst = $('#cIsIGST').val();
+    alert(isigst);
     var schrecords = GetAppStockRecords('tblDataList');
     var x = '{"VendorID":"' + vendor
         + '","DocumentFileName":"' + docFilename
@@ -139,7 +141,9 @@ function SubmitBtnClicked() {
         + '","RefNo":"' + receiptref
         + '","CashDiscount":"' + cashdis
         + '","BalanceAmount":"' + balanceamt
+        + '","IsIGST":"' + isigst
         + '","AppStockList":' + schrecords + '}';
+    alert(x);
     $.ajax({
         method: 'POST',
         url: '/POS/SetSalesInvoice',

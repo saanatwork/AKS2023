@@ -197,6 +197,8 @@ namespace AKS.DAL.ParamMapper
                 para[paracount++].Value = data.BalanceAmount;
                 para[paracount] = new SqlParameter("@CashDiscount", SqlDbType.Decimal);
                 para[paracount++].Value = data.CashDiscount;
+                para[paracount] = new SqlParameter("@IsIGST", SqlDbType.Bit);
+                para[paracount++].Value = data.IsIGST==1?true:false;
                 para[paracount] = new SqlParameter("@InvoiceItems", SqlDbType.Structured);
                 para[paracount++].Value = objItems.UDTable;
                 para[paracount] = new SqlParameter("@InvoiceItemVariants", SqlDbType.Structured);
