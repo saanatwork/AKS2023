@@ -1,4 +1,105 @@
-﻿function OrderIDBtnClicked() {
+﻿function OrderChanged() {
+    var myCtrl = $(OrderChanged.caller.arguments[0].target);
+    var myRow = $(myCtrl.closest('tr'));
+    var prowid = myRow.attr('id');
+    var itemcateCtrl = myRow.find('.ordcat');
+    var qtyCtrl = myRow.find('.ordqty');
+    var remCtrl = myRow.find('.ordrem');
+    var docno = myCtrl.val();
+    var sBodyM = 'mvTBody1';
+    var dBodyM = 'mvTBody2';
+    var sBodyD = 'dvTBody1';
+    var dBodyD = 'dvTBody2';
+    var sBodyS = 'svTBody1';
+    var dBodyS = 'svTBody2';
+    var MVCtrlID = 'cMetalVariant';
+    var MWCtrlID = 'cMetalWt';
+    var DVCtrlID = 'cDiamondVariant';
+    var DWCtrlID = 'cDiamondWt';
+    var SVCtrlID = 'cStoneVariant';
+    var SWCtrlID = 'cStoneWt';
+    if (prowid > 0) {
+        sBodyM = 'mvTBody1-' + prowid;
+        dBodyM = 'mvTBody2-' + prowid;
+        sBodyD = 'dvTBody1-' + prowid;
+        dBodyD = 'dvTBody2-' + prowid;
+        sBodyS = 'svTBody1-' + prowid;
+        dBodyS = 'svTBody2-' + prowid;
+        MVCtrlID = 'cMetalVariant-' + prowid;
+        MWCtrlID = 'cMetalWt-' + prowid;
+        DVCtrlID = 'cDiamondVariant-' + prowid;
+        DWCtrlID = 'cDiamondWt-' + prowid;
+        SVCtrlID = 'cStoneVariant-' + prowid;
+        SWCtrlID = 'cStoneWt-' + prowid;
+    }
+    itemcateCtrl.val('').isInvalid();//itemcateCtrl.removeAttr('disabled');
+    qtyCtrl.val('').isInvalid(); //qtyCtrl.removeAttr('disabled');
+    remCtrl.val('').isInvalid(); //remCtrl.removeAttr('disabled');
+    $('#' + dBodyM).empty();
+    $('#' + dBodyD).empty();
+    $('#' + dBodyS).empty();
+    $('#0_' + MVCtrlID).val('').isInvalid();
+    $('#0_' + MWCtrlID).val('').isInvalid();
+    $('#0_' + DVCtrlID).val('').removeClass('is-valid is-invalid');
+    $('#0_' + DWCtrlID).val('').isInvalid();
+    $('#0_' + SVCtrlID).val('').removeClass('is-valid is-invalid');
+    $('#0_' + SWCtrlID).val('').isInvalid();
+    if (docno == '') {
+        myCtrl.removeClass('is-valid is-invalid');
+        
+    }
+    else {
+        myCtrl.isValid();
+        //itemcateCtrl.attr('disabled', 'disabled');
+        //qtyCtrl.attr('disabled', 'disabled');
+        //remCtrl.attr('disabled', 'disabled');
+        //Get Order Details and plot
+        var url = '/Inventory/GetOrderDetails?DocumentNumber=' + docno;
+        GetDataFromAjax(url).done(function (data) {
+            $(data.AppStockList).each(function (index,item) {
+                itemcateCtrl.val(item.ItemCatCode).isValid();
+                qtyCtrl.val(item.Qty).isValid();
+                remCtrl.val(item.Remarks).isValid();
+                $(item.MetalVariants).each(function (mindex, mitem) {
+                    if (mindex > 0) {
+                        var rowid = CloneRowChildTableReturningID(sBodyM, dBodyM, true, false);
+                        $('#' + rowid + '_' + MVCtrlID).val(mitem.VariantID).isValid();
+                        $('#' + rowid + '_' + MWCtrlID).val(mitem.Weight).isValid();                        
+                    }
+                    else {
+                        $('#0_' + MVCtrlID).val(mitem.VariantID).isValid();
+                        $('#0_' + MWCtrlID).val(mitem.Weight).isValid();
+                    }
+                });
+                $(item.DiamondVariants).each(function (mindex, mitem) {
+                    if (mindex > 0) {
+                        var rowid = CloneRowChildTableReturningID(sBodyD, dBodyD, true, false);
+                        $('#' + rowid + '_' + DVCtrlID).val(mitem.VariantID).isValid();
+                        $('#' + rowid + '_' + DWCtrlID).val(mitem.Weight).isValid();
+                    }
+                    else {
+                        $('#0_' + DVCtrlID).val(mitem.VariantID).isValid();
+                        $('#0_' + DWCtrlID).val(mitem.Weight).isValid();
+                    }
+                });
+                $(item.StoneVariants).each(function (mindex, mitem) {
+                    if (mindex > 0) {
+                        var rowid = CloneRowChildTableReturningID(sBodyS, dBodyS, true, false);
+                        $('#' + rowid + '_' + SVCtrlID).val(mitem.VariantID).isValid();
+                        $('#' + rowid + '_' + SWCtrlID).val(mitem.Weight).isValid();
+                    }
+                    else {
+                        $('#0_' + SVCtrlID).val(mitem.VariantID).isValid();
+                        $('#0_' + SWCtrlID).val(mitem.Weight).isValid();
+                    }
+                });
+            })
+            SaveBtnStatus();
+        });
+    }
+    SaveBtnStatus();
+};
+function OrderIDBtnClicked() {
     var myRow = $(OrderIDBtnClicked.caller.arguments[0].target.closest('tr'));
     var rowid = myRow.attr('id');
     var oderno = '';
@@ -234,6 +335,7 @@ function AddMVClicked() {
         dBody = 'mvTBody2-' + rowid;
     }    
     var rowid = CloneRowChildTableReturningID(sBody, dBody, true, false);
+    SaveBtnStatus();
 };
 function AddDVClicked() {
     var row = $(AddDVClicked.caller.arguments[0].target.closest('tbody'));
@@ -245,6 +347,7 @@ function AddDVClicked() {
         dBody = 'dvTBody2-' + rowid;
     }
     var rowid = CloneRowChildTableReturningID(sBody, dBody, true, false);
+    SaveBtnStatus();
 };
 function AddSVClicked() {
     var row = $(AddSVClicked.caller.arguments[0].target.closest('tbody'));
@@ -256,25 +359,31 @@ function AddSVClicked() {
         dBody = 'svTBody2-' + rowid;
     }
     var rowid = CloneRowChildTableReturningID(sBody, dBody, true, false);
+    SaveBtnStatus();
 };
 function RemoveMVChildClicked() {
     var row = RemoveMVChildClicked.caller.arguments[0].target.closest('tr');
     removeBtnClickFromChildTableCloneRow(row, 'mvTBody2');
+    SaveBtnStatus();
 };
 function RemoveDVChildClicked() {
     var row = RemoveDVChildClicked.caller.arguments[0].target.closest('tr');
     removeBtnClickFromChildTableCloneRow(row, 'dvTBody2');
+    SaveBtnStatus();
 };
 function RemoveSVChildClicked() {
     var row = RemoveSVChildClicked.caller.arguments[0].target.closest('tr');
     removeBtnClickFromChildTableCloneRow(row, 'svTBody2');
+    SaveBtnStatus();
 };
 function ParentCloneRowAddClicked() {
     var rowid = CloneRowParentTableReturningID('tbody1', 'tbody2', true, true);
+    SaveBtnStatus();
 };
 function ParentCloneRowRemoveClicked() {
     var row = ParentCloneRowRemoveClicked.caller.arguments[0].target.closest('tr');
     removeBtnClickFromParentTableCloneRow(row, 'tbody2');
+    SaveBtnStatus();
 };
 function AddVendorClicked() {
     var modalDiv = $('#VendorModal');

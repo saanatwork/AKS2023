@@ -422,7 +422,7 @@ function ItemChanged() {
                         $('#0_' + MRCtrlID).val(item.RatePerUnit);
                         $('#0_' + MACtrlID).val(item.Amount);
                     }
-                    gamt = gamt + item.Amount;
+                    gamt = gamt + Math.round(item.Amount,0);
                 });
                 $.each(data.DiamondVariants, function (index, item) {
                     if (index > 0) {
@@ -444,7 +444,7 @@ function ItemChanged() {
                         $('#0_' + DDACtrlID).val(item.DiDiscountAmount);
                         $('#0_' + DACtrlID).val(item.Amount);
                     }
-                    gamt = gamt + item.Amount;
+                    gamt = gamt +Math.round(item.Amount,0);
                 });
                 $.each(data.StoneVariants, function (index, item) {
                     if (index > 0) {
@@ -460,13 +460,13 @@ function ItemChanged() {
                         $('#0_' + SRCtrlID).val(item.RatePerUnit);
                         $('#0_' + SACtrlID).val(item.Amount);
                     }
-                    gamt = gamt + item.Amount;
+                    gamt = gamt +Math.round(item.Amount,0);
                 });
                 $.each(data.MCInfo, function (index, item) {
                     $('#' + MCWCtrlID).val(item.VariantWt);
                     $('#' + MCRCtrlID).val(item.MakingCharge).isValid();
                     $('#' + MCACtrlID).val(item.Amount);
-                    gamt = gamt + item.Amount;
+                    gamt = gamt +Math.round(item.Amount,0);
                 });
                 $('#' + GrossAmtID).val(gamt);
                 $('#' + QtyID).val(1).isValid();

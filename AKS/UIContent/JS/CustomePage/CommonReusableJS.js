@@ -649,3 +649,15 @@ function CloneRowReturningID(sourceTBody, destinationTBody, rowid, IsRemoveBtn, 
     });
     return r;
 };
+
+
+
+//From My Customized
+function GetDataFromAjax(url) {
+    //alert(url);
+    return $.ajax({
+        url: url,
+        method: "GET",
+        dataType: "json"
+    });
+};

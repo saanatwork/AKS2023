@@ -180,6 +180,7 @@
                                         <div class="col-lg-9">
                                             <select id="cOrderID_0" data-name="SelectedOrderID"
                                                     class="form-select myctrlw100 alterID"
+                                                    onchange="OrderChanged()"
                                                     aria-label="Default select example">
                                                 <option selected value="">Select Order</option>
                                                 @if (Model.OrderList != null && Model.OrderList.Count > 0)
@@ -205,7 +206,7 @@
                                 <td>
                                     <select id="cItemCategory_0" data-name="ItemCatCode"
                                             onchange="ValidateCloneRowControl()"
-                                            class="form-select myctrlw100 is-invalid alterID inValidTag"
+                                            class="form-select myctrlw100 is-invalid alterID inValidTag ordcat"
                                             aria-label="Default select example">
                                         <option selected value="">Select Category</option>
                                         @if (Model.CategoryList != null && Model.CategoryList.Count > 0)
@@ -220,13 +221,13 @@
                                 <td>
                                     <input id="cQty_0" type="text" data-name="Qty"
                                            onkeyup="ItemQtyChanged()"
-                                           class="form-control is-invalid alterID inValidTag Rqty"
+                                           class="form-control is-invalid alterID inValidTag Rqty ordqty"
                                            value="">
                                 </td>
                                 <td>
                                     <input id="cRemarks_0" type="text" data-name="Remarks"
                                            onkeyup="ValidateCloneRowControl()"
-                                           class="form-control is-invalid alterID inValidTag"
+                                           class="form-control is-invalid alterID inValidTag ordrem"
                                            value="">
                                 </td>
                                 <td colspan="5">

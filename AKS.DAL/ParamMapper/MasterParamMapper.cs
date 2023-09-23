@@ -106,7 +106,7 @@ namespace AKS.DAL.ParamMapper
         public SqlParameter[] MapParam_SetParty(Party data, ref string pMsg)
         {
             int paracount = 0;
-            SqlParameter[] para = new SqlParameter[9];
+            SqlParameter[] para = new SqlParameter[10];
             try
             {
                 para[paracount] = new SqlParameter("@PartyCode", SqlDbType.Int);
@@ -127,6 +127,8 @@ namespace AKS.DAL.ParamMapper
                 para[paracount++].Value = data.IsCustomer;
                 para[paracount] = new SqlParameter("@IsActive", SqlDbType.Bit);
                 para[paracount++].Value = data.IsActive;
+                para[paracount] = new SqlParameter("@OtherContactNo", SqlDbType.NVarChar);
+                para[paracount++].Value = data.OtherContactNo;
             }
             catch (Exception ex)
             {

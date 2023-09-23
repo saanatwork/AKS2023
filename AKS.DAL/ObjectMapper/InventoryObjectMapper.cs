@@ -844,11 +844,11 @@ namespace AKS.DAL.ObjectMapper
                     if (!DBNull.Value.Equals(dr["Dicount"]))
                         result.DDisPercentage = double.Parse(dr["Dicount"].ToString());
                     if (!DBNull.Value.Equals(dr["DiscountAmt"]))
-                        result.DDisAmount = int.Parse(dr["DiscountAmt"].ToString());
-                    if (!DBNull.Value.Equals(dr["AmtAfterDiscount"]))
-                        result.Amount = double.Parse(dr["AmtAfterDiscount"].ToString());
+                        result.DDisAmount = double.Parse(dr["DiscountAmt"].ToString());
                     if (!DBNull.Value.Equals(dr["VariantColumn"]))
-                        result.VariantColumn = dr["VariantColumn"].ToString();                 
+                        result.VariantColumn = dr["VariantColumn"].ToString().Trim();
+                    if (!DBNull.Value.Equals(dr["AmtAfterDiscount"]))
+                        result.Amount = double.Parse(dr["AmtAfterDiscount"].ToString());                                   
 
                 }
             }

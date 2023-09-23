@@ -17,6 +17,7 @@ namespace AKS.BOL.Master
         public bool IsVendor { get; set; }
         public bool IsCustomer { get; set; }
         public bool IsActive { get; set; }
+        public string OtherContactNo { get; set; }
     }
     public class PartyForList : Party 
     {

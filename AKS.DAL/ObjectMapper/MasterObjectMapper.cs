@@ -217,6 +217,8 @@ namespace AKS.DAL.ObjectMapper
                         result.GSTIN = dr["GSTIN"].ToString();
                     if (!DBNull.Value.Equals(dr["PartyContactNo"]))
                         result.ContactNo = dr["PartyContactNo"].ToString();
+                    if (!DBNull.Value.Equals(dr["OPartyContactNo"]))
+                        result.OtherContactNo = dr["OPartyContactNo"].ToString();
                     if (!DBNull.Value.Equals(dr["PartyEmailID"]))
                         result.EmailID  = dr["PartyEmailID"].ToString();
                     if (!DBNull.Value.Equals(dr["IsVendor"]))
@@ -250,6 +252,8 @@ namespace AKS.DAL.ObjectMapper
                         result.GSTIN = dr["GSTIN"].ToString();
                     if (!DBNull.Value.Equals(dr["PartyContactNo"]))
                         result.ContactNo = dr["PartyContactNo"].ToString();
+                    if (!DBNull.Value.Equals(dr["OPartyContactNo"]))
+                        result.OtherContactNo = dr["OPartyContactNo"].ToString();
                     if (!DBNull.Value.Equals(dr["PartyEmailID"]))
                         result.EmailID = dr["PartyEmailID"].ToString();
                     if (!DBNull.Value.Equals(dr["IsVendor"]))

@@ -4,7 +4,7 @@
 <div class="row newTable">
     <div class="col-md-12 mb-4">
         <div class="table-responsive" style="padding:5px">
-            <table id="tblDataList" class="table table-bordered btnalign w-100">
+            <table id="tblDataList" style="width:1500px" class="table table-bordered btnalign">
                 <thead>
                     <tr>
                         <th scope="col" style="width:5%">Code</th>
@@ -12,10 +12,11 @@
                         <th scope="col">Address</th>
                         <th scope="col" style="width: 10%">GSTIN</th>
                         <th scope="col" style="width: 10%">ContactNumber</th>
+                        <th scope="col" style="width: 10%">Other Number</th>
                         <th scope="col" style="width: 10%">EmailID</th>
-                        <th scope="col" style="width: 10%">IsVendor</th>
-                        <th scope="col" style="width: 10%">IsCustomer</th>
-                        <th scope="col" style="width: 10%">IsActive</th>
+                        <th scope="col" style="width: 5%">IsVendor</th>
+                        <th scope="col" style="width: 5%">IsCustomer</th>
+                        <th scope="col" style="width: 5%">IsActive</th>
                         <th scope="col" style="width: 10%; background-color: #ff7500; color: white;text-align: center;">Actions</th>
                     </tr>
                 </thead>
@@ -40,6 +41,10 @@
                         <th>
                             <input id="cContactNo" onkeyup="ValidateControl()" type="text"
                                    class="form-control is-invalid" data-name="ContactNo" />
+                        </th>
+                        <th>
+                            <input id="cOtherContactNo" type="text"
+                                   class="form-control" data-name="OtherContactNo" />
                         </th>
                         <th>
                             <input id="cEmailID" onkeyup="ValidateControl()" type="text"

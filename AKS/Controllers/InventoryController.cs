@@ -3,6 +3,7 @@ using AKS.BOL;
 using AKS.BOL.Common;
 using AKS.BOL.Inventory;
 using AKS.BOL.Master;
+using AKS.BOL.Order;
 using AKS.BOL.User;
 using AKS.ViewModel.InventoryVM;
 using SelectPdf;
@@ -159,6 +160,20 @@ namespace AKS.Controllers
         }
 
         #region Ajax Calling
+        public JsonResult GetOrderDetails(string DocumentNumber = "")
+        {
+            ViewOrder model = _iInventory.GetOrderDetails(DocumentNumber, ref pMsg);
+            if (model.AllItemVariants != null && model.AppStockList != null)
+            {
+                foreach (var item in model.AppStockList)
+                {
+                    item.MetalVariants = model.AllItemVariants.Where(o => o.ItemSL == item.ItemSL && o.VariantColumn == "Metal").ToList();
+                    item.DiamondVariants = model.AllItemVariants.Where(o => o.ItemSL == item.ItemSL && o.VariantColumn == "Diamond").ToList();
+                    item.StoneVariants = model.AllItemVariants.Where(o => o.ItemSL == item.ItemSL && o.VariantColumn == "Stone").ToList();
+                }
+            }
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
         public JsonResult GetAppStock(string DocumentNumber = "")
         {
             AppStockView model = _iInventory.GetAppStocks(DocumentNumber, ref pMsg);

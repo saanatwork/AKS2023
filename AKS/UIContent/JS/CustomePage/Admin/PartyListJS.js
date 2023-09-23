@@ -43,6 +43,7 @@ function FnViewNote(ctrl) {
                 $('#cPartyAddress').val(item.PartyAddress).isValid();
                 $('#cGSTIN').val(item.GSTIN);
                 $('#cContactNo').val(item.ContactNo).isValid();
+                $('#cOtherContactNo').val(item.OtherContactNo).isValid();
                 if (item.EmailID != '' && item.EmailID!=null) {
                     $('#cEmailID').val(item.EmailID).isValid();
                 } else {
@@ -123,6 +124,7 @@ $(document).ready(function () {
             { 'data': 'PartyAddress' },
             { 'data': 'GSTIN' },
             { 'data': 'ContactNo' },
+            { 'data': 'OtherContactNo' },
             { 'data': 'EmailID' },
             { 'data': 'IsVendorStr' },
             { 'data': 'IsCustomerStr' },
@@ -160,6 +162,7 @@ $(document).ready(function () {
                         $('#cPartyAddress').val('').isInvalid();
                         $('#cGSTIN').val('');
                         $('#cContactNo').val('').isInvalid();
+                        $('#cOtherContactNo').val('');
                         $('#cEmailID').val('').removeClass('is-valid is-invalid');
                         $('#cIsVendor').val('').isInvalid();
                         $('#cIsCustomer').val('').isInvalid();
