@@ -3,7 +3,7 @@
     ViewBag.Title = "Order - View Document ";
 }
 
-<div class="row newTable">    
+<div class="row newTable">
     @Html.HiddenFor(m => m.DocumentNumber)
     <div class="fixedElement">
         <div class="col-md-12">
@@ -15,25 +15,35 @@
                         <i data-feather="arrow-left-circle"></i>
                         Back
                     </button>
-                    @*@if (!Model.IsApproved)
+                    @if (Model.IsDeleteBtn == 1)
                     {
                         <button id="btnDelete" type="button"
                                 onclick="BtnDeleteClicked()"
                                 class="btn btn-primary me-2">
                             <i data-feather="trash-2"></i>
-                            Delete
+                            Delete Order
                         </button>
-                        
-                    }*@
+
+                    }
+                    @if (Model.IsCancelBtn == 1)
+                    {
+                        <button id="btnCancel" type="button"
+                                onclick="BtnCancelClicked()"
+                                class="btn btn-primary me-2">
+                            <i data-feather="trash-2"></i>
+                            Cancel Order
+                        </button>
+
+                    }
                 </div>
                 <h2>Order Document </h2>
                 <div class="rightButton">
                     @*<button id="btnScanView" type="button"
-                            onclick="ViewUploadedFile()"
-                            class="btn btn-secondary">
-                        <i data-feather="eye"></i>
-                        View Uploaded
-                    </button>*@
+                                onclick="ViewUploadedFile()"
+                                class="btn btn-secondary">
+                            <i data-feather="eye"></i>
+                            View Uploaded
+                        </button>*@
                     <a class="btn btn-secondary" href="@Url.Action("GeneratePdf","Common", new { ViewUrl ="/Order/PrintOrder?DocumentNumber="+Model.DocumentNumber ,PdfFileName=Model.DocumentNumber })">
                         <i data-feather="printer"></i>
                         Print

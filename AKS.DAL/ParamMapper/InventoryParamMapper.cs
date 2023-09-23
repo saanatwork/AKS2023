@@ -257,7 +257,21 @@ namespace AKS.DAL.ParamMapper
             }
             return para;
         }
-
+        public SqlParameter[] MapParam_RemoveCancelOrder(string DocumentNumber, ref string pMsg)
+        {
+            int paracount = 0;           
+            SqlParameter[] para = new SqlParameter[1];
+            try
+            {                
+                para[paracount] = new SqlParameter("@DocumentNumber", SqlDbType.NVarChar, 10);
+                para[paracount++].Value = DocumentNumber;                
+            }
+            catch (Exception ex)
+            {
+                pMsg = objPath + ".MapParam_RemoveCancelOrder(...) " + ex.Message;
+            }
+            return para;
+        }
 
     }
 }

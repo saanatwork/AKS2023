@@ -489,6 +489,24 @@ namespace AKS.DAL.Entities
             catch (Exception ex) { pMsg = objPath + ".GetOrderListForPurchase(...) " + ex.Message; }
             return result;
         }
-    
+        public double OrderItemValidation(string ItemCode, int PartyCode, ref string pMsg) 
+        {
+            return _InventoryDataSync.OrderItemValidation(ItemCode, PartyCode, ref pMsg);
+        }
+        public bool RemoveOrder(string DocumentNumber, ref string pMsg)
+        {
+            bool result = false;
+            _DBResponseMapper.Map_DBResponse(_InventoryDataSync.RemoveOrder(DocumentNumber, ref pMsg), ref pMsg, ref result);
+            return result;
+        }
+        public bool CancelOrder(string DocumentNumber, ref string pMsg)
+        {
+            bool result = false;
+            _DBResponseMapper.Map_DBResponse(_InventoryDataSync.CancelOrder(DocumentNumber, ref pMsg), ref pMsg, ref result);
+            return result;
+        }
+
+
+
     }
 }

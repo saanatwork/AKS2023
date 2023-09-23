@@ -97,6 +97,10 @@ namespace AKS.Controllers
             }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult OrderItemValidation(string ItemCode,int PartyCode)
+        {            
+            return Json(_iInventory.OrderItemValidation(ItemCode, PartyCode, ref pMsg), JsonRequestBehavior.AllowGet);
+        }
         public ActionResult PrintInvoice(string DocumentNumber = "")
         {
             Invoice model = _iInventory.GetInvoice(DocumentNumber, ref pMsg);

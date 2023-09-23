@@ -44,5 +44,11 @@ namespace AKS.BLL.IRepository
         ViewOrder GetOrderDetails(string DocumentNumber, ref string pMsg);
         List<CustomComboOptionsWithString> GetOrderListForSales(int ProfitCentreID, int CustomerID, ref string pMsg);
         List<CustomComboOptionsWithString> GetOrderListForPurchase(int ProfitCentreID, ref string pMsg);
+        double OrderItemValidation(string ItemCode, int PartyCode, ref string pMsg);
+        bool RemoveOrder(string DocumentNumber, ref string pMsg);
+        bool CancelOrder(string DocumentNumber, ref string pMsg);
+
+
+
     }
 }

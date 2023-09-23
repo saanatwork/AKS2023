@@ -1,6 +1,6 @@
 ﻿function FnEditNote(ctrl) {
     var primarykey = $(ctrl).attr('data-dt');
-    window.location.href = "/Order/EditOrder?DocumentNumber=" + primarykey;
+    window.location.href = "/Order/ViewOrder?DocumentNumber=" + primarykey+'&IsEdit=1';
 };
 function FnDeleteNote(ctrl) {
     var primarykey = $(ctrl).attr('data-dt');
@@ -26,7 +26,7 @@ $(document).ready(function () {
                     var editBtn = '<button type="button" id="D_' + row.DocumentNumber + '" data-dt="' + row.DocumentNumber + '" onclick="FnEditNote(this)" class="btn secondaryLink" data-toggle="tooltip" data-placement="top" title="Edit" data-placement="top" title="" data-bs-original-title="Edit"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>';
                     var mbtns = '<span class="actionBtn d-block">';
                     mbtns = mbtns + viewBtn;
-                    if (row.OrderStatus==0) { mbtns = mbtns + editBtn; }
+                    if (row.OrderStatus<4) { mbtns = mbtns + editBtn; }
                     mbtns = mbtns + '</span>';
                     return type === 'display' ? mbtns : data;
                 }

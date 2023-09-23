@@ -504,6 +504,18 @@ namespace AKS.BLL.Repository
         {
             return _InventoryEntity.GetOrderListForPurchase(ProfitCentreID, ref pMsg);
         }
+        public double OrderItemValidation(string ItemCode, int PartyCode, ref string pMsg)
+        {
+            return _InventoryEntity.OrderItemValidation(ItemCode, PartyCode, ref pMsg);
+        }
+        public bool RemoveOrder(string DocumentNumber, ref string pMsg)
+        {
+            return _InventoryEntity.RemoveOrder(DocumentNumber, ref pMsg);
+        }
+        public bool CancelOrder(string DocumentNumber, ref string pMsg)
+        {
+            return _InventoryEntity.CancelOrder(DocumentNumber, ref pMsg);
+        }
 
 
 

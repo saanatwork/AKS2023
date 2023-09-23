@@ -46,6 +46,8 @@ namespace AKS.BOL.Order
         public string CreatorName { get; set; }
         public string ApproverName { get; set; }
         public string AmountReceivedInWords { get; set; }
+        public int IsDeleteBtn { get; set; }
+        public int IsCancelBtn { get; set; }
     }
     public class OrderStock
     {

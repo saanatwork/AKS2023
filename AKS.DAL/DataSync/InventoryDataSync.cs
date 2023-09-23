@@ -300,8 +300,39 @@ namespace AKS.DAL.DataSync
             }
             catch (Exception ex) { pMsg = objPath + ".GetOrderListForPurchase(...) " + ex.Message; return null; }
         }
-
-
+        public double OrderItemValidation(string ItemCode,int PartyCode, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("SELECT [POS].[OrderItemValidation]('" + ItemCode + "',"+ PartyCode + ")", CommandType.Text))
+                {
+                    return double.Parse(sql.ExecuteScaler(ref pMsg).ToString());
+                }
+            }
+            catch (Exception ex) { pMsg = ex.Message; return 0; }
+        }
+        public DataTable RemoveOrder(string DocumentNumber, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("[ORD].[RemoveOrder]", CommandType.StoredProcedure))
+                {
+                    return sql.GetDataTable(_InventoryParamMapper.MapParam_RemoveCancelOrder(DocumentNumber, ref pMsg), ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".RemoveOrder(...) " + ex.Message; return null; }
+        }
+        public DataTable CancelOrder(string DocumentNumber, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("[ORD].[CancelOrder]", CommandType.StoredProcedure))
+                {
+                    return sql.GetDataTable(_InventoryParamMapper.MapParam_RemoveCancelOrder(DocumentNumber, ref pMsg), ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".CancelOrder(...) " + ex.Message; return null; }
+        }
 
     }
 }

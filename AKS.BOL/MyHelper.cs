@@ -101,7 +101,7 @@ namespace AKS.BOL
                     result = "Order Deliered";
                     break;
                 case 9:
-                    result = "Other";
+                    result = "Order Cancelled";
                     break;
                 default:
                     result = "NA";

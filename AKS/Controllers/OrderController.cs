@@ -43,9 +43,15 @@ namespace AKS.Controllers
             model.MakingCharges = LUser.userpcs.Where(o=>o.PCID==LUser.LogInProfitCentreID).FirstOrDefault().MakingCharges;
             return View(model);
         }
-        public ActionResult ViewOrder(string DocumentNumber) 
+        public ActionResult ViewOrder(string DocumentNumber,int IsEdit=0) 
         {
             ViewOrder model = _iInventory.GetOrderDetails(DocumentNumber, ref pMsg);
+            if (model != null)
+            {
+                if (model.Status < 2) { model.IsDeleteBtn = 1;model.IsCancelBtn = 0; }
+                else if(model.Status>=2 && model.Status < 4) { model.IsDeleteBtn = 0;model.IsCancelBtn = 1; }
+                else { model.IsCancelBtn = 0;model.IsDeleteBtn = 0; }
+            }
             return View(model);
         }
         public ActionResult PrintOrder(string DocumentNumber) 
@@ -89,6 +95,32 @@ namespace AKS.Controllers
                 modelobj.ProfitCentreID = LUser.LogInProfitCentreID;
                 //modelobj.ModeodofPayment = modelobj.ModeodofPayment!=;
                 if (_iInventory.SetOrder(modelobj, ref pMsg))
+                    result.bResponseBool = true;
+                else
+                    result.sResponseString = pMsg;
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult RemoveOrder(string DocumentNumber)
+        {
+            CustomAjaxResponse result = new CustomAjaxResponse();
+            if (DocumentNumber != null)
+            {                
+                if (_iInventory.RemoveOrder(DocumentNumber, ref pMsg))
+                    result.bResponseBool = true;
+                else
+                    result.sResponseString = pMsg;
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult CancelOrder(string DocumentNumber)
+        {
+            CustomAjaxResponse result = new CustomAjaxResponse();
+            if (DocumentNumber != null)
+            {
+                if (_iInventory.CancelOrder(DocumentNumber, ref pMsg))
                     result.bResponseBool = true;
                 else
                     result.sResponseString = pMsg;

@@ -14,6 +14,27 @@ namespace AKS.DAL.ObjectMapper
     public class InventoryObjectMapper
     {
         string objPath = "AKS.DAL.ObjectMapper.InventoryObjectMapper";
+        public OrderPayment Map_OrderPayment(DataRow dr, ref string pMsg) 
+        {
+            OrderPayment result = new OrderPayment();
+            try
+            {
+                if (dr != null)
+                {
+                    if (!DBNull.Value.Equals(dr["ValidationStatus"]))
+                        result.ValidationStatus = bool.Parse(dr["ValidationStatus"].ToString());
+                    if (!DBNull.Value.Equals(dr["Amount"]))
+                        result.Amount = double.Parse(dr["Amount"].ToString());
+                    if (!DBNull.Value.Equals(dr["ModeOfPayment"]))
+                        result.MOP = int.Parse(dr["ModeOfPayment"].ToString());
+                    if (!DBNull.Value.Equals(dr["PaymentRef"]))
+                        result.PaymentRef = dr["PaymentRef"].ToString();
+                    result.ModeOfPayment = MyHelper.GetModeOfPaymentDesc(result.MOP);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".Map_DBGoldRate(DataRow dr,ref string pMsg) " + ex.Message; }
+            return result;
+        }
         public DBGoldRate Map_DBGoldRate(DataRow dr, ref string pMsg)
         {
             DBGoldRate result = new DBGoldRate();
