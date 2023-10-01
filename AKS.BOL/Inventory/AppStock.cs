@@ -32,6 +32,7 @@ namespace AKS.BOL.Inventory
         public double CashDiscount { get; set; }
         public double BalanceAmount { get; set; }
         public int IsIGST { get; set; }
+        public int OrderAmountReceived { get; set; }
     }
     public class AppStockView : AppStockEntry
     {

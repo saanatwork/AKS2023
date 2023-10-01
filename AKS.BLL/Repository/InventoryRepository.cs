@@ -516,8 +516,17 @@ namespace AKS.BLL.Repository
         {
             return _InventoryEntity.CancelOrder(DocumentNumber, ref pMsg);
         }
-
-
-
+        public List<OrderReportDetails> GetOrdersForReport(int ProfitCentreID, DateTime FromDate, DateTime ToDate, int Status, ref string pMsg)
+        {
+            return _InventoryEntity.GetOrdersForReport(ProfitCentreID, FromDate, ToDate, Status, ref pMsg);
+        }
+        public OrderSummary GetOrdersSummaryForReport(int ProfitCentreID, DateTime FromDate, DateTime ToDate, ref string pMsg)
+        {
+            return _InventoryEntity.GetOrdersSummaryForReport(ProfitCentreID, FromDate, ToDate, ref pMsg);
+        }
+    
+    
+    
+    
     }
 }

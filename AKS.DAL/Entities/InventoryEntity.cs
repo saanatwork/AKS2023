@@ -505,6 +505,40 @@ namespace AKS.DAL.Entities
             _DBResponseMapper.Map_DBResponse(_InventoryDataSync.CancelOrder(DocumentNumber, ref pMsg), ref pMsg, ref result);
             return result;
         }
+        public List<OrderReportDetails> GetOrdersForReport(int ProfitCentreID, DateTime FromDate, DateTime ToDate, int Status, ref string pMsg)
+        {
+            List<OrderReportDetails> result = new List<OrderReportDetails>();
+            try
+            {
+                dt = _InventoryDataSync.GetOrdersForReport(ProfitCentreID,FromDate,ToDate,Status, ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        result.Add(_InventoryObjectMapper.Map_OrderReportDetails(dt.Rows[i],ref pMsg));
+                    }
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetOrdersForReport(...) " + ex.Message; }
+            return result;
+        }
+        public OrderSummary GetOrdersSummaryForReport(int ProfitCentreID, DateTime FromDate, DateTime ToDate,ref string pMsg)
+        {
+            OrderSummary result = new OrderSummary();
+            try
+            {
+                dt = _InventoryDataSync.GetOrdersSummaryForReport(ProfitCentreID, FromDate, ToDate, ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    result=_InventoryObjectMapper.Map_OrderSummary(dt.Rows[0], ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetOrdersSummaryForReport(...) " + ex.Message; }
+            return result;
+        }
+
+
+
 
 
 

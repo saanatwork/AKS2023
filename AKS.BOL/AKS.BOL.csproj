@@ -108,6 +108,7 @@
     <Compile Include="MyHelper.cs" />
     <Compile Include="Order\OrderHeader.cs" />
     <Compile Include="Order\OrderList.cs" />
+    <Compile Include="Order\OrderSummary.cs" />
     <Compile Include="POS\Invoice.cs" />
     <Compile Include="POS\OrderPayment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

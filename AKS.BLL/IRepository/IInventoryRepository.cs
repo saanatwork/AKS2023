@@ -47,7 +47,8 @@ namespace AKS.BLL.IRepository
         double OrderItemValidation(string ItemCode, int PartyCode, ref string pMsg);
         bool RemoveOrder(string DocumentNumber, ref string pMsg);
         bool CancelOrder(string DocumentNumber, ref string pMsg);
-
+        List<OrderReportDetails> GetOrdersForReport(int ProfitCentreID, DateTime FromDate, DateTime ToDate, int Status, ref string pMsg);
+        OrderSummary GetOrdersSummaryForReport(int ProfitCentreID, DateTime FromDate, DateTime ToDate, ref string pMsg);
 
 
     }

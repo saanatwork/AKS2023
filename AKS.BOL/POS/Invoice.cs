@@ -44,6 +44,7 @@ namespace AKS.BOL.POS
         public List<InvoiceItem> Items { get; set; }
         public List<InvoiceItemVariants> AllVariants { get; set; }
         public bool IsIGST { get; set; }
+        public double OrderAmountReceived { get; set; }
     }
     public class InvoiceItem 
     {

@@ -333,6 +333,30 @@ namespace AKS.DAL.DataSync
             }
             catch (Exception ex) { pMsg = objPath + ".CancelOrder(...) " + ex.Message; return null; }
         }
+        public DataTable GetOrdersForReport(int ProfitCentreID,DateTime FromDate,DateTime ToDate,int Status, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("select * from [ORD].[GetOrdersForReport](" + ProfitCentreID + ",'"+FromDate+"','"+ToDate+"',"+ Status + ")", CommandType.Text))
+                {
+                    return sql.GetDataTable(ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetOrdersForReport(...) " + ex.Message; return null; }
+        }
+        public DataTable GetOrdersSummaryForReport(int ProfitCentreID, DateTime FromDate, DateTime ToDate, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("select * from [ORD].[GetOrdersSummaryForReport](" + ProfitCentreID + ",'" + FromDate + "','" + ToDate + "')", CommandType.Text))
+                {
+                    return sql.GetDataTable(ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetOrdersSummaryForReport(...) " + ex.Message; return null; }
+        }
+
+
 
     }
 }

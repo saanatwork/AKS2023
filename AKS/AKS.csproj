@@ -163,6 +163,7 @@
     <Compile Include="ViewModel\InventoryVM\PurchaseEntryVM.cs" />
     <Compile Include="ViewModel\InventoryVM\StockVM.cs" />
     <Compile Include="ViewModel\OrderVM\OrderEntryVM.cs" />
+    <Compile Include="ViewModel\OrderVM\OrderReportVM.cs" />
     <Compile Include="ViewModel\POSVM\SalesEntryVM.cs" />
     <Compile Include="ViewModel\UserVM\LogInVM.cs" />
     <Compile Include="ViewModel\UserVM\RegisterUserVM.cs" />
@@ -287,6 +288,7 @@
     <Content Include="UIContent\JS\CustomePage\Inventory\StockDataTableJS.js" />
     <Content Include="UIContent\JS\CustomePage\Order\AddOrderJS.js" />
     <Content Include="UIContent\JS\CustomePage\Order\OrderEntryDataTableJS.js" />
+    <Content Include="UIContent\JS\CustomePage\Order\OrderReportJS.js" />
     <Content Include="UIContent\JS\CustomePage\Order\ViewOrderJS.js" />
     <Content Include="UIContent\JS\CustomePage\POS\AddSaleJS.js" />
     <Content Include="UIContent\JS\CustomePage\POS\SalesDataTableJS.js" />
@@ -404,6 +406,7 @@
     <Content Include="Views\Order\_OrderDocPrint.cshtml" />
     <Content Include="Views\Order\PrintOrder.cshtml" />
     <Content Include="Views\Common\SendEmail.cshtml" />
+    <Content Include="Views\Order\OrderReports.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

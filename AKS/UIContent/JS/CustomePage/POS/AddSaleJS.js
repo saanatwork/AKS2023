@@ -125,6 +125,7 @@ function SubmitBtnClicked() {
     var balanceamt = $('#cAmountBalance').val();
     var cashdis = $('#cCashDiscount').val();
     var isigst = $('#cIsIGST').val();
+    var ordAmount = $('#cAmountReceivedOrder').val();
     //alert(isigst);
     var schrecords = GetAppStockRecords('tblDataList');
     var x = '{"VendorID":"' + vendor
@@ -141,6 +142,7 @@ function SubmitBtnClicked() {
         + '","RefNo":"' + receiptref
         + '","CashDiscount":"' + cashdis
         + '","BalanceAmount":"' + balanceamt
+        + '","OrderAmountReceived":"' + ordAmount
         + '","IsIGST":"' + isigst
         + '","AppStockList":' + schrecords + '}';
     //alert(x);
@@ -386,7 +388,7 @@ function ItemChanged() {
             GetDataFromAjax(validationurl).done(function (data) {
                 if (data != 0) {
                     var orderrecamt = data == 1 ? 0 : data;
-                    $('#cAmountReceived').val(orderrecamt);
+                    $('#cAmountReceivedOrder').val(orderrecamt);
                     $('#' + dBodyM).html('');
                     $('#' + dBodyD).html('');
                     $('#' + dBodyS).html('');
@@ -684,7 +686,8 @@ function CalculateNetPayable() {
     var gstamt = 0;
     if (gst > 0) { gstamt = Math.round(taxableAmt * gst / 100); }
     var netpayable = taxableAmt + gstamt;
-    var amtRec = $('#cAmountReceived').val() * 1;
+    var amtRecOrder = $('#cAmountReceivedOrder').val()*1;
+    var amtRec = amtRecOrder+ $('#cAmountReceived').val() * 1;
     var cashdis = $('#cCashDiscount').val() * 1;
 
     $('#cTaxableAmount').val(taxableAmt);

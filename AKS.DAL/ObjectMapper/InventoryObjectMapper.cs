@@ -540,6 +540,8 @@ namespace AKS.DAL.ObjectMapper
                         result.CRNo = dr["CRNo"].ToString();
                     if (!DBNull.Value.Equals(dr["IsIGST"]))
                         result.IsIGST =bool.Parse(dr["IsIGST"].ToString());
+                    if (!DBNull.Value.Equals(dr["OrderAmountReceived"]))
+                        result.OrderAmountReceived = double.Parse(dr["OrderAmountReceived"].ToString());
 
                     result.ReceiveModeStr = MyHelper.GetModeOfPaymentDesc(result.ModeOfRecieve);
                     result.BillAmountInWords = MyHelper.ConvertToWords(result.NetPayableAmount);
@@ -876,7 +878,53 @@ namespace AKS.DAL.ObjectMapper
             catch (Exception ex) { pMsg = objPath + ".Map_OrderStockVariant(DataRow dr,ref string pMsg) " + ex.Message; }
             return result;
         }
-
+        public OrderSummary Map_OrderSummary(DataRow dr, ref string pMsg)
+        {
+            OrderSummary result = new OrderSummary();
+            try
+            {
+                if (dr != null)
+                {
+                    if (!DBNull.Value.Equals(dr["NoOfOrdersRegister"]))
+                        result.NoOfOrdersRegister = int.Parse(dr["NoOfOrdersRegister"].ToString());
+                    if (!DBNull.Value.Equals(dr["NoOfOrdersCompleted"]))
+                        result.NoOfOrdersCompleted = int.Parse(dr["NoOfOrdersCompleted"].ToString());
+                    if (!DBNull.Value.Equals(dr["NoOfOrdersDelivered"]))
+                        result.NoOfOrdersDelivered = int.Parse(dr["NoOfOrdersDelivered"].ToString());
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".Map_OrderSummary(DataRow dr,ref string pMsg) " + ex.Message; }
+            return result;
+        }
+        public OrderReportDetails Map_OrderReportDetails(DataRow dr, ref string pMsg)
+        {
+            OrderReportDetails result = new OrderReportDetails();
+            try
+            {
+                if (dr != null)
+                {
+                    if (!DBNull.Value.Equals(dr["DocumentNumber"]))
+                        result.DocumentNumber = dr["DocumentNumber"].ToString();
+                    if (!DBNull.Value.Equals(dr["EntryDate"]))
+                        result.EntryDate = DateTime.Parse(dr["EntryDate"].ToString());
+                    if (!DBNull.Value.Equals(dr["StockDocumentnumber"]))
+                        result.StockDocumentnumber = dr["StockDocumentnumber"].ToString();
+                    if (!DBNull.Value.Equals(dr["StockEntryDate"]))
+                        result.StockEntryDate = DateTime.Parse(dr["StockEntryDate"].ToString());
+                    if (!DBNull.Value.Equals(dr["POSDocumentnumber"]))
+                        result.POSDocumentnumber = dr["POSDocumentnumber"].ToString();
+                    if (!DBNull.Value.Equals(dr["DeliverDate"]))
+                        result.DeliverDate =DateTime.Parse(dr["DeliverDate"].ToString());
+                    if (!DBNull.Value.Equals(dr["OrdStatus"]))
+                        result.OrdStatus = int.Parse(dr["OrdStatus"].ToString());
+                    result.EntryDateStr = result.EntryDate.Year == 1 ? "" : result.EntryDate.ToString("dd-MM-yyyy");
+                    result.StockEntryDateStr = result.StockEntryDate.Year == 1 ? "" : result.StockEntryDate.ToString("dd-MM-yyyy");
+                    result.DeliverDateStr = result.DeliverDate.Year == 1 ? "" : result.DeliverDate.ToString("dd-MM-yyyy");
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".Map_OrderReportDetails(DataRow dr,ref string pMsg) " + ex.Message; }
+            return result;
+        }
 
 
 

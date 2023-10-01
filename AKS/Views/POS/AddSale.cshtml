@@ -502,59 +502,70 @@
             <div class="card-body approvalForm">
                 <div class="row d-flex align-items-center mb-4">
                     <label class="col-form-label col-md-2">
-                        Amount Received :
+                        Advance Amount Received :
                     </label>
                     <div class="col-md-2">
-                        <input id="cAmountReceived" type="text"
-                               onkeyup="FooterValueChanged()"
-                               class="form-control"
-                               value="0">
-                    </div>
-                    <label class="col-form-label col-md-2">
-                        Mode Of Receipt :
-                    </label>
-                    <div class="col-md-2">
-                        <select id="cReceiptMode" data-name="ItemCatCode"
-                                class="form-select myctrlw100"
-                                aria-label="Default select example">
-                            <option selected value="">Select Mode</option>
-                            <option value="1">Cash</option>
-                            <option value="2">Cheque</option>
-                            <option value="3">Online Transfer</option>
-                            <option value="9">Other</option>
-                        </select>
-                    </div>
-                    <label class="col-form-label col-md-2">
-                        Reference No :
-                    </label>
-                    <div class="col-md-2">
-                        <input id="cReceiptRef" type="text"
-                               class="form-control"
-                               value="">
-                    </div>
-                </div>
-                <div class="row d-flex align-items-center mb-4">
-                    <label class="col-form-label col-md-2">
-                        Cash Discount :
-                    </label>
-                    <div class="col-md-2">
-                        <input id="cCashDiscount" type="text"                               
+                        <input id="cAmountReceivedOrder" type="text" disabled
                                onkeyup="FooterValueChanged()"
                                class="form-control"
                                value="0">
                     </div>
                 </div>
-                <div class="row d-flex align-items-center mb-4">
-                    <label class="col-form-label col-md-2 btn-light-green">
-                        Balance :
-                    </label>
-                    <div class="col-md-2">
-                        <input id="cAmountBalance" type="text" disabled
-                               class="form-control btn-light-green"
-                               value="0">
+                    <div class="row d-flex align-items-center mb-4">
+                        <label class="col-form-label col-md-2">
+                            Amount Received :
+                        </label>
+                        <div class="col-md-2">
+                            <input id="cAmountReceived" type="text"
+                                   onkeyup="FooterValueChanged()"
+                                   class="form-control"
+                                   value="0">
+                        </div>
+                        <label class="col-form-label col-md-2">
+                            Mode Of Receipt :
+                        </label>
+                        <div class="col-md-2">
+                            <select id="cReceiptMode" data-name="ItemCatCode"
+                                    class="form-select myctrlw100"
+                                    aria-label="Default select example">
+                                <option selected value="">Select Mode</option>
+                                <option value="1">Cash</option>
+                                <option value="2">Cheque</option>
+                                <option value="3">Online Transfer</option>
+                                <option value="9">Other</option>
+                            </select>
+                        </div>
+                        <label class="col-form-label col-md-2">
+                            Reference No :
+                        </label>
+                        <div class="col-md-2">
+                            <input id="cReceiptRef" type="text"
+                                   class="form-control"
+                                   value="">
+                        </div>
+                    </div>
+                    <div class="row d-flex align-items-center mb-4">
+                        <label class="col-form-label col-md-2">
+                            Cash Discount :
+                        </label>
+                        <div class="col-md-2">
+                            <input id="cCashDiscount" type="text"
+                                   onkeyup="FooterValueChanged()"
+                                   class="form-control"
+                                   value="0">
+                        </div>
+                    </div>
+                    <div class="row d-flex align-items-center mb-4">
+                        <label class="col-form-label col-md-2 btn-light-green">
+                            Balance :
+                        </label>
+                        <div class="col-md-2">
+                            <input id="cAmountBalance" type="text" disabled
+                                   class="form-control btn-light-green"
+                                   value="0">
+                        </div>
                     </div>
                 </div>
-            </div>
             </div>
         </div>
 

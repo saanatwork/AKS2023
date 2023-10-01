@@ -182,6 +182,7 @@
                         <table style="width:100%;text-align:center" class="table table-bordered btnalign">
                             <thead>
                                 <tr>
+                                    <th>Advance Amount</th>
                                     <th>Amount Received</th>
                                     <th>Mode/Ref No</th>
                                     <th>Cash Discount</th>
@@ -190,6 +191,7 @@
                             </thead>
                             <tbody>
                                 <tr>
+                                    <td>@Model.OrderAmountReceived.ToString("0.00")</td>
                                     <td>@Model.AmountReceived.ToString("0.00")</td>
                                     <td>@Model.ReceiveModeStr / @Model.RefNo</td>
                                     <td>@Model.CashDiscount.ToString("0.00")</td>

@@ -630,7 +630,7 @@ function FooterValueChanged() {
     var gstrate = $('#cGST').val();    
     var taxableAmt = itemamt - tradeDisAmt;
     var gstAmt = Math.round(taxableAmt * gstrate/100, 0);
-    var netAmt = taxableAmt - gstAmt;
+    var netAmt = taxableAmt + gstAmt;
     $('#cTaxableAmount').val(taxableAmt);
     $('#cGSTAmount').val(gstAmt);
     $('#cNetPayable').val(netAmt);

@@ -1,0 +1,117 @@
+﻿@model AKS.ViewModel.OrderVM.OrderReportVM
+@{
+    ViewBag.Title = "OrderReports";
+}
+
+<div class="row dashboard-box mt-3 pt-1">
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+        <div class="card" style="background-color: #EDF3F6">
+            <p class="square-after f-w-600 header-text-primary">Order Report Summary<i class="fa fa-circle"> </i></p>
+            <table style="width:100%">
+                <tr>
+                    <td> From Date :</td>
+                    <td>
+                        <div class="position-relative pointer">
+                            <input id="cFromDate" type="date" max="@DateTime.Today.ToString("yyyy-MM-dd")"
+                                   value="@Model.FromDateStr"
+                                   onchange="GetReport1()"
+                                   class="form-control is-valid CustomDateFormatCloneRow valid">
+                        </div>
+                    </td>
+                    <td> To Date :</td>
+                    <td>
+                        <div class="position-relative pointer">
+                            <input id="cToDate" type="date" max="@DateTime.Today.ToString("yyyy-MM-dd")"
+                                   value="@DateTime.Today.ToString("yyyy-MM-dd")"
+                                   onchange="GetReport1()"
+                                   class="form-control is-valid CustomDateFormatCloneRow valid">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <table style="width:100%;margin-top:30px">
+                <tr>
+                    <td style="border:1px solid red;padding:10px">
+                        No Of Order(s) Placed :
+                    </td>
+                    <td id="OPtd" style="border:1px solid red;padding:10px">
+                        @Model.DataReport1.NoOfOrdersRegister
+                    </td>
+                    <td style="border:1px solid red;padding:10px">
+                        <button id="btn1" type="button"
+                                class="btn btn-success"
+                                onclick="OrderListViewBtnClicked(0)"
+                                data-bs-dismiss="modal">
+                            <i data-feather="eye"></i>
+                            View List
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="border:1px solid red;padding:10px">
+                        No Of Order(s) Completed :
+                    </td>
+                    <td id="OCtd" style="border:1px solid red;padding:10px">
+                        @Model.DataReport1.NoOfOrdersCompleted
+                    </td>
+                    <td style="border:1px solid red;padding:10px">
+                        <button id="btn2" type="button"
+                                class="btn btn-success"
+                                onclick="OrderListViewBtnClicked(2)"
+                                data-bs-dismiss="modal">
+                            <i data-feather="eye"></i>
+                            View List
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="border:1px solid red;padding:10px">
+                        No Of Order(s) Delivered :
+                    </td>
+                    <td id="ODtd" style="border:1px solid red;padding:10px">
+                        @Model.DataReport1.NoOfOrdersDelivered
+                    </td>
+                    <td style="border:1px solid red;padding:10px">
+                        <button id="btn3" type="button"
+                                class="btn btn-success"
+                                onclick="OrderListViewBtnClicked(4)"
+                                data-bs-dismiss="modal">
+                            <i data-feather="eye"></i>
+                            View List
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+        <div class="card" style="background-color: #EDF3F6">
+            <p class="square-after f-w-600 header-text-primary">Order Details Report<i class="fa fa-circle"> </i></p>
+            <div id="ReportDtlHdr"></div>
+            <table style="width:100%;margin-top:10px">
+                <thead>
+                    <tr>
+                        <td style="border: 1px solid green; text-align: center "></td>
+                        <td style="border: 1px solid green; padding: 10px; text-align: center"><strong>SL</strong></td>
+                        <td style="border: 1px solid green; padding: 10px; text-align: center "><strong>Order Number</strong></td>
+                        <td style="border: 1px solid green;width:100px; text-align: center "><strong>Date </strong></td>
+                        <td style="border: 1px solid green; padding: 10px; text-align: center "><strong>Stock Document</strong></td>
+                        <td style="border: 1px solid green; padding: 10px; text-align: center "><strong>POS Document</strong></td>
+                        <td style="border: 1px solid green; text-align: center "></td>
+                    </tr>
+                </thead>
+                <tbody id="ReportDtlBody">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section headers{
+
+}
+@section scripts{
+    <script src="~/UIContent/JS/CustomePage/CommonReusableJS.js"></script>
+    <script src="~/UIContent/JS/CustomePage/Order/OrderReportJS.js"></script>
+
+}

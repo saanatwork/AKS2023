@@ -63,6 +63,15 @@ namespace AKS.Controllers
         {
             return View();
         }
+        public ActionResult OrderReports() 
+        {
+            OrderReportVM model = new OrderReportVM();
+            DateTime fromdate =new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+            model.FromDateStr = fromdate.ToString("yyyy-MM-dd");
+            model.DataReport1= _iInventory.GetOrdersSummaryForReport(LUser.LogInProfitCentreID,
+                        fromdate, DateTime.Today, ref pMsg);
+            return View(model);
+        }
         #region Ajax Calling
         public JsonResult GetGoldRates(string GoldKarate)
         {
@@ -139,6 +148,40 @@ namespace AKS.Controllers
                 iDisplayStart = iDisplayStart,
                 aaData = userslist
             };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetReport1(string FromDate,string ToDate)
+        {
+            OrderSummary result = new OrderSummary();
+            try
+            {
+                DateTime Fromdate = DateTime.Parse(FromDate);
+                DateTime Todate = DateTime.Parse(ToDate);
+                if (Fromdate<= Todate) 
+                {
+                    int profitcentre = LUser.LogInProfitCentreID;
+                    result = _iInventory.GetOrdersSummaryForReport(LUser.LogInProfitCentreID,
+                        Fromdate, Todate, ref pMsg);
+                }                
+            }
+            catch { }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetReport2(string FromDate, string ToDate,int Status)
+        {
+            List<OrderReportDetails> result = new List<OrderReportDetails>();
+            try
+            {
+                DateTime Fromdate = DateTime.Parse(FromDate);
+                DateTime Todate = DateTime.Parse(ToDate);
+                if (Fromdate <= Todate)
+                {
+                    int profitcentre = LUser.LogInProfitCentreID;
+                    result = _iInventory.GetOrdersForReport(LUser.LogInProfitCentreID,
+                        Fromdate, Todate, Status, ref pMsg);
+                }
+            }
+            catch { }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
         #endregion

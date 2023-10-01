@@ -19,6 +19,16 @@ $.fn.makeDisable = function () {
     var that = this;
     that.attr('disabled', 'disabled');
 };
+function ChangeDateFormat(dt) {
+    //dt must be a string not a date
+    var e = '';
+    if (dt.indexOf('/') != -1) {
+        e = dt.split('/').reverse().join('-');
+    } else {
+        e = dt.split('-').reverse().join('-');
+    }
+    return e;
+};
 function IsValidEmail(valuestring) {
     var result = false;
     if (valuestring != '') {

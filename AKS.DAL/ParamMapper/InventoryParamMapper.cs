@@ -162,7 +162,7 @@ namespace AKS.DAL.ParamMapper
             int paracount = 0;
             CommonTable objItems = new CommonTable(data.AppStockList,1);
             CommonTable objItemVariants = new CommonTable(data.AllItemVariants,true);
-            SqlParameter[] para = new SqlParameter[18];
+            SqlParameter[] para = new SqlParameter[20];
             try
             {
                 para[paracount] = new SqlParameter("@UserID", SqlDbType.Int);
@@ -199,6 +199,8 @@ namespace AKS.DAL.ParamMapper
                 para[paracount++].Value = data.CashDiscount;
                 para[paracount] = new SqlParameter("@IsIGST", SqlDbType.Bit);
                 para[paracount++].Value = data.IsIGST==1?true:false;
+                para[paracount] = new SqlParameter("@OrderAmountReceived", SqlDbType.Decimal);
+                para[paracount++].Value = data.OrderAmountReceived;
                 para[paracount] = new SqlParameter("@InvoiceItems", SqlDbType.Structured);
                 para[paracount++].Value = objItems.UDTable;
                 para[paracount] = new SqlParameter("@InvoiceItemVariants", SqlDbType.Structured);

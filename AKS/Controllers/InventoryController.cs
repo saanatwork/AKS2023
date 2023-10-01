@@ -221,7 +221,7 @@ namespace AKS.Controllers
         }
         public JsonResult GetItemOfCategory(string CategoryCode)
         {
-            var result = _iInventory.GetItemOfCategory(CategoryCode, ref pMsg);
+            var result = _iInventory.GetItemOfCategory(CategoryCode, ref pMsg).OrderBy(o=>o.DisplayText).ToList();
             return Json(result, JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetItemVariantsForSale(string ItemID)
