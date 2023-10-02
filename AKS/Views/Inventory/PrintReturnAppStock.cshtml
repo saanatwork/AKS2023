@@ -1,0 +1,10 @@
+﻿@model AKS.BOL.Inventory.ReturnDocDetails
+@{
+    ViewBag.Title = "PrintReturnAppStock";
+    Layout = "~/Views/Shared/_LayoutForPrint.cshtml";
+}
+<div style="text-align:center;color:white">
+    <h1>Return Of Approval Stock Document</h1>
+</div>
+@{Html.RenderPartial("_ReturnAppStockPrint", Model);}
+

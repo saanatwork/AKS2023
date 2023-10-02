@@ -1,0 +1,34 @@
+﻿@model AKS.BOL.Inventory.ReturnDocDetails
+@{
+    ViewBag.Title = "View Approval Stock Return";
+}
+
+<div class="row newTable">
+    @Html.HiddenFor(m => m.DocumentNumber)
+    <div class="fixedElement">
+        <div class="col-md-12">
+            <div class="heading_text_btn mb-3 mt-4">
+                <div class="leftButton">
+                    <button id="btnBack" type="button"
+                            onclick="window.location.href='/Inventory/ReturnAppIndex';"
+                            class="btn btn-white me-2">
+                        <i data-feather="arrow-left-circle"></i>
+                        Back
+                    </button>                    
+                </div>
+                <h2>Return Stock On Approval - View </h2>
+                <div class="rightButton">                    
+                    <a class="btn btn-secondary" href="@Url.Action("GeneratePdf","Common", new { ViewUrl ="/Inventory/PrintReturnAppStock?DocumentNumber="+Model.DocumentNumber ,PdfFileName=Model.DocumentNumber })">
+                        <i data-feather="printer"></i>
+                        Print
+                    </a>                    
+                </div>
+            </div>
+        </div>
+    </div>
+    @{Html.RenderPartial("_ReturnAppStockPrint", Model);}
+</div>
+@section headers{
+
+}
+

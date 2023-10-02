@@ -278,6 +278,7 @@
     <Content Include="UIContent\JS\CustomePage\Inventory\AppStockDataTableJS.js" />
     <Content Include="UIContent\JS\CustomePage\Inventory\AppStockEditJS.js" />
     <Content Include="UIContent\JS\CustomePage\Inventory\AppStockEntryJS.js" />
+    <Content Include="UIContent\JS\CustomePage\Inventory\AppStockReturnJS.js" />
     <Content Include="UIContent\JS\CustomePage\Inventory\AppStockViewAppJS.js" />
     <Content Include="UIContent\JS\CustomePage\Inventory\AppStockViewJS.js" />
     <Content Include="UIContent\JS\CustomePage\Inventory\PurchaseDataTableJS.js" />
@@ -285,6 +286,7 @@
     <Content Include="UIContent\JS\CustomePage\Inventory\PurchaseEditJS.js" />
     <Content Include="UIContent\JS\CustomePage\Inventory\PurchaseEntryJS.js" />
     <Content Include="UIContent\JS\CustomePage\Inventory\PurchaseViewAppJS.js" />
+    <Content Include="UIContent\JS\CustomePage\Inventory\ReturnAppIndexJS.js" />
     <Content Include="UIContent\JS\CustomePage\Inventory\StockDataTableJS.js" />
     <Content Include="UIContent\JS\CustomePage\Order\AddOrderJS.js" />
     <Content Include="UIContent\JS\CustomePage\Order\OrderEntryDataTableJS.js" />
@@ -407,6 +409,11 @@
     <Content Include="Views\Order\PrintOrder.cshtml" />
     <Content Include="Views\Common\SendEmail.cshtml" />
     <Content Include="Views\Order\OrderReports.cshtml" />
+    <Content Include="Views\Inventory\ReturnAppStock.cshtml" />
+    <Content Include="Views\Inventory\ReturnAppIndex.cshtml" />
+    <Content Include="Views\Inventory\ViewAppStockReturn.cshtml" />
+    <Content Include="Views\Inventory\PrintReturnAppStock.cshtml" />
+    <Content Include="Views\Inventory\_ReturnAppStockPrint.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -86,13 +86,60 @@
     </div>
     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
         <div class="card" style="background-color: #EDF3F6">
+            <p class="square-after f-w-600 header-text-primary">Upcoming Order Deliveries<i class="fa fa-circle"> </i></p>
+            <table style="width:100%;margin-top:30px">
+                <thead>
+                    <tr>
+                        <td style="border: 1px solid red; text-align: center;padding:10px "><strong>Sl</strong></td>
+                        <td style="border: 1px solid red; text-align: center;padding:10px "><strong>Order Number</strong></td>
+                        <td style="border: 1px solid red; text-align: center; padding: 10px "><strong>Expected Delivery Date</strong></td>
+                        <td style="border: 1px solid red; text-align: center; padding: 10px "><strong>Stock Info</strong></td>
+                        <td style="border: 1px solid red; text-align: center;padding:10px "><strong>Status</strong></td>
+                        <td style="border: 1px solid red; text-align: center;padding:10px "></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.DataReport2 != null && Model.DataReport2.Count > 0)
+                    {
+                        int sl = 1;
+                        foreach (var item in Model.DataReport2)
+                        {
+                            <tr>
+                                <td style="border: 1px solid red; text-align: center ">
+                                    @sl
+                                </td>
+                                <td style="border: 1px solid red; text-align: center ">@item.DocumentNumber</td>
+                                <td style="border: 1px solid red; text-align: center ">@item.ExpectedDelDateStr</td>
+                                <td style="border: 1px solid red; text-align: center ">@(item.StockDocumentnumber!=null? item.StockDocumentnumber:"") <br /> @item.StockEntryDateStr</td>
+                                <td style="border: 1px solid red; text-align: center;background-color: @(item.IsOrderDelay==2?"red":item.IsOrderDelay==1?"green":"transparent")"></td>
+                                <td style="border: 1px solid red; text-align: center">
+                                    <button id="btn_@item.DocumentNumber" type="button"
+                                            class="btn btn-success"
+                                            onclick="OrderViewBtnClicked(this)"
+                                            data-bs-dismiss="modal">
+                                        <i data-feather="eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            sl += 1;
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+</div>
+<div class="row dashboard-box mt-3 pt-1">
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+        <div class="card" style="background-color: #EDF3F6">
             <p class="square-after f-w-600 header-text-primary">Order Details Report<i class="fa fa-circle"> </i></p>
             <div id="ReportDtlHdr"></div>
             <table style="width:100%;margin-top:10px">
                 <thead>
                     <tr>
                         <td style="border: 1px solid green; text-align: center "></td>
-                        <td style="border: 1px solid green; padding: 10px; text-align: center"><strong>SL</strong></td>
+                        <td style="border: 1px solid green; padding: 10px; text-align: center"><strong>Sl</strong></td>
                         <td style="border: 1px solid green; padding: 10px; text-align: center "><strong>Order Number</strong></td>
                         <td style="border: 1px solid green;width:100px; text-align: center "><strong>Date </strong></td>
                         <td style="border: 1px solid green; padding: 10px; text-align: center "><strong>Stock Document</strong></td>
@@ -101,17 +148,16 @@
                     </tr>
                 </thead>
                 <tbody id="ReportDtlBody">
-
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-@section headers{
+    @section headers{
 
-}
-@section scripts{
-    <script src="~/UIContent/JS/CustomePage/CommonReusableJS.js"></script>
-    <script src="~/UIContent/JS/CustomePage/Order/OrderReportJS.js"></script>
+    }
+    @section scripts{
+        <script src="~/UIContent/JS/CustomePage/CommonReusableJS.js"></script>
+        <script src="~/UIContent/JS/CustomePage/Order/OrderReportJS.js"></script>
 
-}
+    }

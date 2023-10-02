@@ -18,6 +18,8 @@ namespace AKS.BLL.IRepository
             string SortDirection, string SearchText, int ProfitCentreID,bool IsApproval, ref string pMsg);
         List<AppStock4DT> GetAppStockForUserDocList(int DisplayLength, int DisplayStart, int SortColumn,
             string SortDirection, string SearchText, int ProfitCentreID, bool IsApproval, int UserID, ref string pMsg);
+        List<ReturnDocForDT> GetReturnDocList(int DisplayLength, int DisplayStart, int SortColumn,
+            string SortDirection, string SearchText, int ProfitCentreID, ref string pMsg);
         List<Invoice4DT> GetInvoiceList(int DisplayLength, int DisplayStart, int SortColumn,
             string SortDirection, string SearchText, int ProfitCentreID, int UserID, ref string pMsg);
         List<DBGoldRate> GetGoldRate(string City, string CDate, ref string pMsg);
@@ -49,7 +51,10 @@ namespace AKS.BLL.IRepository
         bool CancelOrder(string DocumentNumber, ref string pMsg);
         List<OrderReportDetails> GetOrdersForReport(int ProfitCentreID, DateTime FromDate, DateTime ToDate, int Status, ref string pMsg);
         OrderSummary GetOrdersSummaryForReport(int ProfitCentreID, DateTime FromDate, DateTime ToDate, ref string pMsg);
-
+        List<OrderReportDetailsWithExpDelDate> GetOrdersExpDel(int ProfitCentreID, ref string pMsg);
+        List<StockItems> GetLiveItemsOfaVendor(int ProfitCentreID, int VendorID, ref string pMsg);
+        bool ReturnAppStock(ReturnItem data, ref string pMsg);
+        ReturnDocDetails GetAppStockReturn(string DocumentNumber, ref string pMsg);
 
     }
 }

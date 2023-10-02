@@ -1,17 +1,16 @@
-﻿@model AKS.BOL.Inventory.AppStockView
+﻿@model AKS.BOL.Inventory.ReturnDocDetails
 <div id="HdrDIV" class="col-md-12 mb-4" style="vertical-align:central">
     <div class="card mb-4 mt-4" style="vertical-align:central">
         <div class="card-body approvalForm">
             <table style="width:100%">
                 <tr>
                     <td style="width:30%">
-                        From :<br />
+                        Returned To :<br />
                         <b>@Model.PartyName</b><br />
                         @Model.PartyAddress<br />
                         @Model.PartyContactNo<br />
                         @Model.PartyEmailID<br />
-                        GSTIN : @(string.IsNullOrEmpty(Model.GSTIN)?"Not Available": Model.GSTIN)<br />
-                        <b>Document : @Model.DocNo/@Model.DocDate.ToString("dd-MM-yyyy")</b>
+                        GSTIN : @(string.IsNullOrEmpty(Model.GSTIN)?"Not Available": Model.GSTIN)
                     </td>
                     <td style="text-align:center">
                         <div style="margin:30px">
@@ -26,24 +25,16 @@
                             </tr>
                             <tr>
                                 <td>Document Date: </td>
-                                <td style="padding-left:10px">@Model.CreateDate.ToString("dd-MM-yyyy")</td>
+                                <td style="padding-left:10px">@Model.EntryDate</td>
                             </tr>
                             <tr>
                                 <td>Profit Centre: </td>
-                                <td style="padding-left:10px">@Model.ProfitCentreDesc</td>
+                                <td style="padding-left:10px">@Model.ProfitCentreDescription</td>
                             </tr>
                             <tr>
-                                <td>MRN Number: </td>
-                                <td style="padding-left:10px"><b>@Model.MRNNumber</b></td>
-                            </tr>
-                            <tr>
-                                <td>MRN Date: </td>
-                                <td style="padding-left:10px">@(Model.ApproveDate.Year==1?"":Model.ApproveDate.ToString("dd-MM-yyyy"))</td>
-                            </tr>
-                            <tr>
-                                <td>Status : </td>
-                                <td style="padding-left:10px"><b>@(Model.IsApproved?"Approved":"Not Yet Approved")</b></td>
-                            </tr>
+                                <td>Items Returned : </td>
+                                <td style="padding-left:10px"><b>@Model.ItemCount</b></td>
+                            </tr>                            
                         </table>
                     </td>
                 </tr>
@@ -61,28 +52,28 @@
                         <th style="width:25%">Category</th>
                         <th>Description</th>
                         <th style="width:10%">Quantity</th>
-                        <th style="width:10%">Order</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @if (Model.AppStockList != null && Model.AppStockList.Count > 0)
+                    @if (Model.Items != null && Model.Items.Count > 0)
                     {
-                        foreach (var item in Model.AppStockList)
+                        int sl = 1;
+                        foreach (var item in Model.Items)
                         {
-                    <tr>
-                        <td>@item.ItemSL</td>
-                        <td>
-                            @item.Remarks<br />
-                            @item.ItemCode
-                        </td>
-                        <td>
-                            @item.CategoryLongText<br />
-                            HSN/SAC : @(string.IsNullOrEmpty(item.HSNCode)?"NA": item.HSNCode)
-                        </td>
-                        <td>@item.ItemDescription</td>
-                        <td>@item.Qty</td>
-                        <td>@(item.IsOrder?item.SelectedOrderID:"-")</td>
-                    </tr>
+                            <tr>
+                                <td>@sl</td>
+                                <td>
+                                    @item.UserRemarks<br />
+                                    @item.ItemCode
+                                </td>
+                                <td>
+                                    @item.ItemCatCode<br />
+                                    @item.ItemCatDesc
+                                </td>
+                                <td>@item.ItemDescription</td>
+                                <td>@item.Qty</td>
+                            </tr>
+                            sl = sl + 1;
                         }
                     }
                 </tbody>
@@ -97,15 +88,16 @@
                 <tr>
                     <td style="width:30%">
                         Created BY :<br />
-                        @Model.CreatorName
+                        @Model.CreatedBy
                     </td>
                     <td></td>
-                    <td style="width:30%">
+                    @*<td style="width:30%">
                         Approved BY :<br />
                         @Model.ApproverName
-                    </td>
+                    </td>*@
                 </tr>
             </table>
         </div>
     </div>
 </div>
+

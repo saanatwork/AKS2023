@@ -44,6 +44,18 @@ namespace AKS.DAL.DataSync
             }
             catch (Exception ex) { pMsg = objPath + ".GetAppStockDocList(...) " + ex.Message; return null; }
         }
+        public DataTable GetReturnDocList(int DisplayLength, int DisplayStart, int SortColumn,
+            string SortDirection, string SearchText, int ProfitCentreID,  ref string pMsg, bool IsApproval=false)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("[INV].[GetReturnDocList]", CommandType.StoredProcedure))
+                {
+                    return sql.GetDataTable(_CommonParamMapper.MapParam_DIsplayListWithPCApprovalStat(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ProfitCentreID, IsApproval, ref pMsg), ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetReturnDocList(...) " + ex.Message; return null; }
+        }
         public DataTable GetAppStockForUserDocList(int DisplayLength, int DisplayStart, int SortColumn,
             string SortDirection, string SearchText, int ProfitCentreID, bool IsApproval,int UserID, ref string pMsg)
         {
@@ -355,8 +367,49 @@ namespace AKS.DAL.DataSync
             }
             catch (Exception ex) { pMsg = objPath + ".GetOrdersSummaryForReport(...) " + ex.Message; return null; }
         }
-
-
-
+        public DataTable GetOrdersExpDel(int ProfitCentreID, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("select * from [ORD].[GetOrdersExpDel](" + ProfitCentreID + ")", CommandType.Text))
+                {
+                    return sql.GetDataTable(ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetOrdersExpDel(...) " + ex.Message; return null; }
+        }
+        public DataTable GetLiveItemsOfaVendor(int ProfitCentreID,int VendorID, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("select * from [INV].[GetLiveItemsOfaVendor](" + ProfitCentreID + ","+ VendorID + ")", CommandType.Text))
+                {
+                    return sql.GetDataTable(ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetLiveItemsOfaVendor(...) " + ex.Message; return null; }
+        }
+        public DataTable ReturnAppStock(ReturnItem data, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("[INV].[ReturnAppStock]", CommandType.StoredProcedure))
+                {
+                    return sql.GetDataTable(_InventoryParamMapper.MapParam_ReturnAppStock(data, ref pMsg), ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".ReturnAppStock(...) " + ex.Message; return null; }
+        }
+        public DataTable GetAppStockReturn(string DocumentNumber, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("select * from [INV].[GetAppStockReturn]('" + DocumentNumber + "')", CommandType.Text))
+                {
+                    return sql.GetDataTable(ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetAppStockReturn(...) " + ex.Message; return null; }
+        }
     }
 }

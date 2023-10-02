@@ -61,3 +61,7 @@ function FnViewOrder(myCtrl) {
     var docnumber = $(myCtrl).attr('id');
     window.location.href = "/Order/ViewOrder?DocumentNumber=" + docnumber;
 };
+function OrderViewBtnClicked(myCtrl) {
+    var docnumber = $(myCtrl).attr('id').split('_')[1];
+    window.location.href = "/Order/ViewOrder?DocumentNumber=" + docnumber;
+};

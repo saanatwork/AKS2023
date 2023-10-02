@@ -62,6 +62,24 @@ namespace AKS.DAL.Entities
             catch (Exception ex) { pMsg = objPath + ".GetAppStockDocList(...) " + ex.Message; }
             return result;
         }
+        public List<ReturnDocForDT> GetReturnDocList(int DisplayLength, int DisplayStart, int SortColumn,
+            string SortDirection, string SearchText, int ProfitCentreID, ref string pMsg)
+        {
+            List<ReturnDocForDT> result = new List<ReturnDocForDT>();
+            try
+            {
+                dt = _InventoryDataSync.GetReturnDocList(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ProfitCentreID, ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        result.Add(_InventoryObjectMapper.Map_ReturnDocForDT(dt.Rows[i], ref pMsg));
+                    }
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetReturnDocList(...) " + ex.Message; }
+            return result;
+        }
         public List<AppStock4DT> GetAppStockForUserDocList(int DisplayLength, int DisplayStart, int SortColumn,
             string SortDirection, string SearchText, int ProfitCentreID, bool IsApproval,int UserID, ref string pMsg)
         {
@@ -536,10 +554,113 @@ namespace AKS.DAL.Entities
             catch (Exception ex) { pMsg = objPath + ".GetOrdersSummaryForReport(...) " + ex.Message; }
             return result;
         }
-
-
-
-
+        public List<OrderReportDetailsWithExpDelDate> GetOrdersExpDel(int ProfitCentreID, ref string pMsg)
+        {
+            List<OrderReportDetailsWithExpDelDate> result = new List<OrderReportDetailsWithExpDelDate>();
+            try
+            {
+                dt = _InventoryDataSync.GetOrdersExpDel(ProfitCentreID, ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        result.Add(_InventoryObjectMapper.Map_OrderReportDetailsWithExpDelDate(dt.Rows[i], ref pMsg));
+                    }
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetOrdersExpDel(...) " + ex.Message; }
+            return result;
+        }
+        public List<StockItems> GetLiveItemsOfaVendor(int ProfitCentreID, int VendorID, ref string pMsg)
+        {
+            List<StockItems> result = new List<StockItems>();
+            try
+            {
+                dt = _InventoryDataSync.GetLiveItemsOfaVendor(ProfitCentreID, VendorID, ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        result.Add(_InventoryObjectMapper.Map_StockItems(dt.Rows[i], ref pMsg));
+                    }
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetLiveItemsOfaVendor(...) " + ex.Message; }
+            return result;
+        }
+        public bool ReturnAppStock(ReturnItem data, ref string pMsg)
+        {
+            bool result = false;
+            _DBResponseMapper.Map_DBResponse(_InventoryDataSync.ReturnAppStock(data, ref pMsg), ref pMsg, ref result);
+            return result;
+        }
+        public ReturnDocDetails GetAppStockReturn(string DocumentNumber, ref string pMsg) 
+        {
+            ReturnDocDetails result = new ReturnDocDetails();
+            List<ReturnDocDetailsRaw> data = new List<ReturnDocDetailsRaw>();
+            try
+            {
+                dt = _InventoryDataSync.GetAppStockReturn(DocumentNumber, ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        data.Add(_InventoryObjectMapper.Map_ReturnDocDetailsRaw(dt.Rows[i], ref pMsg));
+                    }
+                }
+                var singleitem=data.Select(o => new
+                {
+                    o.DocumentNumber,
+                    o.EntryDate,
+                    o.VendorID,
+                    o.PartyName,
+                    o.PartyAddress,
+                    o.GSTIN,
+                    o.PartyContactNo,
+                    o.PartyEmailID,
+                    o.CreateID,
+                    o.CreatedBy,
+                    o.ProfitCentreID,
+                    o.ProfitCentreDescription,
+                    o.ItemCount
+                }).Distinct().ToList().FirstOrDefault();
+                result.DocumentNumber = singleitem.DocumentNumber;
+                result.EntryDate = singleitem.EntryDate;
+                result.VendorID = singleitem.VendorID;
+                result.PartyName = singleitem.PartyName;
+                result.PartyAddress = singleitem.PartyAddress;
+                result.GSTIN = singleitem.GSTIN;
+                result.PartyContactNo = singleitem.PartyContactNo;
+                result.PartyEmailID = singleitem.PartyEmailID;
+                result.CreateID = singleitem.CreateID;
+                result.CreatedBy = singleitem.CreatedBy;
+                result.ProfitCentreID = singleitem.ProfitCentreID;
+                result.ProfitCentreDescription = singleitem.ProfitCentreDescription;
+                result.ItemCount = singleitem.ItemCount;
+                result.Items = new List<ReturnDocItemDetails>();
+                foreach (var item in data.Select(o => new
+                {
+                    o.ItemCatCode,
+                    o.ItemDescription,
+                    o.Qty,
+                    o.UserRemarks,
+                    o.ItemCode,
+                    o.ItemCatDesc
+                }).ToList()) 
+                {
+                    result.Items.Add(new ReturnDocItemDetails() { 
+                        ItemCatCode=item.ItemCatCode,
+                        ItemDescription = item.ItemDescription,
+                        Qty = item.Qty,
+                        UserRemarks = item.UserRemarks,
+                        ItemCode = item.ItemCode,
+                        ItemCatDesc = item.ItemCatDesc
+                    });
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetAppStockReturn(...) " + ex.Message; }
+            return result;
+        }
 
 
     }

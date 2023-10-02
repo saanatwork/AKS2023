@@ -256,7 +256,22 @@ namespace AKS.DAL
                 }
             }
         }
-
+        public CommonTable(List<ReturnItemInput> customoptions)
+        {
+            UDTable = new DataTable();
+            UDTable.Columns.Add("sItemCode", typeof(string));
+            UDTable.Columns.Add("iQty", typeof(int));
+            if (customoptions != null && customoptions.Count > 0)
+            {
+                foreach (var obj in customoptions)
+                {
+                    DataRow dr = UDTable.NewRow();
+                    dr["sItemCode"] = obj.ItemCode;
+                    dr["iQty"] = obj.Qty;                    
+                    UDTable.Rows.Add(dr);
+                }
+            }
+        }
 
 
     }

@@ -10,6 +10,6 @@ namespace AKS.ViewModel.OrderVM
     {
         public string FromDateStr { get; set; }
         public OrderSummary DataReport1 { get; set; }
-
+        public List<OrderReportDetailsWithExpDelDate> DataReport2 { get; set; }
     }
 }

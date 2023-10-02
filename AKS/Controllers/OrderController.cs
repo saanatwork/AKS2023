@@ -48,9 +48,16 @@ namespace AKS.Controllers
             ViewOrder model = _iInventory.GetOrderDetails(DocumentNumber, ref pMsg);
             if (model != null)
             {
-                if (model.Status < 2) { model.IsDeleteBtn = 1;model.IsCancelBtn = 0; }
-                else if(model.Status>=2 && model.Status < 4) { model.IsDeleteBtn = 0;model.IsCancelBtn = 1; }
-                else { model.IsCancelBtn = 0;model.IsDeleteBtn = 0; }
+                if (IsEdit == 1)
+                {
+                    if (model.Status < 2) { model.IsDeleteBtn = 1; model.IsCancelBtn = 0; }
+                    else if (model.Status >= 2 && model.Status < 4) { model.IsDeleteBtn = 0; model.IsCancelBtn = 1; }
+                    else { model.IsCancelBtn = 0; model.IsDeleteBtn = 0; }
+                }
+                else
+                {
+                    model.IsCancelBtn = 0; model.IsDeleteBtn = 0;
+                }
             }
             return View(model);
         }
@@ -70,6 +77,7 @@ namespace AKS.Controllers
             model.FromDateStr = fromdate.ToString("yyyy-MM-dd");
             model.DataReport1= _iInventory.GetOrdersSummaryForReport(LUser.LogInProfitCentreID,
                         fromdate, DateTime.Today, ref pMsg);
+            model.DataReport2 = _iInventory.GetOrdersExpDel(LUser.LogInProfitCentreID, ref pMsg);
             return View(model);
         }
         #region Ajax Calling
@@ -139,6 +147,7 @@ namespace AKS.Controllers
         public JsonResult GetOrderList(int iDisplayLength, int iDisplayStart, int iSortCol_0,
             string sSortDir_0, string sSearch)
         {
+            if (iSortCol_0 == 0) { sSortDir_0 = "desc"; }
             List<OrderList> userslist = _iInventory.GetOrderStockDocList(iDisplayLength, iDisplayStart, iSortCol_0, sSortDir_0, sSearch, LUser.LogInProfitCentreID,LUser.user.UserID, ref pMsg);
             var result = new
             {

@@ -50,6 +50,7 @@ namespace AKS.Controllers
         public JsonResult GetInvoiceList(int iDisplayLength, int iDisplayStart, int iSortCol_0,
             string sSortDir_0, string sSearch)
         {
+            if (iSortCol_0 == 0) { sSortDir_0 = "desc"; }
             List<Invoice4DT> datalist = _iInventory.GetInvoiceList(iDisplayLength, iDisplayStart, iSortCol_0, sSortDir_0, sSearch, LUser.LogInProfitCentreID, LUser.user.UserID, ref pMsg);
             var result = new
             {

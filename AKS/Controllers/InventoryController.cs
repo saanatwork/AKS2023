@@ -21,7 +21,7 @@ namespace AKS.Controllers
         IInventoryRepository _iInventory;
         LogInUserInfo LUser;
         string pMsg = "";
-        public InventoryController(IInventoryRepository iInventory,IMasterRepository iMaster, IUserRepository iuser)
+        public InventoryController(IInventoryRepository iInventory, IMasterRepository iMaster, IUserRepository iuser)
         {
             _iMaster = iMaster;
             _iInventory = iInventory;
@@ -33,17 +33,17 @@ namespace AKS.Controllers
             AppStockView model = _iInventory.GetAppStocks("AS2300005", ref pMsg);
             return View(model);
         }
-        public ActionResult StockOnApproval() 
+        public ActionResult StockOnApproval()
         {
             return View();
         }
-        public ActionResult AddAppStock() 
+        public ActionResult AddAppStock()
         {
             AppStockEntryVM model = new AppStockEntryVM();
-            model.VendorList = _iMaster.GetPartyInfo(0, true, false, ref pMsg).Where(o=>o.IsActive==true).ToList();
+            model.VendorList = _iMaster.GetPartyInfo(0, true, false, ref pMsg).Where(o => o.IsActive == true).ToList();
             model.CategoryList = _iMaster.GetCategories("ALL", ref pMsg);
             List<Variant> variants = _iMaster.GetVariants(0, ref pMsg);
-            if (variants != null && variants.Count > 0) 
+            if (variants != null && variants.Count > 0)
             {
                 model.MetaVariantList = variants.Where(o => o.VariantColumn == "Metal").ToList();
                 model.DiamondVariantList = variants.Where(o => o.VariantColumn == "Diamond").ToList();
@@ -68,10 +68,10 @@ namespace AKS.Controllers
             model.IsDelete = IsDelete == 1 ? true : false;
             return View(model);
         }
-        public ActionResult ViewAppStock(string DocumentNumber="",int IsDelete = 0) 
+        public ActionResult ViewAppStock(string DocumentNumber = "", int IsDelete = 0)
         {
             AppStockView model = _iInventory.GetAppStocks(DocumentNumber, ref pMsg);
-            model.IsDelete= IsDelete==1?true:false;
+            model.IsDelete = IsDelete == 1 ? true : false;
             return View(model);
         }
         public ActionResult ViewAppStockApp(string DocumentNumber = "", int IsDelete = 0)
@@ -96,7 +96,7 @@ namespace AKS.Controllers
             model.OrderList = _iInventory.GetOrderListForPurchase(LUser.LogInProfitCentreID, ref pMsg);
             return View(model);
         }
-        public ActionResult EditPurDocument(string DocumentNumber = "") 
+        public ActionResult EditPurDocument(string DocumentNumber = "")
         {
             PurchaseEntryVM model = new PurchaseEntryVM();
             model.EDocumentNumber = DocumentNumber;
@@ -116,7 +116,7 @@ namespace AKS.Controllers
         {
             return View();
         }
-        public ActionResult Purchase() 
+        public ActionResult Purchase()
         {
             return View();
         }
@@ -135,30 +135,45 @@ namespace AKS.Controllers
             model.OrderList = _iInventory.GetOrderListForPurchase(LUser.LogInProfitCentreID, ref pMsg);
             return View(model);
         }
-        public ActionResult Sales() 
+        public ActionResult Sales()
         {
             return View();
         }
-        public ActionResult Stock() 
+        public ActionResult Stock()
         {
             return View();
         }
-        public ActionResult StockDtls() 
+        public ActionResult StockDtls()
         {
-            Stocks model = _iInventory.GetStockWithItems(LUser.LogInProfitCentreID,ref pMsg);
+            Stocks model = _iInventory.GetStockWithItems(LUser.LogInProfitCentreID, ref pMsg);
             model.ProfitCentreID = LUser.LogInProfitCentreID;
             model.ProfitCentreDesc = LUser.userpcs.Where(o => o.PCID == LUser.LogInProfitCentreID).FirstOrDefault().PCDesc;
             return View(model);
         }
-        public ActionResult StockItemDetails(string ItemCatCode) 
+        public ActionResult StockItemDetails(string ItemCatCode)
         {
             Stocks model = _iInventory.GetItemTranDtls(LUser.LogInProfitCentreID, ItemCatCode, ref pMsg);
             model.ProfitCentreID = LUser.LogInProfitCentreID;
             model.ProfitCentreDesc = LUser.userpcs.Where(o => o.PCID == LUser.LogInProfitCentreID).FirstOrDefault().PCDesc;
-          
+
             return View(model);
         }
+        public ActionResult ReturnAppStock()
+        {
+            AppStockEntryVM model = new AppStockEntryVM();
+            model.VendorList = _iMaster.GetPartyInfo(0, true, false, ref pMsg).Where(o => o.IsActive == true).ToList();
 
+            return View(model);
+        }
+        public ActionResult ReturnAppIndex()
+        {
+            return View();
+        }
+        public ActionResult ViewAppStockReturn(string DocumentNumber = "") 
+        {
+            ReturnDocDetails model = _iInventory.GetAppStockReturn(DocumentNumber, ref pMsg);            
+            return View(model);
+        }        
         #region Ajax Calling
         public JsonResult GetOrderDetails(string DocumentNumber = "")
         {
@@ -224,6 +239,11 @@ namespace AKS.Controllers
             var result = _iInventory.GetItemOfCategory(CategoryCode, ref pMsg).OrderBy(o=>o.DisplayText).ToList();
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult GetLiveItemsOfaVendor(int VendorID)
+        {
+            var result = _iInventory.GetLiveItemsOfaVendor(LUser.LogInProfitCentreID,VendorID, ref pMsg).OrderBy(o => o.ItemCatCode).ThenBy(o=>o.ItemCode).ToList();
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
         public JsonResult GetItemVariantsForSale(string ItemID)
         {            
             ProfitCentre pc=LUser.userpcs.Where(o => o.PCID == LUser.LogInProfitCentreID).FirstOrDefault();
@@ -234,6 +254,7 @@ namespace AKS.Controllers
         public JsonResult GetAppStockDocList(int iDisplayLength, int iDisplayStart, int iSortCol_0,
             string sSortDir_0, string sSearch)
         {
+            if (iSortCol_0 == 0) { sSortDir_0 = "desc"; }
             List<AppStock4DT> userslist = _iInventory.GetAppStockDocList(iDisplayLength, iDisplayStart, iSortCol_0, sSortDir_0, sSearch,LUser.LogInProfitCentreID,true, ref pMsg);
             var result = new
             {
@@ -262,7 +283,23 @@ namespace AKS.Controllers
         public JsonResult GetAppStockDocListForUser(int iDisplayLength, int iDisplayStart, int iSortCol_0,
             string sSortDir_0, string sSearch)
         {
+            if (iSortCol_0 == 0) { sSortDir_0 = "desc"; }
             List<AppStock4DT> userslist = _iInventory.GetAppStockForUserDocList(iDisplayLength, iDisplayStart, iSortCol_0, sSortDir_0, sSearch, LUser.LogInProfitCentreID, true,LUser.user.UserID, ref pMsg);
+            var result = new
+            {
+                iTotalRecords = userslist.Count == 0 ? 0 : userslist.FirstOrDefault().TotalRecords,
+                iTotalDisplayRecords = userslist.Count == 0 ? 0 : userslist.FirstOrDefault().TotalCount,
+                iDisplayLength = iDisplayLength,
+                iDisplayStart = iDisplayStart,
+                aaData = userslist
+            };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetReturnDocList(int iDisplayLength, int iDisplayStart, int iSortCol_0,
+            string sSortDir_0, string sSearch)
+        {
+            if (iSortCol_0 == 0) { sSortDir_0 = "desc"; }
+            List<ReturnDocForDT> userslist = _iInventory.GetReturnDocList(iDisplayLength, iDisplayStart, iSortCol_0, sSortDir_0, sSearch, LUser.LogInProfitCentreID, ref pMsg);
             var result = new
             {
                 iTotalRecords = userslist.Count == 0 ? 0 : userslist.FirstOrDefault().TotalRecords,
@@ -276,6 +313,7 @@ namespace AKS.Controllers
         public JsonResult GetPurchaseDocList(int iDisplayLength, int iDisplayStart, int iSortCol_0,
             string sSortDir_0, string sSearch)
         {
+            if (iSortCol_0 == 0) { sSortDir_0 = "desc"; }
             List<AppStock4DT> userslist = _iInventory.GetAppStockDocList(iDisplayLength, iDisplayStart, iSortCol_0, sSortDir_0, sSearch, LUser.LogInProfitCentreID, false, ref pMsg);
             var result = new
             {
@@ -290,6 +328,7 @@ namespace AKS.Controllers
         public JsonResult GetPurchaseDocListForUser(int iDisplayLength, int iDisplayStart, int iSortCol_0,
             string sSortDir_0, string sSearch)
         {
+            if (iSortCol_0 == 0) { sSortDir_0 = "desc"; }
             List<AppStock4DT> userslist = _iInventory.GetAppStockForUserDocList(iDisplayLength, iDisplayStart, iSortCol_0, sSortDir_0, sSearch, LUser.LogInProfitCentreID, false,LUser.user.UserID, ref pMsg);
             var result = new
             {
@@ -382,9 +421,28 @@ namespace AKS.Controllers
             }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+        [HttpPost]
+        public JsonResult ReturnAppStock(ReturnItem modelobj)
+        {
+            CustomAjaxResponse result = new CustomAjaxResponse();
+            if (modelobj != null)
+            {
+                string myMsg = "";
+                modelobj.UserID = LUser.user.UserID;
+                modelobj.ProfitCentreID = LUser.LogInProfitCentreID;
+                result.bResponseBool = _iInventory.ReturnAppStock(modelobj, ref myMsg);
+                result.sResponseString = myMsg;                
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
         #endregion
 
-        #region - Print documents         
+        #region - Print documents  
+        public ActionResult PrintReturnAppStock(string DocumentNumber = "")
+        {
+            ReturnDocDetails model = _iInventory.GetAppStockReturn(DocumentNumber, ref pMsg);
+            return View(model);
+        }
         public ActionResult PrintAppStock(string DocumentNumber = "")
         {
             AppStockView model = _iInventory.GetAppStocks(DocumentNumber, ref pMsg);

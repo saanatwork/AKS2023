@@ -524,9 +524,26 @@ namespace AKS.BLL.Repository
         {
             return _InventoryEntity.GetOrdersSummaryForReport(ProfitCentreID, FromDate, ToDate, ref pMsg);
         }
-    
-    
-    
-    
+        public List<OrderReportDetailsWithExpDelDate> GetOrdersExpDel(int ProfitCentreID, ref string pMsg)
+        {
+            return _InventoryEntity.GetOrdersExpDel(ProfitCentreID, ref pMsg);
+        }
+        public List<StockItems> GetLiveItemsOfaVendor(int ProfitCentreID, int VendorID, ref string pMsg)
+        {
+            return _InventoryEntity.GetLiveItemsOfaVendor(ProfitCentreID, VendorID, ref pMsg);
+        }
+        public bool ReturnAppStock(ReturnItem data, ref string pMsg)
+        {
+            return _InventoryEntity.ReturnAppStock(data, ref pMsg);
+        }
+        public List<ReturnDocForDT> GetReturnDocList(int DisplayLength, int DisplayStart, int SortColumn, string SortDirection, string SearchText, int ProfitCentreID, ref string pMsg)
+        {
+            return _InventoryEntity.GetReturnDocList(DisplayLength, DisplayStart, 
+                SortColumn, SortDirection, SearchText, ProfitCentreID, ref pMsg);
+        }
+        public ReturnDocDetails GetAppStockReturn(string DocumentNumber, ref string pMsg)
+        {
+            return _InventoryEntity.GetAppStockReturn(DocumentNumber,ref pMsg);
+        }
     }
 }

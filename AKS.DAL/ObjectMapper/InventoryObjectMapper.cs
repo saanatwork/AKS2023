@@ -925,8 +925,118 @@ namespace AKS.DAL.ObjectMapper
             catch (Exception ex) { pMsg = objPath + ".Map_OrderReportDetails(DataRow dr,ref string pMsg) " + ex.Message; }
             return result;
         }
-
-
-
+        public OrderReportDetailsWithExpDelDate Map_OrderReportDetailsWithExpDelDate(DataRow dr, ref string pMsg)
+        {
+            OrderReportDetailsWithExpDelDate result = new OrderReportDetailsWithExpDelDate();
+            try
+            {
+                if (dr != null)
+                {
+                    if (!DBNull.Value.Equals(dr["DocumentNumber"]))
+                        result.DocumentNumber = dr["DocumentNumber"].ToString();
+                    if (!DBNull.Value.Equals(dr["EntryDate"]))
+                        result.EntryDate = DateTime.Parse(dr["EntryDate"].ToString());
+                    if (!DBNull.Value.Equals(dr["StockDocumentnumber"]))
+                        result.StockDocumentnumber = dr["StockDocumentnumber"].ToString();
+                    if (!DBNull.Value.Equals(dr["StockEntryDate"]))
+                        result.StockEntryDate = DateTime.Parse(dr["StockEntryDate"].ToString());
+                    if (!DBNull.Value.Equals(dr["POSDocumentnumber"]))
+                        result.POSDocumentnumber = dr["POSDocumentnumber"].ToString();
+                    if (!DBNull.Value.Equals(dr["DeliverDate"]))
+                        result.DeliverDate = DateTime.Parse(dr["DeliverDate"].ToString());
+                    if (!DBNull.Value.Equals(dr["OrdStatus"]))
+                        result.OrdStatus = int.Parse(dr["OrdStatus"].ToString());
+                    if (!DBNull.Value.Equals(dr["ExpectedDeliveryDate"]))
+                        result.ExpectedDelDate = DateTime.Parse(dr["ExpectedDeliveryDate"].ToString());
+                    if (!DBNull.Value.Equals(dr["IsOrderDelay"]))
+                        result.IsOrderDelay = int.Parse(dr["IsOrderDelay"].ToString());
+                    result.EntryDateStr = result.EntryDate.Year == 1 ? "" : result.EntryDate.ToString("dd-MM-yyyy");
+                    result.StockEntryDateStr = result.StockEntryDate.Year == 1 ? "" : result.StockEntryDate.ToString("dd-MM-yyyy");
+                    result.DeliverDateStr = result.DeliverDate.Year == 1 ? "" : result.DeliverDate.ToString("dd-MM-yyyy");
+                    result.ExpectedDelDateStr = result.ExpectedDelDate.Year == 1 ? "" : result.ExpectedDelDate.ToString("dd-MM-yyyy");
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".Map_OrderReportDetails(DataRow dr,ref string pMsg) " + ex.Message; }
+            return result;
+        }
+        public ReturnDocForDT Map_ReturnDocForDT(DataRow dr, ref string pMsg) 
+        {
+            ReturnDocForDT result = new ReturnDocForDT();
+            try
+            {
+                if (dr != null)
+                {
+                    if (!DBNull.Value.Equals(dr["RowNum"]))
+                        result.RowNum = int.Parse(dr["RowNum"].ToString());
+                    if (!DBNull.Value.Equals(dr["TotalCount"]))
+                        result.TotalCount = int.Parse(dr["TotalCount"].ToString());
+                    if (!DBNull.Value.Equals(dr["TotalRecords"]))
+                        result.TotalRecords = int.Parse(dr["TotalRecords"].ToString());
+                    if (!DBNull.Value.Equals(dr["DocumentNumber"]))
+                        result.DocumentNumber = dr["DocumentNumber"].ToString();
+                    if (!DBNull.Value.Equals(dr["EntryDate"]))
+                        result.EntryDate = DateTime.Parse(dr["EntryDate"].ToString()).ToString("dd-MM-yyyy");
+                    if (!DBNull.Value.Equals(dr["Vendor"]))
+                        result.Vendor = dr["Vendor"].ToString();                    
+                    if (!DBNull.Value.Equals(dr["ItemCount"]))
+                        result.ItemCount = int.Parse(dr["ItemCount"].ToString());                    
+                    if (!DBNull.Value.Equals(dr["VendorID"]))
+                        result.VendorID = int.Parse(dr["VendorID"].ToString());
+                    
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".Map_ReturnDocForDT(DataRow dr,ref string pMsg) " + ex.Message; }
+            return result;
+        }
+        public ReturnDocDetailsRaw Map_ReturnDocDetailsRaw(DataRow dr, ref string pMsg)
+        {
+            ReturnDocDetailsRaw result = new ReturnDocDetailsRaw();
+            try
+            {
+                if (dr != null)
+                {
+                    if (!DBNull.Value.Equals(dr["DocumentNumber"]))
+                        result.DocumentNumber = dr["DocumentNumber"].ToString();
+                    if (!DBNull.Value.Equals(dr["EntryDate"]))
+                        result.EntryDate =DateTime.Parse(dr["EntryDate"].ToString()).ToString("dd-MM-yyyy");
+                    if (!DBNull.Value.Equals(dr["VendorID"]))
+                        result.VendorID =int.Parse( dr["VendorID"].ToString());
+                    if (!DBNull.Value.Equals(dr["CreateID"]))
+                        result.CreateID = int.Parse(dr["CreateID"].ToString());
+                    if (!DBNull.Value.Equals(dr["ProfitCentreID"]))
+                        result.ProfitCentreID = int.Parse(dr["ProfitCentreID"].ToString());
+                    if (!DBNull.Value.Equals(dr["ItemCount"]))
+                        result.ItemCount = int.Parse(dr["ItemCount"].ToString());
+                    if (!DBNull.Value.Equals(dr["ItemCatCode"]))
+                        result.ItemCatCode = dr["ItemCatCode"].ToString();
+                    if (!DBNull.Value.Equals(dr["ItemDescription"]))
+                        result.ItemDescription = dr["ItemDescription"].ToString();
+                    if (!DBNull.Value.Equals(dr["Qty"]))
+                        result.Qty = int.Parse(dr["Qty"].ToString());
+                    if (!DBNull.Value.Equals(dr["UserRemarks"]))
+                        result.UserRemarks = dr["UserRemarks"].ToString();
+                    if (!DBNull.Value.Equals(dr["ItemCode"]))
+                        result.ItemCode = dr["ItemCode"].ToString();
+                    if (!DBNull.Value.Equals(dr["PartyName"]))
+                        result.PartyName = dr["PartyName"].ToString();
+                    if (!DBNull.Value.Equals(dr["PartyAddress"]))
+                        result.PartyAddress = dr["PartyAddress"].ToString();
+                    if (!DBNull.Value.Equals(dr["GSTIN"]))
+                        result.GSTIN = dr["GSTIN"].ToString();
+                    if (!DBNull.Value.Equals(dr["PartyContactNo"]))
+                        result.PartyContactNo = dr["PartyContactNo"].ToString();
+                    if (!DBNull.Value.Equals(dr["PartyEmailID"]))
+                        result.PartyEmailID = dr["PartyEmailID"].ToString();
+                    if (!DBNull.Value.Equals(dr["ProfitCentreDescription"]))
+                        result.ProfitCentreDescription = dr["ProfitCentreDescription"].ToString();
+                    if (!DBNull.Value.Equals(dr["CreatedBy"]))
+                        result.CreatedBy = dr["CreatedBy"].ToString();
+                    if (!DBNull.Value.Equals(dr["ItemCatDesc"]))
+                        result.ItemCatDesc = dr["ItemCatDesc"].ToString();
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".Map_ReturnDocDetailsRaw(DataRow dr,ref string pMsg) " + ex.Message; }
+            return result;
+        }
     }
 }

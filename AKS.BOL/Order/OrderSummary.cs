@@ -31,4 +31,10 @@ namespace AKS.BOL.Order
         public string DeliverDateStr { get; set; }
         public int OrdStatus { get; set; }
     }
+    public class OrderReportDetailsWithExpDelDate : OrderReportDetails
+    {
+        public DateTime ExpectedDelDate { get; set; }
+        public string ExpectedDelDateStr { get; set; }
+        public int IsOrderDelay { get; set; }
+    }
 }

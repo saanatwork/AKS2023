@@ -274,6 +274,27 @@ namespace AKS.DAL.ParamMapper
             }
             return para;
         }
-
+        public SqlParameter[] MapParam_ReturnAppStock(ReturnItem data, ref string pMsg)
+        {
+            int paracount = 0;
+            CommonTable objItems = new CommonTable(data.Items);
+            SqlParameter[] para = new SqlParameter[4];
+            try
+            {
+                para[paracount] = new SqlParameter("@UserID", SqlDbType.Int);
+                para[paracount++].Value = data.UserID;
+                para[paracount] = new SqlParameter("@VendorID", SqlDbType.Int);
+                para[paracount++].Value = data.VendorID;              
+                para[paracount] = new SqlParameter("@ProfitCentreID", SqlDbType.Int);
+                para[paracount++].Value = data.ProfitCentreID;
+                para[paracount] = new SqlParameter("@ReturnItems", SqlDbType.Structured);
+                para[paracount++].Value = objItems.UDTable;
+            }
+            catch (Exception ex)
+            {
+                pMsg = objPath + ".MapParam_ReturnAppStock(...) " + ex.Message;
+            }
+            return para;
+        }
     }
 }

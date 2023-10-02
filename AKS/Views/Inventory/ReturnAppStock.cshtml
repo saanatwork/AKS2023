@@ -1,0 +1,102 @@
+﻿@using AKS.ViewModel.InventoryVM;
+@model AppStockEntryVM
+@{
+    ViewBag.Title = "Return App Stock";
+}
+<div class="row newTable">
+    @*@using (Html.BeginForm())
+        {*@
+    <div class="fixedElement">
+        <div class="col-md-12">
+            <div class="heading_text_btn mb-3 mt-4">
+                <div class="leftButton">
+                    <button id="btnBack" type="button"
+                            onclick="window.location.href='/Inventory/ReturnAppIndex';"
+                            class="btn btn-white me-2">
+                        <i data-feather="arrow-left-circle"></i>
+                        Back
+                    </button>
+                    <button id="btnSubmit" type="button" disabled
+                            onclick="SubmitBtnClicked()"
+                            class="btn btn-secondary me-2">
+                        <i data-feather="check-circle"></i>
+                        Save
+                    </button>
+                </div>
+                <h2>Stock On Approval - Return </h2>
+            </div>
+        </div>
+    </div>
+    <div id="HdrDIV" class="col-md-12 mb-4" style="vertical-align:central">
+        <div class="card mb-4 mt-4" style="vertical-align:central">
+            <div class="card-body approvalForm">
+                <div class="row d-flex align-items-center mb-4">
+                    <label class="col-form-label col-md-1">
+                        Vendor :
+                    </label>
+                    <div class="col-md-3">
+                        <select id="cVendors"
+                                onchange="VendorChanged()"
+                                class="form-select content border-red myctrlw100 is-invalid"
+                                aria-label="Default select example">
+                            <option selected value="">Select Vendor</option>
+                            @if (Model.VendorList != null && Model.VendorList.Count > 0)
+                            {
+                                foreach (var item in Model.VendorList)
+                                {
+                                    <option value="@item.PartyCode">@item.PartyName</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card mb-4 mt-4" style="vertical-align:central">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" style="width:100%" id="tblDataList">
+                        <thead>
+                            <tr>
+                                <th scope="col" rowspan="2" style="text-align: center; vertical-align: middle; width:5%">
+                                    SL
+                                </th>
+                                <th scope="col" rowspan="2" style="text-align: center; vertical-align: middle; width: 10%">
+                                    Item Code
+                                </th>
+                                <th scope="col" rowspan="2" style="text-align: center; vertical-align: middle; width: 15%">
+                                    Category
+                                </th>
+                                <th scope="col" rowspan="2" style="text-align: center; vertical-align: middle;width:50%">
+                                    Item Variants
+                                </th>
+                                <th scope="col" rowspan="2" style="text-align: center; vertical-align: middle; width: 10%">
+                                    Quantity
+                                </th>
+                                <th scope="col" colspan="3" style="text-align: center; vertical-align: middle; width: 10%">
+                                    Select                                    
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody1">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*}*@
+</div>
+@section headers{
+    <style>
+        /* CSS for the highlighted row */
+        .itemselected {
+            background-color: yellow; /* You can set your desired background color here */
+        }
+    </style>
+}
+@section scripts{
+    <script src="~/UIContent/JS/CustomePage/CommonReusableJS.js"></script>
+    <script src="~/UIContent/JS/CustomePage/Inventory/AppStockReturnJS.js"></script>
+
+}
