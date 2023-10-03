@@ -187,7 +187,7 @@ namespace AKS.Controllers
                 {
                     int profitcentre = LUser.LogInProfitCentreID;
                     result = _iInventory.GetOrdersForReport(LUser.LogInProfitCentreID,
-                        Fromdate, Todate, Status, ref pMsg);
+                        Fromdate, Todate, Status, ref pMsg).OrderByDescending(o=>o.EntryDate).ToList();
                 }
             }
             catch { }
