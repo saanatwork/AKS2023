@@ -9,15 +9,16 @@
                             <tr>
                                 <td>
                                     <div>
-                                        <img src="~/img/MainImage100.png" width="200px" alt="Aap Ki Sakhi - logo" class="img-fluid">
+                                        <span style="font-size:large"><b>AAPKISAKHI JEWELLERS PVT.LTD</b></span>
+                                        <p><u>An Unique House of Jewellery</u></p>
                                     </div>
                                 </td>
                             </tr>
-                            <tr><td style="font-size:large"><b>@Model.ProfitCentreName</b></td></tr>
-                            <tr><td>@Model.ProfitCentreAddress</td></tr>
-                            <tr><td>Contact : XXXXXXXXXX</td></tr>
-                            <tr><td>Email : </td></tr>
-                            <tr><td>GSTIN : </td></tr>
+                            @*<tr><td style="font-size:large"><b>@Model.ProfitCentreName</b></td></tr>*@
+                            <tr><td><b>@Model.ProfitCentreAddress</b></td></tr>
+                            <tr><td>Phone : 72057 63551</td></tr>
+                            <tr><td>Email : customercare@aapkisakhi.com </td></tr>
+                            <tr><td>GSTIN : 21AAJCA8862C1ZV</td></tr>
                         </table>                        
                     </td>
                     <td style="width:40%">
@@ -35,7 +36,7 @@
                     <td style="width:30%">
                         <table>
                             <tr >
-                                <td colspan="2" class="text-center"><h1>Tax Invoice</h1></td>
+                                <td colspan="2" class="text-center"><h1>@(Model.InvoiceNumber.Contains("PBILL")?"Provisional Bill":"Tax Invoice")</h1></td>
                             </tr>
                             <tr>
                                 <td>Invoice Number: </td>
@@ -45,8 +46,9 @@
                                 <td>Invoice Date: </td>
                                 <td style="padding-left:10px">@Model.InvoiceDate.ToString("dd-MM-yyyy")</td>
                             </tr>
-                            
-                            
+
+
+
                         </table>
                     </td>
                 </tr>
