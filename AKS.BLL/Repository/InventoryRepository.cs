@@ -545,5 +545,9 @@ namespace AKS.BLL.Repository
         {
             return _InventoryEntity.GetAppStockReturn(DocumentNumber,ref pMsg);
         }
+        public List<StockSummary4DTV2> GetStockSummaryListV2(int DisplayLength, int DisplayStart, int SortColumn, string SortDirection, string SearchText, int ProfitCentreID, ref string pMsg)
+        {
+            return _InventoryEntity.GetStockSummaryListV2(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ProfitCentreID, ref pMsg);
+        }
     }
 }

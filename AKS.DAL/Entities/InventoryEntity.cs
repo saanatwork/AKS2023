@@ -26,6 +26,24 @@ namespace AKS.DAL.Entities
             _InventoryDataSync = new InventoryDataSync();
             _DBResponseMapper = new DBResponseMapper();
         }
+        public List<StockSummary4DTV2> GetStockSummaryListV2(int DisplayLength, int DisplayStart, int SortColumn,
+            string SortDirection, string SearchText, int ProfitCentreID, ref string pMsg)
+        {
+            List<StockSummary4DTV2> result = new List<StockSummary4DTV2>();
+            try
+            {
+                dt = _InventoryDataSync.GetStockSummaryListV2(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ProfitCentreID, ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        result.Add(_InventoryObjectMapper.Map_StockSummary4DTV2(dt.Rows[i], ref pMsg));
+                    }
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetStockSummaryListV2(...) " + ex.Message; }
+            return result;
+        }
         public List<StockSummary4DT> GetStockSummaryList(int DisplayLength, int DisplayStart, int SortColumn,
            string SortDirection, string SearchText, int ProfitCentreID, ref string pMsg)
         {

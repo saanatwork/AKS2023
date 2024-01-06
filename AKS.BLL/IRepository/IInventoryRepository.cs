@@ -12,6 +12,8 @@ namespace AKS.BLL.IRepository
 {
     public interface IInventoryRepository
     {
+        List<StockSummary4DTV2> GetStockSummaryListV2(int DisplayLength, int DisplayStart, int SortColumn,
+            string SortDirection, string SearchText, int ProfitCentreID, ref string pMsg);
         List<StockSummary4DT> GetStockSummaryList(int DisplayLength, int DisplayStart, int SortColumn,
            string SortDirection, string SearchText, int ProfitCentreID, ref string pMsg);
         List<AppStock4DT> GetAppStockDocList(int DisplayLength, int DisplayStart, int SortColumn,

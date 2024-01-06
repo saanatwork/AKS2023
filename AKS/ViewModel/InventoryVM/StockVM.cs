@@ -12,4 +12,10 @@ namespace AKS.ViewModel.InventoryVM
         public string ProfitCentreDesc { get; set; }
         public List<StockSummary> StockSummaryList { get; set; }
     }
+    public class StockVMV2
+    {
+        public int ProfitCentreID { get; set; }
+        public string ProfitCentreDesc { get; set; }
+        public List<StockSummary4DTV2> StockSummaryList { get; set; }
+    }
 }

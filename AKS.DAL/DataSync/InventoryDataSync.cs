@@ -32,6 +32,18 @@ namespace AKS.DAL.DataSync
             }
             catch (Exception ex) { pMsg = objPath + ".GetStockSummaryList(...) " + ex.Message; return null; }
         }
+        public DataTable GetStockSummaryListV2(int DisplayLength, int DisplayStart, int SortColumn,
+            string SortDirection, string SearchText, int ProfitCentreID, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("[INV].[GetStockSummaryListV2]", CommandType.StoredProcedure))
+                {
+                    return sql.GetDataTable(_CommonParamMapper.MapParam_DIsplayListWithPC(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ProfitCentreID, ref pMsg), ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetStockSummaryListV2(...) " + ex.Message; return null; }
+        }
         public DataTable GetAppStockDocList(int DisplayLength, int DisplayStart, int SortColumn,
             string SortDirection, string SearchText,int ProfitCentreID,bool IsApproval, ref string pMsg)
         {

@@ -14,6 +14,34 @@ namespace AKS.DAL.ObjectMapper
     public class InventoryObjectMapper
     {
         string objPath = "AKS.DAL.ObjectMapper.InventoryObjectMapper";
+        public StockSummary4DTV2 Map_StockSummary4DTV2(DataRow dr, ref string pMsg)
+        {
+            StockSummary4DTV2 result = new StockSummary4DTV2();
+            try
+            {
+                if (dr != null)
+                {
+                    if (!DBNull.Value.Equals(dr["RowNum"]))
+                        result.RowNum = int.Parse(dr["RowNum"].ToString());
+                    if (!DBNull.Value.Equals(dr["TotalCount"]))
+                        result.TotalCount = int.Parse(dr["TotalCount"].ToString());
+                    if (!DBNull.Value.Equals(dr["TotalRecords"]))
+                        result.TotalRecords = int.Parse(dr["TotalRecords"].ToString());
+                    if (!DBNull.Value.Equals(dr["ItemCatCode"]))
+                        result.ItemCatCode = dr["ItemCatCode"].ToString();
+                    if (!DBNull.Value.Equals(dr["ItemCatLongText"]))
+                        result.ItemCatLongText = dr["ItemCatLongText"].ToString();
+                    if (!DBNull.Value.Equals(dr["AppQty"]))
+                        result.AppQty = int.Parse(dr["AppQty"].ToString());
+                    if (!DBNull.Value.Equals(dr["PurQty"]))
+                        result.PurQty = int.Parse(dr["PurQty"].ToString());
+                    if (!DBNull.Value.Equals(dr["TotalQty"]))
+                        result.TotalQty = int.Parse(dr["TotalQty"].ToString());
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".Map_StockSummary4DTV2(DataRow dr,ref string pMsg) " + ex.Message; }
+            return result;
+        }
         public OrderPayment Map_OrderPayment(DataRow dr, ref string pMsg) 
         {
             OrderPayment result = new OrderPayment();

@@ -135,6 +135,17 @@ namespace AKS.Controllers
 
             return File(pdfPath, "application/pdf", PdfFileName + ".pdf");
         }
+        public ActionResult GeneratePdfForStockSummaryV2(string PdfFileName)
+        {
+            var pcdesc = LUser.userpcs.Where(o => o.PCID == LUser.LogInProfitCentreID).FirstOrDefault().PCDesc;
+            var converter = new HtmlToPdf();
+            var doc = converter.ConvertUrl(MyHelper.BaseUrl + "/Inventory/PrintStockSummaryV2?PCDesc=" + pcdesc + "&PCID=" + LUser.LogInProfitCentreID);
+
+            var pdfPath = Server.MapPath("~/Upload/PDF/" + PdfFileName + ".pdf");
+            doc.Save(pdfPath);
+
+            return File(pdfPath, "application/pdf", PdfFileName + ".pdf");
+        }
         public ActionResult GeneratePdfForStockItems(string PdfFileName)
         {
             var pcdesc = LUser.userpcs.Where(o => o.PCID == LUser.LogInProfitCentreID).FirstOrDefault().PCDesc;

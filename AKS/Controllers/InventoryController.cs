@@ -143,6 +143,10 @@ namespace AKS.Controllers
         {
             return View();
         }
+        public ActionResult StockV2()
+        {
+            return View();
+        }
         public ActionResult StockDtls()
         {
             Stocks model = _iInventory.GetStockWithItems(LUser.LogInProfitCentreID, ref pMsg);
@@ -270,6 +274,20 @@ namespace AKS.Controllers
             string sSortDir_0, string sSearch)
         {
             List<StockSummary4DT> userslist = _iInventory.GetStockSummaryList(iDisplayLength, iDisplayStart, iSortCol_0, sSortDir_0, sSearch, LUser.LogInProfitCentreID, ref pMsg);
+            var result = new
+            {
+                iTotalRecords = userslist.Count == 0 ? 0 : userslist.FirstOrDefault().TotalRecords,
+                iTotalDisplayRecords = userslist.Count == 0 ? 0 : userslist.FirstOrDefault().TotalCount,
+                iDisplayLength = iDisplayLength,
+                iDisplayStart = iDisplayStart,
+                aaData = userslist
+            };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetStockListV2(int iDisplayLength, int iDisplayStart, int iSortCol_0,
+           string sSortDir_0, string sSearch)
+        {
+            List<StockSummary4DTV2> userslist = _iInventory.GetStockSummaryListV2(iDisplayLength, iDisplayStart, iSortCol_0, sSortDir_0, sSearch, LUser.LogInProfitCentreID, ref pMsg);
             var result = new
             {
                 iTotalRecords = userslist.Count == 0 ? 0 : userslist.FirstOrDefault().TotalRecords,
@@ -459,6 +477,14 @@ namespace AKS.Controllers
             model.ProfitCentreID = PCID;
             model.ProfitCentreDesc = PCDesc;
             model.StockSummaryList = _iInventory.GetStockSummary(PCID, ref pMsg);
+            return View(model);
+        }
+        public ActionResult PrintStockSummaryV2(int PCID, string PCDesc)
+        {
+            StockVMV2 model = new StockVMV2();
+            model.ProfitCentreID = PCID;
+            model.ProfitCentreDesc = PCDesc;
+            model.StockSummaryList = _iInventory.GetStockSummaryListV2(1000,0,0,"A","",PCID, ref pMsg);
             return View(model);
         }
         public ActionResult PrintStockItem(int PCID, string PCDesc)
