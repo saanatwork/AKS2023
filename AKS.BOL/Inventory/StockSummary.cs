@@ -6,6 +6,14 @@ using System.Threading.Tasks;
 
 namespace AKS.BOL.Inventory
 {
+    public class StocksV2
+    {
+        public int ProfitCentreID { get; set; }
+        public string ProfitCentreDesc { get; set; }
+        public string CatCode { get; set; }
+        public string CatDescription { get; set; }
+        public List<CatWiseItemStockDetail> ItemList { get; set; }
+    }
     public class Stocks 
     {
         public int ProfitCentreID { get; set; }
@@ -15,6 +23,7 @@ namespace AKS.BOL.Inventory
         public List<StockSummary> HdrList { get; set; }
         public List<StockItems> DtlList { get; set; }
         public List<StockItemDetails> ItemTranList { get; set; }
+        
     }
     public class StockSummary
     {

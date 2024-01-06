@@ -1,4 +1,4 @@
-﻿@model AKS.BOL.Inventory.Stocks
+﻿@model AKS.BOL.Inventory.StocksV2
 @{
     Layout = null;
 }
@@ -6,7 +6,7 @@
     <div class="mb-1 mt-1" style="vertical-align:central">
         <div class="card-body approvalForm">
             <div class="w-100 text-center" style="font-size:larger"><b>Item Transaction Details As On @DateTime.Today.ToString("dd-MM-yyyy")</b></div>
-            <div class="w-100 text-center">For @Model.HdrForItemTran.ItemCatLongText</div>
+            <div class="w-100 text-center">For @Model.CatDescription</div>
             <div class="w-100 text-center">Profit Centre :  @Model.ProfitCentreDesc</div>
         </div>
     </div>
@@ -16,33 +16,45 @@
             <table style="width:100%" class="table table-bordered btnalign">
                 <thead>
                     <tr style="text-align:center">
-                        <th style="width:15%">Document Number</th>
-                        <th style="width:15%">Date</th>
-                        <th>Party</th>
-                        <th style="width:10%">Type</th>
-                        <th style="width:10%">Available Quantity</th>
+                        <th style="width:5%">Sl</th>
+                        <th style="width:10%">Document</th>
+                        <th style="width:15%">Party</th>
+                        <th style="width:10%">Party Document</th>
+                        <th style="width:10%">Item Code</th>
+                        <th>Item Specification</th>
+                        <th style="width:5%">Type</th>
+                        <th style="width:10%">Order</th>
+                        <th style="width:10%">Quantity</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @if (Model.ItemTranList != null && Model.DtlList != null && Model.DtlList.Count > 0)
+                    @if (Model.ItemList != null && Model.ItemList.Count > 0)
                     {
-                        foreach (var cat in Model.DtlList.OrderBy(o => o.UserRemarks).ToList())
+                        int tqty = 0;int sl = 1;
+                        foreach (var cat in Model.ItemList.OrderBy(o => o.ManualItemCode).ToList())
                         {
-                        <tr style="font-size:smaller">
-                            <td colspan="4" style="background-color: #DEF9E6"><b>@cat.UserRemarks : @cat.ItemCode </b> - @cat.ItemDescription</td>
-                            <td style="background-color: #A5F5BC; text-align: center; text-size-adjust: 150%"><b>@cat.ItemQty</b></td>
-                        </tr>
-                            foreach (var item in Model.ItemTranList.Where(o => o.ItemCode == cat.ItemCode).OrderBy(o=>o.UDocDate).ToList())
-                            {
-                                <tr>
-                                    <td>@item.UDocNumber</td>
-                                    <td>@item.UDocDate.ToString("dd-MM-yyyy")</td>
-                                    <td>@item.Vendorid / @item.VendorName</td>
-                                    <td style="text-align:center">@(item.TranTag=="PUR"?"In":"Out") </td>
-                                    <td style="text-align:center">@item.ItemQty</td>
-                                </tr>
-                            }
+                            @*<tr style="font-size:smaller">
+                    <td colspan="4" style="background-color: #DEF9E6"><b>@cat.ManualItemCode : @cat.ItemCode </b> - @cat.ItemDescription</td>
+                    <td style="background-color: #A5F5BC; text-align: center; text-size-adjust: 150%"><b>@(cat.Qty-cat.SaleQty)</b></td>
+                </tr>*@
+                            <tr>
+                                <td style="font-size:small">@sl</td>
+                                <td style="font-size:small">@cat.DocumentNumber<br />@cat.EntryDate.ToString("dd-MM-yyyy")</td>
+                                <td style="font-size:small">@cat.VendorName </td>
+                                <td style="font-size:small">@cat.VendorDocNumber <br />@cat.VendorDocumentDate.ToString("dd-MM-yyyy")</td>
+                                <td style="font-size:small">@cat.ItemCode<br />@cat.ManualItemCode</td>
+                                <td style="font-size:small">@cat.ItemDescription</td>
+                                <td style="text-align:center;background-color:@(cat.IsApproval?"":"#DEF9E6")">@(cat.IsApproval?"App":"Pur")</td>
+                                <td style="text-align:center">@(cat.IsOrder?cat.OrderNo:"-")</td>
+                                <td style="text-align:center">@(cat.Qty-cat.SaleQty)</td>
+                            </tr>
+                            tqty = tqty + cat.Qty - cat.SaleQty;
+                            sl = sl + 1;
                         }
+                        <tr style="font-size:smaller">
+                            <td colspan="8" style="background-color: #DEF9E6;text-align:right"><b>Total Stock of @Model.CatDescription: </b> </td>
+                            <td style="background-color: #A5F5BC; text-align: center; text-size-adjust: 150%"><b>@tqty</b></td>
+                        </tr>
                     }
                 </tbody>
                 <tfoot>

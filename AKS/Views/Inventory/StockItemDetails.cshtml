@@ -1,4 +1,4 @@
-﻿@model AKS.BOL.Inventory.Stocks
+﻿@model AKS.BOL.Inventory.StocksV2
 @{
     ViewBag.Title = "Inventory - Stock Item Transactions";
 }
@@ -8,7 +8,7 @@
             <div class="heading_text_btn mb-3 mt-4">
                 <div class="leftButton">
                     <button id="btnBack" type="button"
-                            onclick="window.location.href='/Inventory/Stock';"
+                            onclick="window.location.href='/Inventory/StockV2';"
                             class="btn btn-white me-2">
                         <i data-feather="arrow-left-circle"></i>
                         Back
@@ -16,7 +16,7 @@
                 </div>
                 <h2>Stock Item Transactions </h2>
                 <div class="rightButton">
-                    <a class="btn btn-secondary" href="@Url.Action("GeneratePdfForStockItemTrans","Common", new {CatCode=Model.HdrForItemTran.ItemCatCode,PdfFileName="Item Tran "+Model.HdrForItemTran.ItemCatCode })">
+                    <a class="btn btn-secondary" href="@Url.Action("GeneratePdfForStockItemTrans","Common", new {CatCode=Model.CatCode, PdfFileName="Item Tran "+Model.CatCode })">
                         <i data-feather="printer"></i>
                         Print
                     </a>

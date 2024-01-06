@@ -20,6 +20,17 @@ namespace AKS.DAL.DataSync
             _InventoryParamMapper = new InventoryParamMapper();
             _CommonParamMapper = new CommonParamMapper();
         }
+        public DataTable GetItemInStockDetails(int ProfitCentreID,string ItemCatCode, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("select * from [INV].[GetItemInStockDetails](" + ProfitCentreID + ",'" + ItemCatCode + "')", CommandType.Text))
+                {
+                    return sql.GetDataTable(ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetItemInStockDetails(...) " + ex.Message; return null; }
+        }
         public DataTable GetStockSummaryList(int DisplayLength, int DisplayStart, int SortColumn,
             string SortDirection, string SearchText, int ProfitCentreID, ref string pMsg)
         {

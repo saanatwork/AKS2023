@@ -22,6 +22,10 @@ namespace AKS.BLL.Repository
             _InventoryEntity = new InventoryEntity();
             _MasterEntity = new MasterEntity();
         }
+        public List<CatWiseItemStockDetail> GetItemInStockDetails(int ProfitCentreID, string ItemCatCode, ref string pMsg)
+        {
+            return _InventoryEntity.GetItemInStockDetails(ProfitCentreID, ItemCatCode, ref pMsg);
+        }
         public List<StockSummary4DT> GetStockSummaryList(int DisplayLength, int DisplayStart, int SortColumn,
            string SortDirection, string SearchText, int ProfitCentreID, ref string pMsg)
         {

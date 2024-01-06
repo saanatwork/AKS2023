@@ -156,10 +156,16 @@ namespace AKS.Controllers
         }
         public ActionResult StockItemDetails(string ItemCatCode)
         {
-            Stocks model = _iInventory.GetItemTranDtls(LUser.LogInProfitCentreID, ItemCatCode, ref pMsg);
+            StocksV2 model = new StocksV2();
+            model.ItemList = _iInventory.GetItemInStockDetails(LUser.LogInProfitCentreID, ItemCatCode, ref pMsg);
             model.ProfitCentreID = LUser.LogInProfitCentreID;
             model.ProfitCentreDesc = LUser.userpcs.Where(o => o.PCID == LUser.LogInProfitCentreID).FirstOrDefault().PCDesc;
-
+            if (model.ItemList !=null && model.ItemList.Count > 0)
+            {
+                CatWiseItemStockDetail obj = model.ItemList.FirstOrDefault();
+                model.CatCode = obj.ItemCatCode;
+                model.CatDescription = obj.ItemCatLongText;
+            }
             return View(model);
         }
         public ActionResult ReturnAppStock()
@@ -496,9 +502,16 @@ namespace AKS.Controllers
         }
         public ActionResult PrintStockItemTran(string CatCode,int PCID, string PCDesc)
         {
-            Stocks model = _iInventory.GetItemTranDtls(PCID,CatCode, ref pMsg);
+            StocksV2 model = new StocksV2();
+            model.ItemList = _iInventory.GetItemInStockDetails(LUser.LogInProfitCentreID,CatCode, ref pMsg);
             model.ProfitCentreID = PCID;
             model.ProfitCentreDesc = PCDesc;
+            if (model.ItemList != null && model.ItemList.Count > 0)
+            {
+                CatWiseItemStockDetail obj = model.ItemList.FirstOrDefault();
+                model.CatCode = obj.ItemCatCode;
+                model.CatDescription = obj.ItemCatLongText;
+            }
             return View(model);
         }
         #endregion

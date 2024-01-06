@@ -14,6 +14,60 @@ namespace AKS.DAL.ObjectMapper
     public class InventoryObjectMapper
     {
         string objPath = "AKS.DAL.ObjectMapper.InventoryObjectMapper";
+        public CatWiseItemStockDetail Map_CatWiseItemStockDetail(DataRow dr, ref string pMsg) 
+        {
+            CatWiseItemStockDetail result = new CatWiseItemStockDetail();
+            try
+            {
+                if (dr != null)
+                {
+                    if (!DBNull.Value.Equals(dr["DocumentNumber"]))
+                        result.DocumentNumber = dr["DocumentNumber"].ToString();
+                    if (!DBNull.Value.Equals(dr["EntryDate"]))
+                        result.EntryDate = DateTime.Parse(dr["EntryDate"].ToString());
+                    if (!DBNull.Value.Equals(dr["VendorID"]))
+                        result.VendorID = int.Parse(dr["VendorID"].ToString());
+                    if (!DBNull.Value.Equals(dr["VendorName"]))
+                        result.VendorName = dr["VendorName"].ToString();
+                    if (!DBNull.Value.Equals(dr["VendorDocNumber"]))
+                        result.VendorDocNumber = dr["VendorDocNumber"].ToString();
+                    if (!DBNull.Value.Equals(dr["VendorDocumentDate"]))
+                        result.VendorDocumentDate = DateTime.Parse(dr["VendorDocumentDate"].ToString());
+                    if (!DBNull.Value.Equals(dr["PartyGSTIN"]))
+                        result.PartyGSTIN = dr["PartyGSTIN"].ToString();
+                    if (!DBNull.Value.Equals(dr["PartyContactNo"]))
+                        result.PartyContactNo = dr["PartyContactNo"].ToString();
+                    if (!DBNull.Value.Equals(dr["IsVendor"]))
+                        result.IsVendor =bool.Parse(dr["IsVendor"].ToString());
+                    if (!DBNull.Value.Equals(dr["ItemCatCode"]))
+                        result.ItemCatCode = dr["ItemCatCode"].ToString();
+                    if (!DBNull.Value.Equals(dr["ItemCatLongText"]))
+                        result.ItemCatLongText = dr["ItemCatLongText"].ToString();
+                    if (!DBNull.Value.Equals(dr["HSNCode"]))
+                        result.HSNCode = dr["HSNCode"].ToString();
+                    if (!DBNull.Value.Equals(dr["ItemCode"]))
+                        result.ItemCode = dr["ItemCode"].ToString();
+                    if (!DBNull.Value.Equals(dr["ManualItemCode"]))
+                        result.ManualItemCode = dr["ManualItemCode"].ToString();
+                    if (!DBNull.Value.Equals(dr["ItemDescription"]))
+                        result.ItemDescription = dr["ItemDescription"].ToString();
+                    if (!DBNull.Value.Equals(dr["Qty"]))
+                        result.Qty = int.Parse(dr["Qty"].ToString());
+                    if (!DBNull.Value.Equals(dr["SaleQty"]))
+                        result.SaleQty =int.Parse(dr["SaleQty"].ToString());
+                    if (!DBNull.Value.Equals(dr["IsApproval"]))
+                        result.IsApproval =bool.Parse(dr["IsApproval"].ToString());
+                    if (!DBNull.Value.Equals(dr["IsOrder"]))
+                        result.IsOrder = bool.Parse(dr["IsOrder"].ToString());
+                    if (!DBNull.Value.Equals(dr["OrderNo"]))
+                        result.OrderNo = dr["OrderNo"].ToString();
+                    if (!DBNull.Value.Equals(dr["ReturnDocNo"]))
+                        result.ReturnDocNo = dr["ReturnDocNo"].ToString();                    
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".Map_CatWiseItemStockDetail(DataRow dr,ref string pMsg) " + ex.Message; }
+            return result;
+        }
         public StockSummary4DTV2 Map_StockSummary4DTV2(DataRow dr, ref string pMsg)
         {
             StockSummary4DTV2 result = new StockSummary4DTV2();

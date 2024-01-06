@@ -95,6 +95,7 @@
     <Compile Include="Common\DisplayList.cs" />
     <Compile Include="Common\FileUploadResponse.cs" />
     <Compile Include="Inventory\AppStock.cs" />
+    <Compile Include="Inventory\CatWiseItemStockDetail.cs" />
     <Compile Include="Inventory\DBGoldRate.cs" />
     <Compile Include="Inventory\GoldRate.cs" />
     <Compile Include="Inventory\ReturnItem.cs" />
