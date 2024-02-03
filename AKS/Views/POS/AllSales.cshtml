@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "POS - Sales ";
+}
+<div class="row newTable">
+    <div class="fixedElement">
+        <div class="col-md-12" style="position: relative;">
+            <div class="heading_text_btn mb-4 mt-4">
+                <div class="leftButton">
+                    <button type="submit" class="btn btn-primary me-2" onclick="window.location.href='/POS/AddSale';">
+                        <i data-feather="plus-circle"></i>
+                        Add
+                    </button>
+                </div>
+                <h2>History Of Sales</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 mb-4">
+        <div class="table-responsive mb-4 ">
+            <table id="tblDataList" class="table table-bordered btnalign w-100">
+                <thead>
+                    <tr>
+                        <th scope="col" style="width:10%">Invoice Number</th>
+                        <th scope="col" style="width: 10%">Invoice Date</th>
+                        <th scope="col">Entry Date</th>
+                        <th scope="col" style="width: 15%">Customer Name</th>
+                        <th scope="col" style="width: 10%">Customer Contact</th>
+                        <th scope="col" style="width: 5%">Item Count</th>
+                        <th scope="col" style="width: 5%">Qty Count</th>
+                        <th scope="col" style="width: 10%">Bill Amount</th>
+                        <th scope="col" style="width: 10%">Receive Amount</th>
+                        <th scope="col" style="width: 10%; background-color: #ff7500; color: white;text-align: center;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                <tfoot></tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+@section headers{
+
+}
+@section scripts{
+    <script src="~/UIContent/JS/CustomePage/CommonReusableJS.js"></script>
+    <script src="~/UIContent/JS/CustomePage/POS/AllSalesDataTableJS.js"></script>
+
+}
+
+

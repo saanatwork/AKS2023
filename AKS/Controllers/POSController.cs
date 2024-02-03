@@ -31,6 +31,10 @@ namespace AKS.Controllers
         {
             return View();
         }
+        public ActionResult AllSales()
+        {
+            return View();
+        }
         public ActionResult AddSale() 
         {
             SalesEntryVM model = new SalesEntryVM();
@@ -50,8 +54,25 @@ namespace AKS.Controllers
         public JsonResult GetInvoiceList(int iDisplayLength, int iDisplayStart, int iSortCol_0,
             string sSortDir_0, string sSearch)
         {
-            if (iSortCol_0 == 0) { sSortDir_0 = "desc"; }
-            List<Invoice4DT> datalist = _iInventory.GetInvoiceList(iDisplayLength, iDisplayStart, iSortCol_0, sSortDir_0, sSearch, LUser.LogInProfitCentreID, LUser.user.UserID, ref pMsg);
+            if (iSortCol_0 == 0) { iSortCol_0 = 1; sSortDir_0 = "desc"; }
+            List<Invoice4DT> datalist = _iInventory.GetInvoiceList(iDisplayLength, iDisplayStart, iSortCol_0
+                , sSortDir_0, sSearch, LUser.LogInProfitCentreID, LUser.user.UserID, ref pMsg);
+            var result = new
+            {
+                iTotalRecords = datalist.Count == 0 ? 0 : datalist.FirstOrDefault().TotalRecords,
+                iTotalDisplayRecords = datalist.Count == 0 ? 0 : datalist.FirstOrDefault().TotalCount,
+                iDisplayLength = iDisplayLength,
+                iDisplayStart = iDisplayStart,
+                aaData = datalist
+            };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetAllInvoiceList(int iDisplayLength, int iDisplayStart, int iSortCol_0,
+            string sSortDir_0, string sSearch)
+        {
+            if (iSortCol_0 == 0) { iSortCol_0 = 1; sSortDir_0 = "desc"; }
+            List<Invoice4DT> datalist = _iInventory.GetInvoiceList(iDisplayLength, iDisplayStart, iSortCol_0
+                , sSortDir_0, sSearch, LUser.LogInProfitCentreID, 0, ref pMsg);
             var result = new
             {
                 iTotalRecords = datalist.Count == 0 ? 0 : datalist.FirstOrDefault().TotalRecords,

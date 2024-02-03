@@ -294,6 +294,7 @@
     <Content Include="UIContent\JS\CustomePage\Order\OrderReportJS.js" />
     <Content Include="UIContent\JS\CustomePage\Order\ViewOrderJS.js" />
     <Content Include="UIContent\JS\CustomePage\POS\AddSaleJS.js" />
+    <Content Include="UIContent\JS\CustomePage\POS\AllSalesDataTableJS.js" />
     <Content Include="UIContent\JS\CustomePage\POS\SalesDataTableJS.js" />
     <Content Include="UIContent\JS\CustomePage\User\LogInJS.js" />
     <Content Include="UIContent\JS\CustomePage\Admin\ProfitCentreListJS.js" />
@@ -418,6 +419,7 @@
     <Content Include="Views\Inventory\StockV2.cshtml" />
     <Content Include="Views\Inventory\PrintStockSummaryV2.cshtml" />
     <Content Include="Views\Inventory\_PrintStockSummaryV2.cshtml" />
+    <Content Include="Views\POS\AllSales.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
