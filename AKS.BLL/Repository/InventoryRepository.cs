@@ -22,6 +22,10 @@ namespace AKS.BLL.Repository
             _InventoryEntity = new InventoryEntity();
             _MasterEntity = new MasterEntity();
         }
+        public List<VStockSummary> GetLiveItemsOfaVendorV2(int profitCentreID, int vendorCode, ref string pMsg)
+        {
+            return _InventoryEntity.GetLiveItemsOfaVendorV2(profitCentreID, vendorCode, ref pMsg);
+        }
         public List<CatWiseItemStockDetail> GetItemInStockDetails(int ProfitCentreID, string ItemCatCode, ref string pMsg)
         {
             return _InventoryEntity.GetItemInStockDetails(ProfitCentreID, ItemCatCode, ref pMsg);
@@ -552,6 +556,10 @@ namespace AKS.BLL.Repository
         public List<StockSummary4DTV2> GetStockSummaryListV2(int DisplayLength, int DisplayStart, int SortColumn, string SortDirection, string SearchText, int ProfitCentreID, ref string pMsg)
         {
             return _InventoryEntity.GetStockSummaryListV2(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ProfitCentreID, ref pMsg);
+        }
+        public List<StockVWSummary4DTV2> GetVWStockSummaryListV2(int DisplayLength, int DisplayStart, int SortColumn, string SortDirection, string SearchText, int ProfitCentreID, ref string pMsg)
+        {
+            return _InventoryEntity.GetVWStockSummaryListV2(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ProfitCentreID, ref pMsg);
         }
     }
 }

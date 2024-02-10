@@ -1,0 +1,79 @@
+﻿@model AKS.ViewModel.InventoryVM.VendorWiseStockDetailsVM
+@{
+    Layout = null;
+}
+<div id="HdrDIV" class="col-md-12 mb-2" style="vertical-align:central">
+    <div class="mb-1 mt-1" style="vertical-align:central">
+        <div class="card-body approvalForm">
+            <div class="w-100 text-center" style="font-size:larger"><b>Item Stock Details As On @DateTime.Today.ToString("dd-MM-yyyy")</b></div>
+            <div class="w-100 text-center">Vendor : @Model.VendorCode - @Model.VendorName</div>
+            <div class="w-100 text-center">Profit Centre :@Model.ProfitCentreID - @Model.ProfitCentreName</div>
+        </div>
+    </div>
+    <div style="vertical-align:central">
+        <div class="card-body">
+            <div class="table-responsive">
+                @if (Model.ItemList != null)
+                {
+                    foreach (var hdritem in Model.ItemList.Select(o => new { o.ItemCatCode, o.ItemCatLongText }).Distinct().ToList())
+                    {
+                        int sl = 1;
+                        int tqty = 0;
+                        <table style="width:100%" class="table table-bordered btnalign">
+                            <thead>
+                                <tr>
+                                    <th colspan="7" style="text-align:center">@hdritem.ItemCatCode - @hdritem.ItemCatLongText</th>
+                                    <th>
+                                        <a class="btn btn-info" href="@Url.Action("GeneratePdfForStockItemsOfVendor","Common", new {vendorID=Model.VendorCode,vendorName=Model.VendorName, PdfFileName="Stock Details "+DateTime.Today.ToString("ddMMyyyy")+"-"+Model.VendorCode+"-"+hdritem.ItemCatCode,itemCatCode=hdritem.ItemCatCode })">
+                                            <i data-feather="printer"></i>                                            
+                                        </a>
+                                    </th>
+                                </tr>
+                                <tr style="text-align:center">
+                                    <th style="width:5%">Sl</th>
+                                    <th style="width:10%">Document</th>
+                                    <th style="width:10%">VendorDoc</th>
+                                    <th style="width:10%">Item Code</th>
+                                    <th>Item Specification</th>
+                                    <th style="width:5%">Type</th>
+                                    <th style="width:10%">Order</th>
+                                    <th style="width:5%">Qty</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @foreach(var item in Model.ItemList.Where(o=>o.ItemCatCode== hdritem.ItemCatCode))
+                            {
+                            <tr>
+                                <td>@sl</td>
+                                <td style="text-align:center">@item.DocumentNumber<br />@item.DocumentDate.ToString("dd-MM-yyyy")</td>
+                                <td style="text-align:center">@item.VendorDocNumber<br />@item.VendorDocumentDate.ToString("dd-MM-yyyy")</td>
+                                <td style="text-align:center">@item.ItemCode<br />@item.UserRemarks</td>
+                                <td>@item.ItemDescription</td>
+                                <td style="text-align: center; background-color:@(item.IsApproval?"":"#DEF9E6")">@(item.IsApproval?"App":"Pur")</td>
+                                <td style="text-align:center">@(item.OrderDate.Year>1?item.OrderNo:"")<br />@(item.OrderDate.Year>1? item.OrderDate.ToString("dd-MM-yyyy"):"-")</td>
+                                <td style="text-align:center">@item.Qty</td>
+                            </tr>
+                                sl += 1;
+                                tqty = tqty + item.Qty;
+                            } 
+                            <tr style="font-size:smaller">
+                                <td colspan="7" style="background-color: #DEF9E6;text-align:right"><b>Total Stock of @hdritem.ItemCatLongText: </b> </td>
+                                <td style="background-color: #A5F5BC; text-align: center; text-size-adjust: 150%"><b>@tqty</b></td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            </tfoot>
+                        </table>
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+

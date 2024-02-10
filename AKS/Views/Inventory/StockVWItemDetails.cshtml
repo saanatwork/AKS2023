@@ -1,6 +1,6 @@
-﻿@model AKS.BOL.Inventory.StocksV2
+﻿@model AKS.ViewModel.InventoryVM.VendorWiseStockDetailsVM
 @{
-    ViewBag.Title = "Inventory - Stock Item Transactions";
+    ViewBag.Title = "Inventory - Vendorwise Stock Item Transactions";
 }
 <div class="row newTable">
     <div class="fixedElement">
@@ -14,17 +14,17 @@
                         Back
                     </button>
                 </div>
-                <h2>Vendor Stock Item Transactions </h2>
+                <h2>Vendor Stock Items </h2>
                 <div class="rightButton">
-                    <a class="btn btn-secondary" href="@Url.Action("GeneratePdfForStockItemTrans","Common", new {CatCode=Model.CatCode, PdfFileName="Item Tran "+Model.CatCode })">
+                    @*<a class="btn btn-secondary" href="@Url.Action("GeneratePdfForStockItemsOfVendor","Common", new {vendorID=Model.VendorCode,vendorName=Model.VendorName, PdfFileName="Stock Details "+Model.VendorCode })">
                         <i data-feather="printer"></i>
                         Print
-                    </a>
-                </div>                
+                    </a>*@
+                </div>
             </div>
         </div>
     </div>
-    @{Html.RenderPartial("_StockItemDtls", Model);}
+    @{Html.RenderPartial("_StockItemDtlsOfVendor", Model);}
 </div>
 @section headers{
 

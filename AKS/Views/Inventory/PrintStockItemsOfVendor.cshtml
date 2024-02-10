@@ -1,0 +1,17 @@
+﻿@model AKS.ViewModel.InventoryVM.VendorWiseStockDetailsVM
+@{
+    ViewBag.Title = "Print Vendor Stock Items";
+    Layout = "~/Views/Shared/_PrintLayOutNoHeaderImg.cshtml";
+}
+<div class="w-100 text-center mt-4 mb-1" style="font-size:larger">
+    <img src="~/img/Logo50x50.png" alt="Aap Ki Sakhi - logo" class="img-fluid" height="40px">
+</div>
+@{Html.RenderPartial("_StockItemDtlsOfVendor", Model);}
+<div class="mb-1" style="vertical-align:central">
+    <div class="card-body approvalForm">
+        <div style="padding-left:10px">
+            Print Time :
+            @DateTime.Today.ToString("dd-MM-yyyy hh:mm:ss tt")
+        </div>
+    </div>
+</div>

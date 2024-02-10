@@ -20,6 +20,17 @@ namespace AKS.DAL.DataSync
             _InventoryParamMapper = new InventoryParamMapper();
             _CommonParamMapper = new CommonParamMapper();
         }
+        public DataTable GetLiveItemsOfaVendorV2(int profitCentreID, int vendorCode, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("select * from [INV].[GetLiveItemsOfaVendorV2](" + profitCentreID + "," + vendorCode + ")", CommandType.Text))
+                {
+                    return sql.GetDataTable(ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetLiveItemsOfaVendorV2(...) " + ex.Message; return null; }
+        }
         public DataTable GetItemInStockDetails(int ProfitCentreID,string ItemCatCode, ref string pMsg)
         {
             try
@@ -55,6 +66,19 @@ namespace AKS.DAL.DataSync
             }
             catch (Exception ex) { pMsg = objPath + ".GetStockSummaryListV2(...) " + ex.Message; return null; }
         }
+        public DataTable GetVWStockSummaryListV2(int DisplayLength, int DisplayStart, int SortColumn,
+            string SortDirection, string SearchText, int ProfitCentreID, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("[INV].[GetVWStockSummaryListV2]", CommandType.StoredProcedure))
+                {
+                    return sql.GetDataTable(_CommonParamMapper.MapParam_DIsplayListWithPC(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ProfitCentreID, ref pMsg), ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetVWStockSummaryListV2(...) " + ex.Message; return null; }
+        }
+
         public DataTable GetAppStockDocList(int DisplayLength, int DisplayStart, int SortColumn,
             string SortDirection, string SearchText,int ProfitCentreID,bool IsApproval, ref string pMsg)
         {

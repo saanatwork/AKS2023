@@ -168,6 +168,19 @@ namespace AKS.Controllers
             }
             return View(model);
         }
+        public ActionResult StockVWItemDetails(int vendorID,string vendorName)
+        {
+            VendorWiseStockDetailsVM model = new VendorWiseStockDetailsVM();
+            model.VendorCode = vendorID;
+            model.VendorName = vendorName;
+            model.ProfitCentreID = LUser.LogInProfitCentreID;
+            model.ProfitCentreName = LUser.userpcs.Where(o => o.PCID == model.ProfitCentreID).FirstOrDefault().PCDesc;
+            model.ItemList = 
+                _iInventory.GetLiveItemsOfaVendorV2(LUser.LogInProfitCentreID, vendorID,ref pMsg)
+                .OrderBy(o=>o.ItemCatLongText).ThenByDescending(o=>o.DocumentDate).ToList();
+            
+            return View(model);
+        }
         public ActionResult ReturnAppStock()
         {
             AppStockEntryVM model = new AppStockEntryVM();
@@ -294,6 +307,20 @@ namespace AKS.Controllers
            string sSortDir_0, string sSearch)
         {
             List<StockSummary4DTV2> userslist = _iInventory.GetStockSummaryListV2(iDisplayLength, iDisplayStart, iSortCol_0, sSortDir_0, sSearch, LUser.LogInProfitCentreID, ref pMsg);
+            var result = new
+            {
+                iTotalRecords = userslist.Count == 0 ? 0 : userslist.FirstOrDefault().TotalRecords,
+                iTotalDisplayRecords = userslist.Count == 0 ? 0 : userslist.FirstOrDefault().TotalCount,
+                iDisplayLength = iDisplayLength,
+                iDisplayStart = iDisplayStart,
+                aaData = userslist
+            };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetVWStockListV2(int iDisplayLength, int iDisplayStart, int iSortCol_0,
+           string sSortDir_0, string sSearch)
+        {
+            List<StockVWSummary4DTV2> userslist = _iInventory.GetVWStockSummaryListV2(iDisplayLength, iDisplayStart, iSortCol_0, sSortDir_0, sSearch, LUser.LogInProfitCentreID, ref pMsg);
             var result = new
             {
                 iTotalRecords = userslist.Count == 0 ? 0 : userslist.FirstOrDefault().TotalRecords,
@@ -493,6 +520,16 @@ namespace AKS.Controllers
             model.StockSummaryList = _iInventory.GetStockSummaryListV2(1000,0,0,"A","",PCID, ref pMsg);
             return View(model);
         }
+        public ActionResult PrintVWStockSummaryV2(int PCID, string PCDesc)
+        {
+            VWStockVM model = new VWStockVM();
+            model.ProfitCentreID = PCID;
+            model.ProfitCentreDesc = PCDesc;
+            model.StockSummaryList 
+                = _iInventory.GetVWStockSummaryListV2(10000, 0, 0, "A", "", PCID, ref pMsg)
+                .OrderBy(o=>o.PartyName).ThenBy(o=>o.CategoryLongText).ToList();
+            return View(model);
+        }
         public ActionResult PrintStockItem(int PCID, string PCDesc)
         {
             Stocks model = _iInventory.GetStockWithItems(PCID, ref pMsg);
@@ -512,6 +549,19 @@ namespace AKS.Controllers
                 model.CatCode = obj.ItemCatCode;
                 model.CatDescription = obj.ItemCatLongText;
             }
+            return View(model);
+        }
+        public ActionResult PrintStockItemsOfVendor(int vendorID, string vendorName,int profitCentreID, string profitCentreDesc,string itemCatCode)
+        {
+            VendorWiseStockDetailsVM model = new VendorWiseStockDetailsVM();
+            model.VendorCode = vendorID;
+            model.VendorName = vendorName;
+            model.ProfitCentreID = profitCentreID;
+            model.ProfitCentreName = profitCentreDesc;
+            model.ItemList =
+                _iInventory.GetLiveItemsOfaVendorV2(profitCentreID, vendorID, ref pMsg)
+                .Where(o=>o.ItemCatCode== itemCatCode).OrderByDescending(o => o.DocumentDate).ToList();
+
             return View(model);
         }
         #endregion

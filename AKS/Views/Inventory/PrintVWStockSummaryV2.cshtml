@@ -1,0 +1,17 @@
+﻿@model AKS.ViewModel.InventoryVM.VWStockVM
+@{
+    ViewBag.Title = "Print Stock";
+    Layout = "~/Views/Shared/_PrintLayOutNoHeaderImg.cshtml";
+}
+<div style="text-align:center;color:white">
+    <h1></h1>
+</div>
+@{Html.RenderPartial("_PrintVWStockSummaryV2", Model);}
+<div class="mb-1" style="vertical-align:central">
+    <div class="card-body approvalForm">
+        <div style="padding-left:10px">
+            Print Time :
+            @DateTime.Today.ToString("dd-MM-yyyy hh:mm:ss tt")
+        </div>
+    </div>
+</div>

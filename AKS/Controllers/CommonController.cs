@@ -146,6 +146,17 @@ namespace AKS.Controllers
 
             return File(pdfPath, "application/pdf", PdfFileName + ".pdf");
         }
+        public ActionResult GeneratePdfForVWStockSummaryV2(string PdfFileName)
+        {
+            var pcdesc = LUser.userpcs.Where(o => o.PCID == LUser.LogInProfitCentreID).FirstOrDefault().PCDesc;
+            var converter = new HtmlToPdf();
+            var doc = converter.ConvertUrl(MyHelper.BaseUrl + "/Inventory/PrintVWStockSummaryV2?PCDesc=" + pcdesc + "&PCID=" + LUser.LogInProfitCentreID);
+
+            var pdfPath = Server.MapPath("~/Upload/PDF/" + PdfFileName + ".pdf");
+            doc.Save(pdfPath);
+
+            return File(pdfPath, "application/pdf", PdfFileName + ".pdf");
+        }
         public ActionResult GeneratePdfForStockItems(string PdfFileName)
         {
             var pcdesc = LUser.userpcs.Where(o => o.PCID == LUser.LogInProfitCentreID).FirstOrDefault().PCDesc;
@@ -164,6 +175,17 @@ namespace AKS.Controllers
             var doc = converter.ConvertUrl(MyHelper.BaseUrl + "/Inventory/PrintStockItemTran?CatCode="+CatCode+"&PCDesc=" + pcdesc + "&PCID=" + LUser.LogInProfitCentreID);
 
             var pdfPath = Server.MapPath("~/Upload/PDF/" + PdfFileName + ".pdf");
+            doc.Save(pdfPath);
+
+            return File(pdfPath, "application/pdf", PdfFileName + ".pdf");
+        }
+        public ActionResult GeneratePdfForStockItemsOfVendor(int vendorID, string vendorName, string PdfFileName,string itemCatCode)
+        {
+            var pcdesc = LUser.userpcs.Where(o => o.PCID == LUser.LogInProfitCentreID).FirstOrDefault().PCDesc;
+            var converter = new HtmlToPdf();
+            var doc = converter.ConvertUrl(MyHelper.BaseUrl + "/Inventory/PrintStockItemsOfVendor?vendorID=" + vendorID + "&vendorName=" + vendorName + "&profitCentreID=" + LUser.LogInProfitCentreID+ "&profitCentreDesc="+ pcdesc+ "&itemCatCode="+itemCatCode);
+
+            var pdfPath = Server.MapPath("~/Upload/PDF/" + PdfFileName+ ".pdf");
             doc.Save(pdfPath);
 
             return File(pdfPath, "application/pdf", PdfFileName + ".pdf");

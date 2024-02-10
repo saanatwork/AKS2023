@@ -1,0 +1,61 @@
+﻿
+@model AKS.ViewModel.InventoryVM.VWStockVM
+@{
+    Layout = null;
+}
+<style>
+    .page-break {
+        page-break-before: always;
+    }
+</style>
+<div id="HdrDIV" class="col-md-12 mb-2" style="vertical-align:central">
+    <div class="mb-1 mt-1" style="vertical-align:central">
+        <div class="card-body approvalForm">
+            <div class="w-100 text-center mb-1" style="font-size:larger">
+                <img src="~/img/Logo50x50.png" alt="Aap Ki Sakhi - logo" class="img-fluid" height="40px">
+            </div>
+            <div class="w-100 text-center" style="font-size:larger"><b>Vendor Wise Stock As On @DateTime.Today.ToString("dd-MM-yyyy")</b></div>
+            <div class="w-100 text-center">Profit Centre :  @Model.ProfitCentreDesc</div>
+        </div>
+    </div>
+    <div style="vertical-align:central">
+        <div class="table-responsive">
+            @if (Model != null && Model.StockSummaryList != null)
+            {
+                foreach (var item in Model.StockSummaryList.Select(o => new { o.VendorID, o.PartyName }).Distinct())
+                {
+                    int i = 1;
+                    <table style="width:100%" class="table table-bordered btnalign">
+                        <thead>
+                            <tr style="text-align:center;background-color:cadetblue;color:white">
+                                <th colspan="4">
+                                    @item.VendorID - @item.PartyName
+                                </th>
+                            </tr>
+                            <tr style="text-align:center">
+                                <th scope="col" style="width:10%">SL</th>
+                                <th scope="col">Item Category</th>
+                                <th scope="col" style="width: 15%">Available Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var dtl in Model.StockSummaryList.Where(o => o.VendorID == item.VendorID).ToList())
+                            {
+                                <tr>
+                                    <td style="text-align:center">@i</td>
+                                    <td>@dtl.CategoryLongText</td>
+                                    <td style="text-align:center">@dtl.AvailableQty</td>
+                                </tr>
+                                i += 1;
+                            }
+                        </tbody>
+                    </table>
+                }
+            }
+
+        </div>
+    </div>    
+</div>
+
+
+

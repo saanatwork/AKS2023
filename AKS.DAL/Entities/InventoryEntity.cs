@@ -26,6 +26,23 @@ namespace AKS.DAL.Entities
             _InventoryDataSync = new InventoryDataSync();
             _DBResponseMapper = new DBResponseMapper();
         }
+        public List<VStockSummary> GetLiveItemsOfaVendorV2(int profitCentreID, int vendorCode, ref string pMsg)
+        {
+            List<VStockSummary> result = new List<VStockSummary>();
+            try
+            {
+                dt = _InventoryDataSync.GetLiveItemsOfaVendorV2(profitCentreID, vendorCode, ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        result.Add(_InventoryObjectMapper.Map_VStockSummary(dt.Rows[i], ref pMsg));
+                    }
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetLiveItemsOfaVendorV2(...) " + ex.Message; }
+            return result;
+        }
         public List<CatWiseItemStockDetail> GetItemInStockDetails(int ProfitCentreID, string ItemCatCode, ref string pMsg) 
         {
             List<CatWiseItemStockDetail> result = new List<CatWiseItemStockDetail>();
@@ -59,6 +76,24 @@ namespace AKS.DAL.Entities
                 }
             }
             catch (Exception ex) { pMsg = objPath + ".GetStockSummaryListV2(...) " + ex.Message; }
+            return result;
+        }
+        public List<StockVWSummary4DTV2> GetVWStockSummaryListV2(int DisplayLength, int DisplayStart, int SortColumn,
+            string SortDirection, string SearchText, int ProfitCentreID, ref string pMsg)
+        {
+            List<StockVWSummary4DTV2> result = new List<StockVWSummary4DTV2>();
+            try
+            {
+                dt = _InventoryDataSync.GetVWStockSummaryListV2(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ProfitCentreID, ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        result.Add(_InventoryObjectMapper.Map_StockVWSummary4DTV2(dt.Rows[i], ref pMsg));
+                    }
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetVWStockSummaryListV2(...) " + ex.Message; }
             return result;
         }
         public List<StockSummary4DT> GetStockSummaryList(int DisplayLength, int DisplayStart, int SortColumn,

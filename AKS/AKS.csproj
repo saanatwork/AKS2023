@@ -162,6 +162,7 @@
     <Compile Include="ViewModel\InventoryVM\AppStockEntryVM.cs" />
     <Compile Include="ViewModel\InventoryVM\PurchaseEntryVM.cs" />
     <Compile Include="ViewModel\InventoryVM\StockVM.cs" />
+    <Compile Include="ViewModel\InventoryVM\VendorWiseStockDetailsVM.cs" />
     <Compile Include="ViewModel\OrderVM\OrderEntryVM.cs" />
     <Compile Include="ViewModel\OrderVM\OrderReportVM.cs" />
     <Compile Include="ViewModel\POSVM\SalesEntryVM.cs" />
@@ -420,6 +421,11 @@
     <Content Include="Views\Inventory\PrintStockSummaryV2.cshtml" />
     <Content Include="Views\Inventory\_PrintStockSummaryV2.cshtml" />
     <Content Include="Views\POS\AllSales.cshtml" />
+    <Content Include="Views\Inventory\PrintVWStockSummaryV2.cshtml" />
+    <Content Include="Views\Inventory\_PrintVWStockSummaryV2.cshtml" />
+    <Content Include="Views\Inventory\StockVWItemDetails.cshtml" />
+    <Content Include="Views\Inventory\_StockItemDtlsOfVendor.cshtml" />
+    <Content Include="Views\Inventory\PrintStockItemsOfVendor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

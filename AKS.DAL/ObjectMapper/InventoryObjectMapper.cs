@@ -96,6 +96,34 @@ namespace AKS.DAL.ObjectMapper
             catch (Exception ex) { pMsg = objPath + ".Map_StockSummary4DTV2(DataRow dr,ref string pMsg) " + ex.Message; }
             return result;
         }
+        public StockVWSummary4DTV2 Map_StockVWSummary4DTV2(DataRow dr, ref string pMsg)
+        {
+            StockVWSummary4DTV2 result = new StockVWSummary4DTV2();
+            try
+            {
+                if (dr != null)
+                {
+                    if (!DBNull.Value.Equals(dr["RowNum"]))
+                        result.RowNum = int.Parse(dr["RowNum"].ToString());
+                    if (!DBNull.Value.Equals(dr["TotalCount"]))
+                        result.TotalCount = int.Parse(dr["TotalCount"].ToString());
+                    if (!DBNull.Value.Equals(dr["TotalRecords"]))
+                        result.TotalRecords = int.Parse(dr["TotalRecords"].ToString());
+                    if (!DBNull.Value.Equals(dr["ItemCatCode"]))
+                        result.ItemCatCode = dr["ItemCatCode"].ToString();
+                    if (!DBNull.Value.Equals(dr["CategoryLongText"]))
+                        result.CategoryLongText = dr["CategoryLongText"].ToString();
+                    if (!DBNull.Value.Equals(dr["VendorID"]))
+                        result.VendorID = int.Parse(dr["VendorID"].ToString());
+                    if (!DBNull.Value.Equals(dr["PartyName"]))
+                        result.PartyName = dr["PartyName"].ToString();
+                    if (!DBNull.Value.Equals(dr["AvailableQty"]))
+                        result.AvailableQty = int.Parse(dr["AvailableQty"].ToString());
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".Map_StockVWSummary4DTV2(DataRow dr,ref string pMsg) " + ex.Message; }
+            return result;
+        }
         public OrderPayment Map_OrderPayment(DataRow dr, ref string pMsg) 
         {
             OrderPayment result = new OrderPayment();
@@ -1118,6 +1146,48 @@ namespace AKS.DAL.ObjectMapper
                 }
             }
             catch (Exception ex) { pMsg = objPath + ".Map_ReturnDocDetailsRaw(DataRow dr,ref string pMsg) " + ex.Message; }
+            return result;
+        }
+        public VStockSummary Map_VStockSummary(DataRow dr, ref string pMsg)
+        {
+            VStockSummary result = new VStockSummary();
+            try
+            {
+                if (dr != null)
+                {
+                    if (!DBNull.Value.Equals(dr["ItemCatCode"]))
+                        result.ItemCatCode = dr["ItemCatCode"].ToString();
+                    if (!DBNull.Value.Equals(dr["ItemCatLongText"]))
+                        result.ItemCatLongText = dr["ItemCatLongText"].ToString();
+                    if (!DBNull.Value.Equals(dr["ItemCode"]))
+                        result.ItemCode = dr["ItemCode"].ToString();
+                    if (!DBNull.Value.Equals(dr["UserRemarks"]))
+                        result.UserRemarks = dr["UserRemarks"].ToString();
+                    if (!DBNull.Value.Equals(dr["ItemDescription"]))
+                        result.ItemDescription = dr["ItemDescription"].ToString();
+                    if (!DBNull.Value.Equals(dr["Qty"]))
+                        result.Qty = int.Parse(dr["Qty"].ToString());
+                    if (!DBNull.Value.Equals(dr["VendorDocNumber"]))
+                        result.VendorDocNumber = dr["VendorDocNumber"].ToString();
+                    if (!DBNull.Value.Equals(dr["VendorDocumentDate"]))
+                        result.VendorDocumentDate =DateTime.Parse(dr["VendorDocumentDate"].ToString());
+                    if (!DBNull.Value.Equals(dr["DocumentNumber"]))
+                        result.DocumentNumber = dr["DocumentNumber"].ToString();
+                    if (!DBNull.Value.Equals(dr["DocumentDate"]))
+                        result.DocumentDate = DateTime.Parse(dr["DocumentDate"].ToString());
+                    if (!DBNull.Value.Equals(dr["HSNCode"]))
+                        result.HSNCode = dr["HSNCode"].ToString();
+                    if (!DBNull.Value.Equals(dr["IsApproval"]))
+                        result.IsApproval =bool.Parse(dr["IsApproval"].ToString());
+                    if (!DBNull.Value.Equals(dr["IsOrder"]))
+                        result.IsOrder =bool.Parse(dr["IsOrder"].ToString());
+                    if (!DBNull.Value.Equals(dr["OrderNo"]))
+                        result.OrderNo = dr["OrderNo"].ToString();
+                    if (!DBNull.Value.Equals(dr["OrderDate"]))
+                        result.OrderDate =DateTime.Parse(dr["OrderDate"].ToString());                    
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".Map_VStockSummary(DataRow dr,ref string pMsg) " + ex.Message; }
             return result;
         }
     }

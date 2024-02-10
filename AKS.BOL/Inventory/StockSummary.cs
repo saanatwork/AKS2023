@@ -66,4 +66,15 @@ namespace AKS.BOL.Inventory
         public int PurQty { get; set; }
         public int TotalQty { get; set; }
     }
+    public class StockVWSummary4DTV2
+    {
+        public int RowNum { get; set; }
+        public int TotalCount { get; set; }
+        public int TotalRecords { get; set; }
+        public int VendorID { get; set; }
+        public string ItemCatCode { get; set; }
+        public string CategoryLongText { get; set; }
+        public string PartyName { get; set; }
+        public int AvailableQty { get; set; }
+    }
 }

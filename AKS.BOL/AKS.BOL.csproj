@@ -101,6 +101,7 @@
     <Compile Include="Inventory\ReturnItem.cs" />
     <Compile Include="Inventory\SalesItemVriant.cs" />
     <Compile Include="Inventory\StockSummary.cs" />
+    <Compile Include="Inventory\VendorStockDetails.cs" />
     <Compile Include="Master\Category.cs" />
     <Compile Include="Master\Party.cs" />
     <Compile Include="Master\ProfitCentresForList.cs" />

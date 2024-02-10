@@ -45,7 +45,7 @@
                                 <td style="font-size:small">@cat.ItemCode<br />@cat.ManualItemCode</td>
                                 <td style="font-size:small">@cat.ItemDescription</td>
                                 <td style="text-align:center;background-color:@(cat.IsApproval?"":"#DEF9E6")">@(cat.IsApproval?"App":"Pur")</td>
-                                <td style="text-align:center">@(cat.IsOrder?cat.OrderNo:"-")</td>
+                                <td style="text-align:center">@(cat.IsOrder?cat.OrderNo=="null"?"-": cat.OrderNo : "-")</td>
                                 <td style="text-align:center">@(cat.Qty-cat.SaleQty)</td>
                             </tr>
                             tqty = tqty + cat.Qty - cat.SaleQty;
