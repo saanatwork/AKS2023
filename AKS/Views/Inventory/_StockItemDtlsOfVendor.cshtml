@@ -19,7 +19,7 @@
                     {
                         int sl = 1;
                         int tqty = 0;
-                        <table style="width:100%" class="table table-bordered btnalign">
+                        <table style="width:100%;font-size:smaller" class="table table-bordered btnalign">
                             <thead>
                                 <tr>
                                     <th colspan="7" style="text-align:center">@hdritem.ItemCatCode - @hdritem.ItemCatLongText</th>
@@ -31,12 +31,12 @@
                                 </tr>
                                 <tr style="text-align:center">
                                     <th style="width:5%">Sl</th>
-                                    <th style="width:10%">Document</th>
-                                    <th style="width:10%">VendorDoc</th>
+                                    <th style="width:13%">Document</th>
+                                    <th style="width:13%">VendorDoc</th>
                                     <th style="width:10%">Item Code</th>
                                     <th>Item Specification</th>
                                     <th style="width:5%">Type</th>
-                                    <th style="width:10%">Order</th>
+                                    <th style="width:13%">Order</th>
                                     <th style="width:5%">Qty</th>
                                 </tr>
                             </thead>
@@ -44,7 +44,7 @@
                             @foreach(var item in Model.ItemList.Where(o=>o.ItemCatCode== hdritem.ItemCatCode))
                             {
                             <tr>
-                                <td>@sl</td>
+                                <td style="text-align:center">@sl</td>
                                 <td style="text-align:center">@item.DocumentNumber<br />@item.DocumentDate.ToString("dd-MM-yyyy")</td>
                                 <td style="text-align:center">@item.VendorDocNumber<br />@item.VendorDocumentDate.ToString("dd-MM-yyyy")</td>
                                 <td style="text-align:center">@item.ItemCode<br />@item.UserRemarks</td>
