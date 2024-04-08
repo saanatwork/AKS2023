@@ -1,4 +1,5 @@
 ﻿using AKS.BOL;
+using AKS.BOL.Common;
 using AKS.BOL.Inventory;
 using AKS.BOL.Order;
 using AKS.BOL.POS;
@@ -656,6 +657,7 @@ namespace AKS.DAL.ObjectMapper
                     result.ReceiveModeStr = MyHelper.GetModeOfPaymentDesc(result.ModeOfRecieve);
                     result.BillAmountInWords = MyHelper.ConvertToWords(result.NetPayableAmount);
                     //result.ReceivedAmountInWords = MyHelper.ConvertToWords(result.AmountReceived);
+                    result.InvoiceDateStr = result.InvoiceDate.ToString("dd-MM-yyyy");
                 }
             }
             catch (Exception ex) { pMsg = objPath + ".Map_Invoice(DataRow dr,ref string pMsg) " + ex.Message; }
@@ -1188,6 +1190,23 @@ namespace AKS.DAL.ObjectMapper
                 }
             }
             catch (Exception ex) { pMsg = objPath + ".Map_VStockSummary(DataRow dr,ref string pMsg) " + ex.Message; }
+            return result;
+        }
+        public CustomComboOptionsWithString Map_CustomComboOptionsWithString_PBill(DataRow dr, ref string pMsg)
+        {
+            CustomComboOptionsWithString result = new CustomComboOptionsWithString();
+            try
+            {
+                if (dr != null)
+                {
+                    if (!DBNull.Value.Equals(dr["InvoiceNumber"]))
+                        result.ID = dr["InvoiceNumber"].ToString();
+                    if (!DBNull.Value.Equals(dr["InvoiceDesc"]))
+                        result.DisplayText = dr["InvoiceDesc"].ToString();
+                    
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".Map_CustomComboOptionsWithString_PBill(DataRow dr,ref string pMsg) " + ex.Message; }
             return result;
         }
     }

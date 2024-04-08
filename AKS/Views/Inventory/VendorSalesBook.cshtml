@@ -1,0 +1,94 @@
+﻿@model AKS.ViewModel.InventoryVM.VendorSalesBookVM
+@{
+    ViewBag.Title = "VendorSalesBook";
+}
+<div class="fixedElement">
+    <div class="col-md-12">
+        <div class="heading_text_btn mb-3 mt-4">
+            <div class="leftButton">
+                @*<button id="btnBack" type="button"
+                            onclick="window.location.href='/Inventory/StockOnApproval';"
+                            class="btn btn-white me-2">
+                        <i data-feather="arrow-left-circle"></i>
+                        Back
+                    </button>
+                    <button id="btnSubmit" type="button" disabled
+                            onclick="SubmitBtnClicked()"
+                            class="btn btn-secondary me-2">
+                        <i data-feather="check-circle"></i>
+                        Save
+                    </button>
+                    <button id="btnScan" type="button"
+                            onclick="UploadFile()"
+                            class="btn btn-white">
+                        <i data-feather="upload"></i>
+                        Upload Document
+                    </button>
+                    <button id="btnScanView" type="button"
+                            onclick="ViewUploadedFile()"
+                            class="btn btn-light-green inVisible">
+                        <i data-feather="eye"></i>
+                        View Document
+                    </button>*@
+            </div>
+            <h2>Vendor Sales Book </h2>
+        </div>
+    </div>
+</div>
+<div id="HdrDIV" class="col-md-12 mb-4" style="vertical-align:central">
+    <div class="card mb-4 mt-4" style="vertical-align:central">
+        <div class="card-body approvalForm">
+            <div class="row d-flex align-items-center mb-4">
+                <label class="col-form-label col-md-1">
+                    Vendor :
+                </label>
+                <div class="col-md-3">
+                    <select id="ctrlVendor"
+                            onchange="ValidateControl()"
+                            class="form-select content border-red myctrlw100 is-invalid"
+                            aria-label="Default select example">
+                        <option selected value="">Select Vendor</option>
+                        @if (Model.VendorList != null && Model.VendorList.Count > 0)
+                        {
+                            foreach (var item in Model.VendorList)
+                            {
+                                <option value="@item.PartyCode">@item.PartyName</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <label class="col-form-label col-md-1" style="text-align:right">
+                    From Date:
+                </label>
+                <div class="col-md-2">
+                    <div class="position-relative pointer">
+
+                    </div>
+                </div>
+                <label class="col-form-label col-md-1" style="text-align:right">
+                    To Date:
+                </label>
+                <div class="col-md-2">
+                    <div class="position-relative pointer">
+                        <input id="ctrlToDate" type="date" value="@Model.ToDate"
+                               data-name="FromDate" max="@(DateTime.Today.ToString("yyyy-MM-dd"))"
+                               onchange="ValidateControl()"
+                               class="form-control is-invalid valid">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm("VendorSalesBook", "Inventory", FormMethod.Post))
+{
+    @Html.DropDownListFor(model => model.VendorCode, Model.VendorList, "PartyCode", "PartyName")
+<div class="position-relative pointer">@Html.CalendarFor(model => model.FromDate)</div>
+<div class="position-relative pointer">@Html.CalendarFor(model => model.ToDate)</div>
+    
+    
+
+    <input type="submit" value="Submit" />
+}

@@ -561,5 +561,9 @@ namespace AKS.BLL.Repository
         {
             return _InventoryEntity.GetVWStockSummaryListV2(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ProfitCentreID, ref pMsg);
         }
+        public List<CustomComboOptionsWithString> GetProvisionalBillList(int profitCentreID, ref string pMsg)
+        {
+            return _InventoryEntity.GetProvisionalBillList(profitCentreID,ref pMsg);
+        }
     }
 }

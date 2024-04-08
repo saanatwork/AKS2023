@@ -28,6 +28,20 @@ namespace AKS.Controllers
             LUser = iuser.getLoggedInUser();
         }
         // GET: Inventory
+        public ActionResult VendorSalesBook()
+        {
+            DateTime curDate = DateTime.Today;
+            VendorSalesBookVM model = new VendorSalesBookVM();
+            model.VendorList = _iMaster.GetPartyInfo(0, true, false, ref pMsg).Where(o => o.IsActive == true).ToList();
+            model.FromDate = new DateTime(curDate.Year, curDate.Month, 1);
+            model.ToDate = curDate;
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult VendorSalesBook(VendorSalesBookVM model)
+        {
+            return View(model);
+        }
         public ActionResult Index()
         {
             AppStockView model = _iInventory.GetAppStocks("AS2300005", ref pMsg);

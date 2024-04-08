@@ -2,6 +2,7 @@
 using AKS.BOL.Inventory;
 using AKS.BOL.Order;
 using AKS.BOL.POS;
+using AKS.BOL.User;
 using AKS.DAL.DataSync;
 using AKS.DAL.ObjectMapper;
 using System;
@@ -732,6 +733,23 @@ namespace AKS.DAL.Entities
             return result;
         }
 
+        public List<CustomComboOptionsWithString> GetProvisionalBillList(int profitCentreID, ref string pMsg) 
+        {
+            List<CustomComboOptionsWithString> result = new List<CustomComboOptionsWithString>();
+            try
+            {
+                dt = _InventoryDataSync.GetProvisionalBillList(profitCentreID, ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        result.Add(_InventoryObjectMapper.Map_CustomComboOptionsWithString_PBill(dt.Rows[i], ref pMsg));
+                    }
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetProvisionalBillList(...) " + ex.Message; }
+            return result;
+        }
 
     }
 }

@@ -2,11 +2,22 @@
 using AKS.BOL.Master;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Principal;
 using System.Web;
 
 namespace AKS.ViewModel.InventoryVM
-{    
+{ 
+    public class VendorSalesBookVM
+    {
+        public int VendorCode { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime FromDate { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime ToDate { get; set; }
+        public List<Party> VendorList { get; set; }
+    }
     public class AppStockEntryVM
     {
         public List<Party> VendorList { get; set; }

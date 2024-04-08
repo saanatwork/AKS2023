@@ -671,3 +671,422 @@ function GetDataFromAjax(url) {
         dataType: "json"
     });
 };
+
+/**
+* Sweet Alerts
+*
+*/
+function MyAlert(MessageType, MessageText, AllowOutsideClick) {
+    //MessageType 0-Information Alert, 1-Success Alert,2-Confirmation Alert,
+    //MessageType  3- Eror Alert. 4- Validation Failed Alert,5-Warning Alert,
+    debugger;
+    switch (MessageType) {
+        case 1:
+            MySuccessAlert(MessageText, '', AllowOutsideClick);
+            break;
+        case 3:
+            MyErrorAlert(MessageText, '', AllowOutsideClick);
+            break;
+        case 4:
+            MyValidationFailedAlert(MessageText, '', AllowOutsideClick);
+            break;
+        case 5:
+            MyWarningAlert(MessageText, '', AllowOutsideClick);
+            break;
+        default:
+            MyInformationAlert(MessageText, '', AllowOutsideClick);
+            break;
+    }
+};
+function MyAlertWithCallBack(MessageType, MessageText, callBackFunction, AllowOutsideClick) {
+    //MessageType 0-Information Alert, 1-Success Alert,2-Confirmation Alert,
+    //MessageType  3- Eror Alert. 4- Validation Failed Alert,5-Warning Alert,
+    //debugger;
+    switch (MessageType) {
+        case 1:
+            MySuccessAlert(MessageText, callBackFunction, AllowOutsideClick);
+            break;
+        case 2:
+            MyConfirmationAlert(MessageText, callBackFunction, AllowOutsideClick);
+            break;
+        case 3:
+            MyErrorAlert(MessageText, callBackFunction, AllowOutsideClick);
+            break;
+        case 4:
+            MyValidationFailedAlert(MessageText, callBackFunction, AllowOutsideClick);
+            break;
+        case 5:
+            MyWarningAlert(MessageText, callBackFunction, AllowOutsideClick);
+            break;
+        case 6:
+            MyConfirmationAlertV2(MessageText, callBackFunction, AllowOutsideClick);
+            break;
+        case 7:
+            MyConfirmationCancelAlert(MessageText, callBackFunction, AllowOutsideClick);
+            break;
+        default:
+            MyInformationAlert(MessageText, callBackFunction, AllowOutsideClick);
+            break;
+    }
+};
+function MyAlertWithRedirection(MessageType, MessageText, RedirectUrl, AllowOutsideClick) {
+    //MessageType 0-Information Alert, 1-Success Alert,2-Confirmation Alert,
+    //MessageType  3- Eror Alert. 4- Validation Failed Alert,5-Warning Alert,
+    switch (MessageType) {
+        case 1:
+            MySuccessAlertWithRedirection(MessageText, RedirectUrl, AllowOutsideClick);
+            break;
+        case 2:
+            MyConfirmationAlertWithRedirection(MessageText, RedirectUrl, AllowOutsideClick);
+            break;
+        case 3:
+            MyErrorAlertWithRedirection(MessageText, RedirectUrl, AllowOutsideClick);
+            break;
+        case 4:
+            MyValidationFailedAlertWithRedirection(MessageText, RedirectUrl, AllowOutsideClick);
+            break;
+        case 5:
+            MyWarningAlertWithRedirection(MessageText, RedirectUrl, AllowOutsideClick);
+            break;
+        case 7:
+            MyConfirmationAlertWithRedirectionOnCancel(MessageText, RedirectUrl, AllowOutsideClick);
+            break;
+        default:
+            MyInformationAlertWithRedirection(MessageText, RedirectUrl, AllowOutsideClick);
+            break;
+    }
+};
+function MyConfirmationAlertWithCallBacks(MessageText, OkCallback, CancelCallback, AllowOutsideClick) {
+    Swal.fire({
+        title: 'Confirmation',
+        text: MessageText,
+        icon: 'question',
+        customClass: 'swal-wide',
+        confirmButtonText: "Yes",
+        cancelButtonText: "No",
+        cancelButtonClass: 'btn-cancel',
+        confirmButtonColor: '#2527a2',
+        showCancelButton: true,
+        allowOutsideClick: AllowOutsideClick,
+    }).then(function (result) {
+        if (result.isConfirmed) {
+            if (OkCallback != '' && OkCallback != 'NA' && typeof OkCallback === 'function') {
+                OkCallback();
+            }
+        } else {
+            if (CancelCallback != '' && CancelCallback != 'NA' && typeof CancelCallback === 'function') {
+                CancelCallback();
+            }
+        }
+    });
+};
+function MyConfirmationAlertWithRedirections(MessageText, OkRedirectUrl, CancelRedirectUrl, AllowOutsideClick) {
+    Swal.fire({
+        title: 'Confirmation',
+        text: MessageText,
+        icon: 'question',
+        customClass: 'swal-wide',
+        confirmButtonText: "Yes",
+        cancelButtonText: "No",
+        cancelButtonClass: 'btn-cancel',
+        confirmButtonColor: '#2527a2',
+        showCancelButton: true,
+        allowOutsideClick: AllowOutsideClick,
+    }).then(function (result) {
+        if (result.isConfirmed) {
+            window.location.href = OkRedirectUrl;
+        }
+        else {
+            window.location.href = CancelRedirectUrl;
+        }
+    });
+};
+//Helping functions recomended not call directly from outside.
+function MySuccessAlert(MessageText, callback, AllowOutsideClick) {
+    Swal.fire({
+        title: 'Success',
+        text: MessageText,
+        icon: 'success',
+        customClass: 'swal-wide my-success',
+        buttons: {
+            confirm: 'Ok'
+        },
+        confirmButtonColor: '#2527a2',
+        allowOutsideClick: AllowOutsideClick,
+    }).then(function (result) {
+        if (result.isConfirmed) {
+            if (callback != '' && typeof callback === 'function') {
+                callback();
+            }
+        }
+    });
+};
+function MyInformationAlert(MessageText, callback, AllowOutsideClick) {
+    Swal.fire({
+        title: 'Information',
+        text: MessageText,
+        icon: 'info',
+        customClass: 'swal-wide my-info',
+        buttons: {
+            confirm: 'Ok'
+        },
+        confirmButtonColor: '#2527a2',
+        allowOutsideClick: AllowOutsideClick,
+    }).then(function (result) {
+        if (result.isConfirmed) {
+            if (callback != '' && typeof callback === 'function') {
+                callback();
+            }
+        }
+    });
+};
+function MyValidationFailedAlert(MessageText, callback, AllowOutsideClick) {
+    Swal.fire({
+        title: 'Validation Failed',
+        text: MessageText,
+        icon: 'error',
+        customClass: 'swal-wide my-error',
+        buttons: {
+            confirm: 'Ok'
+        },
+        confirmButtonColor: '#2527a2',
+        allowOutsideClick: AllowOutsideClick,
+    }).then(function (result) {
+        if (result.isConfirmed) {
+            if (callback != '' && typeof callback === 'function') {
+                callback();
+            }
+        }
+    });
+};
+function MyErrorAlert(MessageText, callback, AllowOutsideClick) {
+    Swal.fire({
+        title: 'Error Occurred',
+        text: MessageText,
+        icon: 'error',
+        customClass: 'swal-wide my-error',
+        buttons: {
+            confirm: 'Ok'
+        },
+        confirmButtonColor: '#2527a2',
+        allowOutsideClick: AllowOutsideClick,
+    }).then(function (result) {
+        if (result.isConfirmed) {
+            if (callback != '' && typeof callback === 'function') {
+                callback();
+            }
+        }
+    });
+};
+function MyConfirmationAlert(MessageText, callback, AllowOutsideClick) {
+    Swal.fire({
+        title: 'Confirmation',
+        text: MessageText,
+        icon: 'question',
+        customClass: 'swal-wide',
+        confirmButtonText: "Yes",
+        cancelButtonText: "No",
+        cancelButtonClass: 'btn-cancel',
+        confirmButtonColor: '#2527a2',
+        showCancelButton: true,
+        allowOutsideClick: AllowOutsideClick,
+    }).then(function (result) {
+        if (result.isConfirmed) {
+            if (callback != '' && callback != 'NA' && typeof callback === 'function') {
+                callback();
+            }
+        }
+    });
+};
+function MyConfirmationAlertV2(MessageText, callback, AllowOutsideClick) {
+    Swal.fire({
+        title: 'Confirmation',
+        text: MessageText,
+        icon: 'question',
+        customClass: 'swal-wide',
+        confirmButtonText: "Yes",
+        cancelButtonText: "No",
+        cancelButtonClass: 'btn-cancel',
+        confirmButtonColor: '#2527a2',
+        showCancelButton: false,
+        allowOutsideClick: AllowOutsideClick,
+    }).then(function (result) {
+        if (result.isConfirmed) {
+            if (callback != '' && typeof callback === 'function') {
+                callback();
+            }
+        }
+    });
+};
+function MyConfirmationCancelAlert(MessageText, callback, AllowOutsideClick) {
+    Swal.fire({
+        title: 'Confirmation',
+        text: MessageText,
+        icon: 'question',
+        customClass: 'swal-wide',
+        confirmButtonText: "Yes",
+        cancelButtonText: "No",
+        cancelButtonClass: 'btn-cancel',
+        confirmButtonColor: '#2527a2',
+        showCancelButton: false,
+        allowOutsideClick: AllowOutsideClick,
+    }).then(function (result) {
+        if (!result.isConfirmed) {
+            if (callback != '' && typeof callback === 'function') {
+                callback();
+            }
+        }
+    });
+};
+function MyWarningAlert(MessageText, callback, AllowOutsideClick) {
+    Swal.fire({
+        title: 'Warning',
+        text: MessageText,
+        icon: 'warning',
+        customClass: 'swal-wide my-warning',
+        buttons: {
+            confirm: 'Ok'
+        },
+        confirmButtonColor: '#2527a2',
+        allowOutsideClick: AllowOutsideClick,
+    }).then(function (result) {
+        if (result.isConfirmed) {
+            if (callback != '' && typeof callback === 'function') {
+                callback();
+            }
+        }
+    });
+};
+function MySuccessAlertWithRedirection(MessageText, RedirectUrl, AllowOutsideClick) {
+    Swal.fire({
+        title: 'Success',
+        text: MessageText,
+        icon: 'success',
+        customClass: 'swal-wide my-success',
+        buttons: {
+            confirm: 'Ok'
+        },
+        confirmButtonColor: '#2527a2',
+        allowOutsideClick: AllowOutsideClick,
+    }).then(callback);
+    function callback(result) {
+        if (result.value) {
+            window.location.href = RedirectUrl;
+        }
+    }
+};
+function MyInformationAlertWithRedirection(MessageText, RedirectUrl, AllowOutsideClick) {
+    Swal.fire({
+        title: 'Information',
+        text: MessageText,
+        icon: 'info',
+        customClass: 'swal-wide my-info',
+        buttons: {
+            confirm: 'Ok'
+        },
+        confirmButtonColor: '#2527a2',
+        allowOutsideClick: AllowOutsideClick,
+    }).then(callback);
+    function callback(result) {
+        if (result.value) {
+            window.location.href = RedirectUrl;
+        }
+    }
+};
+function MyValidationFailedAlertWithRedirection(MessageText, RedirectUrl, AllowOutsideClick) {
+    Swal.fire({
+        title: 'Validation Failed',
+        text: MessageText,
+        icon: 'error',
+        customClass: 'swal-wide my-error',
+        buttons: {
+            confirm: 'Ok'
+        },
+        confirmButtonColor: '#2527a2',
+        allowOutsideClick: AllowOutsideClick,
+    }).then(callback);
+    function callback(result) {
+        if (result.value) {
+            window.location.href = RedirectUrl;
+        }
+    }
+};
+function MyErrorAlertWithRedirection(MessageText, RedirectUrl, AllowOutsideClick) {
+    Swal.fire({
+        title: 'Error Occurred',
+        text: MessageText,
+        icon: 'error',
+        customClass: 'swal-wide my-error',
+        buttons: {
+            confirm: 'Ok'
+        },
+        confirmButtonColor: '#2527a2',
+        allowOutsideClick: AllowOutsideClick,
+    }).then(callback);
+    function callback(result) {
+        if (result.value) {
+            window.location.href = RedirectUrl;
+        }
+    }
+};
+function MyConfirmationAlertWithRedirection(MessageText, RedirectUrl, AllowOutsideClick) {
+    Swal.fire({
+        title: 'Confirmation',
+        text: MessageText,
+        icon: 'question',
+        customClass: 'swal-wide',
+        confirmButtonText: "Yes",
+        cancelButtonText: "No",
+        cancelButtonClass: 'btn-cancel',
+        confirmButtonColor: '#2527a2',
+        showCancelButton: true,
+        allowOutsideClick: AllowOutsideClick,
+    }).then(callback);
+    function callback(result) {
+        if (result.value) {
+            window.location.href = RedirectUrl;
+        }
+    }
+};
+function MyConfirmationAlertWithRedirectionOnCancel(MessageText, RedirectUrl, AllowOutsideClick) {
+    Swal.fire({
+        title: 'Confirmation',
+        text: MessageText,
+        icon: 'question',
+        customClass: 'swal-wide',
+        confirmButtonText: "Yes",
+        cancelButtonText: "No",
+        cancelButtonClass: 'btn-cancel',
+        confirmButtonColor: '#2527a2',
+        showCancelButton: true,
+        allowOutsideClick: AllowOutsideClick,
+    }).then(callback);
+    function callback(result) {
+        if (result.value) {
+
+        }
+        else {
+            window.location.href = RedirectUrl;
+        }
+    }
+};
+function MyWarningAlertWithRedirection(MessageText, RedirectUrl, AllowOutsideClick) {
+    Swal.fire({
+        title: 'Warning',
+        text: MessageText,
+        icon: 'warning',
+        customClass: 'swal-wide my-warning',
+        confirmButtonText: "Proceed",
+        cancelButtonText: "Stop",
+        cancelButtonClass: 'btn-cancel',
+        confirmButtonColor: '#2527a2',
+        showCancelButton: true,
+        allowOutsideClick: AllowOutsideClick,
+    }).then(callback);
+    function callback(result) {
+        if (result.value) {
+            window.location.href = RedirectUrl;
+        }
+    }
+};
+

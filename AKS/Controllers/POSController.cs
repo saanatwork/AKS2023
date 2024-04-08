@@ -48,8 +48,16 @@ namespace AKS.Controllers
             Invoice model = _iInventory.GetInvoice(InvoiceNumber, ref pMsg);
             return View(model);
         }
-        
-
+        public ActionResult ProBillConversion() 
+        {
+            return View();
+        }
+        public ActionResult ProBillProcessing()
+        {
+            ProBillProcessingVM _ProBillProcessingVM = new ProBillProcessingVM();
+            _ProBillProcessingVM.ProBillList = _iInventory.GetProvisionalBillList(LUser.LogInProfitCentreID, ref pMsg);
+            return View(_ProBillProcessingVM);
+        }
         #region - Ajax Call
         public JsonResult GetInvoiceList(int iDisplayLength, int iDisplayStart, int iSortCol_0,
             string sSortDir_0, string sSearch)
@@ -133,6 +141,12 @@ namespace AKS.Controllers
             Invoice model = _iInventory.GetInvoice(DocumentNumber, ref pMsg);
             return View(model);
         }
+        public JsonResult GetInvoiceDetails(string DocumentNumber = "")
+        {
+            Invoice result = _iInventory.GetInvoice(DocumentNumber, ref pMsg);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
         #endregion
 
     }

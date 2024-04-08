@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewBag.Title = "Exchange - System Invoice ";
+}
+<div class="row newTable">
+    @*@using (Html.BeginForm())
+        {*@
+    <div class="fixedElement">
+        <div class="col-md-12">
+            <div class="heading_text_btn mb-3 mt-4">
+                <div class="leftButton">
+                    <button id="btnBack" type="button"
+                            onclick="window.location.href='/Exchange/Index';"
+                            class="btn btn-white me-2">
+                        <i data-feather="arrow-left-circle"></i>
+                        Back
+                    </button>
+                    <button id="btnSubmit" type="button" disabled
+                            onclick="SubmitBtnClicked()"
+                            class="btn btn-secondary me-2">
+                        <i data-feather="check-circle"></i>
+                        Save
+                    </button>
+                    @*<button id="btnScan" type="button"
+                            onclick="UploadFile()"
+                            class="btn btn-white">
+                        <i data-feather="upload"></i>
+                        Upload Document
+                    </button>*@
+                    @*<button id="btnScanView" type="button"
+                            onclick="ViewUploadedFile()"
+                            class="btn btn-light-green inVisible">
+                        <i data-feather="eye"></i>
+                        View Document
+                    </button>*@
+                </div>
+                <h2>Exchange - System Invoice </h2>
+                <div class="rightButton">
+                    @*<button id="btnAddVendor" type="button"
+                            onclick="AddVendorClicked()"
+                            class="btn btn-secondary me-2">
+                        <i data-feather="plus"></i>
+                        Add Customer
+                    </button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="HdrDIV" class="col-md-12 mb-4" style="vertical-align:central">
+        <div class="card mb-4 mt-4" style="vertical-align:central">
+            <div class="card-body approvalForm">
+                <div class="row d-flex align-items-center mb-12">
+                    <label class="col-form-label col-md-2">
+                        Invoice Number :
+                    </label>
+                    <div class="col-md-2">
+                        <input id="InvoiceNumberCtrl" class="form-control" type="text" onkeyup="InvoceNumberChanged()" />
+                    </div>
+                    <div class="col-md-3">
+                        <button id="btnGetInvDtl" type="button" disabled
+                                onclick="GetInvoiceDetails()"
+                                class="btn btn-light-green">
+                            <i data-feather="eye"></i>
+                            Get Details
+                        </button>
+                    </div>
+                </div>
+                <div class="row d-flex align-items-center mb-12">
+                    <label class="col-form-label col-md-2">
+                        Date :
+                    </label>
+                    <div id="cInvDate" class="col-md-2">
+                    </div>
+                    <label class="col-form-label col-md-1">
+                        Customer :
+                    </label>
+                    <div class="col-md-5">
+                        <div id="cCustomer" class="position-relative pointer">
+                        </div>
+                    </div>                   
+                </div>
+            </div>
+            </div>
+       
+    </div>
+    @*}*@
+</div>
+@section headers{
+
+}
+@section scripts{
+    <script src="~/UIContent/JS/CustomePage/CommonReusableJS.js"></script>
+    <script src="~/UIContent/JS/CustomePage/Exchange//ExistingInv.js"></script>
+
+}
+

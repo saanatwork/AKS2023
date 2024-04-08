@@ -11,6 +11,7 @@ namespace AKS.BOL.POS
         public string InvoiceNumber { get; set; }
         public DateTime EntryDate { get; set; }
         public DateTime InvoiceDate { get; set; }
+        public string InvoiceDateStr { get; set; }
         public int CustomerID { get; set; }
         public string CustomerName { get; set; }
         public string CustomerAddress { get; set; }
@@ -68,6 +69,7 @@ namespace AKS.BOL.POS
         public double NetAmount { get; set; }
         public double DiscountPer { get; set; }
         public double AmtAfterDiscount { get; set; }
+        public string ItemDescription { get; set; }
         //public List<InvoiceItemVariants> MetalVariants { get; set; }
         //public List<InvoiceItemVariants> DiamondVariants { get; set; }
         //public List<InvoiceItemVariants> StoneVariants { get; set; }        

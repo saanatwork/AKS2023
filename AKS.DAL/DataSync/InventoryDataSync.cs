@@ -458,5 +458,17 @@ namespace AKS.DAL.DataSync
             }
             catch (Exception ex) { pMsg = objPath + ".GetAppStockReturn(...) " + ex.Message; return null; }
         }
+
+        public DataTable GetProvisionalBillList(int profitCentreID, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("SELECT * FROM [POS].[GetPBillsToBeProcessed]("+ profitCentreID + ")", CommandType.Text))
+                {
+                    return sql.GetDataTable(ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetProvisionalBillList(...) " + ex.Message; return null; }
+        }
     }
 }

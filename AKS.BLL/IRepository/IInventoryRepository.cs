@@ -61,6 +61,6 @@ namespace AKS.BLL.IRepository
         List<StockItems> GetLiveItemsOfaVendor(int ProfitCentreID, int VendorID, ref string pMsg);
         bool ReturnAppStock(ReturnItem data, ref string pMsg);
         ReturnDocDetails GetAppStockReturn(string DocumentNumber, ref string pMsg);
-
+        List<CustomComboOptionsWithString> GetProvisionalBillList(int profitCentreID, ref string pMsg);
     }
 }
