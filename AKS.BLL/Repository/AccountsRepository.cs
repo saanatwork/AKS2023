@@ -50,11 +50,9 @@ namespace AKS.BLL.Repository
         {
             return _AccountsEntity.GetParties(ref pMsg);
         }
-        
-
-
-
-
-
+        public bool SetJV(SLSTRNEntry data, ref string pMsg, ref string NewDocumentNumber)
+        {
+            return _AccountsEntity.SetJV(data,ref pMsg,ref NewDocumentNumber);
+        }
     }
 }

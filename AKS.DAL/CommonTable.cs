@@ -1,4 +1,5 @@
-﻿using AKS.BOL.Inventory;
+﻿using AKS.BOL.Accounts;
+using AKS.BOL.Inventory;
 using AKS.BOL.Order;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,28 @@ namespace AKS.DAL
     public class CommonTable
     {
         public DataTable UDTable { get; set; }
+        public CommonTable(List<SLSTRNDtl> customoptions)
+        {
+            UDTable = new DataTable();
+            UDTable.Columns.Add("ACD", typeof(string));
+            UDTable.Columns.Add("SCD", typeof(int));
+            UDTable.Columns.Add("Amount", typeof(double));
+            UDTable.Columns.Add("CD", typeof(string));
+            UDTable.Columns.Add("VoucherDescription", typeof(string));
+            if (customoptions != null && customoptions.Count > 0)
+            {
+                foreach (var obj in customoptions)
+                {
+                    DataRow dr = UDTable.NewRow();
+                    dr["ACD"] = obj.ACD;
+                    dr["SCD"] = obj.SCD;
+                    dr["Amount"] = obj.Amount;
+                    dr["CD"] = obj.CD;
+                    dr["VoucherDescription"] = obj.VoucherDescription;                    
+                    UDTable.Rows.Add(dr);
+                }
+            }
+        }
         public CommonTable(List<AppStock> customoptions)
         {
             UDTable = new DataTable();

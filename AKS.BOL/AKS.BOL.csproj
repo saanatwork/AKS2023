@@ -86,6 +86,7 @@
     <Compile Include="Accounts\GLSummary.cs" />
     <Compile Include="Accounts\Journal.cs" />
     <Compile Include="Accounts\PartyDetails.cs" />
+    <Compile Include="Accounts\SLSTRNEntry.cs" />
     <Compile Include="Accounts\TrialBalance.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Common\CommonResponse.cs" />

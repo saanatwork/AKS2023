@@ -20,7 +20,7 @@ namespace AKS.BLL.IRepository
         List<TrialBalance> GetTrialBalance(int ProfitCentreID, DateTime FromDate, DateTime AsOnDate, ref string pMsg);
         List<PartyDetails> GetPartyDetails(string SCD, int ProfitCentreID, DateTime FromDate, DateTime AsOnDate, ref string pMsg);
         List<CustomComboOptions> GetParties(ref string pMsg);
-        
+        bool SetJV(SLSTRNEntry data, ref string pMsg, ref string NewDocumentNumber);
 
 
     }

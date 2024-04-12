@@ -1,4 +1,5 @@
-﻿using AKS.DAL.ParamMapper;
+﻿using AKS.BOL.Accounts;
+using AKS.DAL.ParamMapper;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,9 +13,11 @@ namespace AKS.DAL.DataSync
     {
         string objPath = "AKS.DAL.DataSync.AccountsDataSync";
         CommonParamMapper _CommonParamMapper;
+        AccountsParamMapper _AccountsParamMapper;
         public AccountsDataSync()
         {
             _CommonParamMapper = new CommonParamMapper();
+            _AccountsParamMapper = new AccountsParamMapper();
         }
         public DataTable GetVoucherList(int DisplayLength, int DisplayStart, int SortColumn,
             string SortDirection, string SearchText, int ProfitCentreID, ref string pMsg)
@@ -116,7 +119,17 @@ namespace AKS.DAL.DataSync
             }
             catch (Exception ex) { pMsg = objPath + ".GetParties(...) " + ex.Message; return null; }
         }
-
+        public DataTable SetJV(SLSTRNEntry data,ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("[ACC].[SetJV]", CommandType.StoredProcedure))
+                {
+                    return sql.GetDataTable(_AccountsParamMapper.MapParam_SetJV(data, ref pMsg), ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".SetJV(...) " + ex.Message; return null; }
+        }
 
 
 

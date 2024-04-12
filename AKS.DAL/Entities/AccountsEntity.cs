@@ -18,11 +18,13 @@ namespace AKS.DAL.Entities
         AccountsDataSync _AccountsDataSync;
         AccountsObjectMapper _AccountsObjectMapper;
         DBResponseMapper _DBResponseMapper;
+        InventoryObjectMapper _InventoryObjectMapper;
         public AccountsEntity()
         {
             _AccountsDataSync = new AccountsDataSync();
             _AccountsObjectMapper = new AccountsObjectMapper();
             _DBResponseMapper = new DBResponseMapper();
+            _InventoryObjectMapper = new InventoryObjectMapper();
         }
         public List<Journal4DT> GetVoucherList(int DisplayLength, int DisplayStart, int SortColumn,
             string SortDirection, string SearchText, int ProfitCentreID, ref string pMsg)
@@ -155,7 +157,21 @@ namespace AKS.DAL.Entities
             catch (Exception ex) { pMsg = objPath + ".GetParties(...) " + ex.Message; }
             return result;
         }
+        public bool SetJV(SLSTRNEntry data, ref string pMsg, ref string NewDocumentNumber)
+        {
+            bool result = false;
+            try
+            {
+                dt = _AccountsDataSync.SetJV(data, ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    result = _InventoryObjectMapper.Map_ResponseWithNewID(dt.Rows[0], ref pMsg, ref NewDocumentNumber);
+                }
 
+            }
+            catch (Exception ex) { pMsg = objPath + ".SetJV(...) " + ex.Message; }
+            return result;
+        }
 
 
 
