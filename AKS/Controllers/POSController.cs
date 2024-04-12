@@ -43,22 +43,34 @@ namespace AKS.Controllers
             
             return View(model);
         }
-        public ActionResult ViewInvoice(string InvoiceNumber="") 
+        public ActionResult ViewInvoice(string InvoiceNumber="",int CBUID= 0) 
         {
             Invoice model = _iInventory.GetInvoice(InvoiceNumber, ref pMsg);
+            model.CBUID = CBUID;    
             return View(model);
         }
         public ActionResult ProBillConversion() 
         {
             return View();
         }
-        public ActionResult ProBillProcessing()
-        {
-            ProBillProcessingVM _ProBillProcessingVM = new ProBillProcessingVM();
-            _ProBillProcessingVM.ProBillList = _iInventory.GetProvisionalBillList(LUser.LogInProfitCentreID, ref pMsg);
-            return View(_ProBillProcessingVM);
-        }
+
         #region - Ajax Call
+        public JsonResult GetProBillList(int iDisplayLength, int iDisplayStart, int iSortCol_0,
+            string sSortDir_0, string sSearch)
+        {
+            if (iSortCol_0 == 0) { iSortCol_0 = 1; sSortDir_0 = "desc"; }
+            List<ProBillList> datalist = _iInventory.GetProBillList(iDisplayLength, iDisplayStart, iSortCol_0
+                , sSortDir_0, sSearch, LUser.LogInProfitCentreID, LUser.user.UserID, ref pMsg);
+            var result = new
+            {
+                iTotalRecords = datalist.Count == 0 ? 0 : datalist.FirstOrDefault().TotalRecords,
+                iTotalDisplayRecords = datalist.Count == 0 ? 0 : datalist.FirstOrDefault().TotalCount,
+                iDisplayLength = iDisplayLength,
+                iDisplayStart = iDisplayStart,
+                aaData = datalist
+            };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
         public JsonResult GetInvoiceList(int iDisplayLength, int iDisplayStart, int iSortCol_0,
             string sSortDir_0, string sSearch)
         {
@@ -146,7 +158,15 @@ namespace AKS.Controllers
             Invoice result = _iInventory.GetInvoice(DocumentNumber, ref pMsg);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-
+        public JsonResult ConvertToTaxInvoice(string DocumentNumber = "")
+        {
+            string NewDoc = "";
+            CommonResponse result = new CommonResponse();
+            result.IsSuccess = _iInventory.ConvertPBillToInvoice(DocumentNumber,LUser.user.UserID, ref pMsg,ref NewDoc);
+            result.Message = pMsg;
+            result.NewIDStr = NewDoc;
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
         #endregion
 
     }

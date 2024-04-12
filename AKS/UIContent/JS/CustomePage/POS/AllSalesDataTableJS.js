@@ -1,6 +1,6 @@
 ﻿function FnViewNote(ctrl) {
     var primarykey = $(ctrl).attr('id');
-    window.location.href = "/POS/ViewInvoice?InvoiceNumber=" + primarykey;
+    window.location.href = "/POS/ViewInvoice?InvoiceNumber=" + primarykey+"&CBUID=1";
 };
 $(document).ready(function () {
     var dtinstance = $('#tblDataList').DataTable({

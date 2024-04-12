@@ -187,6 +187,24 @@ namespace AKS.DAL.Entities
             catch (Exception ex) { pMsg = objPath + ".GetAppStockForUserDocList(...) " + ex.Message; }
             return result;
         }
+        public List<ProBillList> GetProBillList(int DisplayLength, int DisplayStart, int SortColumn,
+            string SortDirection, string SearchText, int ProfitCentreID, int UserID, ref string pMsg)
+        {
+            List<ProBillList> result = new List<ProBillList>();
+            try
+            {
+                dt = _InventoryDataSync.GetProBillList(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ProfitCentreID, UserID, ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        result.Add(_InventoryObjectMapper.Map_GetProBillList(dt.Rows[i], ref pMsg));
+                    }
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetProBillList(...) " + ex.Message; }
+            return result;
+        }
         public List<DBGoldRate> GetGoldRate(string City, string CDate, ref string pMsg)
         {
             List<DBGoldRate> result = new List<DBGoldRate>();
@@ -750,6 +768,20 @@ namespace AKS.DAL.Entities
             catch (Exception ex) { pMsg = objPath + ".GetProvisionalBillList(...) " + ex.Message; }
             return result;
         }
-
+        public bool ConvertPBillToInvoice(string DocumentNumber, int CreatedBy, ref string pMsg,ref string NewDocumentNumber)
+        {
+            bool result = false;
+            try
+            {
+                dt = _InventoryDataSync.ConvertPBillToInvoice(DocumentNumber, CreatedBy, ref pMsg);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    result=_InventoryObjectMapper.Map_ResponseWithNewID(dt.Rows[0], ref pMsg, ref NewDocumentNumber);
+                }               
+                
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetAppStockReturn(...) " + ex.Message; }
+            return result;
+        }
     }
 }

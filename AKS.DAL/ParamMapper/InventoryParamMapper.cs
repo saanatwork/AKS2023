@@ -78,6 +78,23 @@ namespace AKS.DAL.ParamMapper
             }
             return para;
         }
+        public SqlParameter[] MapParam_ConvertPBillToInvoice(string DocumentNumber, int CreatedBy, ref string pMsg)
+        {
+            int paracount = 0;
+            SqlParameter[] para = new SqlParameter[2];
+            try
+            {
+                para[paracount] = new SqlParameter("@PBILLNumber", SqlDbType.NVarChar, 10);
+                para[paracount++].Value = DocumentNumber;
+                para[paracount] = new SqlParameter("@CreatedBy", SqlDbType.Int);
+                para[paracount++].Value = CreatedBy;
+            }
+            catch (Exception ex)
+            {
+                pMsg = objPath + ".MapParam_ConvertPBillToInvoice(...) " + ex.Message;
+            }
+            return para;
+        }
         public SqlParameter[] MapParam_ApproveAppStock(string DocumentNumer,int UserID, ref string pMsg)
         {
             int paracount = 0;

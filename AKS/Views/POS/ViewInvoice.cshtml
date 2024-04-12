@@ -6,12 +6,13 @@
 <div class="row newTable">
     @Html.HiddenFor(m => m.DocumentFileName)
     @Html.HiddenFor(m => m.InvoiceNumber)
+    @Html.HiddenFor(m => m.CBUID)
     <div class="fixedElement">
         <div class="col-md-12">
             <div class="heading_text_btn mb-3 mt-4">
                 <div class="leftButton">
                     <button id="btnBack" type="button"
-                            onclick="window.location.href='/POS/Sales';"
+                            onclick="window.location.href=@(Model.CBUID==1?"'/POS/AllSales'":Model.CBUID==2?"'/POS/ProBillConversion'":"'/POS/Sales'");"
                             class="btn btn-white me-2">
                         <i data-feather="arrow-left-circle"></i>
                         Back
@@ -29,10 +30,15 @@
                         <i data-feather="printer"></i>
                         Print
                     </a>
-                    @*<a class="btn btn-secondary" href="@Url.Action("GeneratePdf","Common", new { ViewUrl ="/POS/PrintInvoiceLandScape?DocumentNumber="+Model.InvoiceNumber ,PdfFileName=Model.InvoiceNumber })">
-                        <i data-feather="printer"></i>
-                        Print Landscape
-                    </a>*@
+                    @if (Model.InvoiceNumber.Substring(0, 1) == "P")
+                    {
+                        <button id="btnConvertToTaxInvoice" type="button"
+                                onclick="ConvertToTaxInvoice()"
+                                class="btn btn-danger">
+                            <i data-feather="eye"></i>
+                            Convert To Tax Invoice
+                        </button>
+                    }
                 </div>
             </div>
         </div>
@@ -44,5 +50,5 @@
 }
 @section scripts{
     <script src="~/UIContent/JS/CustomePage/CommonReusableJS.js"></script>
-
+    <script src="~/UIContent/JS/CustomePage/POS/ViewInvoice.js"></script>
 }

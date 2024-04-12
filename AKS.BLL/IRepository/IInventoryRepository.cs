@@ -14,6 +14,8 @@ namespace AKS.BLL.IRepository
     {
         List<VStockSummary> GetLiveItemsOfaVendorV2(int profitCentreID, int vendorCode, ref string pMsg);
         List<CatWiseItemStockDetail> GetItemInStockDetails(int ProfitCentreID, string ItemCatCode, ref string pMsg);
+        List<ProBillList> GetProBillList(int DisplayLength, int DisplayStart, int SortColumn,
+            string SortDirection, string SearchText, int ProfitCentreID, int UserID, ref string pMsg);
         List<StockSummary4DTV2> GetStockSummaryListV2(int DisplayLength, int DisplayStart, int SortColumn,
             string SortDirection, string SearchText, int ProfitCentreID, ref string pMsg);
         List<StockVWSummary4DTV2> GetVWStockSummaryListV2(int DisplayLength, int DisplayStart, int SortColumn,
@@ -62,5 +64,6 @@ namespace AKS.BLL.IRepository
         bool ReturnAppStock(ReturnItem data, ref string pMsg);
         ReturnDocDetails GetAppStockReturn(string DocumentNumber, ref string pMsg);
         List<CustomComboOptionsWithString> GetProvisionalBillList(int profitCentreID, ref string pMsg);
+        bool ConvertPBillToInvoice(string DocumentNumber, int CreatedBy, ref string pMsg, ref string NewDocumentNumber);
     }
 }

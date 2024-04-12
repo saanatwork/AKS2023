@@ -46,6 +46,7 @@ namespace AKS.BOL.POS
         public List<InvoiceItemVariants> AllVariants { get; set; }
         public bool IsIGST { get; set; }
         public double OrderAmountReceived { get; set; }
+        public int CBUID { get; set; }
     }
     public class InvoiceItem 
     {
@@ -72,7 +73,8 @@ namespace AKS.BOL.POS
         public string ItemDescription { get; set; }
         //public List<InvoiceItemVariants> MetalVariants { get; set; }
         //public List<InvoiceItemVariants> DiamondVariants { get; set; }
-        //public List<InvoiceItemVariants> StoneVariants { get; set; }        
+        //public List<InvoiceItemVariants> StoneVariants { get; set; }
+        public int CurrentMCRate { get; set; }
     }
     public class InvoiceItemVariants 
     {
@@ -87,6 +89,7 @@ namespace AKS.BOL.POS
         public double DGrossAmount { get; set; }
         public string VariantColumn { get; set; }
         public int VariantID { get; set; }
+        public int RevisedRate { get; set; }
     }
     public class Invoice4DT
     {

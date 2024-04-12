@@ -496,6 +496,53 @@ namespace AKS.DAL.ObjectMapper
             catch (Exception ex) { pMsg = objPath + ".Map_Invoice4DT(DataRow dr,ref string pMsg) " + ex.Message; }
             return result;
         }
+        public ProBillList Map_GetProBillList(DataRow dr, ref string pMsg)
+        {
+            ProBillList result = new ProBillList();
+            try
+            {
+                if (dr != null)
+                {
+                    if (!DBNull.Value.Equals(dr["RowNum"]))
+                        result.RowNum = int.Parse(dr["RowNum"].ToString());
+                    if (!DBNull.Value.Equals(dr["TotalCount"]))
+                        result.TotalCount = int.Parse(dr["TotalCount"].ToString());
+                    if (!DBNull.Value.Equals(dr["TotalRecords"]))
+                        result.TotalRecords = int.Parse(dr["TotalRecords"].ToString());
+                    if (!DBNull.Value.Equals(dr["InvoiceNumber"]))
+                        result.InvoiceNumber = dr["InvoiceNumber"].ToString();
+                    if (!DBNull.Value.Equals(dr["InvoiceDate"]))
+                        result.InvoiceDate = DateTime.Parse(dr["InvoiceDate"].ToString());
+                    result.InvoiceDateStr = result.InvoiceDate.ToString("dd-MM-yyyy");
+
+                    if (!DBNull.Value.Equals(dr["EntryDate"]))
+                        result.EntryDateStr = DateTime.Parse(dr["EntryDate"].ToString()).ToString("dd-MM-yyyy hh:mm:ss tt");
+                    if (!DBNull.Value.Equals(dr["CreateID"]))
+                        result.CreateID = int.Parse(dr["CreateID"].ToString());
+                    if (!DBNull.Value.Equals(dr["CreatedByName"]))
+                        result.CreatedByName = dr["CreatedByName"].ToString();
+                    if (!DBNull.Value.Equals(dr["ProvisionalBill"]))
+                        result.ProvisionalBill = dr["ProvisionalBill"].ToString();
+                    if (!DBNull.Value.Equals(dr["IsProcessed"]))
+                        result.IsProcessed = bool.Parse(dr["IsProcessed"].ToString());
+                    result.IsProcessedStr = result.IsProcessed ? "Yes" : "No";
+                    if (!DBNull.Value.Equals(dr["PBillDate"]))
+                        result.PBillDate = DateTime.Parse(dr["PBillDate"].ToString());
+                    result.PBillDateStr = result.PBillDate.ToString("dd-MM-yyyy");
+                    
+                    if (!DBNull.Value.Equals(dr["PBillJVNo"]))
+                        result.PBillJVNo = dr["PBillJVNo"].ToString();
+                    if (!DBNull.Value.Equals(dr["ConversionBy"]))
+                        result.ConversionBy = int.Parse(dr["ConversionBy"].ToString());
+                    if (!DBNull.Value.Equals(dr["ConversionByName"]))
+                        result.ConversionByName = dr["ConversionByName"].ToString();
+                    if (!DBNull.Value.Equals(dr["ConversionTime"]))
+                        result.ConversionTime = DateTime.Parse(dr["ConversionTime"].ToString()).ToString("dd-MM-yyyy hh:mm:ss tt");
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".Map_GetProBillList(DataRow dr,ref string pMsg) " + ex.Message; }
+            return result;
+        }
         public InvoiceItemVariants Map_InvoiceItemVariants(DataRow dr, ref string pMsg) 
         {
             InvoiceItemVariants result = new InvoiceItemVariants();
@@ -525,6 +572,8 @@ namespace AKS.DAL.ObjectMapper
                         result.VariantID = int.Parse(dr["VariantID"].ToString());
                     if (!DBNull.Value.Equals(dr["VariantColumn"]))
                         result.VariantColumn = dr["VariantColumn"].ToString();
+                    if (!DBNull.Value.Equals(dr["RevisedRate"]))
+                        result.RevisedRate = int.Parse(dr["RevisedRate"].ToString());
                 }
             }
             catch (Exception ex) { pMsg = objPath + ".Map_InvoiceItemVariants(DataRow dr,ref string pMsg) " + ex.Message; }
@@ -577,6 +626,8 @@ namespace AKS.DAL.ObjectMapper
                         result.DiscountPer = double.Parse(dr["DiscountPer"].ToString());
                     if (!DBNull.Value.Equals(dr["AmtAfterDiscount"]))
                         result.AmtAfterDiscount = double.Parse(dr["AmtAfterDiscount"].ToString());
+                    if (!DBNull.Value.Equals(dr["CurrentMCRate"]))
+                        result.CurrentMCRate = int.Parse(dr["CurrentMCRate"].ToString());
                 }
             }
             catch (Exception ex) { pMsg = objPath + ".Map_InvoiceItem(DataRow dr,ref string pMsg) " + ex.Message; }
@@ -1209,5 +1260,25 @@ namespace AKS.DAL.ObjectMapper
             catch (Exception ex) { pMsg = objPath + ".Map_CustomComboOptionsWithString_PBill(DataRow dr,ref string pMsg) " + ex.Message; }
             return result;
         }
+        public bool Map_ResponseWithNewID(DataRow dr, ref string pMsg,ref string NewID)
+        {
+            bool result = false;
+            try
+            {
+                if (dr != null)
+                {
+                    if (!DBNull.Value.Equals(dr["IsSuccess"]))
+                        result = bool.Parse(dr["IsSuccess"].ToString());
+                    if (!DBNull.Value.Equals(dr["Msg"]))
+                        pMsg = dr["Msg"].ToString();
+                    if (!DBNull.Value.Equals(dr["NewIDStr"]))
+                        NewID = dr["NewIDStr"].ToString();
+
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".Map_ResponseWithNewID(DataRow dr,ref string pMsg) " + ex.Message; }
+            return result;
+        }
+
     }
 }

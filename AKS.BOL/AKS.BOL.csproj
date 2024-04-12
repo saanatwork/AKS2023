@@ -88,6 +88,7 @@
     <Compile Include="Accounts\PartyDetails.cs" />
     <Compile Include="Accounts\TrialBalance.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
+    <Compile Include="Common\CommonResponse.cs" />
     <Compile Include="Common\CustomAjaxResponse.cs" />
     <Compile Include="Common\CustomCheckBoxOption.cs" />
     <Compile Include="Common\CustomComboOptions.cs" />
@@ -115,6 +116,7 @@
     <Compile Include="Order\OrderSummary.cs" />
     <Compile Include="POS\Invoice.cs" />
     <Compile Include="POS\OrderPayment.cs" />
+    <Compile Include="POS\ProBillList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Master\GLocation.cs" />
     <Compile Include="User\ProfitCentre.cs" />

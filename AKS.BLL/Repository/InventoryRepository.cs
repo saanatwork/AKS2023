@@ -3,6 +3,7 @@ using AKS.BOL.Common;
 using AKS.BOL.Inventory;
 using AKS.BOL.Order;
 using AKS.BOL.POS;
+using AKS.BOL.User;
 using AKS.DAL.Entities;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,11 @@ namespace AKS.BLL.Repository
         public List<CatWiseItemStockDetail> GetItemInStockDetails(int ProfitCentreID, string ItemCatCode, ref string pMsg)
         {
             return _InventoryEntity.GetItemInStockDetails(ProfitCentreID, ItemCatCode, ref pMsg);
+        }
+        public List<ProBillList> GetProBillList(int DisplayLength, int DisplayStart, int SortColumn,
+            string SortDirection, string SearchText, int ProfitCentreID, int UserID, ref string pMsg)
+        {
+            return _InventoryEntity.GetProBillList(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText,ProfitCentreID,UserID, ref pMsg);
         }
         public List<StockSummary4DT> GetStockSummaryList(int DisplayLength, int DisplayStart, int SortColumn,
            string SortDirection, string SearchText, int ProfitCentreID, ref string pMsg)
@@ -564,6 +570,10 @@ namespace AKS.BLL.Repository
         public List<CustomComboOptionsWithString> GetProvisionalBillList(int profitCentreID, ref string pMsg)
         {
             return _InventoryEntity.GetProvisionalBillList(profitCentreID,ref pMsg);
+        }
+        public bool ConvertPBillToInvoice(string DocumentNumber, int CreatedBy, ref string pMsg, ref string NewDocumentNumber)
+        {
+            return _InventoryEntity.ConvertPBillToInvoice(DocumentNumber, CreatedBy, ref pMsg,ref NewDocumentNumber);
         }
     }
 }

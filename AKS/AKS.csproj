@@ -167,6 +167,7 @@
     <Compile Include="ViewModel\InventoryVM\VendorWiseStockDetailsVM.cs" />
     <Compile Include="ViewModel\OrderVM\OrderEntryVM.cs" />
     <Compile Include="ViewModel\OrderVM\OrderReportVM.cs" />
+    <Compile Include="ViewModel\POSVM\PBillDetails.cs" />
     <Compile Include="ViewModel\POSVM\ProBillProcessingVM.cs" />
     <Compile Include="ViewModel\POSVM\SalesEntryVM.cs" />
     <Compile Include="ViewModel\UserVM\LogInVM.cs" />
@@ -301,8 +302,8 @@
     <Content Include="UIContent\JS\CustomePage\POS\AddSaleJS.js" />
     <Content Include="UIContent\JS\CustomePage\POS\AllSalesDataTableJS.js" />
     <Content Include="UIContent\JS\CustomePage\POS\ProBillConversion.js" />
-    <Content Include="UIContent\JS\CustomePage\POS\ProBillProcessing.js" />
     <Content Include="UIContent\JS\CustomePage\POS\SalesDataTableJS.js" />
+    <Content Include="UIContent\JS\CustomePage\POS\ViewInvoice.js" />
     <Content Include="UIContent\JS\CustomePage\User\LogInJS.js" />
     <Content Include="UIContent\JS\CustomePage\Admin\ProfitCentreListJS.js" />
     <Content Include="UIContent\JS\CustomePage\User\RegisterUserJS.js" />
@@ -435,7 +436,6 @@
     <Content Include="Views\Inventory\VendorSalesBook.cshtml" />
     <Content Include="Views\Exchange\ExistingInv.cshtml" />
     <Content Include="Views\POS\ProBillConversion.cshtml" />
-    <Content Include="Views\POS\ProBillProcessing.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

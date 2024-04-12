@@ -127,6 +127,18 @@ namespace AKS.DAL.DataSync
             }
             catch (Exception ex) { pMsg = objPath + ".GetInvoiceList(...) " + ex.Message; return null; }
         }
+        public DataTable GetProBillList(int DisplayLength, int DisplayStart, int SortColumn,
+            string SortDirection, string SearchText, int ProfitCentreID, int UserID, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("[POS].[GetProBillList]", CommandType.StoredProcedure))
+                {
+                    return sql.GetDataTable(_CommonParamMapper.MapParam_DIsplayListWithPCNUser(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ProfitCentreID, UserID, ref pMsg), ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetProBillList(...) " + ex.Message; return null; }
+        }
         public DataTable GetGoldRate(string City, string CDate, ref string pMsg)
         {
             try
@@ -469,6 +481,17 @@ namespace AKS.DAL.DataSync
                 }
             }
             catch (Exception ex) { pMsg = objPath + ".GetProvisionalBillList(...) " + ex.Message; return null; }
+        }
+        public DataTable ConvertPBillToInvoice(string DocumentNumber,int CreatedBy, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("[POS].[ConvertPBillToInvoice]", CommandType.StoredProcedure))
+                {
+                    return sql.GetDataTable(_InventoryParamMapper.MapParam_ConvertPBillToInvoice(DocumentNumber, CreatedBy, ref pMsg), ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".ConvertPBillToInvoice(...) " + ex.Message; return null; }
         }
     }
 }
