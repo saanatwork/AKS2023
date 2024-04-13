@@ -709,6 +709,11 @@ namespace AKS.DAL.ObjectMapper
                     result.BillAmountInWords = MyHelper.ConvertToWords(result.NetPayableAmount);
                     //result.ReceivedAmountInWords = MyHelper.ConvertToWords(result.AmountReceived);
                     result.InvoiceDateStr = result.InvoiceDate.ToString("dd-MM-yyyy");
+
+                    if (!DBNull.Value.Equals(dr["ProvisionalBill"]))
+                        result.ProvisionalBill = dr["ProvisionalBill"].ToString();
+                    if (!DBNull.Value.Equals(dr["IsProcessed"]))
+                        result.IsProcessed = bool.Parse(dr["IsProcessed"].ToString());
                 }
             }
             catch (Exception ex) { pMsg = objPath + ".Map_Invoice(DataRow dr,ref string pMsg) " + ex.Message; }

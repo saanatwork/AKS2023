@@ -181,29 +181,40 @@
                             <b>@Model.BillAmountInWords Rupees Only.</b>
                             @if (Model.AmountReceived > 0)
                             {
-                        <table style="width:100%;text-align:center" class="table table-bordered btnalign">
-                            <thead>
-                                <tr>
-                                    <th>Advance Amount</th>
-                                    <th>Amount Received</th>
-                                    <th>Mode/Ref No</th>
-                                    <th>Cash Discount</th>
-                                    <th>Balance</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>@Model.OrderAmountReceived.ToString("0.00")</td>
-                                    <td>@Model.AmountReceived.ToString("0.00")</td>
-                                    <td>@Model.ReceiveModeStr / @Model.RefNo</td>
-                                    <td>@Model.CashDiscount.ToString("0.00")</td>
-                                    <td>@Model.BalanceAmount.ToString("0.00")</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                <table style="width:100%;text-align:center" class="table table-bordered btnalign">
+                                    <thead>
+                                        <tr>
+                                            <th>Advance Amount</th>
+                                            <th>Amount Received</th>
+                                            <th>Mode/Ref No</th>
+                                            <th>Cash Discount</th>
+                                            <th>Balance</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>@Model.OrderAmountReceived.ToString("0.00")</td>
+                                            <td>@Model.AmountReceived.ToString("0.00")</td>
+                                            <td>@Model.ReceiveModeStr / @Model.RefNo</td>
+                                            <td>@Model.CashDiscount.ToString("0.00")</td>
+                                            <td>@Model.BalanceAmount.ToString("0.00")</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             }
-                        </td>
-                        <td colspan="2">
+                            @if (Model.IsProcessed)
+                            {
+                                <table style="width: 100%; text-align: center; font-size: small">
+                                    <tr>
+                                        <td>
+                                            Provisional Bill Number: @Model.ProvisionalBill
+                                        </td>
+                                    </tr>
+                                </table>
+                        
+                             }
+                            </td>
+<td colspan="2">
                             Item Total : <br />
                             Trade Discount :<br />
                             <b>Taxable Amount :</b> 
@@ -239,6 +250,7 @@
                             <b>@Model.NetPayableAmount.ToString("0.00")</b>
                         </td>
                     </tr>
+                    
                 </tbody>
             </table>
         </div>

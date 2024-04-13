@@ -47,6 +47,8 @@ namespace AKS.BOL.POS
         public bool IsIGST { get; set; }
         public double OrderAmountReceived { get; set; }
         public int CBUID { get; set; }
+        public string ProvisionalBill { get; set; }
+        public bool IsProcessed { get; set; }
     }
     public class InvoiceItem 
     {
