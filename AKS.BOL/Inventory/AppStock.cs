@@ -81,6 +81,8 @@ namespace AKS.BOL.Inventory
         public double IDiscountPer { get; set; }
         public double IAmtAfterDiscount { get; set; }
         public string SelectedOrderID { get; set; }
+        public string SelectedPBILL { get; set; }
+        public bool IsPBill { get; set; }
     }
     public class AppStockVariant 
     {

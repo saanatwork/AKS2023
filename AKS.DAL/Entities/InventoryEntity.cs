@@ -447,6 +447,14 @@ namespace AKS.DAL.Entities
                         }
                     }
                     result.AllVariants = variantlist;
+
+                    // Getting variant list inside the items
+                    foreach(var item in result.Items)
+                    {
+                        item.MetalVariants = result.AllVariants.Where(o => o.ItemSL == item.ItemSL && o.VariantColumn == "Metal").ToList();
+                        item.DiamondVariants = result.AllVariants.Where(o => o.ItemSL == item.ItemSL && o.VariantColumn == "Diamond").ToList();
+                        item.StoneVariants = result.AllVariants.Where(o => o.ItemSL == item.ItemSL && o.VariantColumn == "Stone").ToList();
+                    }
                 }
             }
             catch (Exception ex) { pMsg = objPath + ".GetInvoice(...) " + ex.Message; }

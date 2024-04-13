@@ -82,6 +82,8 @@ namespace AKS.DAL
             UDTable.Columns.Add("dGrossAmount", typeof(decimal));
             UDTable.Columns.Add("dNetAmount", typeof(decimal));
             UDTable.Columns.Add("sOrderNo", typeof(string));
+            UDTable.Columns.Add("sPBILL", typeof(string));
+            UDTable.Columns.Add("bIsPBill", typeof(bool));
             if (customoptions != null && customoptions.Count > 0)
             {
                 foreach (var obj in customoptions)
@@ -103,6 +105,8 @@ namespace AKS.DAL
                     dr["dGrossAmount"] = obj.GrossAmount;
                     dr["dNetAmount"] = obj.NetAmount;
                     dr["sOrderNo"] = obj.SelectedOrderID;
+                    dr["sPBILL"] = obj.SelectedPBILL;
+                    dr["bIsPBill"] = obj.SelectedPBILL != null && obj.SelectedPBILL != "" && obj.SelectedPBILL != "null" ? true : false;
                     UDTable.Rows.Add(dr);
                 }
             }

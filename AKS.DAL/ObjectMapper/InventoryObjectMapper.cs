@@ -571,7 +571,7 @@ namespace AKS.DAL.ObjectMapper
                     if (!DBNull.Value.Equals(dr["VariantID"]))
                         result.VariantID = int.Parse(dr["VariantID"].ToString());
                     if (!DBNull.Value.Equals(dr["VariantColumn"]))
-                        result.VariantColumn = dr["VariantColumn"].ToString();
+                        result.VariantColumn = dr["VariantColumn"].ToString().Trim();
                     if (!DBNull.Value.Equals(dr["RevisedRate"]))
                         result.RevisedRate = int.Parse(dr["RevisedRate"].ToString());
                 }
@@ -588,8 +588,8 @@ namespace AKS.DAL.ObjectMapper
                 {
                     if (!DBNull.Value.Equals(dr["ItemSL"]))
                         result.ItemSL = int.Parse(dr["ItemSL"].ToString());
-                    if (!DBNull.Value.Equals(dr["ItemCode"]))
-                        result.ItemCode = dr["ItemCode"].ToString();
+                    if (!DBNull.Value.Equals(dr["ItemCatCode"]))
+                        result.ItemCatCode = dr["ItemCatCode"].ToString();
                     if (!DBNull.Value.Equals(dr["CategoryLongText"]))
                         result.CategoryLongText = dr["CategoryLongText"].ToString();
                     if (!DBNull.Value.Equals(dr["HSNCode"]))

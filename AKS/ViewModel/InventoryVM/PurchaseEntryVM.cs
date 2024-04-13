@@ -9,6 +9,7 @@ namespace AKS.ViewModel.InventoryVM
 {
     public class PurchaseEntryVM
     {
+        public List<CustomComboOptionsWithString> ProvisionalBillList { get; set; }
         public List<Party> VendorList { get; set; }
         public List<Category> CategoryList { get; set; }
         public List<Variant> MetaVariantList { get; set; }

@@ -147,6 +147,7 @@ namespace AKS.Controllers
                 model.StoneVariantList = variants.Where(o => o.VariantColumn == "Stone").ToList();
             }
             model.OrderList = _iInventory.GetOrderListForPurchase(LUser.LogInProfitCentreID, ref pMsg);
+            model.ProvisionalBillList=_iInventory.GetProvisionalBillList(LUser.LogInProfitCentreID, ref pMsg);
             return View(model);
         }
         public ActionResult Sales()

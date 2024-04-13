@@ -102,9 +102,9 @@
                             <tr>
                                 <th scope="col" rowspan="2" style="text-align: center; vertical-align: middle; width: 50px ">
                                     SL
-                                </th>
+                                </th>                                
                                 <th scope="col" rowspan="2" style="text-align: center; vertical-align: middle; width: 300px ">
-                                    Order Number
+                                    Order Number / Provisional Bill
                                 </th>
                                 <th scope="col" rowspan="2" style="text-align: center; vertical-align: middle; width: 300px ">
                                     Item Category
@@ -197,6 +197,32 @@
                                                     onclick="OrderIDBtnClicked()"
                                                     data-toggle="tooltip"
                                                     data-placement="top" title="View Order Details">
+                                                <i data-feather="eye"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-9">
+                                            <select id="cPBILL_0" data-name="SelectedPBILL"
+                                                    class="form-select myctrlw100 alterID"
+                                                    onchange="PBIllChanged()"
+                                                    aria-label="Default select example">
+                                                <option selected value="">Select Provisional Bill</option>
+                                                @if (Model.ProvisionalBillList != null && Model.ProvisionalBillList.Count > 0)
+                                                {
+                                                    foreach (var item in Model.ProvisionalBillList)
+                                                    {
+                                                        <option value="@item.ID">@item.DisplayText</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <button id="cPBILLBtn_0" type="button"
+                                                    class="btn btn-warning alterID"
+                                                    onclick="PBILLBtnClicked()"
+                                                    data-toggle="tooltip"
+                                                    data-placement="top" title="View PBIll Details">
                                                 <i data-feather="eye"></i>
                                             </button>
                                         </div>

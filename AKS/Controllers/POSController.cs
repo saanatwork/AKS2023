@@ -156,6 +156,7 @@ namespace AKS.Controllers
         public JsonResult GetInvoiceDetails(string DocumentNumber = "")
         {
             Invoice result = _iInventory.GetInvoice(DocumentNumber, ref pMsg);
+
             return Json(result, JsonRequestBehavior.AllowGet);
         }
         public JsonResult ConvertToTaxInvoice(string DocumentNumber = "")

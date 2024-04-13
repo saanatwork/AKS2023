@@ -43,7 +43,7 @@ namespace AKS.BOL.POS
         public string ReceivedAmountInWords { get; set; }
         public string ReceiveModeStr { get; set; }
         public List<InvoiceItem> Items { get; set; }
-        public List<InvoiceItemVariants> AllVariants { get; set; }
+        public List<InvoiceItemVariants> AllVariants { get; set; }        
         public bool IsIGST { get; set; }
         public double OrderAmountReceived { get; set; }
         public int CBUID { get; set; }
@@ -71,9 +71,9 @@ namespace AKS.BOL.POS
         public double DiscountPer { get; set; }
         public double AmtAfterDiscount { get; set; }
         public string ItemDescription { get; set; }
-        //public List<InvoiceItemVariants> MetalVariants { get; set; }
-        //public List<InvoiceItemVariants> DiamondVariants { get; set; }
-        //public List<InvoiceItemVariants> StoneVariants { get; set; }
+        public List<InvoiceItemVariants> MetalVariants { get; set; }
+        public List<InvoiceItemVariants> DiamondVariants { get; set; }
+        public List<InvoiceItemVariants> StoneVariants { get; set; }
         public int CurrentMCRate { get; set; }
     }
     public class InvoiceItemVariants 
