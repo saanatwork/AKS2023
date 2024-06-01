@@ -2,6 +2,7 @@
 using AKS.BOL.Exchange;
 using AKS.BOL.POS;
 using AKS.BOL.User;
+using AKS.ViewModel.ExchangeVM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,7 @@ namespace AKS.Controllers
         }
         public ActionResult ExistingInv()
         {
+            
             return View();
         }
         public ActionResult OldInvoice()

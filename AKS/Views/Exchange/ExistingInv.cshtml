@@ -1,4 +1,5 @@
-﻿
+﻿@*@using AKS.ViewModel.ExchangeVM;
+    @model ExistingItemVM*@
 @{
     ViewBag.Title = "Exchange - System Invoice ";
 }
@@ -22,26 +23,26 @@
                         Save
                     </button>
                     @*<button id="btnScan" type="button"
-                            onclick="UploadFile()"
-                            class="btn btn-white">
-                        <i data-feather="upload"></i>
-                        Upload Document
-                    </button>*@
+                                onclick="UploadFile()"
+                                class="btn btn-white">
+                            <i data-feather="upload"></i>
+                            Upload Document
+                        </button>*@
                     @*<button id="btnScanView" type="button"
-                            onclick="ViewUploadedFile()"
-                            class="btn btn-light-green inVisible">
-                        <i data-feather="eye"></i>
-                        View Document
-                    </button>*@
+                                onclick="ViewUploadedFile()"
+                                class="btn btn-light-green inVisible">
+                            <i data-feather="eye"></i>
+                            View Document
+                        </button>*@
                 </div>
                 <h2>Exchange - System Invoice </h2>
                 <div class="rightButton">
                     @*<button id="btnAddVendor" type="button"
-                            onclick="AddVendorClicked()"
-                            class="btn btn-secondary me-2">
-                        <i data-feather="plus"></i>
-                        Add Customer
-                    </button>*@
+                                onclick="AddVendorClicked()"
+                                class="btn btn-secondary me-2">
+                            <i data-feather="plus"></i>
+                            Add Customer
+                        </button>*@
                 </div>
             </div>
         </div>
@@ -77,16 +78,80 @@
                     <div class="col-md-5">
                         <div id="cCustomer" class="position-relative pointer">
                         </div>
-                    </div>                   
+                    </div>
                 </div>
             </div>
-            </div>
-       
+        </div>
+
+    </div>
+    <div class="col-md-12 mb-4">
+        <table class="w-100">
+            <tr>
+                <td style="width:20%">Category :</td>
+                <td style="width:80%" class="cattext">
+                </td>
+            </tr>
+            <tr>
+                <td>Item :</td>
+                <td class="itemtext">
+                </td>
+            </tr>
+        </table><br />
+        <table class="table table-bordered w-100">
+            <thead>
+                <tr>
+                    <td style="width:40%"><b>Variant</b></td>
+                    <td style="width:10%"><b>Weight</b></td>
+                    <td style="width:10%"><b>Rate</b></td>
+                    <td style="width:10%"><b>Discount</b></td>
+                    <td style="width:10%"><b>Amount</b></td>
+                    <td style="width:10%"><b>Revised Rate</b></td>
+                    <td style="width:10%"><b>Revised Amount</b></td>
+                </tr>
+            </thead>
+            <tbody id="VariantBody">
+            </tbody>
+        </table>
+        <br />
+        <table class="table table-bordered w-100">
+            <thead>
+                <tr>
+                    <td><b>Making Charge</b></td>
+                    <td><b>Taxable Amount</b></td>
+                    <td><b>GST</b></td>
+                    <td><b>Invoice Amount</b></td>
+                    <td><b>Revised Amount</b></td>
+                    <td><b>Wear n Tear Discount</b></td>
+                    <td><b>Exchange Value</b></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="billmc"></td>
+                    <td id="billtaxable"></td>
+                    <td id="billgst"></td>
+                    <td id="billamt"></td>
+                    <td id="revamt" class="bggreen"></td>
+                    <td class="">
+                        <input id="InputwtDiscount" class="form-control"
+                               type="text" value="0" onkeyup="InputwtDiscountChanged()" />
+                    </td>
+                    <td class="">
+                        <input id="InputExchangeValue" class="form-control"
+                               type="text" disabled />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
     @*}*@
 </div>
 @section headers{
-
+    <style>
+        .bggreen{
+            background-color:aquamarine !important;
+        }
+    </style>
 }
 @section scripts{
     <script src="~/UIContent/JS/CustomePage/CommonReusableJS.js"></script>

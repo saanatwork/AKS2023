@@ -161,6 +161,7 @@
     <Compile Include="ViewModel\AdminVM\UserRoleVM.cs" />
     <Compile Include="ViewModel\AdminVM\VariantInfoAjaxRapper.cs" />
     <Compile Include="ViewModel\AdminVM\VariantVM.cs" />
+    <Compile Include="ViewModel\ExchangeVM\ExistingItemVM.cs" />
     <Compile Include="ViewModel\InventoryVM\AppStockEntryVM.cs" />
     <Compile Include="ViewModel\InventoryVM\PurchaseEntryVM.cs" />
     <Compile Include="ViewModel\InventoryVM\StockVM.cs" />
