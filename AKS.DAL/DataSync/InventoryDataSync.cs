@@ -1,4 +1,5 @@
-﻿using AKS.BOL.Inventory;
+﻿using AKS.BOL.Exchange;
+using AKS.BOL.Inventory;
 using AKS.BOL.Order;
 using AKS.DAL.ParamMapper;
 using System;
@@ -204,6 +205,17 @@ namespace AKS.DAL.DataSync
                 }
             }
             catch (Exception ex) { pMsg = objPath + ".SetPurchase(...) " + ex.Message; return null; }
+        }
+        public DataTable SetExchangeExisting(AddExistingInvoice data, int userID, int profitCentreId, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("[INV].[SetExchangeExisting]", CommandType.StoredProcedure))
+                {
+                    return sql.GetDataTable(_InventoryParamMapper.MapParam_SetExchangeExisting(data,userID,profitCentreId, ref pMsg), ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".SetExchangeExisting(...) " + ex.Message; return null; }
         }
         public DataSet GetPurchaseDocInfo(string DocumentNumber, ref string pMsg)
         {

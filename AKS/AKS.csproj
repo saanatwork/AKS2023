@@ -279,6 +279,7 @@
     <Content Include="UIContent\JS\CustomePage\Admin\VariantListJS.js" />
     <Content Include="UIContent\JS\CustomePage\CommonReusable.js" />
     <Content Include="UIContent\JS\CustomePage\CommonReusableJS.js" />
+    <Content Include="UIContent\JS\CustomePage\Exchange\ExchangeDataTable.js" />
     <Content Include="UIContent\JS\CustomePage\Exchange\ExistingInv.js" />
     <Content Include="UIContent\JS\CustomePage\Inventory\ApprovePurchaseDataTableJS.js" />
     <Content Include="UIContent\JS\CustomePage\Inventory\ApproveStockDataTableJS.js" />
@@ -437,6 +438,7 @@
     <Content Include="Views\Inventory\VendorSalesBook.cshtml" />
     <Content Include="Views\Exchange\ExistingInv.cshtml" />
     <Content Include="Views\POS\ProBillConversion.cshtml" />
+    <Content Include="Views\Exchange\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

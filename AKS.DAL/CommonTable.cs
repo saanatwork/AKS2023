@@ -1,4 +1,5 @@
 ﻿using AKS.BOL.Accounts;
+using AKS.BOL.Exchange;
 using AKS.BOL.Inventory;
 using AKS.BOL.Order;
 using System;
@@ -13,6 +14,28 @@ namespace AKS.DAL
     public class CommonTable
     {
         public DataTable UDTable { get; set; }
+        public CommonTable(List<AddExistingInvoiceVariants> customoptions)
+        {
+            UDTable = new DataTable();
+            UDTable.Columns.Add("iVariantId", typeof(int));
+            UDTable.Columns.Add("dRevisedRate", typeof(double));
+            UDTable.Columns.Add("dRevisedAmount", typeof(double));
+            UDTable.Columns.Add("dVariantWt", typeof(double));
+            UDTable.Columns.Add("sVariantText", typeof(string));
+            if (customoptions != null && customoptions.Count > 0)
+            {
+                foreach (var obj in customoptions)
+                {
+                    DataRow dr = UDTable.NewRow();
+                    dr["iVariantId"] = obj.VariantID;
+                    dr["dRevisedRate"] = obj.RevisedRate;
+                    dr["dRevisedAmount"] = obj.RevisedAmount;
+                    dr["dVariantWt"] = obj.VariantWt;
+                    dr["sVariantText"] = obj.VariantText;
+                    UDTable.Rows.Add(dr);
+                }
+            }
+        }
         public CommonTable(List<SLSTRNDtl> customoptions)
         {
             UDTable = new DataTable();

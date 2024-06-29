@@ -1,4 +1,5 @@
-﻿using AKS.BOL.Inventory;
+﻿using AKS.BOL.Exchange;
+using AKS.BOL.Inventory;
 using AKS.BOL.Order;
 using System;
 using System.Collections.Generic;
@@ -154,6 +155,44 @@ namespace AKS.DAL.ParamMapper
             catch (Exception ex)
             {
                 pMsg = objPath + ".MapParam_SetPurchase(...) " + ex.Message;
+            }
+            return para;
+        }
+        public SqlParameter[] MapParam_SetExchangeExisting(AddExistingInvoice data,int userID,int profitCentreId, ref string pMsg)
+        {
+            int paracount = 0;
+            CommonTable objItems = new CommonTable(data.VariantDetails);
+            SqlParameter[] para = new SqlParameter[12];
+            try
+            {
+                para[paracount] = new SqlParameter("@UserID", SqlDbType.Int);
+                para[paracount++].Value = userID;
+                para[paracount] = new SqlParameter("@ProfitCentreID", SqlDbType.Int);
+                para[paracount++].Value = profitCentreId;
+                para[paracount] = new SqlParameter("@DocumentNumber", SqlDbType.NVarChar, 10);
+                para[paracount++].Value = data.InvoiceNumber;
+                para[paracount] = new SqlParameter("@ItemCode", SqlDbType.NVarChar, 10);
+                para[paracount++].Value = data.ItemCode;
+                para[paracount] = new SqlParameter("@RevisedAmount", SqlDbType.Decimal);
+                para[paracount++].Value = data.RevisedAmount;
+                para[paracount] = new SqlParameter("@WearnTearDiscount", SqlDbType.Decimal);
+                para[paracount++].Value = data.WearnTearDiscount;
+                para[paracount] = new SqlParameter("@ExchangeValue", SqlDbType.Decimal);
+                para[paracount++].Value = data.ExchangeValue;
+                para[paracount] = new SqlParameter("@MakingCharge", SqlDbType.Decimal);
+                para[paracount++].Value = data.MakingCharge;
+                para[paracount] = new SqlParameter("@TaxableAmount", SqlDbType.Decimal);
+                para[paracount++].Value = data.TaxableAmount;
+                para[paracount] = new SqlParameter("@OldGST", SqlDbType.Decimal);
+                para[paracount++].Value = data.OldGST;
+                para[paracount] = new SqlParameter("@InvoiceAmount", SqlDbType.Decimal);
+                para[paracount++].Value = data.InvoiceAmount;
+                para[paracount] = new SqlParameter("@ItemVariants", SqlDbType.Structured);
+                para[paracount++].Value = objItems.UDTable;
+            }
+            catch (Exception ex)
+            {
+                pMsg = objPath + ".MapParam_SetExchangeExisting(...) " + ex.Message;
             }
             return para;
         }

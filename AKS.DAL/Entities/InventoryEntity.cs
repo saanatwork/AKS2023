@@ -1,4 +1,5 @@
 ﻿using AKS.BOL.Common;
+using AKS.BOL.Exchange;
 using AKS.BOL.Inventory;
 using AKS.BOL.Order;
 using AKS.BOL.POS;
@@ -309,6 +310,12 @@ namespace AKS.DAL.Entities
         {
             bool result = false;
             _DBResponseMapper.Map_DBResponse(_InventoryDataSync.SetPurchase(data, ref pMsg), ref pMsg, ref result);
+            return result;
+        }
+        public bool SetExchangeExisting(AddExistingInvoice data, int userID, int profitCentreId, ref string pMsg)
+        {
+            bool result = false;
+            _DBResponseMapper.Map_DBResponse(_InventoryDataSync.SetExchangeExisting(data,userID,profitCentreId, ref pMsg), ref pMsg, ref result);
             return result;
         }
         public AppStockView GetPurchaseDocInfo(string DocumentNumber, ref string pMsg)

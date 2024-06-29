@@ -96,6 +96,7 @@
     <Compile Include="Common\CustomOptionsWithString.cs" />
     <Compile Include="Common\DisplayList.cs" />
     <Compile Include="Common\FileUploadResponse.cs" />
+    <Compile Include="Exchange\AddExistingInvoice.cs" />
     <Compile Include="Exchange\InvoiceDtlAjax.cs" />
     <Compile Include="Inventory\AppStock.cs" />
     <Compile Include="Inventory\CatWiseItemStockDetail.cs" />

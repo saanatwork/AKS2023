@@ -1,5 +1,6 @@
 ﻿using AKS.BLL.IRepository;
 using AKS.BOL.Common;
+using AKS.BOL.Exchange;
 using AKS.BOL.Inventory;
 using AKS.BOL.Order;
 using AKS.BOL.POS;
@@ -574,6 +575,11 @@ namespace AKS.BLL.Repository
         public bool ConvertPBillToInvoice(string DocumentNumber, int CreatedBy, ref string pMsg, ref string NewDocumentNumber)
         {
             return _InventoryEntity.ConvertPBillToInvoice(DocumentNumber, CreatedBy, ref pMsg,ref NewDocumentNumber);
+        }
+
+        public bool SetExchangeExisting(AddExistingInvoice data, int userID, int profitCentreId, ref string pMsg)
+        {
+            return _InventoryEntity.SetExchangeExisting(data,userID,profitCentreId,ref pMsg);
         }
     }
 }

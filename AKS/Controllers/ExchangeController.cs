@@ -1,4 +1,5 @@
 ﻿using AKS.BLL.IRepository;
+using AKS.BOL.Common;
 using AKS.BOL.Exchange;
 using AKS.BOL.POS;
 using AKS.BOL.User;
@@ -44,7 +45,20 @@ namespace AKS.Controllers
         {
             return View();
         }
-
+        [HttpPost]
+        public JsonResult AddExistingExchange(AddExistingInvoice modelobj)
+        {
+            CustomAjaxResponse result = new CustomAjaxResponse();
+            if (modelobj != null)
+            {
+                modelobj.InvoiceNumber=modelobj.InvoiceNumber.ToUpper();    
+                if (_iInventory.SetExchangeExisting(modelobj, LUser.user.UserID, LUser.LogInProfitCentreID, ref pMsg))
+                    result.bResponseBool = true;
+                else
+                    result.sResponseString = pMsg;
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
 
         public JsonResult GetInvoiceDetails(string InvoiceNumber)
         {

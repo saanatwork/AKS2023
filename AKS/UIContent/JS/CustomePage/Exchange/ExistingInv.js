@@ -1,4 +1,89 @@
-﻿function InvoceNumberChanged(){
+﻿function GetItemVariantRecords(tableName) {
+    var schrecords = '';
+    var mrecord = '';
+    $('#' + tableName + ' .Ptbody').each(function () {
+        mRow = $(this);        
+        mRow.find('[data-name]').each(function () {
+            that = $(this);
+            dataname = that.attr('data-name');
+            if (that.hasClass('htmlVal')) {
+                datavalue = that.html();
+            }
+            else { datavalue = that.val(); }
+            mrecord = mrecord + '"' + dataname + '":"' + datavalue + '",';
+        });
+        mrecord = mrecord.replace(/,\s*$/, "");
+        schrecords = schrecords + '{' + mrecord + '},';
+        mrecord = '';
+    });
+    schrecords = schrecords.replace(/,\s*$/, "");
+    schrecords = '[' + schrecords + ']';
+    return schrecords;
+};
+function SubmitBtnClicked() {
+    var invoiceNumber = $('#InvoiceNumberCtrl').val();
+    var itemCode = $('#InputItemCode').val();
+    var revisedAmount = $('#revamt').html();
+    var wtDiscount = $('#InputwtDiscount').val();
+    var exchangeValue = $('#InputExchangeValue').val();
+    var mc = $('#billmc').html();
+    var taxableAmt = $('#billtaxable').html();
+    var oldgst = $('#billgst').html();
+    var billAmt = $('#billamt').html();
+    var schrecords = GetItemVariantRecords('tblItemVariant');
+    var x = '{"InvoiceNumber":"' + invoiceNumber
+        + '","ItemCode":"' + itemCode
+        + '","RevisedAmount":"' + revisedAmount
+        + '","WearnTearDiscount":"' + wtDiscount
+        + '","ExchangeValue":"' + exchangeValue
+        + '","MakingCharge":"' + mc
+        + '","TaxableAmount":"' + taxableAmt
+        + '","OldGST":"' + oldgst
+        + '","InvoiceAmount":"' + billAmt
+        + '","VariantDetails":' + schrecords + '}';
+    
+    $.ajax({
+        method: 'POST',
+        url: '/Exchange/AddExistingExchange',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: x,
+        success: function (data) {
+            $(data).each(function (index, item) {
+                if (item.bResponseBool == true) {
+                    Swal.fire({
+                        title: 'Success',
+                        text: 'Exchange Entry Saved Successfully.',
+                        icon: 'success',
+                        customClass: 'swal-wide',
+                        buttons: {
+                            confirm: 'Ok'
+                        },
+                        confirmButtonColor: '#2527a2',
+                    }).then(callback);
+                    function callback(result) {
+                        if (result.value) {
+                            window.location.href = "/Exchange/Index";
+                        }
+                    }
+                }
+                else {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Failed To Save Exchange Entry.',
+                        icon: 'error',
+                        customClass: 'swal-wide',
+                        buttons: {
+                            confirm: 'Ok'
+                        },
+                        confirmButtonColor: '#2527a2',
+                    });
+                }
+            });
+        },
+    });
+};
+function InvoceNumberChanged() {
     var invnoCtrl = $('#InvoiceNumberCtrl');
     var btnGetInvDtl = $('#btnGetInvDtl');  
     var btnSubmit = $('#btnSubmit');
@@ -54,11 +139,13 @@ function FillHeaderData(data) {
     $('#billtaxable').html(data.TaxableAmount);
     $('#billgst').html(data.GSTAmount);
     $('#billamt').html(data.NetPayableAmount);
+    
 }
 function FillDetailData(dataitem) {
     $('.cattext').html(dataitem.CategoryLongText);
     $('.itemtext').html(dataitem.UItemCode);
     $('#billmc').html(dataitem.MCAmount); 
+    $('#InputItemCode').val(dataitem.ItemCode);
     $.each(dataitem.MetalVariants, function (index, item) {
         FillVariantDetailData(item,0);
     });
@@ -77,14 +164,15 @@ function FillVariantDetailData(varianttem, revisedrateincrease) {
         rr = (rr*1) + (rr * revisedrateincrease / 100).toFixed(0)*1;
     }
     var rrAmount = (varianttem.Weight * rr).toFixed(0);
-    var newRow = $("<tr>").append(
-        $("<td>").text(varianttem.VariantText),
-        $("<td>").text(varianttem.Weight),
+    var newRow = $("<tr class='Ptbody'>").append(
+        $("<td class='htmlVal' data-name='VariantID'>").text(varianttem.VariantID),
+        $("<td class='htmlVal' data-name='VariantText'>").text(varianttem.VariantText),
+        $("<td class='htmlVal' data-name='VariantWt'>").text(varianttem.Weight),
         $("<td>").text(varianttem.Rate),
         $("<td>").text(varianttem.DDisAmount),
         $("<td>").text(varianttem.Amount),
-        $("<td>").text(rr),
-        $("<td class='rrAmt bggreen'>").text(rrAmount)
+        $("<td class='htmlVal' data-name='RevisedRate'>").text(rr),
+        $("<td class='rrAmt bggreen htmlVal' data-name='RevisedAmount'>").text(rrAmount)
     );
     $('#VariantBody').append(newRow);
 }

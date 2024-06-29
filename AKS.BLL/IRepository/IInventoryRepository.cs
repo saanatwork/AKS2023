@@ -1,4 +1,5 @@
 ﻿using AKS.BOL.Common;
+using AKS.BOL.Exchange;
 using AKS.BOL.Inventory;
 using AKS.BOL.Order;
 using AKS.BOL.POS;
@@ -12,6 +13,7 @@ namespace AKS.BLL.IRepository
 {
     public interface IInventoryRepository
     {
+        bool SetExchangeExisting(AddExistingInvoice data, int userID, int profitCentreId, ref string pMsg);
         List<VStockSummary> GetLiveItemsOfaVendorV2(int profitCentreID, int vendorCode, ref string pMsg);
         List<CatWiseItemStockDetail> GetItemInStockDetails(int ProfitCentreID, string ItemCatCode, ref string pMsg);
         List<ProBillList> GetProBillList(int DisplayLength, int DisplayStart, int SortColumn,
