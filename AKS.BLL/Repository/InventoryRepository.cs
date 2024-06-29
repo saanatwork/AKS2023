@@ -581,5 +581,10 @@ namespace AKS.BLL.Repository
         {
             return _InventoryEntity.SetExchangeExisting(data,userID,profitCentreId,ref pMsg);
         }
+
+        public List<ExistingHistoryDT> GetExExistingHistory(int DisplayLength, int DisplayStart, int SortColumn, string SortDirection, string SearchText, int ProfitCentreID, ref string pMsg)
+        {
+            return _InventoryEntity.GetExExistingHistory(DisplayLength, DisplayStart, SortColumn, SortDirection, SearchText, ProfitCentreID, ref pMsg);
+        }
     }
 }

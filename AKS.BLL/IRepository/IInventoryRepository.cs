@@ -13,6 +13,8 @@ namespace AKS.BLL.IRepository
 {
     public interface IInventoryRepository
     {
+        List<ExistingHistoryDT> GetExExistingHistory(int DisplayLength, int DisplayStart, int SortColumn,
+            string SortDirection, string SearchText, int ProfitCentreID, ref string pMsg);
         bool SetExchangeExisting(AddExistingInvoice data, int userID, int profitCentreId, ref string pMsg);
         List<VStockSummary> GetLiveItemsOfaVendorV2(int profitCentreID, int vendorCode, ref string pMsg);
         List<CatWiseItemStockDetail> GetItemInStockDetails(int ProfitCentreID, string ItemCatCode, ref string pMsg);

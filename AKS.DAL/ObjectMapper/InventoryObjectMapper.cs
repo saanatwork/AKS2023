@@ -1,5 +1,6 @@
 ﻿using AKS.BOL;
 using AKS.BOL.Common;
+using AKS.BOL.Exchange;
 using AKS.BOL.Inventory;
 using AKS.BOL.Order;
 using AKS.BOL.POS;
@@ -95,6 +96,47 @@ namespace AKS.DAL.ObjectMapper
                 }
             }
             catch (Exception ex) { pMsg = objPath + ".Map_StockSummary4DTV2(DataRow dr,ref string pMsg) " + ex.Message; }
+            return result;
+        }
+        public ExistingHistoryDT Map_ExExistingHistory(DataRow dr, ref string pMsg)
+        {
+            ExistingHistoryDT result = new ExistingHistoryDT();
+            try
+            {
+                if (dr != null)
+                {
+                    if (!DBNull.Value.Equals(dr["RowNum"]))
+                        result.RowNum = int.Parse(dr["RowNum"].ToString());
+                    if (!DBNull.Value.Equals(dr["TotalCount"]))
+                        result.TotalCount = int.Parse(dr["TotalCount"].ToString());
+                    if (!DBNull.Value.Equals(dr["TotalRecords"]))
+                        result.TotalRecords = int.Parse(dr["TotalRecords"].ToString());
+
+                    if (!DBNull.Value.Equals(dr["CustomerName"]))
+                        result.CustomerName = dr["CustomerName"].ToString();
+                    if (!DBNull.Value.Equals(dr["RefDocumentNumber"]))
+                        result.RefDocumentNumber = dr["RefDocumentNumber"].ToString();
+                    if (!DBNull.Value.Equals(dr["InvoiceDate"]))
+                    {
+                        result.InvoiceDate = DateTime.Parse(dr["InvoiceDate"].ToString());
+                        result.InvoiceDateStr = result.InvoiceDate.ToString("dd-MM-yyyy");
+                    }
+                        
+                    if (!DBNull.Value.Equals(dr["InvoiceAmount"]))
+                        result.InvoiceAmount = double.Parse(dr["InvoiceAmount"].ToString());
+                    if (!DBNull.Value.Equals(dr["DocumentNumber"]))
+                        result.DocumentNumber = dr["DocumentNumber"].ToString();
+                    if (!DBNull.Value.Equals(dr["EntryDate"]))
+                    {
+                        result.EntryDate = DateTime.Parse(dr["EntryDate"].ToString());
+                        result.EntryDateStr = result.EntryDate.ToString("dd-MM-yyyy");
+                    }
+                        
+                    if (!DBNull.Value.Equals(dr["ExchangeValue"]))
+                        result.ExchangeValue = double.Parse(dr["ExchangeValue"].ToString());
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".Map_ExExistingHistory(DataRow dr,ref string pMsg) " + ex.Message; }
             return result;
         }
         public StockVWSummary4DTV2 Map_StockVWSummary4DTV2(DataRow dr, ref string pMsg)
