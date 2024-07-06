@@ -162,7 +162,7 @@ namespace AKS.DAL.ParamMapper
         {
             int paracount = 0;
             CommonTable objItems = new CommonTable(data.VariantDetails);
-            SqlParameter[] para = new SqlParameter[12];
+            SqlParameter[] para = new SqlParameter[14];
             try
             {
                 para[paracount] = new SqlParameter("@UserID", SqlDbType.Int);
@@ -187,6 +187,10 @@ namespace AKS.DAL.ParamMapper
                 para[paracount++].Value = data.OldGST;
                 para[paracount] = new SqlParameter("@InvoiceAmount", SqlDbType.Decimal);
                 para[paracount++].Value = data.InvoiceAmount;
+                para[paracount] = new SqlParameter("@GSTOnExchange", SqlDbType.Decimal);
+                para[paracount++].Value = data.GSTOnExchange;
+                para[paracount] = new SqlParameter("@NetExchangeAmount", SqlDbType.Decimal);
+                para[paracount++].Value = data.NetExchangeAmount;
                 para[paracount] = new SqlParameter("@ItemVariants", SqlDbType.Structured);
                 para[paracount++].Value = objItems.UDTable;
             }

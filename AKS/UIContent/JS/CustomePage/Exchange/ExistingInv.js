@@ -30,6 +30,8 @@ function SubmitBtnClicked() {
     var taxableAmt = $('#billtaxable').html();
     var oldgst = $('#billgst').html();
     var billAmt = $('#billamt').html();
+    var gstOnExchange = $('#gstOnExchange').html();
+    var netExchangeValue=$('#netExchange').html();
     var schrecords = GetItemVariantRecords('tblItemVariant');
     var x = '{"InvoiceNumber":"' + invoiceNumber
         + '","ItemCode":"' + itemCode
@@ -40,6 +42,8 @@ function SubmitBtnClicked() {
         + '","TaxableAmount":"' + taxableAmt
         + '","OldGST":"' + oldgst
         + '","InvoiceAmount":"' + billAmt
+        + '","GSTOnExchange":"' + gstOnExchange
+        + '","NetExchangeAmount":"' + netExchangeValue
         + '","VariantDetails":' + schrecords + '}';
     
     $.ajax({
@@ -177,8 +181,7 @@ function FillVariantDetailData(varianttem, revisedrateincrease) {
     $('#VariantBody').append(newRow);
 }
 function calculateExchangeValue() {
-    var totalRRAmount = 0;
-    debugger;
+    var totalRRAmount = 0;    
     $('#VariantBody .rrAmt').each(function () {
         // Extract the text from the element and convert it to a number
         var rrAmtValue = parseFloat($(this).html());
@@ -192,6 +195,9 @@ function calculateExchangeValue() {
     $('#revamt').html(totalRRAmount);
     $('#InputwtDiscount').val(0);
     $('#InputExchangeValue').val(totalRRAmount);
+    var gst = Math.round(totalRRAmount * .03);
+    $('#gstOnExchange').html(gst);
+    $('#netExchange').html(totalRRAmount+gst);
 };
 function InputwtDiscountChanged() {
     var ramt = $('#revamt').html() * 1;
@@ -200,6 +206,9 @@ function InputwtDiscountChanged() {
         dis = $('#InputwtDiscount').val() * 1;
     }
     $('#InputExchangeValue').val(ramt - dis);
+    var gst = Math.round(totalRRAmount * .03);
+    $('#gstOnExchange').html(gst);
+    $('#netExchange').html(totalRRAmount + gst);
 };
 function enableSubmitBtn() {
     var btn = $('#btnSubmit');

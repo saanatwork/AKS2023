@@ -67,6 +67,16 @@ namespace AKS.Controllers
             result.invoiceDtl = _iInventory.GetInvoice(InvoiceNumber, ref pMsg);
             if(result.invoiceDtl!=null && result.invoiceDtl.InvoiceNumber!=null)
             {
+                foreach(var item in result.invoiceDtl.Items)
+                {
+                    if(item.MetalVariants!=null && item.MetalVariants.Count > 0)
+                    {
+                        foreach(var gold in item.MetalVariants)
+                        {
+                            gold.RevisedRate = gold.RevisedRate<=100?0:gold.RevisedRate - 100;
+                        }
+                    }
+                }
                 result.IsSuccess= true;
             }
             else

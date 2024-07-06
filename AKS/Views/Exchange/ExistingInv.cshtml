@@ -106,7 +106,7 @@
                     <td style="width:10%"><b>Rate</b></td>
                     <td style="width:10%"><b>Discount</b></td>
                     <td style="width:10%"><b>Amount</b></td>
-                    <td style="width:10%"><b>Revised Rate</b></td>
+                    <td style="width:10%"><b>Revised Rate (With Gold Discount)</b></td>
                     <td style="width:10%"><b>Revised Amount</b></td>
                 </tr>
             </thead>
@@ -125,6 +125,8 @@
                     <td><b>Revised Amount</b></td>
                     <td><b>Wear n Tear Discount</b></td>
                     <td><b>Exchange Value</b></td>
+                    <td><b>GST On Exchange Value</b></td>
+                    <td><b>Net Exchange Value</b></td>
                 </tr>
             </thead>
             <tbody>
@@ -141,8 +143,10 @@
                     </td>
                     <td class="">
                         <input id="InputExchangeValue" class="form-control"
-                               type="text" disabled />                        
+                               type="text" disabled />
                     </td>
+                    <td id="gstOnExchange"></td>
+                    <td id="netExchange"></td>
                 </tr>
             </tbody>
         </table>

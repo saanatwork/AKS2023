@@ -17,6 +17,8 @@ namespace AKS.BOL.Exchange
         public double RevisedAmount { get; set; }
         public double WearnTearDiscount { get; set; }
         public double ExchangeValue { get; set; }
+        public double GSTOnExchange { get; set; }
+        public double NetExchangeAmount { get; set; }
         public List<AddExistingInvoiceVariants> VariantDetails { get; set; }
 
     }
@@ -24,6 +26,7 @@ namespace AKS.BOL.Exchange
     {
         public int VariantID { get; set; }
         public double RevisedRate { get; set; }
+        public double GoldDiscount { get; set; }
         public double RevisedAmount { get; set; }
         public double VariantWt { get; set; }
         public string VariantText { get; set; }
