@@ -7,6 +7,7 @@ using AKS.BOL.User;
 using AKS.ViewModel.ExchangeVM;
 using System;
 using System.Collections.Generic;
+using System.EnterpriseServices;
 using System.Linq;
 using System.Reflection;
 using System.Web;
@@ -38,9 +39,10 @@ namespace AKS.Controllers
         {
             return View();
         }
-        public ActionResult Approval()
+        public ActionResult ViewExchangeNote(string DocumentNumber)
         {
-            return View();
+            Invoice model = _iInventory.GetExchangeDoc(DocumentNumber, ref pMsg);
+            return View(model);
         }
         public ActionResult Report()
         {

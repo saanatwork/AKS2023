@@ -79,6 +79,21 @@ namespace AKS.DAL.ParamMapper
             }
             return para;
         }
+        public SqlParameter[] MapParam_GetExchangeDoc(string DocumentNumer, ref string pMsg)
+        {
+            int paracount = 0;
+            SqlParameter[] para = new SqlParameter[1];
+            try
+            {
+                para[paracount] = new SqlParameter("@ENDocumentNumber", SqlDbType.NVarChar, 10);
+                para[paracount++].Value = DocumentNumer;
+            }
+            catch (Exception ex)
+            {
+                pMsg = objPath + ".MapParam_GetExchangeDoc(...) " + ex.Message;
+            }
+            return para;
+        }
         public SqlParameter[] MapParam_ConvertPBillToInvoice(string DocumentNumber, int CreatedBy, ref string pMsg)
         {
             int paracount = 0;

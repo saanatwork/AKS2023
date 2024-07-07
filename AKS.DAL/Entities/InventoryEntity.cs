@@ -1,4 +1,5 @@
-﻿using AKS.BOL.Common;
+﻿using AKS.BOL;
+using AKS.BOL.Common;
 using AKS.BOL.Exchange;
 using AKS.BOL.Inventory;
 using AKS.BOL.Order;
@@ -483,6 +484,55 @@ namespace AKS.DAL.Entities
                 }
             }
             catch (Exception ex) { pMsg = objPath + ".GetInvoice(...) " + ex.Message; }
+            return result;
+        }
+        public Invoice GetExchangeDoc(string DocumentNumber, ref string pMsg)
+        {
+            Invoice result = new Invoice();
+            try
+            {
+                ds = _InventoryDataSync.GetExchangeDoc(DocumentNumber, ref pMsg);
+                if (ds != null)
+                {
+                    List<InvoiceItem> itemlist = new List<InvoiceItem>();
+                    List<InvoiceItemVariants> variantlist = new List<InvoiceItemVariants>();
+                    DataTable hdr = ds.Tables[0];
+                    DataTable dtitem = ds.Tables[1];
+                    dt = ds.Tables[2];
+                    if (hdr != null && hdr.Rows.Count > 0)
+                        result = _InventoryObjectMapper.Map_ExchangeDoc(hdr.Rows[0], ref pMsg);
+                    if (dtitem != null && dtitem.Rows.Count > 0)
+                    {
+                        for (int i = 0; i < dtitem.Rows.Count; i++)
+                        {
+                            itemlist.Add(_InventoryObjectMapper.Map_ExchangeItem(dtitem.Rows[i], ref pMsg));
+                        }
+                    }
+                    result.Items = itemlist;
+                    if(result.Items!=null && result.Items.Count>0)
+                    {
+                        result.BillAmountInWords = MyHelper.ConvertToWords(result.Items[0].NetExchangeAmount);
+                    }                   
+
+                    if (dt != null && dt.Rows.Count > 0)
+                    {
+                        for (int i = 0; i < dt.Rows.Count; i++)
+                        {
+                            variantlist.Add(_InventoryObjectMapper.Map_ExchangeItemVariants(dt.Rows[i], ref pMsg));
+                        }
+                    }
+                    result.AllVariants = variantlist;
+
+                    // Getting variant list inside the items
+                    foreach (var item in result.Items)
+                    {
+                        item.MetalVariants = result.AllVariants.Where(o => o.ItemSL == item.ItemSL && o.VariantColumn == "Metal").ToList();
+                        item.DiamondVariants = result.AllVariants.Where(o => o.ItemSL == item.ItemSL && o.VariantColumn == "Diamond").ToList();
+                        item.StoneVariants = result.AllVariants.Where(o => o.ItemSL == item.ItemSL && o.VariantColumn == "Stone").ToList();
+                    }
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetExchangeDoc(...) " + ex.Message; }
             return result;
         }
         public List<StockSummary> GetStockSummary(int ProfitCentreID, ref string pMsg)

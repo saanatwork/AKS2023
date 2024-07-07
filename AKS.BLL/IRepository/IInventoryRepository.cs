@@ -49,6 +49,7 @@ namespace AKS.BLL.IRepository
         bool LogGoldRate(string City, double GoldRate, ref string pMsg);
         bool SetInvoice(AppStockEntry data, ref string pMsg);
         Invoice GetInvoice(string DocumentNumber, ref string pMsg);
+        Invoice GetExchangeDoc(string DocumentNumber, ref string pMsg);
         List<StockSummary> GetStockSummary(int ProfitCentreID, ref string pMsg);
         Stocks GetStockWithItems(int ProfitCentreID, ref string pMsg);
         Stocks GetItemTranDtls(int ProfitCentreID, string ItemCatCode, ref string pMsg);

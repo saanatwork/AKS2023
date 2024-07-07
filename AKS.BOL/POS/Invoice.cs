@@ -49,6 +49,8 @@ namespace AKS.BOL.POS
         public int CBUID { get; set; }
         public string ProvisionalBill { get; set; }
         public bool IsProcessed { get; set; }
+        public string ExchangeDocNumber { get; set; }
+        public DateTime ExchangeDocDate { get; set; }
     }
     public class InvoiceItem 
     {
@@ -77,6 +79,11 @@ namespace AKS.BOL.POS
         public List<InvoiceItemVariants> DiamondVariants { get; set; }
         public List<InvoiceItemVariants> StoneVariants { get; set; }
         public int CurrentMCRate { get; set; }
+        public double RevisedAmount { get; set; }
+        public double WearnTearDiscount { get; set; }
+        public double ExchangeValue { get; set; }
+        public double GSTOnExchange { get; set; }
+        public double NetExchangeAmount { get; set; }
     }
     public class InvoiceItemVariants 
     {
@@ -92,6 +99,8 @@ namespace AKS.BOL.POS
         public string VariantColumn { get; set; }
         public int VariantID { get; set; }
         public int RevisedRate { get; set; }
+        public double ExRevisedRate { get; set; }
+        public double RevisedAmount { get; set; }
     }
     public class Invoice4DT
     {

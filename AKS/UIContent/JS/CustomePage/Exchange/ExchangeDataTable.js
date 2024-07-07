@@ -1,6 +1,6 @@
 ﻿function FnEditNote(ctrl) {
     var primarykey = $(ctrl).attr('data-dt');
-    window.location.href = "/Inventory/EditAppStock?DocumentNumber=" + primarykey;
+    window.location.href = "/Exchange/EditAppStock?DocumentNumber=" + primarykey;
 };
 function FnDeleteNote(ctrl) {
     var primarykey = $(ctrl).attr('data-dt');
@@ -8,7 +8,7 @@ function FnDeleteNote(ctrl) {
 };
 function FnViewNote(ctrl) {
     var primarykey = $(ctrl).attr('id');
-    window.location.href = "/Inventory/ViewAppStock?DocumentNumber=" + primarykey;
+    window.location.href = "/Exchange/ViewExchangeNote?DocumentNumber=" + primarykey;
 };
 $(document).ready(function () {
     var dtinstance = $('#tblDataList').DataTable({

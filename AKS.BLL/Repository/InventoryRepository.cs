@@ -354,6 +354,10 @@ namespace AKS.BLL.Repository
         {
             return _InventoryEntity.GetInvoice(DocumentNumber, ref pMsg); 
         }
+        public Invoice GetExchangeDoc(string DocumentNumber, ref string pMsg)
+        {
+            return _InventoryEntity.GetExchangeDoc(DocumentNumber, ref pMsg);
+        }
         public List<StockSummary> GetStockSummary(int ProfitCentreID, ref string pMsg)
         {
             return _InventoryEntity.GetStockSummary(ProfitCentreID, ref pMsg);

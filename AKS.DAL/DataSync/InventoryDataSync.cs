@@ -317,6 +317,17 @@ namespace AKS.DAL.DataSync
             }
             catch (Exception ex) { pMsg = objPath + ".GetInvoice(...) " + ex.Message; return null; }
         }
+        public DataSet GetExchangeDoc(string DocumentNumber, ref string pMsg)
+        {
+            try
+            {
+                using (SQLHelper sql = new SQLHelper("[INV].[GetExchangeNote]", CommandType.StoredProcedure))
+                {
+                    return sql.GetDataSet(_InventoryParamMapper.MapParam_GetExchangeDoc(DocumentNumber, ref pMsg), ref pMsg);
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".GetExchangeDoc(...) " + ex.Message; return null; }
+        }
         public DataTable GetStockWithItems(int ProfitCentreID, ref string pMsg)
         {
             try

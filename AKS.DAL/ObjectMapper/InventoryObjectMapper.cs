@@ -621,6 +621,44 @@ namespace AKS.DAL.ObjectMapper
             catch (Exception ex) { pMsg = objPath + ".Map_InvoiceItemVariants(DataRow dr,ref string pMsg) " + ex.Message; }
             return result;
         }
+        public InvoiceItemVariants Map_ExchangeItemVariants(DataRow dr, ref string pMsg)
+        {
+            InvoiceItemVariants result = new InvoiceItemVariants();
+            try
+            {
+                if (dr != null)
+                {
+                    if (!DBNull.Value.Equals(dr["ItemSL"]))
+                        result.ItemSL = int.Parse(dr["ItemSL"].ToString());
+                    if (!DBNull.Value.Equals(dr["ItemCode"]))
+                        result.ItemCode = dr["ItemCode"].ToString();
+                    if (!DBNull.Value.Equals(dr["VariantText"]))
+                        result.VariantText = dr["VariantText"].ToString();
+                    if (!DBNull.Value.Equals(dr["Weight"]))
+                        result.Weight = double.Parse(dr["Weight"].ToString());
+                    if (!DBNull.Value.Equals(dr["Rate"]))
+                        result.Rate = int.Parse(dr["Rate"].ToString());
+                    if (!DBNull.Value.Equals(dr["Amount"]))
+                        result.Amount = double.Parse(dr["Amount"].ToString());
+                    if (!DBNull.Value.Equals(dr["DDisPercentage"]))
+                        result.DDisPercentage = double.Parse(dr["DDisPercentage"].ToString());
+                    if (!DBNull.Value.Equals(dr["DDisAmount"]))
+                        result.DDisAmount = double.Parse(dr["DDisAmount"].ToString());
+                    if (!DBNull.Value.Equals(dr["DGrossAmount"]))
+                        result.DGrossAmount = double.Parse(dr["DGrossAmount"].ToString());
+                    if (!DBNull.Value.Equals(dr["VariantID"]))
+                        result.VariantID = int.Parse(dr["VariantID"].ToString());
+                    if (!DBNull.Value.Equals(dr["VariantColumn"]))
+                        result.VariantColumn = dr["VariantColumn"].ToString().Trim();
+                    if (!DBNull.Value.Equals(dr["RevisedRate"]))
+                        result.ExRevisedRate = double.Parse(dr["RevisedRate"].ToString());
+                    if (!DBNull.Value.Equals(dr["RevisedAmount"]))
+                        result.RevisedAmount = double.Parse(dr["RevisedAmount"].ToString());
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".Map_ExchangeItemVariants(DataRow dr,ref string pMsg) " + ex.Message; }
+            return result;
+        }
         public InvoiceItem Map_InvoiceItem(DataRow dr, ref string pMsg) 
         {
             InvoiceItem result = new InvoiceItem();
@@ -673,6 +711,71 @@ namespace AKS.DAL.ObjectMapper
                 }
             }
             catch (Exception ex) { pMsg = objPath + ".Map_InvoiceItem(DataRow dr,ref string pMsg) " + ex.Message; }
+            return result;
+        }
+        public InvoiceItem Map_ExchangeItem(DataRow dr, ref string pMsg)
+        {
+            InvoiceItem result = new InvoiceItem();
+            try
+            {
+                if (dr != null)
+                {
+                    if (!DBNull.Value.Equals(dr["ItemSL"]))
+                        result.ItemSL = int.Parse(dr["ItemSL"].ToString());
+                    if (!DBNull.Value.Equals(dr["ItemCatCode"]))
+                        result.ItemCatCode = dr["ItemCatCode"].ToString();
+                    if (!DBNull.Value.Equals(dr["CategoryLongText"]))
+                        result.CategoryLongText = dr["CategoryLongText"].ToString();
+                    if (!DBNull.Value.Equals(dr["HSNCode"]))
+                        result.HSNCode = dr["HSNCode"].ToString();
+                    if (!DBNull.Value.Equals(dr["ItemCode"]))
+                        result.ItemCode = dr["ItemCode"].ToString();
+                    if (!DBNull.Value.Equals(dr["UItemCode"]))
+                        result.UItemCode = dr["UItemCode"].ToString();
+                    if (!DBNull.Value.Equals(dr["Qty"]))
+                        result.Qty = int.Parse(dr["Qty"].ToString());
+                    if (!DBNull.Value.Equals(dr["IsApproval"]))
+                        result.IsApproval = bool.Parse(dr["IsApproval"].ToString());
+                    if (!DBNull.Value.Equals(dr["IsOrder"]))
+                        result.IsOrder = bool.Parse(dr["IsOrder"].ToString());
+                    if (!DBNull.Value.Equals(dr["ProfitCentreID"]))
+                        result.ProfitCentreID = int.Parse(dr["ProfitCentreID"].ToString());
+                    if (!DBNull.Value.Equals(dr["MCWeight"]))
+                        result.MCWeight = double.Parse(dr["MCWeight"].ToString());
+                    if (!DBNull.Value.Equals(dr["MCRate"]))
+                        result.MCRate = int.Parse(dr["MCRate"].ToString());
+                    if (!DBNull.Value.Equals(dr["MCAmount"]))
+                        result.MCAmount = double.Parse(dr["MCAmount"].ToString());
+                    if (!DBNull.Value.Equals(dr["HallMarkCharge"]))
+                        result.HallMarkCharge = int.Parse(dr["HallMarkCharge"].ToString());
+                    if (!DBNull.Value.Equals(dr["Othercharges"]))
+                        result.Othercharges = int.Parse(dr["Othercharges"].ToString());
+                    if (!DBNull.Value.Equals(dr["DiscountAmount"]))
+                        result.DiscountAmount = double.Parse(dr["DiscountAmount"].ToString());
+                    if (!DBNull.Value.Equals(dr["GrossAmount"]))
+                        result.GrossAmount = double.Parse(dr["GrossAmount"].ToString());
+                    if (!DBNull.Value.Equals(dr["NetAmount"]))
+                        result.NetAmount = double.Parse(dr["NetAmount"].ToString());
+                    if (!DBNull.Value.Equals(dr["DiscountPer"]))
+                        result.DiscountPer = double.Parse(dr["DiscountPer"].ToString());
+                    if (!DBNull.Value.Equals(dr["AmtAfterDiscount"]))
+                        result.AmtAfterDiscount = double.Parse(dr["AmtAfterDiscount"].ToString());
+                    if (!DBNull.Value.Equals(dr["CurrentMCRate"]))
+                        result.CurrentMCRate = int.Parse(dr["CurrentMCRate"].ToString());
+
+                    if (!DBNull.Value.Equals(dr["RevisedAmount"]))
+                        result.RevisedAmount = double.Parse(dr["RevisedAmount"].ToString());
+                    if (!DBNull.Value.Equals(dr["WearnTearDiscount"]))
+                        result.WearnTearDiscount = double.Parse(dr["WearnTearDiscount"].ToString());
+                    if (!DBNull.Value.Equals(dr["ExchangeValue"]))
+                        result.ExchangeValue = double.Parse(dr["ExchangeValue"].ToString());
+                    if (!DBNull.Value.Equals(dr["GSTOnExchange"]))
+                        result.GSTOnExchange = double.Parse(dr["GSTOnExchange"].ToString());
+                    if (!DBNull.Value.Equals(dr["NetExchangeAmount"]))
+                        result.NetExchangeAmount = double.Parse(dr["NetExchangeAmount"].ToString());
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".Map_ExchangeItem(DataRow dr,ref string pMsg) " + ex.Message; }
             return result;
         }
         public Invoice Map_Invoice(DataRow dr, ref string pMsg) 
@@ -759,6 +862,96 @@ namespace AKS.DAL.ObjectMapper
                 }
             }
             catch (Exception ex) { pMsg = objPath + ".Map_Invoice(DataRow dr,ref string pMsg) " + ex.Message; }
+            return result;
+        }
+        public Invoice Map_ExchangeDoc(DataRow dr, ref string pMsg)
+        {
+            Invoice result = new Invoice();
+            try
+            {
+                if (dr != null)
+                {
+                    if (!DBNull.Value.Equals(dr["InvoiceNumber"]))
+                        result.InvoiceNumber = dr["InvoiceNumber"].ToString();
+                    if (!DBNull.Value.Equals(dr["EntryDate"]))
+                        result.EntryDate = DateTime.Parse(dr["EntryDate"].ToString());
+                    if (!DBNull.Value.Equals(dr["InvoiceDate"]))
+                        result.InvoiceDate = DateTime.Parse(dr["InvoiceDate"].ToString());
+                    if (!DBNull.Value.Equals(dr["CustomerID"]))
+                        result.CustomerID = int.Parse(dr["CustomerID"].ToString());
+                    if (!DBNull.Value.Equals(dr["CustomerName"]))
+                        result.CustomerName = dr["CustomerName"].ToString();
+                    if (!DBNull.Value.Equals(dr["CustomerAddress"]))
+                        result.CustomerAddress = dr["CustomerAddress"].ToString();
+                    if (!DBNull.Value.Equals(dr["CustomerContactNo"]))
+                        result.CustomerContactNo = dr["CustomerContactNo"].ToString();
+                    if (!DBNull.Value.Equals(dr["CustomerEmailID"]))
+                        result.CustomerEmailID = dr["CustomerEmailID"].ToString();
+                    if (!DBNull.Value.Equals(dr["CustomerPAN"]))
+                        result.CustomerPAN = dr["CustomerPAN"].ToString();
+                    if (!DBNull.Value.Equals(dr["CreateID"]))
+                        result.CreateID = int.Parse(dr["CreateID"].ToString());
+                    if (!DBNull.Value.Equals(dr["CreatorName"]))
+                        result.CreatorName = dr["CreatorName"].ToString();
+                    if (!DBNull.Value.Equals(dr["DocumentFileName"]))
+                        result.DocumentFileName = dr["DocumentFileName"].ToString();
+                    if (!DBNull.Value.Equals(dr["ItemCount"]))
+                        result.ItemCount = int.Parse(dr["ItemCount"].ToString());
+                    if (!DBNull.Value.Equals(dr["QtyCount"]))
+                        result.QtyCount = int.Parse(dr["QtyCount"].ToString());
+                    if (!DBNull.Value.Equals(dr["ProfitCentreID"]))
+                        result.ProfitCentreID = int.Parse(dr["ProfitCentreID"].ToString());
+                    if (!DBNull.Value.Equals(dr["ProfitCentreName"]))
+                        result.ProfitCentreName = dr["ProfitCentreName"].ToString();
+                    if (!DBNull.Value.Equals(dr["ProfitCentreAddress"]))
+                        result.ProfitCentreAddress = dr["ProfitCentreAddress"].ToString();
+                    if (!DBNull.Value.Equals(dr["ItemTotal"]))
+                        result.ItemTotal = double.Parse(dr["ItemTotal"].ToString());
+                    if (!DBNull.Value.Equals(dr["TradeDiscount"]))
+                        result.TradeDiscount = double.Parse(dr["TradeDiscount"].ToString());
+                    if (!DBNull.Value.Equals(dr["TaxableAmount"]))
+                        result.TaxableAmount = double.Parse(dr["TaxableAmount"].ToString());
+                    if (!DBNull.Value.Equals(dr["GST"]))
+                        result.GST = double.Parse(dr["GST"].ToString());
+                    if (!DBNull.Value.Equals(dr["GSTAmount"]))
+                        result.GSTAmount = double.Parse(dr["GSTAmount"].ToString());
+                    if (!DBNull.Value.Equals(dr["NetPayableAmount"]))
+                        result.NetPayableAmount = double.Parse(dr["NetPayableAmount"].ToString());
+                    if (!DBNull.Value.Equals(dr["CashDiscount"]))
+                        result.CashDiscount = double.Parse(dr["CashDiscount"].ToString());
+                    if (!DBNull.Value.Equals(dr["AmountReceived"]))
+                        result.AmountReceived = double.Parse(dr["AmountReceived"].ToString());
+                    if (!DBNull.Value.Equals(dr["BalanceAmount"]))
+                        result.BalanceAmount = double.Parse(dr["BalanceAmount"].ToString());
+                    if (!DBNull.Value.Equals(dr["ModeOfRecieve"]))
+                        result.ModeOfRecieve = int.Parse(dr["ModeOfRecieve"].ToString());
+                    if (!DBNull.Value.Equals(dr["RefNo"]))
+                        result.RefNo = dr["RefNo"].ToString();
+                    if (!DBNull.Value.Equals(dr["JVNo"]))
+                        result.JVNo = dr["JVNo"].ToString();
+                    if (!DBNull.Value.Equals(dr["CRNo"]))
+                        result.CRNo = dr["CRNo"].ToString();
+                    if (!DBNull.Value.Equals(dr["IsIGST"]))
+                        result.IsIGST = bool.Parse(dr["IsIGST"].ToString());
+                    if (!DBNull.Value.Equals(dr["OrderAmountReceived"]))
+                        result.OrderAmountReceived = double.Parse(dr["OrderAmountReceived"].ToString());
+
+                    result.ReceiveModeStr = MyHelper.GetModeOfPaymentDesc(result.ModeOfRecieve);
+                    //result.BillAmountInWords = MyHelper.ConvertToWords(result.NetPayableAmount);
+                    //result.ReceivedAmountInWords = MyHelper.ConvertToWords(result.AmountReceived);
+                    result.InvoiceDateStr = result.InvoiceDate.ToString("dd-MM-yyyy");
+
+                    if (!DBNull.Value.Equals(dr["ProvisionalBill"]))
+                        result.ProvisionalBill = dr["ProvisionalBill"].ToString();
+                    if (!DBNull.Value.Equals(dr["IsProcessed"]))
+                        result.IsProcessed = bool.Parse(dr["IsProcessed"].ToString());
+                    if (!DBNull.Value.Equals(dr["ExchangeDocNumber"]))
+                        result.ExchangeDocNumber = dr["ExchangeDocNumber"].ToString();
+                    if (!DBNull.Value.Equals(dr["ExchangeDocDate"]))
+                        result.ExchangeDocDate = DateTime.Parse(dr["ExchangeDocDate"].ToString());
+                }
+            }
+            catch (Exception ex) { pMsg = objPath + ".Map_ExchangeDoc(DataRow dr,ref string pMsg) " + ex.Message; }
             return result;
         }
         public AppStockVariant Map_AppStockVariant(DataRow dr, ref string pMsg) 

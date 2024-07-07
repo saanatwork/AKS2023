@@ -1,0 +1,274 @@
+﻿@model AKS.BOL.POS.Invoice
+<div id="HdrDIV" class="col-md-12 mb-4" style="vertical-align:central">
+    <div class="card mb-4 mt-4" style="vertical-align:central">
+        <div class="card-body approvalForm">
+            <table style="width:100%">
+                <tr>
+                    <td style="width:30%">
+                        <table>
+                            <tr>
+                                <td>
+                                    <div>
+                                        <span style="font-size:large"><b>AAPKISAKHI JEWELLERS PVT.LTD</b></span>
+                                        <p><u>The ultimate diamond jewellery destination</u></p>
+                                    </div>
+                                </td>
+                            </tr>
+                            @*<tr><td style="font-size:large"><b>@Model.ProfitCentreName</b></td></tr>*@
+                            <tr><td><b>@Model.ProfitCentreAddress</b></td></tr>
+                            <tr><td>Phone : 72057 63551</td></tr>
+                            <tr><td>Email : customercare@aapkisakhi.com </td></tr>
+                            <tr><td>GSTIN : 21AAJCA8862C1ZV</td></tr>
+                        </table>
+                    </td>
+                    <td style="width:40%">
+                        <table>
+                            <tr>
+                                <td>Item Received From :</td>
+                            </tr>
+                            <tr><td><b>@Model.CustomerName</b></td></tr>
+                            <tr><td>@Model.CustomerAddress</td></tr>
+                            <tr><td>Contact : @Model.CustomerContactNo</td></tr>
+                            <tr><td>PAN:<b>@(string.IsNullOrEmpty(Model.CustomerPAN)?"Not Available": Model.CustomerPAN)</b></td></tr>
+                            <tr><td>Customer ID : @Model.CustomerID</td></tr>
+                        </table>
+                    </td>
+                    <td style="width:30%">
+                        <table>
+                            <tr>
+                                <td colspan="2" class="text-center"><h1>Exchange Note</h1></td>
+                            </tr>
+                            <tr>
+                                <td>Document Number: </td>
+                                <td style="padding-left:10px"><b>@Model.ExchangeDocNumber</b></td>
+                            </tr>
+                            <tr>
+                                <td>Invoice Date: </td>
+                                <td style="padding-left:10px">@Model.ExchangeDocDate.ToString("dd-MM-yyyy")</td>
+                            </tr>
+
+
+
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div style="vertical-align:central">
+        @*<div class="card-body">*@
+        <div class="table-responsive">
+            <table style="width:100%" class="table table-bordered btnalign">
+                <thead>
+                    <tr style="text-align:center">
+                        <th rowspan="2" style="width:5%">SL</th>
+                        <th rowspan="2" style="width:10%">Item</th>
+                        <th rowspan="2" style="width:5%">Qty</th>
+                        <th colspan="7" style="width:50%">Particulars</th>
+                        <th rowspan="2" style="width:15%">Total Bill Amount</th>
+                        <th rowspan="2" style="width:15%">Total Exchange Amount</th>
+                    </tr>
+                    <tr style="text-align:center">
+                        <th scope="col" style="width:20%">Variant</th>
+                        <th scope="col" style="width:5%">Weight</th>
+                        <th scope="col" style="width:5%">Rate</th>
+                        <th scope="col" style="width:5%">Dis</th>
+                        <th scope="col" style="width:5%">Bill Amount</th>
+                        <th scope="col" style="width:5%">Revised Rate</th>
+                        <th scope="col" style="width:5%">Revised Amount</th>
+                    </tr>
+                </thead>
+                <tbody style="font-size: smaller">
+                    @if (Model.Items != null && Model.Items.Count > 0)
+                    {
+                        foreach (var item in Model.Items)
+                        {
+                            <tr>
+                                <td class="text-center">@item.ItemSL</td>
+                                <td>
+                                    @item.CategoryLongText<br />
+                                    @item.UItemCode<br />
+                                    HSN/SAC : @(string.IsNullOrEmpty(item.HSNCode)?"NA": item.HSNCode)
+                                </td>
+                                <td class="text-center">
+                                    @item.Qty<br />
+                                </td>
+                                <td colspan="7">
+                                    <table style="width:100%">
+                                        @if (Model.AllVariants != null && Model.AllVariants.Count > 0)
+                                        {
+
+                                            foreach (var objv in Model.AllVariants.Where(o => o.ItemCode == item.ItemCode).ToList())
+                                            {
+                                                <tr>
+                                                    <td style="width:30%;padding-right:10px">@objv.VariantText</td>
+                                                    <td style="width:10%; text-align: center">@objv.Weight @(objv.VariantColumn=="Metal"?"G":"K") </td>
+                                                    <td style="width:10%; text-align: right">@objv.Rate</td>
+                                                    <td style="width:10%; text-align: right">@objv.DDisAmount</td>
+                                                    <td style="width:10%; text-align: right">@objv.Amount</td>
+                                                    <td style="width:10%; text-align: right">@objv.RevisedRate</td>
+                                                    <td style="width:10%; text-align: right">@objv.RevisedAmount</td>
+                                                </tr>
+
+                                            }
+                                        }
+                                        <tr>
+                                            <td>Making Charges</td>
+                                            <td style="text-align: center"><b>@item.MCWeight G</b></td>
+                                            <td style="text-align:right">@item.MCRate</td>
+                                            <td colspan="2" style="text-align:right">@item.MCAmount</td>
+                                        </tr>
+                                    <tr style="font-weight:bold">
+                                        <td>Total :</td>
+                                        <td colspan="4" style="text-align:right">@(Math.Round(Model.AllVariants.Where(o=>o.ItemCode==item.ItemCode).Select(o=>o.Amount).Sum()+item.MCAmount,0))</td>
+                                        <td colspan="2" style="text-align:right">@(Math.Round(Model.AllVariants.Where(o=>o.ItemCode==item.ItemCode).Select(o=>o.RevisedAmount).Sum(),0))</td>
+                                    </tr>
+                                    </table>
+                                </td>
+                                
+                                <td style="text-align:right">
+                                    <table style="width:100%">
+                                        @if (item.HallMarkCharge > 0)
+                                        {
+                                            <tr>
+                                                <td>HM:</td>
+                                                <td style="text-align:right">@item.HallMarkCharge.ToString("0.00")</td>
+                                            </tr>
+                                        }
+                                        @if (item.Othercharges > 0)
+                                        {
+                                            <tr>
+                                                <td>Other:</td>
+                                                <td style="text-align:right">@item.Othercharges.ToString("0.00")</td>
+                                            </tr>
+                                        }
+                                        @if (item.Othercharges + item.HallMarkCharge > 0)
+                                        {
+                                            <tr style="font-weight:bold">
+                                                <td>Tot:</td>
+                                                <td style="text-align:right">@((item.Othercharges + item.HallMarkCharge).ToString("0.00"))</td>
+                                            </tr>
+                                        }
+                                        <tr>
+                                            <td>Gross:</td>
+                                            <td>
+                                                @item.GrossAmount.ToString("0.00")
+                                            </td>
+                                        </tr>
+                                        @if (item.DiscountAmount > 0)
+                                        {
+                                            <tr>
+                                                <td></td>
+                                                <td style="text-align:right">@item.NetAmount.ToString("0.00")</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Dis(@item.DiscountPer%)</td>
+                                                <td style="text-align:right">@item.DiscountAmount.ToString("0.00")</td>
+                                            </tr>
+                                            <tr style="font-weight:bold">
+                                                <td>Net:</td>
+                                                <td style="text-align:right">@item.AmtAfterDiscount.ToString("0.00")</td>
+                                            </tr>
+                                        }
+                                        else
+                                        {
+                                            <tr>
+                                                <td>Net:</td>
+                                                <td style="text-align: right; font-weight: bold">@item.NetAmount.ToString("0.00")</td>
+                                            </tr>
+                                        }
+                                    </table>
+                                </td>
+                                <td>
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>Rev Tot:</td>
+                                            <td style="text-align:right">@item.RevisedAmount.ToString("0.00")</td>
+                                        </tr>
+                                        <tr>
+                                            <td>WNT:</td>
+                                            <td style="text-align:right">@item.WearnTearDiscount.ToString("0.00")</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Exc. Value:</td>
+                                            <td style="text-align: right; font-weight: bold">@item.ExchangeValue.ToString("0.00")</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+
+                        }
+                    }
+                </tbody>
+                <tbody>
+                    <tr>
+                        <td colspan="10" style="padding:10px">
+                            Bill Amount In Words:<br />
+                            <b>@Model.BillAmountInWords Rupees Only.</b>                            
+                        <table style="width: 100%; text-align: center; font-size: small">
+                            <tr>
+                                <td>
+                                    Against Invoice Number: @Model.InvoiceNumber Dated @Model.InvoiceDateStr
+                                </td>
+                            </tr>
+                        </table>
+                        </td>
+                        <td colspan="1">
+                            <b>Taxable Amount :</b>
+                            @if (Model.IsIGST)
+                            {
+                                <div>IGST(@Model.GST%) :<br /></div>
+                            }
+                            else
+                            {
+                                <div>
+                                    CGST(@(Math.Round(Model.GST/2,2))%) :<br />
+                                    SGST(@(Math.Round(Model.GST/2,2))%) :<br />
+                                </div>
+                            }
+                            <b>Net Exchange Amount : </b>
+                        </td>
+                        <td style="text-align:right">
+                            @Model.Items[0].ExchangeValue.ToString("0.00")<br />
+                            @if (Model.IsIGST)
+                            {
+                                <div>@Model.Items[0].GSTOnExchange.ToString("0.00")<br /></div>
+                            }
+                            else
+                            {
+                                <div>
+                                    @(Math.Round(Model.Items[0].GSTOnExchange / 2,2).ToString("0.00"))<br />
+                                    @(Math.Round(Model.Items[0].GSTOnExchange / 2,2).ToString("0.00"))<br />
+                                </div>
+                            }
+
+                            <b>@Model.Items[0].NetExchangeAmount.ToString("0.00")</b>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+        @*</div>*@
+    </div>
+    <div class="card mb-4 mt-4" style="vertical-align:central">
+        <div class="card-body approvalForm">
+
+            <table style="width:100%">
+                <tr>
+                    <td style="width:30%">
+                        Print Time :<br /> @DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt")
+                    </td>
+                    <td></td>
+                    <td style="width:30%">
+                        Billing By :<br />
+                        @Model.CreatorName
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
