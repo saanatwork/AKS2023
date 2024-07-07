@@ -21,7 +21,7 @@
                 </div>
                 <h2>Exchange Document - View </h2>
                 <div class="rightButton">
-                    <a class="btn btn-secondary" href="@Url.Action("GeneratePdf","Common", new { ViewUrl ="/POS/PrintInvoice?DocumentNumber="+Model.InvoiceNumber ,PdfFileName=Model.InvoiceNumber })">
+                    <a class="btn btn-secondary" href="@Url.Action("GeneratePdf","Common", new { ViewUrl ="/Exchange/PrintExchangeDoc?DocumentNumber="+Model.ExchangeDocNumber ,PdfFileName=Model.ExchangeDocNumber })">
                         <i data-feather="printer"></i>
                         Print
                     </a>

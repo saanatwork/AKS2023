@@ -103,5 +103,10 @@ namespace AKS.Controllers
             };
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+        public ActionResult PrintExchangeDoc(string DocumentNumber = "")
+        {
+            Invoice model = _iInventory.GetExchangeDoc(DocumentNumber, ref pMsg);
+            return View(model);
+        }
     }
 }

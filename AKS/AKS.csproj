@@ -441,6 +441,7 @@
     <Content Include="Views\Exchange\Index.cshtml" />
     <Content Include="Views\Exchange\ViewExchangeNote.cshtml" />
     <Content Include="Views\Exchange\_ExchangeDocPrint.cshtml" />
+    <Content Include="Views\Exchange\PrintExchangeDoc.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

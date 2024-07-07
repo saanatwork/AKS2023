@@ -214,7 +214,7 @@
                         </table>
                         </td>
                         <td colspan="1">
-                            <b>Taxable Amount :</b>
+                            <b>Txbl Amount :</b>
                             @if (Model.IsIGST)
                             {
                                 <div>IGST(@Model.GST%) :<br /></div>
@@ -229,7 +229,7 @@
                             <b>Net Exchange Amount : </b>
                         </td>
                         <td style="text-align:right">
-                            @Model.Items[0].ExchangeValue.ToString("0.00")<br />
+                            <b>@Model.Items[0].ExchangeValue.ToString("0.00")</b><br />
                             @if (Model.IsIGST)
                             {
                                 <div>@Model.Items[0].GSTOnExchange.ToString("0.00")<br /></div>
@@ -261,7 +261,7 @@
                     </td>
                     <td></td>
                     <td style="width:30%">
-                        Billing By :<br />
+                        Document Creted By :<br />
                         @Model.CreatorName
                     </td>
                 </tr>

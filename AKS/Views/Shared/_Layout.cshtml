@@ -454,7 +454,7 @@
                                 <li class="nav-item has-submenu">
                                     <a class="nav-link active" href="#"><i class="fa fa-diamond "></i>  <span class="menu-title"> @menu </span>  <i class="fa fa-angle-down"></i> </a>
                                     <ul class="submenu collapse ">
-                                        @foreach (var menuoption in MenuList.Where(o => o.MenuName == menu).ToList())
+                                        @foreach (var menuoption in MenuList.Where(o => o.MenuName == menu).Distinct().ToList())
                                         {
                                             <li>@Html.ActionLink(menuoption.OptionName, menuoption.ActionName, menuoption.ControllerName, new { }, htmlAttributes: new { @class = "nav-link" })</li>
                                         }
