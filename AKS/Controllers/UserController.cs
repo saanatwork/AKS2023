@@ -55,6 +55,7 @@ namespace AKS.Controllers
                 DateTime curDate = MyHelper.GetCurrentIndianTime();
                 dbg = _iInventory.GetGoldRate(city, DateTime.Today.ToString("dd.MM.yyyy"), ref pMsg).FirstOrDefault();
                 goldrate = await GetDatafromWebPage(searchurl, city);
+                goldrate.rate = goldrate.rate > 0 ? goldrate.rate : dbg.GoldRate;
                 if (goldrate != null)
                 {
                     gr10g24k = goldrate.rate;
@@ -162,7 +163,13 @@ namespace AKS.Controllers
             catch { }
             return gr;
         }
+        [HttpPost]
+        public JsonResult UpdateGoldRate(int goldrate)
+        {
+            bool success = _iInventory.LogGoldRate("Kolkata", goldrate, ref pMsg);
 
+            return Json(new { success, message = pMsg });
+        }
 
 
         #endregion

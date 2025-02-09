@@ -116,12 +116,12 @@
                                 onchange="ItemClicked()"
                                 class="form-select content border-red myctrlw100 is-invalid wrap"
                                 aria-label="Default select example">
-                            <option selected value="">Select Item</option>                       
+                            <option selected value="">Select Item</option>
                         </select>
 
                     </td>
                 </tr>
-            </table><br/>
+            </table><br />
             <table class="table table-bordered w-100">
                 <thead>
                     <tr>
@@ -133,7 +133,6 @@
                     </tr>
                 </thead>
                 <tbody id="VariantBody">
-
                 </tbody>
             </table>
         </div>
@@ -170,23 +169,87 @@
                     </tr>
                 </thead>
                 <tbody id="GHBody">
-
                 </tbody>
             </table>
         </div>
     </div>
 
 </div>
-    @section headers{
-        <style>
-            wrap {
-                word-wrap: break-word;
-            }
-        </style>
-    }
-    @section scripts{
-        <script src="~/UIContent/JS/CustomePage/CommonReusableJS.js"></script>
-        <script src="~/UIContent/JS/CustomePage/User/UserIndexJs.js"></script>
+<div class="row dashboard-box mt-3 pt-1">
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+        <div class="card" style="background-color: #EDF3F6">
+            <p class="square-after f-w-600 header-text-primary">Set Gold Rate Today<i class="fa fa-circle"> </i></p>
+            <div style="padding:10px">
+                <table class="w-100">
+                    <tr>
+                        <td>
+                            Enter Rate:
+                        </td>
+                        <td>
+                            <div class="position-relative pointer">
+                                <input id="inputGoldRate" type="text"
+                                       class="form-control ">
 
-    }
+                            </div>
+                            <div>
+                                <br/>
+                                <button id="btnUpdateGoldRate" disabled 
+                                        type="button" class="btn btn-success me-2">
+                                    <i data-feather="check-circle"></i>
+                                    Update
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+@section headers{
+    <style>
+        wrap {
+            word-wrap: break-word;
+        }
+    </style>
+}
+@section scripts{
+    <script src="~/UIContent/JS/CustomePage/CommonReusableJS.js"></script>
+    <script src="~/UIContent/JS/CustomePage/User/UserIndexJs.js"></script>    
+    <script>
+        $(document).ready(function () {
+            $("#inputGoldRate").on("input", function () {
+                let value = $(this).val().trim();
+                $("#btnUpdateGoldRate").prop("disabled", value === ""); // Enable button if input has value
+            });
+
+            $("#btnUpdateGoldRate").click(function () {
+                let goldRate = $("#inputGoldRate").val().trim();
+
+                if (goldRate === "" || isNaN(goldRate)) {
+                    alert("Please enter a valid gold rate.");
+                    return;
+                }
+                
+                $.ajax({
+                    url: "/User/UpdateGoldRate", // Adjust this based on your controller name
+                    type: "POST",
+                    data: { goldrate: goldRate },
+                    success: function (response) {
+                        if (response.success) {
+                            alert("Gold rate updated successfully!");
+                        } else {
+                            alert("Error: " + response.message);
+                        }
+                    },
+                    error: function () {
+                        alert("Failed to update gold rate. Please try again.");
+                    }
+                });
+            });
+        });
+    </script>
+
+}
 
